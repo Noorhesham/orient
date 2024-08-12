@@ -1,11 +1,24 @@
-
+import BreadCrumb from "@/app/components/BreadCrumb";
+import Footer from "@/app/components/Footer";
+import NavBar from "@/app/components/NavBar";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 export default async function RootLayout({
   children,
-
+  params:{locale},
 }: Readonly<{
   children: React.ReactNode;
-
+  params: { locale: string };
 }>) {
-  return <main className=" py-40">{children}</main>;
+  unstable_setRequestLocale(locale);
+  return (
+    <>
+      <NavBar />
+      <main className=" py-40">
+        <BreadCrumb />
+        {children}
+      </main>
+      <Footer />
+    </>
+  );
 }

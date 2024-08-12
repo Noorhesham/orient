@@ -15,10 +15,10 @@ export const INSPIRED_LINKS = [
   { text: "kids room", href: "" },
 ];
 export const PARTENER_LINKS = [
-  { text: "projects/products" },
-  { text: "export" },
-  { text: "color center" },
-  { text: "local distributor" },
+  { text: "projects/products", href: "/become-parteners?category=all" },
+  { text: "export", href: "/become-parteners?category=projects" },
+  { text: "color center", href: "/become-parteners?category=color_center" },
+  { text: "local distributor", href: "/become-parteners?category=local_distributor" },
 ];
 export const PRODUCTS_LINKS = [
   {

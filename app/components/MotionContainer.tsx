@@ -31,7 +31,7 @@ const MotionContainer = ({ children, className }: MotionContainerProps) => {
   });
 
   return (
-    <motion.div className={className} variants={container} initial="hidden" animate="visible">
+    <motion.div className={className} variants={container} initial="hidden" viewport={{ once: true }} whileInView="visible">
       {childrenArray.map((child, index) =>
         cloneElement(child, {
           variants: staggerEffect(index),

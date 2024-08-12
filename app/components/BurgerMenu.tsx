@@ -38,7 +38,7 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
       custom={height}
       ref={containerRef}
     >
-      <motion.div className="  z-10 absolute top-0 left-0  bottom-0 h-full  w-[300px] bg-white" variants={sidebar} />
+      <motion.div className="  z-50 absolute top-0 left-0  bottom-0 h-full  w-[300px] bg-white" variants={sidebar} />
       <Navigation links={links} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
@@ -49,7 +49,7 @@ const Path = ({ ...props }: { variants?: Variants; d?: string; transition?: obje
 );
 const MenuToggle = ({ toggle }: { toggle: () => void }) => {
   return (
-    <button className=" absolute w-30 h-20 top-1 left-7  bottom-0 rounded-xl z-20" onClick={toggle}>
+    <button className=" absolute w-30 h-20 top-1 left-7  bottom-0 rounded-xl z-[999]" onClick={toggle}>
       <svg width="23" height="23" viewBox="0 0 23 23">
         <Path
           variants={{
@@ -86,7 +86,7 @@ const variants = {
 };
 
 const Navigation = ({ links }: { links: any[] }) => (
-  <motion.ul className=" absolute top-20  px-10 py-5 w-full h-full z-20" variants={variants}>
+  <motion.ul className=" absolute top-20   px-10 py-5 w-full h-full z-[999]" variants={variants}>
     {links.map((link, i) => (
       <MenuItem link={link} i={i} key={i} />
     ))}
@@ -114,7 +114,7 @@ const MenuItem = ({ i, link }: { i: number; link: any }) => {
   const style = { border: `2px solid ${colors[i]}` };
   return (
     <motion.li
-      className=" z-20 flex  w-full items-center "
+      className="z-[999] flex  w-full items-center "
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}

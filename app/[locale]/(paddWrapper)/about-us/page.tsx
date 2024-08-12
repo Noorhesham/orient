@@ -1,14 +1,14 @@
 import React from "react";
-import BreadCrumb from "../../../components/BreadCrumb";
 import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import Image from "next/image";
 import { PlayIcon } from "../../../components/Icons";
 import SwiperCards from "../../../components/SwiperCards";
+import ModalCustom from "@/app/components/ModalCustom";
+import ZoomImage from "@/app/components/ZoomImage";
 
 const page = () => {
   return (
     <>
-      <BreadCrumb />
       <section className=" relative min-h-screen">
         <div
           style={{
@@ -55,9 +55,24 @@ const page = () => {
         </section>
       </MaxWidthWrapper>
       <div className=" h-[571px] w-full relative">
-        <div className=" absolute  bottom-10 left-40 -translate-x-1/2 -translate-y-1/2 z-10">
-          <PlayIcon />
-        </div>
+        <ZoomImage
+          btn={
+            <div className=" cursor-pointer hover:opacity-90 duration-150 absolute  bottom-10 left-40 -translate-x-1/2 -translate-y-1/2 z-10">
+              <PlayIcon />
+            </div>
+          }
+          content={
+            <div className=" w-full h-full flex items-center justify-center">
+              <iframe
+                width="80%"
+                height="100%"
+                src="https://www.youtube.com/embed/E8lXC2mR6-k?si=mUOcdTwpLWz7Zusb"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              ></iframe>
+            </div>
+          }
+        />
         <Image src="/about3.png" alt="about" className=" object-contain" fill />
       </div>
       <MaxWidthWrapper className=" mt-[138px]">
@@ -151,12 +166,12 @@ const page = () => {
               slidesPerView={5}
               className="max-w-[150px] aspect-square rounded-full"
               items={[
-                "/Artboard-1@300x-1.png",
-                "/Artboard-1@300x-1 (1).png",
-                "/Artboard-1@300x-1 (2).png",
-                "/Artboard-1@300x-1 (3).png",
-                "/Artboard-1@300x-1 (4).png",
-                "/Frame 1321317235.png",
+                { src: "/Artboard-1@300x-1.png" },
+                { src: "/Artboard-1@300x-1 (1).png" },
+                { src: "/Artboard-1@300x-1 (2).png" },
+                { src: "/Artboard-1@300x-1 (3).png" },
+                { src: "/Artboard-1@300x-1 (4).png" },
+                { src: "/Frame 1321317235.png" },
               ]}
             />
           </div>

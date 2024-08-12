@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Section = ({
   heading,
@@ -24,11 +23,11 @@ const Section = ({
 }) => {
   return (
     <section className={`${className || ""} ${CustomePadding || "lg:px-20 px-5 md:px-10 py-8 lg:py-16"} `}>
-      <MaxWidthWrapper>
+      <div className=" w-full px-4">
         <div className="flex sm:flex-row flex-col justify-between">
           {heading && (
             <h1
-              className={` text-2xl text-nowrap md:text-3xl  ${
+              className={` text-2xl  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
             >
@@ -41,12 +40,12 @@ const Section = ({
               href={link}
               className="text-[#E6007E] text-xs md:text-sm font-semibold flex items-center gap-1 md:gap-2"
             >
-              {linkText} <ArrowRight  className=" md:w-5 md:h-5 w-3 h-3" />
+              {linkText} <ArrowRight className=" md:w-5 md:h-5 w-3 h-3" />
             </Link>
           )}
         </div>
         {children}
-      </MaxWidthWrapper>
+      </div>
     </section>
   );
 };

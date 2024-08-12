@@ -1,5 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
+import { authRoutes, protectedRoutes } from "./routes";
 
 const localeMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -10,16 +11,30 @@ const localeMiddleware = createMiddleware({
   defaultLocale: "en",
 });
 
-export async function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest, res: NextResponse) {
   // Access cookies
-  const cookies = req.cookies.getAll();
-
+  const token = req.cookies.get("jwt")?.value;
+  const lang = req.cookies.get("NEXT_LOCALE")?.value;
+  console.log("token", token);
   // Access the requested path
-  const path = req.nextUrl.pathname;
-  console.log("Requested path:", path);
-
+  const path = req.nextUrl;
+  const url = req.nextUrl.pathname.replace(`/${lang}`, "");
+  const isProtectedRoute = protectedRoutes.some((route) => {
+    const regex = new RegExp(`^${route.replace(/\[.*\]/, ".*")}$`);
+    return regex.test(url);
+  });
+  const isAuthRoute = authRoutes.includes(url);
   // Run the next-intl middleware to handle locales
-  const response = localeMiddleware(req);
+  if ((!token||token==='undefined') && isProtectedRoute) {
+    let pathn = path.pathname.replace(`/${lang}`, "");
+    path.pathname = `/login`;
+    path.searchParams.set("redirect", pathn);
+    return NextResponse.redirect(path);
+  }
+  if (token && isAuthRoute) {
+    path.pathname = "/";
+    NextResponse.redirect(path);
+  }
   // Custom response logic
   // Example: Setting a custom header
 

@@ -2,12 +2,10 @@ import React from "react";
 import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import Heading from "../../../components/Heading";
 import CardHuge from "../../../components/CardHuge";
-import BreadCrumb from "../../../components/BreadCrumb";
 
 const page = () => {
   return (
-    <>
-      <BreadCrumb />
+    
       <section className=" min-h-screen  ">
         <MaxWidthWrapper className="flex flex-col items-center  mt-5 justify-center">
           <Heading
@@ -28,7 +26,7 @@ const page = () => {
           </section>
         </MaxWidthWrapper>
       </section>
-    </>
+
   );
 };
 

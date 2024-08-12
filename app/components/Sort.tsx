@@ -8,7 +8,7 @@ import {
 import { ChevronDown } from "lucide-react";
 const Sort = ({ options }: { options: any[] }) => {
   return (
-    <div className="  flex items-center gap-4">
+    <div className="  mt-4 flex items-center gap-4">
       <h2 className=" text-gray-500 text-sm">Sort By:</h2>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger className=" bg-white py-1.5 px-3 rounded-xl text-sm  flex items-center gap-1">

@@ -11,7 +11,7 @@ const Box = ({ text, options, filter }: { text: string; options?: any[]; filter:
   useEffect(() => {
     if (windowFilters && filters?.filter((_, i) => window.location.search.split(",")?.[i])) setFilters(filters);
     router.push(`?${filter}=${filters?.join(",")}`, { scroll: false });
-  }, [windowFilters, filters, router, filter]);
+  }, [filters, router, filter]);
   const handleFilter = (filter: string) => {
     setFilters((prev) => (!prev?.includes(filter) ? [...(prev || []), filter] : prev.filter((v) => v !== filter)));
   };
@@ -34,7 +34,9 @@ const Box = ({ text, options, filter }: { text: string; options?: any[]; filter:
                 style={{ backgroundColor: option }}
                 onClick={() => handleFilter(option)}
                 key={i}
-                className={` shadow-sm  aspect-square rounded-md w-full h-full`}
+                className={` cursor-pointer p-1 hover:opacity-90 duration-100 ${
+                  filters?.includes(option) ? "border-2 border-main" : ""
+                } shadow-sm  aspect-square rounded-md w-full h-full`}
               ></li>
             ))}
           </div>
@@ -42,7 +44,12 @@ const Box = ({ text, options, filter }: { text: string; options?: any[]; filter:
         {filter === "tags" && (
           <div className=" flex flex-wrap gap-2">
             {options?.map((option, i) => (
-              <Button onClick={() => handleFilter(option)} key={i} className={filters?.includes(option) ? "bg-yellow-100 text-main  border-main border" : ""} variant="outline">
+              <Button
+                onClick={() => handleFilter(option)}
+                key={i}
+                className={filters?.includes(option) ? "bg-yellow-100 text-main  border-main border" : ""}
+                variant="outline"
+              >
                 {option}
               </Button>
             ))}
