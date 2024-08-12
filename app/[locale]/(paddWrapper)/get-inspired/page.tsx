@@ -130,7 +130,7 @@ const page = () => {
     { href: "kidsroom", label: "Kids room", content: <></> },
   ];
   return (
-    <MaxWidthWrapper className=" mt-5">
+    <MaxWidthWrapper className=" min-h-screen mt-5">
       <p className=" text-[14px] text-black max-w-[1259px] text-center">
         SEO Content s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys
         standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make

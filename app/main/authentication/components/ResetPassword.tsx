@@ -42,7 +42,8 @@ const ResetPassword = () => {
       });
       handleParam("code");
       setType(sendType || "");
-      if (!res.status) setMessage(res.message);
+      console.log(res);
+      if (!res.status) setServerError(res.message);
       if (res.status) toast.success(res.message);
     });
   };
@@ -53,10 +54,11 @@ const ResetPassword = () => {
         <h1 className=" text-center text-2xl mt-8 font-bold text-main2">FORGOT PASSWORD</h1>
         {param === "prepare" && <Prepare setMessage={setMessage} handleParam={handleParam} setMethods={setMethods} />}
         {param === "forgot" && <Methods message={message || ""} handleSend={handleSend} methods={methods} />}
+        { server && <p className="text-red-500  mx-auto text-center mt-5 text-sm font-semibold">{server}</p>}
         {param === "code" && (
           <InputOTPPattern
-            forgot={true}
-            sendType={type || ""}
+          forgot={true}
+          sendType={type || ""}
             handleSend={handleSend}
             setServerError={setServerError}
           />
@@ -70,7 +72,6 @@ const ResetPassword = () => {
           </Link>
         </div>
       </div>
-      {type && server && <p className="text-red-500  mx-auto text-center mt-5 text-sm font-semibold">{server}</p>}
     </Section>
   );
 };

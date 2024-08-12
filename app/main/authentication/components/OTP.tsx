@@ -12,6 +12,8 @@ import { z } from "zod";
 import FormInput from "@/app/components/FormInput";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/app/context/AuthContext";
 
 export function InputOTPPattern({
   handleSend,
@@ -19,13 +21,16 @@ export function InputOTPPattern({
   setServerError,
   forgot = false,
   tfa,
+  email,
 }: {
-  handleSend: (t: string) => void;
+  handleSend: any;
   sendType: string;
-  setServerError: any;
+  setServerError?: any;
   forgot?: boolean;
   tfa?: boolean;
+  email?: boolean;
 }) {
+  const { setLogin } = useAuth();
   const otpSchema = z.object({
     code: z.string().min(6).max(6),
     password: !forgot
@@ -43,7 +48,7 @@ export function InputOTPPattern({
   const onSubmit = async (data: z.infer<typeof otpSchema>) => {
     const res = await Server({
       method: "POST",
-      resourceName: forgot ? "reset" : tfa ? "tfaValidate" : "validate",
+      resourceName: forgot ? "reset" : tfa ? "tfaValidate" : email ? "update_profile" : "validate",
       id: searchParams.get("uuid") || "",
       body: {
         send_type: sendType,
@@ -53,12 +58,14 @@ export function InputOTPPattern({
         username: searchParams.get("username"),
         type: searchParams.get("level"),
         password: forgot && data.password,
+        email_code: email && data.code,
       },
     });
     console.log(res);
     if (!res.status) setServerError(res.message);
     if (res.status) {
       if (res.token) cookies.set("jwt", res.token);
+      setLogin(true);
       toast.success(res.message);
       const updatedParams = new URLSearchParams(searchParams.toString());
       ["username", "uuid", "level"].forEach((p) => updatedParams.delete(p));
@@ -95,11 +102,8 @@ export function InputOTPPattern({
           />
           {forgot && <FormInput name="password" control={form.control} placeholder="ENTER NEW PASSWORD" password />}
           <div className="mt-4 flex items-center gap-2">
-            <CustomButton text="SEND CODE AGAIN" onClick={(e:any) => {
-              e.preventDefault()
-              handleSend(sendType)
-            }} />
-            <Button  className=" rounded-full px-8" type="submit">
+            <CustomButton text="SEND CODE AGAIN" onClick={(e: any) => handleSend(sendType)} />
+            <Button className=" rounded-full px-8" type="submit">
               Submit
             </Button>
           </div>

@@ -4,11 +4,25 @@ import CustomForm, { InputProps } from "./CustomForm";
 import { z, ZodSchema } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactUsSchema, forgotPasswordSchema2, notifictationsSchema, personalSchema, commentSchema } from "../schema";
+import {
+  contactUsSchema,
+  forgotPasswordSchema2,
+  notifictationsSchema,
+  personalSchema,
+  commentSchema,
+  emailSchema,
+} from "../schema";
 
 interface FormContainerProps {
   formArray: InputProps[];
-  schema: "contact" | "forgotPassword" | "resetPassword" | "notifictations" | "personalInfo" | "commentSchema";
+  schema:
+    | "contact"
+    | "forgotPassword"
+    | "resetPassword"
+    | "notifictations"
+    | "personalInfo"
+    | "commentSchema"
+    | "email";
   title?: string;
   cancel?: any;
   btnText?: string;
@@ -44,6 +58,8 @@ const FormContainer: React.FC<FormContainerProps> = ({
         return personalSchema;
       case "commentSchema":
         return commentSchema;
+      case "email":
+        return emailSchema;
       default:
         throw new Error("Invalid schema type provided");
     }
@@ -52,7 +68,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
   const form = useForm({
     resolver: zodResolver(schemaResolver()),
     mode: "onChange",
-    defaultValues: defaultValues || {},
+    defaultValues: { ...defaultValues, birth_day: defaultValues?.birthday || "" } || {},
   });
   const [serverError, setServerError] = useState<string[] | null>(null);
   const [isPending, startTransition] = useTransition();

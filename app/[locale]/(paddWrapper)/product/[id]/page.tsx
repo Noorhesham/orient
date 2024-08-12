@@ -50,10 +50,10 @@ const comments = [
 ];
 const page = () => {
   return (
-    <section>
-      <MaxWidthWrapper className=" grid grid-cols-11 gap-3 items-start">
-        <div className=" col-span-8 grid grid-cols-5  items-start">
-          <div className=" flex col-span-2 flex-col mt-12 w-full flex-shrink   items-start">
+    <section className=" relative">
+      <MaxWidthWrapper className=" flex flex-col lg:grid  lg:grid-cols-11 gap-3 items-start">
+        <div className=" lg:col-span-8 col-span-full grid  grid-cols-2 lg:grid-cols-5  items-start">
+          <div className=" flex col-span-full lg:col-span-2 flex-col mt-12 w-full flex-shrink   items-start">
             <div className="  w-full h-96 ">
               <SwiperCards
                 rounded
@@ -79,7 +79,7 @@ const page = () => {
           >
             <Stars />
             <PriceWithSale price={443} discount={324} />
-            <div className="border-input  border-b border-t  flex  gap-3 py-10 px-5">
+            <div className="border-input flex-wrap  border-b border-t  flex  gap-3 py-10 px-5">
               <Calculate
                 btn={
                   <Button className=" hover:bg-white hover:text-main2 border border-main2 text-xs font-medium rounded-full flex  items-center gap-2 px-6  bg-main2">

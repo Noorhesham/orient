@@ -13,7 +13,7 @@ const CalendarInput = ({ control }: CalendarProps) => {
   return (
     <FormField
       control={control}
-      name="birthday"
+      name="birth_day"
       render={({ field }) => {
         console.log(field.value);
         return (

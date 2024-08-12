@@ -21,6 +21,8 @@ import { useParams } from "@/app/hooks/useParams";
 import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
 import Methods from "./Methods";
 import { InputOTPPattern } from "./OTP";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/app/context/AuthContext";
 
 const Login = () => {
   const [useEmail, setUseEmail] = useState(false);
@@ -37,13 +39,14 @@ const Login = () => {
     },
     mode: "onChange",
   });
-  const [param, handleParam, deleteParam] = useParams("uuid", "");
+  const [param, handleParam] = useParams("uuid", "");
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
   const router = useRouter();
   const { deviceInfo } = useDevice();
   const [serverError, setServerError] = useState<string[] | null>(null);
   const [isPending, startTransition] = useTransition();
+  const { setLogin } = useAuth();
   useLayoutEffect(() => {
     if (param !== "") setActivate(true);
   }, [param]);
@@ -62,7 +65,7 @@ const Login = () => {
         },
       });
       console.log(res);
-      if (!res.status) setServerError(res.errors || res.message);
+      if (!res.status) setServerError(res.errors?.length > 0 ? res.errors : res.message);
       if (res.status) {
         setServerError(null);
         toast.success(`${res.message} ...`);
@@ -80,6 +83,7 @@ const Login = () => {
         }
         if (!res.require_activation && !res.tfa) {
           cookies.set("jwt", res.token);
+          setLogin(true);
           router.push(redirect || "/");
         }
       }
@@ -95,7 +99,7 @@ const Login = () => {
       },
     });
     console.log(res);
-    if (!res.status) setServerError(Array.isArray(res.errors)?res.errors:res.errors.send_by||res.message);
+    if (!res.status) setServerError(Array.isArray(res.errors) ? res.errors : res.errors.send_by || res.message);
     if (res.status) {
       setServerError(null);
       toast.success(res.message);
@@ -171,7 +175,7 @@ const Login = () => {
         {isCode !== "" && activate && (
           <InputOTPPattern
             forgot={false}
-            tfa={Boolean(searchParams.get("tfa")==='true')}
+            tfa={Boolean(searchParams.get("tfa") === "true")}
             setServerError={setServerError}
             sendType={isCode}
             handleSend={handleSend}

@@ -34,6 +34,8 @@ const getURL = (resourceName: string, id?: string) => {
       return `${BASE_URL}/rm_users/${VERSION}/update_profile`;
     case "update_password":
       return `${BASE_URL}/rm_users/${VERSION}/update_password`;
+    case "remove_account":
+      return `${BASE_URL}/rm_users/${VERSION}/remove_account`;
     default:
       return BASE_URL;
   }
@@ -53,7 +55,8 @@ export type ResourceNameProps =
   | "tfaSend"
   | "tfaValidate"
   | "update_password"
-  | "update_profile"; //types the user allowed to add its resource
+  | "update_profile"
+  | "remove_account"; //types the user allowed to add its resource
 export async function Server({
   resourceName,
   id,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, Variants, useCycle } from "framer-motion";
 import { useDimensions } from "../hooks/useDimensions";
 import Link from "next/link";
@@ -29,16 +29,24 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
   const [isOpen, toggleOpen] = useCycle(false, true); // is switches between the vals on each trigger
   const containerRef = useRef(null); //the nav bar container
   const { height } = useDimensions(containerRef);
-
+  const [white, setWhite] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setWhite((w) => !w);
+    }, 300);
+  }, [isOpen]);
   return (
     <motion.nav
-      className=" w-[300px] h-full absolute inset-0"
+      className={` w-[300px]   h-full absolute inset-0 ${white?"bg-white overflow-y-scroll":""}`}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
       ref={containerRef}
     >
-      <motion.div className="  z-50 absolute top-0 left-0  bottom-0 h-full  w-[300px] bg-white" variants={sidebar} />
+      <motion.div
+        className="  z-50 absolute top-0 left-0  bottom-0 min-h-full  w-[300px] bg-white"
+        variants={sidebar}
+      />
       <Navigation links={links} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>

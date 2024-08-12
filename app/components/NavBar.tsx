@@ -6,14 +6,13 @@ import { BagIcon, CloudIcon, PersonIcon } from "./Icons";
 import SearchBox from "./SearchBox";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { INSPIRED_LINKS, PARTENER_LINKS, PRODUCTS_LINKS } from "../constants";
-import { redirect, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import BurgerMenu from "./BurgerMenu";
 import Link from "next/link";
-import { useGetGeneralSettings } from "@/lib/queries";
 import { LogOutIcon } from "lucide-react";
 import { Server } from "../main/Server";
-import cookies from "js-cookie";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
 const links = [
   {
     text: "Shop Now",
@@ -46,9 +45,9 @@ const NavBar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isTopPage, setIsTopPage] = useState(true);
   const pathName = usePathname();
-  const { data, isLoading } = useGetGeneralSettings(["user_settings", "check_auth"]);
-  const user = data?.user_settings;
-  console.log(user);
+  const { userSettings, handleLogout,generalSettings } = useAuth();
+  const user = userSettings;
+  console.log(userSettings,generalSettings);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY < 50) {
@@ -67,8 +66,8 @@ const NavBar = () => {
   }, [lastScrollY, isTopPage]);
   const isHome = pathName === "/ar" || pathName === "/en";
   return (
-    <header>
-      <div className="  z-[999] h-full fixed top-0 left-0  lg:hidden block">
+    <header className=" w-full">
+      <div className={`z-[999] h-full top-0 duration-150 fixed left-0  lg:hidden block`}>
         <BurgerMenu links={links} />
       </div>
       <nav
@@ -76,7 +75,7 @@ const NavBar = () => {
           isHome
             ? "text-white placeholder:text-white "
             : `text-black placeholder:text-white ${!isScrollingDown && "bg-white/80"}`
-        } fixed inset-0 z-50 max-h-[10rem]  flex flex-col gap-2 px-8 py-4 transition-all duration-300 ${
+        } fixed inset-0 z-50 max-h-[10rem]  flex flex-col gap-2 px-4 lg:px-8 py-4 transition-all duration-300 ${
           isScrollingDown ? "-translate-y-full" : !isTopPage && !isScrollingDown ? "-translate-y-20" : "translate-y-0"
         }`}
       >
@@ -86,27 +85,27 @@ const NavBar = () => {
 
         <MaxWidthWrapper>
           {
-            <div className={`   relative z-20 flex justify-between items-center`}>
+            <div className={`   relative z-20 flex flex-col md:gap-0 gap-5 md:flex-row justify-between items-center`}>
               <div className=" ">
                 <Logo type={isHome ? "white" : "blue"} />
               </div>
-              <div className="flex flex-col-reverse items-end lg:flex-row basis-[402px]   lg:items-center gap-5">
+              <div className="flex items-end lg:flex-row lg:basis-[402px]   lg:items-center gap-5">
                 <div className=" flex  items-center gap-4">
                   <CloudIcon home={isHome} />
-                  <Link href={!isLoading && user ? "/dashboard" : "/login"}>
+                  <Link href={user ? "/dashboard" : "/login"}>
                     <BagIcon home={isHome} />
                   </Link>
                   <Link href={"/cart"}>
                     {" "}
                     <PersonIcon home={isHome} />
                   </Link>
-                  {!isLoading && user && (
+                  {user && (
                     <LogOutIcon
                       onClick={async () => {
                         const res = await Server({ method: "POST", resourceName: "logout" });
                         if (res.status) {
                           toast.success(res.message);
-                          cookies.remove("jwt");
+                          handleLogout();
                           // router.push(`/login?redirect=${pathName}`);
                           router.refresh();
                         }

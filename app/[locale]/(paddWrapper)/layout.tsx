@@ -12,13 +12,13 @@ export default async function RootLayout({
 }>) {
   unstable_setRequestLocale(locale);
   return (
-    <>
+    <main>
       <NavBar />
-      <main className=" py-40">
+      <section className=" py-40">
         <BreadCrumb />
         {children}
-      </main>
+      </section>
       <Footer />
-    </>
+    </main>
   );
 }

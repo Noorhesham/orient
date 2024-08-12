@@ -1,7 +1,7 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import { getYouTubeThumbnail } from "../helpers/utils";
-import { AiOutlinePlayCircle } from "react-icons/ai";
 import { Play } from "./Icons";
 
 const YoutubeThumbnail = ({ url }: { url: string }) => {

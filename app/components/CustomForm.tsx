@@ -46,7 +46,9 @@ export interface InputProps {
   switchToggle?: boolean;
   label2?: string;
   date?: boolean;
+  password?: boolean;
   children?: ReactNode;
+  noProgress?: boolean;
 }
 const CustomForm = ({
   inputs,

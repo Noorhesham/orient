@@ -38,24 +38,24 @@ export default async function RootLayout({
         className={`${inter.className} `}
       >
         <QueryProvider>
-          <AuthProvider>
-            <ToastContainer
-              position="top-center"
-              autoClose={3500}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              pauseOnFocusLoss
-              pauseOnHover={false}
-              theme="light"
-            />
+          <DeviceProvider>
+            <AuthProvider>
+              <ToastContainer
+                position="top-center"
+                autoClose={3500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnFocusLoss
+                pauseOnHover={false}
+                theme="light"
+              />
 
-            <ReactQueryDevtools initialIsOpen={false} />
+              <ReactQueryDevtools initialIsOpen={false} />
 
-            <NextIntlClientProvider messages={messages}>
-              <DeviceProvider>{children}</DeviceProvider>
-            </NextIntlClientProvider>
-          </AuthProvider>
+              <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+            </AuthProvider>
+          </DeviceProvider>
         </QueryProvider>
       </body>
     </html>

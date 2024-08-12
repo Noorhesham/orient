@@ -5,7 +5,7 @@ export const loginSchema = z
   .object({
     useEmail: z.boolean(),
     username: z.string(),
-    password: z.string().min(6, "Password must be at least 6 characters"),
+    password: z.string().min(4, "Password must be at least 4 characters"),
   })
   .refine(
     (data) => {
@@ -62,12 +62,13 @@ export const contactUsSchema = z.object({
   message: z.string().min(5, "Message must be at least 5 characters long"),
 });
 export const forgotPasswordSchema2 = z.object({
-  newPassword: z
+  password: z
     .string()
     .min(6, "Password must be at least 6 characters")
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[0-9]/, "Password must contain at least one number")
     .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+  // password:z.string().min(6, "Password must be at least 6 characters long"),
 });
 
 export const notifictationsSchema = z.object({
@@ -75,11 +76,14 @@ export const notifictationsSchema = z.object({
 });
 export const personalSchema = z.object({
   name: z.string(),
-  birthday: z.date(),
+  birth_day: z.any(),
 });
 
 export const commentSchema = z.object({
   comment: z.string(),
   name: z.string(),
   rate: z.number(),
+});
+export const emailSchema = z.object({
+  email: z.string().email(),
 });

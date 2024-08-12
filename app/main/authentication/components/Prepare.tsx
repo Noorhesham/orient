@@ -40,14 +40,14 @@ const Prepare = ({ setMethods, handleParam, setMessage }: { setMethods: any; han
         body: { ...data, type: "prepare" },
       });
 
-      if (!res.status) setServerError(res.errors);
+      if (!res.status) setServerError(res.errors.length > 0 ? res.errors : res.message);
       if (res.status) {
         const updatedParams = new URLSearchParams(searchParams);
         updatedParams.set("level", "forgot");
         updatedParams.set("uuid", res.uuid);
         updatedParams.set("username", data.username);
         router.push(`?${updatedParams.toString()}`, { scroll: false });
-        console.log(res)
+        console.log(res);
         setMethods(res.forgot_password_methods);
         setMessage(res.message);
 
