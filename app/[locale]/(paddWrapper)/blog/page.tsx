@@ -24,7 +24,7 @@ const page = () => {
             <CardHuge />
             <CardHuge />
             <CardHuge />
-          </motionconta>
+          </MotionContainer>
         </MaxWidthWrapper>
       </section>
 
