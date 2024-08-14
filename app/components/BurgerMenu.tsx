@@ -43,7 +43,7 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
       custom={height}
       ref={containerRef}
     >
-      <motion.div className={`    absolute top-0 left-0 w-[300px]  bottom-0 min-h-full  bg-white`} variants={sidebar} />
+      <motion.div className={`    absolute top-0 left-0 ${isOpen ? "w-[300px] " : "w-0"} bottom-0 min-h-full  bg-white`} variants={sidebar} />
       <Navigation isOpen={isOpen} links={links} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
