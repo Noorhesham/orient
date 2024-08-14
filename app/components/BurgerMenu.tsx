@@ -37,18 +37,15 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
   }, [isOpen]);
   return (
     <motion.nav
-      className={` w-0   h-full absolute inset-0 ${
-        white ? "bg-white  w-[300px]    overflow-y-scroll" : ""
+      className={` w-0   h-full absolute inset-0 ${white ? "bg-white     overflow-y-scroll" : ""} ${
+        isOpen ? "w-[300px] " : "w-0"
       }`}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
       ref={containerRef}
     >
-      <motion.div
-        className={`    absolute top-0 left-0  bottom-0 min-h-full  w-[300px] bg-white`}
-        variants={sidebar}
-      />
+      <motion.div className={`    absolute top-0 left-0  bottom-0 min-h-full  w-[300px] bg-white`} variants={sidebar} />
       <Navigation isOpen={isOpen} links={links} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
@@ -96,10 +93,7 @@ const variants = {
 };
 
 const Navigation = ({ links, isOpen }: { links: any[]; isOpen: boolean }) => (
-  <motion.ul
-    className={` absolute top-20   ${isOpen&&'px-10 py-5'} w-full h-full z-[999]`}
-    variants={variants}
-  >
+  <motion.ul className={` absolute top-20   ${isOpen && "px-10 py-5"} w-full h-full z-[999]`} variants={variants}>
     {links.map((link, i) => (
       <MenuItem isOpen={isOpen} link={link} i={i} key={i} />
     ))}
@@ -127,7 +121,7 @@ const MenuItem = ({ i, link, isOpen }: { i: number; link: any; isOpen: boolean }
   const style = { border: `2px solid ${colors[i]}` };
   return (
     <motion.li
-      className={` flex ${isOpen?'w-full':'w-0'}  w-full items-center z-[999]`}
+      className={` flex ${isOpen ? "w-full" : "w-0"}  w-full items-center z-[999]`}
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
@@ -147,11 +141,11 @@ const MenuItem = ({ i, link, isOpen }: { i: number; link: any; isOpen: boolean }
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      ) :isOpen? (
+      ) : isOpen ? (
         <Link className=" ml-3 py-2 px-3 text-nowrap" href={link.href || ""}>
           {link.text}
         </Link>
-      ):null}
+      ) : null}
     </motion.li>
   );
 };

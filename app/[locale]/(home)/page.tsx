@@ -10,7 +10,7 @@ import LinkButton from "../../components/LinkButton";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
-// import Notifications from "@/app/components/Notificationts";
+import Notifications from "@/app/components/Notificationts";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
@@ -19,8 +19,7 @@ export default function Home() {
     <main style={{ padding: "0px 0px !important" }} className="">
       <section className="relative h-full min-h-[110vh] w-full">
         <ImageSlider />
-
-       
+        <Notifications />
       </section>
       <Section link="#" className="mt-10 min-h-[30vh]" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
         <MotionContainer className="sm:grid flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 mt-[62px] justify-center">
