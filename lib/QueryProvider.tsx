@@ -17,7 +17,7 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
       })
   );
   const persister = createSyncStoragePersister({
-    storage: window.localStorage,
+    storage: global?.window?.localStorage,
   });
   return (
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>

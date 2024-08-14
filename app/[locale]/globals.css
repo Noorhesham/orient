@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -57,19 +57,9 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
+} */
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 .reveal_animation {
   opacity: 0;
@@ -96,9 +86,6 @@
   background-image: linear-gradient(to top, #0d0d0e00, #00000035);
   opacity: 0.6;
   height: 65%;
-}
-.swiper-wrapper {
-  gap: 10px;
 }
 
 .arrow1 {

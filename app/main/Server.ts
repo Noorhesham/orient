@@ -28,6 +28,8 @@ const getURL = (resourceName: string, id?: string) => {
       return `${BASE_URL}/rm_users/${VERSION}/log_out`;
     case "tfaSend":
       return `${BASE_URL}/rm_users/${VERSION}/tfa/${id}/send`;
+    case "tfaActivate":
+      return `${BASE_URL}/rm_users/${VERSION}/tfa/activate`;
     case "tfaValidate":
       return `${BASE_URL}/rm_users/${VERSION}/tfa/${id}/validate`;
     case "update_profile":
@@ -56,7 +58,7 @@ export type ResourceNameProps =
   | "tfaValidate"
   | "update_password"
   | "update_profile"
-  | "remove_account"; //types the user allowed to add its resource
+  | "remove_account"|"tfaActivate"; //types the user allowed to add its resource
 export async function Server({
   resourceName,
   id,

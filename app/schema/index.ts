@@ -1,6 +1,8 @@
 import { z } from "zod";
 const phoneRegex = /^[0-9]{10,14}$/; // Adjust this regex based on your specific phone number requirements
-
+export const phoneSchema = z.object({
+  phone: z.string().min(10, "Phone number must be at least 10 characters"),
+});
 export const loginSchema = z
   .object({
     useEmail: z.boolean(),
@@ -77,6 +79,7 @@ export const notifictationsSchema = z.object({
 export const personalSchema = z.object({
   name: z.string(),
   birth_day: z.any(),
+  avatar: z.any().optional(),
 });
 
 export const commentSchema = z.object({

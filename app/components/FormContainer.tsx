@@ -11,6 +11,7 @@ import {
   personalSchema,
   commentSchema,
   emailSchema,
+  phoneSchema,
 } from "../schema";
 
 interface FormContainerProps {
@@ -22,7 +23,8 @@ interface FormContainerProps {
     | "notifictations"
     | "personalInfo"
     | "commentSchema"
-    | "email";
+    | "email"
+    | "phone";
   title?: string;
   cancel?: any;
   btnText?: string;
@@ -60,6 +62,8 @@ const FormContainer: React.FC<FormContainerProps> = ({
         return commentSchema;
       case "email":
         return emailSchema;
+      case "phone":
+        return phoneSchema;
       default:
         throw new Error("Invalid schema type provided");
     }
@@ -68,7 +72,12 @@ const FormContainer: React.FC<FormContainerProps> = ({
   const form = useForm({
     resolver: zodResolver(schemaResolver()),
     mode: "onChange",
-    defaultValues: { ...defaultValues, birth_day: defaultValues?.birthday || "" } || {},
+    defaultValues:
+      {
+        ...defaultValues,
+        birth_day: defaultValues?.birthday || "",
+        // phone: ` ${defaultValues?.countryCode}${defaultValues?.phone}` || "",avatar:defaultValues.photo||""
+      } || {},
   });
   const [serverError, setServerError] = useState<string[] | null>(null);
   const [isPending, startTransition] = useTransition();

@@ -110,7 +110,7 @@ const Signup = () => {
       <div className=" mx-auto flex flex-col items-center justify-center  w-full  ">
         <Logo size={{ width: 863, height: 338 }} type="blue" />
         <h1 className=" text-center text-2xl  mt-5 font-bold text-main2">CREATE NEW ACCOUNT</h1>
-        <div className=" w-full  px-14 flex flex-col ">
+        <div className=" w-full  px-5 md:px-14 flex flex-col ">
           <CustomForm
             btnStyles=" w-full"
             isPending={isPending}

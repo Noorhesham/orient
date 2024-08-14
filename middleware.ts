@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { authRoutes, protectedRoutes } from "./routes";
+import { cookies } from "next/headers";
 
 const localeMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -24,8 +25,9 @@ export async function middleware(req: NextRequest, res: NextResponse) {
     return regex.test(url);
   });
   const isAuthRoute = authRoutes.includes(url);
+  if (token === "undefined") cookies().delete("jwt");
   // Run the next-intl middleware to handle locales
-  if ((!token||token==='undefined') && isProtectedRoute) {
+  if ((!token || token === "undefined") && isProtectedRoute) {
     let pathn = path.pathname.replace(`/${lang}`, "");
     path.pathname = `/login`;
     path.searchParams.set("redirect", pathn);

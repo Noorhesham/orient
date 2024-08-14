@@ -11,26 +11,25 @@ import React from "react";
 
 const page = () => {
   return (
-    <div>
       <Container CustomePadding=" py-8 px-8" className=" w-full flex flex-col gap-3 px-4">
         <Head1 className=" text-xl font-bold" text={"SHIPPING ADDRESS  "} />
       <AddressForm/>
-        <div className=" flex gap-5 items-center">
+        <div className=" flex flex-col  sm:flex-row gap-2 lg:gap-5  items-start lg:items-center">
           <IconWidget paragraph={"147 Vacation Road, Holiday Town, Rome, Italy"} header="HOME" icon={<Location />} />
-          <div className=" flex items-center gap-3">
+          <div className=" flex flex-wrap flex-row  items-center gap-3">
             <CustomButton text="Edit" />
             <CustomButton backgroundColor="dark" text="DELETE" reverse />
           </div>
         </div>
-        <div className=" flex gap-5 items-center">
+        <div className=" flex  flex-col  sm:flex-row  gap-2 lg:gap-5 items-start lg:items-center">
           <IconWidget paragraph={"147 Vacation Road, Holiday Town, Rome, Italy"} header="HOME" icon={<Location />} />
-          <div className=" flex items-center gap-3">
+          <div className=" flex flex-wrap flex-row  items-center gap-3">
             <CustomButton text="Edit" />
             <CustomButton backgroundColor="dark" text="DELETE" reverse />
           </div>
         </div>
       </Container>
-    </div>
+
   );
 };
 

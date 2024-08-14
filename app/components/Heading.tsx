@@ -1,4 +1,6 @@
 import React from "react";
+import MotionContainer from "./MotionContainer";
+import MotionItem from "./MotionItem";
 interface TextProps {
   className?: string;
   mainText: string;
@@ -9,11 +11,11 @@ interface TextProps {
 }
 const Heading = ({ className, mainText, subText, MainTextColor, SubTextColor, paragraph }: TextProps) => {
   return (
-    <div className={`${className} text-center flex flex-col max-w-[695px] `}>
-      <h1 className={` text-3xl  lg:text-4xl uppercase font-bold ${MainTextColor ? `text-[${MainTextColor}]` : "text-[#E6007E]"}`}>{mainText}</h1>
-      <h2 className={` text-2xl  lg:text-3xl uppercase font-bold ${MainTextColor ? `text-[${MainTextColor}]` : "text-[#0D3B6F]"}`}>{subText}</h2>
-      <p className=" mt-4 text-sm">{paragraph}</p>
-    </div>
+    <MotionContainer className={`${className} text-center flex flex-col max-w-[695px] `}>
+      <MotionItem className={` text-3xl  lg:text-4xl uppercase font-bold ${MainTextColor ? `text-[${MainTextColor}]` : "text-[#E6007E]"}`}>{mainText}</MotionItem>
+      <MotionItem className={` text-2xl  lg:text-3xl uppercase font-bold ${MainTextColor ? `text-[${MainTextColor}]` : "text-[#0D3B6F]"}`}>{subText}</MotionItem>
+      <MotionItem className=" mt-4 text-sm">{paragraph}</MotionItem>
+    </MotionContainer>
   );
 };
 

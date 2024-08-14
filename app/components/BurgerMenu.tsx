@@ -37,17 +37,19 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
   }, [isOpen]);
   return (
     <motion.nav
-      className={` w-[300px]   h-full absolute inset-0 ${white?"bg-white overflow-y-scroll":""}`}
+      className={` w-0   h-full absolute inset-0 ${
+        white ? "bg-white  w-[300px]    overflow-y-scroll" : ""
+      }`}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
       ref={containerRef}
     >
       <motion.div
-        className="  z-50 absolute top-0 left-0  bottom-0 min-h-full  w-[300px] bg-white"
+        className={`    absolute top-0 left-0  bottom-0 min-h-full  w-[300px] bg-white`}
         variants={sidebar}
       />
-      <Navigation links={links} />
+      <Navigation isOpen={isOpen} links={links} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
   );
@@ -57,7 +59,7 @@ const Path = ({ ...props }: { variants?: Variants; d?: string; transition?: obje
 );
 const MenuToggle = ({ toggle }: { toggle: () => void }) => {
   return (
-    <button className=" absolute w-30 h-20 top-1 left-7  bottom-0 rounded-xl z-[999]" onClick={toggle}>
+    <button className=" absolute w-30 h-20 top-1 left-7  bottom-0 rounded-xl z-[98]" onClick={toggle}>
       <svg width="23" height="23" viewBox="0 0 23 23">
         <Path
           variants={{
@@ -93,16 +95,19 @@ const variants = {
   },
 };
 
-const Navigation = ({ links }: { links: any[] }) => (
-  <motion.ul className=" absolute top-20   px-10 py-5 w-full h-full z-[999]" variants={variants}>
+const Navigation = ({ links, isOpen }: { links: any[]; isOpen: boolean }) => (
+  <motion.ul
+    className={` absolute top-20   ${isOpen&&'px-10 py-5'} w-full h-full z-[999]`}
+    variants={variants}
+  >
     {links.map((link, i) => (
-      <MenuItem link={link} i={i} key={i} />
+      <MenuItem isOpen={isOpen} link={link} i={i} key={i} />
     ))}
   </motion.ul>
 );
 const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF", "#7700FF"];
 
-const MenuItem = ({ i, link }: { i: number; link: any }) => {
+const MenuItem = ({ i, link, isOpen }: { i: number; link: any; isOpen: boolean }) => {
   const variants = {
     open: {
       y: 0,
@@ -122,15 +127,15 @@ const MenuItem = ({ i, link }: { i: number; link: any }) => {
   const style = { border: `2px solid ${colors[i]}` };
   return (
     <motion.li
-      className="z-[999] flex  w-full items-center "
+      className={` flex ${isOpen?'w-full':'w-0'}  w-full items-center z-[999]`}
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
       <div className="icon-placeholder" style={style} />
       <div className="text-placeholder" style={style} />
-      {link.subLinks ? (
-        <Accordion className=" ml-3" type="single" collapsible>
+      {isOpen && link.subLinks ? (
+        <Accordion className={` z-[999] ml-3`} type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>{link.text}</AccordionTrigger>
             <AccordionContent className=" flex flex-col gap-2">
@@ -142,11 +147,11 @@ const MenuItem = ({ i, link }: { i: number; link: any }) => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      ) : (
+      ) :isOpen? (
         <Link className=" ml-3 py-2 px-3 text-nowrap" href={link.href || ""}>
           {link.text}
         </Link>
-      )}
+      ):null}
     </motion.li>
   );
 };

@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useEffect, useLayoutEffect, useState, useTransition } from "react";
+import React, { Suspense,useLayoutEffect, useState, useTransition } from "react";
 import Section from "@/app/components/Section";
 import { Switch } from "@/components/ui/switch";
 import { Controller, useForm } from "react-hook-form";
@@ -16,12 +15,10 @@ import Socials from "@/app/components/Socials";
 import { toast } from "react-toastify";
 import cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
-import Head1 from "@/app/components/Head1";
 import { useParams } from "@/app/hooks/useParams";
 import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
 import Methods from "./Methods";
 import { InputOTPPattern } from "./OTP";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/app/context/AuthContext";
 
 const Login = () => {
@@ -68,7 +65,7 @@ const Login = () => {
       if (!res.status) setServerError(res.errors?.length > 0 ? res.errors : res.message);
       if (res.status) {
         setServerError(null);
-        toast.success(`${res.message} ...`);
+        toast.done(`${res.message} ...`);
         if (res.require_activation || res.tfa) {
           setActivate(true);
           if (res.require_activation) handleParam(res.activation_uuid, "uuid");
@@ -126,8 +123,8 @@ const Login = () => {
         <Logo size={{ width: 863, height: 338 }} type="blue" />
         {!activate && (
           <>
-            <h1 className="text-center text-2xl mt-8 font-bold text-main2">LOGIN TO YOUR ACCOUNT</h1>
-            <div className="w-full mt-5 px-14 flex flex-col">
+            <h1 className="text-center text-xl md:text-2xl mt-8 font-bold text-main2">LOGIN TO YOUR ACCOUNT</h1>
+            <div className="w-full mt-5 px-5 lg:px-14 flex flex-col">
               <div className="text-main2 self-center mx-auto text-base flex items-center gap-2">
                 <p className="text-main2 font-medium text-sm">BY PHONE</p>
                 <Switch
@@ -161,26 +158,28 @@ const Login = () => {
 
               <Socials />
             </div>
-            <div className="mt-8 text-sm flex items-center">
+            <div className="mt-8 text-sm flex flex-col gap-2 md:gap-0 md:flex-row items-center">
               <span className="font-[400] text-main2">NOT REGISTERED YET?</span>
               <Link href="/signup" className="hover:underline duration-150 ml-1 text-main font-[700]">
                 CREATE NEW ACCOUNT
               </Link>
             </div>
           </>
-        )}
-        {activate && !isCode && (
-          <Methods tfa={searchParams.get("tfa") || ""} handleSend={handleSend} message={message} methods={methods} />
-        )}
-        {isCode !== "" && activate && (
-          <InputOTPPattern
-            forgot={false}
-            tfa={Boolean(searchParams.get("tfa") === "true")}
-            setServerError={setServerError}
-            sendType={isCode}
-            handleSend={handleSend}
-          />
-        )}
+        )}{" "}
+        <Suspense>
+          {activate && !isCode && (
+            <Methods tfa={searchParams.get("tfa") || ""} handleSend={handleSend} message={message} methods={methods} />
+          )}
+          {isCode !== "" && activate && (
+            <InputOTPPattern
+              forgot={false}
+              tfa={Boolean(searchParams.get("tfa") === "true")}
+              setServerError={setServerError}
+              sendType={isCode}
+              handleSend={handleSend}
+            />
+          )}
+        </Suspense>
         {activate && serverError && (
           <p className="text-red-500 text-center mt-3 text-sm font-semibold">{serverError}</p>
         )}

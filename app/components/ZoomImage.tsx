@@ -8,7 +8,9 @@ const ZoomImage = ({ btn, src, content }: { btn: ReactNode; src?: string; conten
     <Dialog>
       <DialogTrigger asChild>{btn}</DialogTrigger>
       {/*@ts-ignore*/}
-      <DialogContent src={src} className="w-full bg-transparent outline-none border-none h-full sm:max-w-7xl max-h-[8  0vh]">
+      <DialogContent
+        className={` ${src ? "" : "max-h-[80vh]"} w-full bg-transparent outline-none border-none h-full sm:max-w-7xl `}
+      >
         <div className="select-none relative h-full w-full">
           {content ? (
             content

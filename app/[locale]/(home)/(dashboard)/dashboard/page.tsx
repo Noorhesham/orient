@@ -20,31 +20,25 @@ const page = async () => {
   return (
     <section className=" ">
       <div className="   ml-5 flex flex-col items-start">
-        <Head1 className="text-3xl" text="HELLO," text2={` ${name}`}/>
+        <Head1 className="text-3xl" text="HELLO," text2={` ${name}`} />
         <p className=" font-medium max-w-[38rem] text-muted-foreground text-sm  mt-2 mb-5">
           From your account dashboard. you can easily check & view your{" "}
-          <Link href={"#"} className=" text-main">
+          <Link href={"/orders"} className=" text-main">
             Recent Orders
           </Link>
           , manage your{" "}
-          <Link href={"#"} className=" text-main">
+          <Link href={"/shipping-address"} className=" text-main">
             Shipping and Billing Addresses
           </Link>{" "}
           and edit your{" "}
-          <Link href={"#"} className=" text-main">
+          <Link href={"/settings"} className=" text-main">
             Password
           </Link>{" "}
           and{" "}
-          <Link href={"#"} className=" text-main">
+          <Link href={"/settings"} className=" text-main">
             Account Details
           </Link>
           .
-        </p>
-        <p className=" font-medium mt-3  text-muted-foreground text-sm">
-          SEO Content s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-          industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
         </p>
       </div>
     </section>

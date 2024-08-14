@@ -13,7 +13,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export function PaginationDemo({ totalPages = 10 }: { totalPages?: number }) {
+export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,14 +31,14 @@ export function PaginationDemo({ totalPages = 10 }: { totalPages?: number }) {
     setCurrentPage(page);
   };
   return (
-    <Pagination className=" mt-auto col-span-full">
+    <Pagination className=" my-10 col-span-full">
       <PaginationContent>
         <PaginationItem>
           <Button
             className={
-              currentPage >= (totalPages || 10)
+              currentPage >= (totalPages || 5)
                 ? " cursor-not-allowed  opacity-80"
-                : "rounded-full flex mr-3 p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
+                : "rounded-full flex mr-1 md:mr-3 p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
             }
             onClick={(e) => {
               e.preventDefault();
@@ -77,7 +77,7 @@ export function PaginationDemo({ totalPages = 10 }: { totalPages?: number }) {
             className={
               currentPage >= totalPages
                 ? " cursor-not-allowed  opacity-80"
-                : "rounded-full ml-3 flex p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
+                : "rounded-full ml-1 md:ml-3 flex p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
             }
             onClick={(e) => {
               e.preventDefault();

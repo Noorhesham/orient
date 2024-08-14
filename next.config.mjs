@@ -8,9 +8,15 @@ const nextConfig = {
     fetches: {
       fullUrl: true,
     },
-  },typescript:{ignoreBuildErrors: true},eslint:{ignoreDuringBuilds: true},images: {
+  },
+  typescript: { ignoreBuildErrors: true },
+  eslint: { ignoreDuringBuilds: true },
+  images: {
     domains: ["img.youtube.com"],
-  }
+  },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 };
 
 export default withNextIntl(nextConfig);

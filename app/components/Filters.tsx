@@ -1,0 +1,53 @@
+import React from "react";
+import Box from "./Box";
+import PriceFilter from "./PriceFilter";
+import MotionItem from "./MotionItem";
+
+const Filters = () => {
+  return (
+    <div className="  max-h-96 rounded-2xl border bg-white shadow-md border-gray-400 overflow-y-auto lg:max-h-full col-span-full ">
+      <div className="   flex flex-col py-3  px-3">
+        <Box filter="filters" text="Category" options={["All", "Paints", "Accessories", "Tools"]} />
+        <PriceFilter />
+        <Box
+          filter="colors"
+          text="Popular Colors"
+          options={[
+            "#3F3F46",
+            "#F43F5E",
+            "#FECDD3",
+            "#DB2777",
+            "#A21CAF",
+            "#7E22CE",
+            "#1D4ED8",
+            "#0369A1",
+            "#99F6E4",
+            "#2DD4BF",
+            "#854D0E",
+            "#713F12",
+            "#FDE68A",
+            "#B91C1C",
+            "#7F1D1D",
+            "#1E293B",
+          ]}
+        />
+        <Box
+          filter="tags"
+          text="POPULAR TAGS"
+          options={[
+            "Color Trend",
+            "wall paints",
+            "paints",
+            "master paints",
+            "colors",
+            "trends",
+            "color trends",
+            "paints",
+          ]}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Filters;

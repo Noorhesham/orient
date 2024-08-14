@@ -12,7 +12,7 @@ const Calculate = ({ btn }: { btn?: React.ReactNode }) => {
       title="CALCULATE THE QUANTITY"
       btn={
         btn || (
-          <>
+          <div>
             <div className=" cursor-pointer flex gap-3 ">
               <div className=" flex flex-col  items-center gap-2">
                 <div className=" rounded-full w-44 h-44 relative">
@@ -21,7 +21,7 @@ const Calculate = ({ btn }: { btn?: React.ReactNode }) => {
                 <h1 className="  text-2xl text-main2 font-[500] mt-4 ">PAINT CALCULATOR</h1>
               </div>
             </div>
-          </>
+          </div>
         )
       }
       desc="THE NUMBER OF PAINT SHEET USERD IS"

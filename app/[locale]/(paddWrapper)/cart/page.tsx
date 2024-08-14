@@ -15,7 +15,7 @@ const page = () => {
   return (
     <main className=" bg-gray-50">
       <div className=" pt-5  min-h-screen  ">
-        <MaxWidthWrapper className=" grid  gap-4 grid-cols-11">
+        <MaxWidthWrapper className=" flex flex-col   lg:grid  gap-4 lg:grid-cols-11">
           <div className="col-span-7  gap-7 flex flex-col">
             <Container>
               <h1 className=" font-[600] mt-4 ml-2  uppercase text-2xl  text-main2 mb-3">The Cart {`(3)`}</h1>
@@ -62,8 +62,10 @@ const page = () => {
                 </div>
                 <div className="flex w-fit pt-5  mx-auto mt-3 flex-col">
                   <Button className="flex rounded-full py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
-                    <CreditCard />
-                    PROCEED TO CHECKOUT
+                    <Link href="/checkout" className="flex items-center">
+                      <CreditCard />
+                      PROCEED TO CHECKOUT
+                    </Link>
                   </Button>
                   <p className=" mt-4 text-center text-xs text-black font-medium ">
                     SPECAIL DISCOUNTS ON LARGE QUANTITIES

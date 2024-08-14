@@ -4,15 +4,18 @@ import "react-phone-input-2/lib/material.css";
 import { PhoneProps } from "./FormInput";
 import cookies from "js-cookie";
 import ar from "react-phone-input-2/lang/ar.json";
+import { useFormContext } from "react-hook-form";
 const PhoneSearch = ({ onChange }: PhoneProps) => {
   const lang = cookies.get("NEXT_LOCALE");
+  const form = useFormContext();
+  console.log(form.getValues("phone"));
   return (
     <PhoneInput
       enableSearch
       localization={lang === "ar" ? ar : undefined}
       excludeCountries={["il"]}
       searchStyle={{ width: "80%" }}
-      country="eg"
+      country="eg" value={`${form.getValues("phone")}`}
       onChange={onChange}
       placeholder="Enter phone number"
       searchPlaceholder="Search"

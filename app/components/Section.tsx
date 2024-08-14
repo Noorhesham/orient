@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import MotionItem from "./MotionItem";
+import MotionContainer from "./MotionContainer";
 
 const Section = ({
   heading,
@@ -24,17 +26,17 @@ const Section = ({
   return (
     <section className={`${className || ""} ${CustomePadding || "lg:px-20 px-5 md:px-10 py-8 lg:py-16"} `}>
       <div className=" w-full px-4">
-        <div className="flex sm:flex-row flex-col justify-between">
+        <MotionContainer className="flex sm:flex-row flex-col justify-between">
           {heading && (
-            <h1
+            <MotionItem 
               className={` text-2xl  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
             >
               {heading}
-            </h1>
+            </MotionItem>
           )}
-          {paragraph && <p className="text-lg text-[20px] text-[#0D3B6F]">{paragraph}</p>}
+          {paragraph && <MotionItem className="text-lg text-[20px] text-[#0D3B6F]">{paragraph}</MotionItem>}
           {link && (
             <Link
               href={link}
@@ -43,7 +45,7 @@ const Section = ({
               {linkText} <ArrowRight className=" md:w-5 md:h-5 w-3 h-3" />
             </Link>
           )}
-        </div>
+        </MotionContainer>
         {children}
       </div>
     </section>

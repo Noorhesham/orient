@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { AnimatePresence, motion } from "framer-motion";
 import Spinner from "./Spinner";
 import Starrating from "./Rate";
+import PhotoInput from "./PhotoInput";
 interface FormInputProps {
   control?: any;
   name: string;
@@ -29,7 +30,9 @@ interface FormInputProps {
   password?: boolean;
   optional?: boolean;
   noProgress?: boolean;
-  date?: boolean;rate?:boolean
+  date?: boolean;
+  rate?: boolean;
+  photo?: boolean;
 }
 export interface PhoneProps {
   onChange: any;
@@ -57,6 +60,7 @@ const FormInput = ({
   noProgress = false,
   date = false,
   rate = false,
+  photo = false,
 }: FormInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [PhoneSearchComponent, setPhoneSearchComponent] = useState<PhoneSearchComponentType>();
@@ -114,6 +118,8 @@ const FormInput = ({
                   <Suspense fallback={<Spinner />}>
                     <PhoneSearchComponent onChange={field.onChange} />
                   </Suspense>
+                ) : photo ? (
+                  <PhotoInput  value={field.value}    onChange={field.onChange}/>
                 ) : date && CalendarComponent ? (
                   <Suspense fallback={<Spinner />}>
                     <div className=" w-full">
@@ -121,18 +127,19 @@ const FormInput = ({
                     </div>
                   </Suspense>
                 ) : switchToggle ? (
-                  <div className="flex mx-auto  mt-3 gap-2 items-center ">
-                    <Label className=" text-sm text-muted-foreground" htmlFor="sale">
+                  <div className="flex mx-auto   mt-3 gap-2 items-center ">
+                    <Label className=" md:text-sm flex-1 text-xs text-muted-foreground" htmlFor="sale">
                       {label2 || ""}
                     </Label>
                     <Switch
                       noSwitch
                       disabled={disabled}
                       id="sale"
+                      className="flex-1"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
-                    <Label className=" text-sm text-muted-foreground" htmlFor="sale">
+                    <Label className="md:text-sm flex-grow flex-1 text-xs  text-muted-foreground" htmlFor="sale">
                       {label || ""}
                     </Label>
                   </div>
@@ -168,12 +175,15 @@ const FormInput = ({
                           exit={{ width: 0 }}
                           className=" flex w-full items-center gap-1"
                         >
-                          <Progress nocustomcol={true}
+                          <Progress
+                            nocustomcol={true}
                             color={passwordStrength.color}
                             value={passwordStrength.score * 25}
                             className={` w-full  flex-grow `}
                           />
-                          <p className={` text-${passwordStrength.text} text-sm font-medium `}>{passwordStrength.label}</p>
+                          <p className={` text-${passwordStrength.text} text-sm font-medium `}>
+                            {passwordStrength.label}
+                          </p>
                         </motion.div>
                       )}
                     </AnimatePresence>

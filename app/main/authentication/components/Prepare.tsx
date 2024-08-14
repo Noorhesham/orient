@@ -69,7 +69,7 @@ const Prepare = ({ setMethods, handleParam, setMessage }: { setMethods: any; han
         />
         <p className="text-main2 font-medium text-sm">BY EMAIL</p>
       </div>
-      <div className=" w-full mt-5 px-14 flex flex-col ">
+      <div className=" w-full mt-5 px-5 md:px-14 flex flex-col ">
         <CustomForm
           isPending={isPending}
           btnStyles=" w-full"

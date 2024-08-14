@@ -1,11 +1,9 @@
-import BreadCrumb from "@/app/components/BreadCrumb";
-import CustomButton from "@/app/components/CustomButton";
 import FormContainer from "@/app/components/FormContainer";
 import Head1 from "@/app/components/Head1";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
-import React from "react";
+import React, { Suspense } from "react";
 const tabs = [
   { link: "color_center", text: "Requesting to open coloring centers" },
   { text: "Getting quotations for Projects", link: "projects" },
@@ -18,23 +16,23 @@ const page = () => {
       <section className=" relative min-h-[60vh]">
         <div
           style={{
-            backgroundSize: "cover",
             backgroundImage: `url('/partner.png')`,
             backgroundPosition: "center",
             zIndex: 1,
             backgroundRepeat: "no-repeat",
           }}
-          className={`reveal_animation absolute inset-0 `}
+          className={`reveal_animation absolute inset-0 bg-cover `}
         />
       </section>
       <MaxWidthWrapper>
-        <div className=" mt-8 grid items-center grid-cols-4">
-          <Section CustomePadding="px-20" className="  col-span-2 flex flex-col gap-10" heading="" paragraph="">
-            <div className=" flex flex-col gap-5">
-             <Partner tabs={tabs}/>
-            </div>
+        <div className=" mt-5 md:mt-8 flex flex-col gap-3 md:flex-row  lg:grid items-center lg:grid-cols-4">
+          <Section CustomePadding="lg:px-20 px-2" className="  col-span-2 flex flex-col gap-10">
+         
+                <Partner tabs={tabs} />
+            
+         
           </Section>
-          <div className=" col-span-2">
+          <div className=" col-span-full w-full lg:col-span-2">
             <Head1 text="DO YOU HAVE ANY QUESTIONS ?" />
             <FormContainer
               schema={"contact"}

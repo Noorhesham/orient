@@ -50,10 +50,10 @@ const comments = [
 ];
 const page = () => {
   return (
-    <section className=" relative">
-      <MaxWidthWrapper className=" flex flex-col lg:grid  lg:grid-cols-11 gap-3 items-start">
-        <div className=" lg:col-span-8 col-span-full grid  grid-cols-2 lg:grid-cols-5  items-start">
-          <div className=" flex col-span-full lg:col-span-2 flex-col mt-12 w-full flex-shrink   items-start">
+    <section className=" h-full relative">
+      <MaxWidthWrapper className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
+        <div className="lg:col-span-8 items-center max-w-full flex flex-col lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
+          <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-12 w-full">
             <div className="  w-full h-96 ">
               <SwiperCards
                 rounded
@@ -79,23 +79,43 @@ const page = () => {
           >
             <Stars />
             <PriceWithSale price={443} discount={324} />
-            <div className="border-input flex-wrap  border-b border-t  flex  gap-3 py-10 px-5">
-              <Calculate
-                btn={
-                  <Button className=" hover:bg-white hover:text-main2 border border-main2 text-xs font-medium rounded-full flex  items-center gap-2 px-6  bg-main2">
-                    <CiCalculator2 />
-                    CALCULATE
+            <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 px-5">
+              <div className="lg:hidden flex items-center gap-2">
+                <div className=" flex self-center mx-auto  items-center gap-2">
+                  <h2 className=" text-sm text-black font-medium">AMOUNT :</h2>
+                  <Counter />
+                </div>
+              </div>
+              <div className=" lg:hidden flex flex-col  items-start ">
+                <Variants options={options} optionsSize={optionsSize} />
+              </div>
+
+              <div className="flex   sticky top-0 z-20 flex-nowrap lg:flex-wrap w-full lg:flex-row flex-col items-center gap-2">
+                <Calculate
+                  btn={
+                    <Button className=" hover:bg-white gap-2 md:w-fit w-full hover:text-main2 border border-main2 text-xs font-medium rounded-full flex  items-center  px-6  bg-main2">
+                      <CiCalculator2 className=" w-5 h-5" />
+                      CALCULATE THE QUANTITY
+                    </Button>
+                  }
+                />
+                <div className="flex lg:w-auto w-full lg:mt-2 mt-0 items-center gap-2">
+                  <Button
+                    className="lg:flex-1  flex-grow-0 text-[10px] rounded-full gap-2 py-4 border-black"
+                    variant="outline"
+                  >
+                    <DownloadIcon className="w-4 h-4" />
+                    DOWNLOAD PRODUCT
                   </Button>
-                }
-              />
-              <Button className=" rounded-full py-4 border-black" variant={"outline"}>
-                <DownloadIcon />
-                DOWNLOAD PRODUCT
-              </Button>
-              <Button className=" rounded-full py-4 border-black" variant={"outline"}>
-                <TbView360Arrow />
-                360
-              </Button>
+                  <Button
+                    className="lg:flex-1  flex-grow-0 text-xs rounded-full gap-2 py-4 border-black"
+                    variant="outline"
+                  >
+                    <TbView360Arrow className="w-5 h-5" />
+                    360
+                  </Button>
+                </div>
+              </div>
             </div>
             <p className=" mt-4">
               A highly-developed product that is absorbed deeply into the substrate of cementitious materials, plasters
@@ -111,13 +131,13 @@ const page = () => {
             link="/store"
             linkText="BROWSE ALL PRODUCTS"
           >
-            <div className=" gap-3 items-stretch mt-3  grid grid-cols-3">
+            <div className=" gap-3 lg:items-stretch mt-5 lg:mt-3 flex flex-col items-center  lg:grid  lg:grid-cols-3">
               <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
               <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
               <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
             </div>
             <section className="  w-full mt-8">
-              <div className="flex  my-10 z-10 w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-0">
+              <div className="flex  my-10 z-10 w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-0">
                 <p>DESCRIPTION</p>
                 <p>REVIEW</p>
               </div>
@@ -138,21 +158,25 @@ const page = () => {
                 give a solid base for painting
               </p>
               <Feature />
-              <ZoomImage
-                btn={<YoutubeThumbnail url="https://youtu.be/QczGoCmX-pI?si=T_IxM6ylmXUq5kZf" />}
-                content={
-                  <div className=" w-full h-full flex items-center justify-center">
-                    <iframe
-                      width="80%"
-                      height="100%"
-                      src="https://www.youtube.com/embed/QczGoCmX-pI?si=agurhHubDIgVjErj"
-                      title="YouTube video player"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    ></iframe>
-                  </div>
-                }
-              />
             </section>
+            <ZoomImage
+              btn={
+                <div>
+                  <YoutubeThumbnail url="https://youtu.be/QczGoCmX-pI?si=T_IxM6ylmXUq5kZf" />
+                </div>
+              }
+              content={
+                <div className=" w-full h-full flex items-center justify-center">
+                  <iframe
+                    width="80%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/QczGoCmX-pI?si=agurhHubDIgVjErj"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  ></iframe>
+                </div>
+              }
+            />
             <Reviews />
             <div>
               {comments.map((comment) => (
@@ -164,7 +188,7 @@ const page = () => {
         </div>
 
         {/* sidebar */}
-        <div className="col-span-3 mt-8">
+        <div className=" hidden lg:block lg:col-span-3 mt-8">
           <Container className=" py-12">
             <div className=" flex flex-col items-start gap-2 pb-4 border-b  border-input">
               <SwiperCards
@@ -224,7 +248,7 @@ const page = () => {
         </div>
       </MaxWidthWrapper>
       <Section link="#" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
-        <MotionContainer className="sm:grid flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
+        <MotionContainer className="grid  flex-col  grid-cols-2 lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
           <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
           <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
           <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />

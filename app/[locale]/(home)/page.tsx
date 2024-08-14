@@ -8,12 +8,9 @@ import Heading from "../../components/Heading";
 import CardHuge from "../../components/CardHuge";
 import LinkButton from "../../components/LinkButton";
 import Link from "next/link";
-import ModalCustom from "../../components/ModalCustom";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { CiCalculator2 } from "react-icons/ci";
 import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
+// import Notifications from "@/app/components/Notificationts";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
@@ -22,16 +19,8 @@ export default function Home() {
     <main style={{ padding: "0px 0px !important" }} className="">
       <section className="relative h-full min-h-[110vh] w-full">
         <ImageSlider />
-        {/* <div className=" relative z-10">
-          <MaxWidthWrapper>
-            <div className=" py-28 flex flex-col relative">
-              <h1 className={`${NalikaSignature.className} text-center text-[15rem] text-gray-50`}>orient paints</h1>
-              <h2 className=" absolute text-4xl font-semibold  uppercase  right-[20%]  bottom-[27%] text-gray-50">
-                Mastering paints since 1946
-              </h2>
-            </div>
-          </MaxWidthWrapper>
-        </div> */}
+
+       
       </section>
       <Section link="#" className="mt-10 min-h-[30vh]" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
         <MotionContainer className="sm:grid flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 mt-[62px] justify-center">
@@ -74,19 +63,17 @@ export default function Home() {
           <Calculate />
         </div>
       </MaxWidthWrapper>
-      <div className=" mt-[60px]">
-        <div
-          style={{
-            height: "530px",
-            backgroundImage: "url('/Rectangle 12333.png')",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-          className=" w-full bg-contain lg:bg-cover  h-[630px] relative"
-        >
-          <div className=" hidden lg:block absolute inset-0 w-[97%] h-[20%] lg:h-[483px] top-1/2 lg:top-[5%] left-1/2 -translate-x-1/2 border-[3px] border-gray-100"></div>
-        </div>
+      <div className=" h-[530px] relative w-full mt-[60px]">
+        <Image
+          className=" md:block hidden object-contain lg:object-cover w-full h-full"
+          src={"/Rectangle 12333.png"}
+          fill
+          alt=""
+        />
+        <Image className=" md:hidden block object-contain w-full h-full" src={"/bannar mobile.png"} fill alt="" />
+        <div className=" hidden lg:block absolute inset-0 w-[97%] h-[23%] lg:h-[500px] top-1/2 lg:top-[5%] left-1/2 -translate-x-1/2 border-[3px] border-gray-100"></div>
       </div>
+
       <Section headingColor="#E6007E" heading="PARKOSTIAN" className="relative mt-[60px]">
         <div className="  mt-[17px]">
           <p className=" xl:translate-x-1/2 z-10 relative mt-5 lg:mt-[60px] max-w-[810px] text-sm">
@@ -117,11 +104,11 @@ export default function Home() {
         voluptatum unde magni pariatur expedita ullam reprehenderit corporis! Alias beatae quasi dolore nulla officiis
         rerum."
         />
-        <div className=" grid grid-cols-1 lg:grid-cols-3 mx-auto gap-3 items-center ">
+        <MotionContainer className=" grid grid-cols-1 lg:grid-cols-3 mx-auto gap-3 items-center ">
           <CardHuge />
           <CardHuge />
           <CardHuge />
-        </div>
+        </MotionContainer>
         <div className=" mt-[50px] ">
           <LinkButton text="BROWSE ALL BLOG" href="/blog" />
         </div>

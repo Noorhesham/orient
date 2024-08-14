@@ -1,18 +1,18 @@
 export const INSPIRED_LINKS = [
   {
     text: "all",
-    href: "get-inspired?category=all",
+    href: "/get-inspired?category=all",
   },
   {
     text: "living room",
-    href: "",
+    href: "/get-inspired?category=living-room",
   },
   {
     text: "bedroom",
-    href: "",
+    href: "/get-inspired?category=bedroom",
   },
-  { text: "kitchen", href: "" },
-  { text: "kids room", href: "" },
+  { text: "kitchen", href: "/get-inspired?category=kitchen" },
+  { text: "kids room", href: "/get-inspired?category=kids-room" },
 ];
 export const PARTENER_LINKS = [
   { text: "projects/products", href: "/become-parteners?category=all" },

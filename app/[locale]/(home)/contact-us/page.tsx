@@ -3,6 +3,8 @@ import FormContainer from "@/app/components/FormContainer";
 import Head1 from "@/app/components/Head1";
 import { Calender, Location, Phone } from "@/app/components/Icons";
 import IconWidget from "@/app/components/IconWidget";
+import Spinner from "@/app/components/Spinner";
+
 const MapComponent = dynamic(() => import("@/app/components/Map"), {
   loading: () => (
     <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -14,7 +16,6 @@ const MapComponent = dynamic(() => import("@/app/components/Map"), {
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import Section from "@/app/components/Section";
 import SocialMedia from "@/app/components/SocialMedia";
-import Spinner from "@/app/components/Spinner";
 import { BookAIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -38,8 +39,8 @@ const page = () => {
         />
       </section>
       <MaxWidthWrapper>
-        <div className=" grid items-center grid-cols-4">
-          <Section className="  col-span-2 flex flex-col gap-10" heading="CONTACT INFO" paragraph="">
+        <div className=" flex flex-col  gap-2 md:grid items-center  md:grid-cols-4">
+          <Section CustomePadding="py-8 lg:py-16 px-0 lg:px-20" className="  w-full col-span-2 flex flex-col gap-10" heading="CONTACT INFO">
             <p className=" pb-5 max-w-md text-xs  mt-3">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry..Lorem Ipsum is simply dummy
               text of the printing and typesetting industry..
@@ -61,9 +62,9 @@ const page = () => {
               icon={<FaMailBulk className=" text-main" />}
             />
             <IconWidget paragraph="From 09 am To 6 pm " header="All Week (off Line)" icon={<Calender />} />
-            <p className=" text-xs font-semibold py-3 flex items-center">
+            <p className=" text-xs font-semibold py-3 inline md:flex items-center">
               <BookAIcon />
-              <p className=" ml-2 flex  items-center">
+              <p className=" ml-2  inline lg:flex  items-center">
                 LEARN ANOUT OUR MOST IMPORTANT{" "}
                 <Link className=" ml-2 text-main hover:underline duration-150" href={"/branches"}>
                   BRANCHES AND DISTRIBUTERS
@@ -76,7 +77,7 @@ const page = () => {
               <SocialMedia />
             </div>
           </Section>
-          <div className=" col-span-2">
+          <div className=" w-full col-span-2">
             <Head1 text="DO YOU HAVE ANY QUESTIONS ?" />
             <FormContainer
               schema={"contact"}

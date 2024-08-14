@@ -3,13 +3,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useGetGeneralSettings } from "@/lib/queries";
 import Image from "next/image";
 import React from "react";
+import { useAuth } from "../context/AuthContext";
 
 const UserPhoto = () => {
-  const { data, isLoading } = useGetGeneralSettings();
-  const user = data?.user_settings;
+  const { userSettings, loading } = useAuth();
+  const user = userSettings;
   return (
     <>
-      {isLoading ? (
+      {loading ? (
         <Skeleton className="h-20  w-20 rounded-full" />
       ) : (
         <div className=" bg-gray-100    relative h-20 w-20 rounded-full">

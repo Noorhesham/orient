@@ -11,7 +11,7 @@ export default async function RootLayout({
   unstable_setRequestLocale(locale);
   return (
     <main className=" min-h-screen h-full flex items-stretch  w-full ">
-      <div className=" w-[60%]  min-h-full relative">
+      <div className=" hidden md:block md:w-[40%] lg:w-[60%]  min-h-full relative">
         <Image src="/login.png" alt="login" className=" object-cover" fill />
       </div>
       {children}

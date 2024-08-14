@@ -8,122 +8,31 @@ const page = () => {
     {
       label: "All",
       content: (
-        <>
-          <ImageGrid
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-          <ImageGrid
-            reverse={true}
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-          <ImageGrid
-            separate={true}
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-        </>
+        <ImageGrid
+          reverse={true}
+          images={[
+            "/Rectangle 156409.svg",
+            "/Rectangle 156410.svg",
+            "/Rectangle 156411.svg",
+            "/Rectangle 156412.svg",
+            "/Rectangle 156413.svg",
+            "/Rectangle 156409.svg",
+            "/Rectangle 156410.svg",
+            "/Rectangle 156411.svg",
+            "/Rectangle 156412.svg",
+            "/Rectangle 156413.svg",
+            "/Rectangle 156411.svg",
+            "/Rectangle 156412.svg",
+            "/Rectangle 156413.svg",
+            "/Rectangle 156409.svg",
+            "/Rectangle 156410.svg",
+            "/Rectangle 156411.svg",
+            "/Rectangle 156412.svg",
+            "/Rectangle 156413.svg",
+          ]}
+        />
       ),
       href: "all",
-    },
-    {
-      label: "Living Room",
-      content: (
-        <>
-          <ImageGrid
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-          <ImageGrid
-            reverse={true}
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-          <ImageGrid
-            separate={true}
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-        </>
-      ),
-      href: "Living-room",
-    },
-    {
-      content: (
-        <>
-          <ImageGrid
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-          <ImageGrid
-            reverse={true}
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-          <ImageGrid
-            separate={true}
-            images={[
-              "/Rectangle 156409.svg",
-              "/Rectangle 156410.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-              "/Rectangle 156411.svg",
-              "/Rectangle 156412.svg",
-              "/Rectangle 156413.svg",
-            ]}
-          />
-        </>
-      ),
-      href: "bedroom",
-      label: "Bed room",
     },
     { href: "kitchen", label: "Kitchen", content: <></> },
     { href: "kidsroom", label: "Kids room", content: <></> },

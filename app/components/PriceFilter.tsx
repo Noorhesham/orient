@@ -25,7 +25,7 @@ const PriceFilter = () => {
   const searchParams = useSearchParams();
   const minPrice = Number(searchParams.get("minPrice"));
   const maxPrice = Number(searchParams.get("maxPrice"));
-  const custom =searchParams.get("custom")==="true"?true:false;
+  const custom = searchParams.get("custom") === "true" ? true : false;
   useEffect(() => {
     if (minPrice && maxPrice) {
       setPriceFilter({
@@ -48,7 +48,7 @@ const PriceFilter = () => {
 
   return (
     <ul className="space-y-4 border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
-      <li className="flex items-center   flex-col gap-4">
+      <li className="flex items-center  flex-row flex-wrap  lg:flex-col gap-4">
         <div className="self-start flex items-center gap-2 mr-auto">
           {" "}
           <input
@@ -102,35 +102,38 @@ const PriceFilter = () => {
           </div>
         )}
       </li>
-      {PRICE_FILTERS.filter((p) => !p.isCustom).map((filter: any, i: number) => (
-        <li
-          key={i}
-          className={`${priceFilter === filter.value ? "text-gray-500" : "text-gray-900"} flex items-center gap-2`}
-        >
-          <input
-            type="radio"
-            id={filter.value}
-            checked={
-              priceFilter?.range?.[0] === filter.value?.[0] &&
-              priceFilter?.range?.[1] === filter.value?.[1] &&
-              !priceFilter?.isCustom
-            }
-            onChange={() => {
-              handlePriceChange({
-                range: filter.value,
-                isCustom: filter.isCustom,
-                debounce: false,
-              });
-            }}
-          />
-          <label
-            htmlFor={filter.value}
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      <div className="flex flex-row flex-wrap gap-3 lg:flex-col" >
+        {" "}
+        {PRICE_FILTERS.filter((p) => !p.isCustom).map((filter: any, i: number) => (
+          <li
+            key={i}
+            className={`${priceFilter === filter.value ? "text-gray-500" : "text-gray-900"} flex items-center gap-2`}
           >
-            {filter.label}
-          </label>
-        </li>
-      ))}
+            <input
+              type="radio"
+              id={filter.value}
+              checked={
+                priceFilter?.range?.[0] === filter.value?.[0] &&
+                priceFilter?.range?.[1] === filter.value?.[1] &&
+                !priceFilter?.isCustom
+              }
+              onChange={() => {
+                handlePriceChange({
+                  range: filter.value,
+                  isCustom: filter.isCustom,
+                  debounce: false,
+                });
+              }}
+            />
+            <label
+              htmlFor={filter.value}
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {filter.label}
+            </label>
+          </li>
+        ))}
+      </div>
     </ul>
   );
 };

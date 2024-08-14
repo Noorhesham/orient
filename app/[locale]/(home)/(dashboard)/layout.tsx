@@ -8,9 +8,9 @@ export default async function RootLayout({
 }>) {
   return (
     <main>
-      <MaxWidthWrapper className=" grid grid-cols-8 gap-8 items-start pt-40 pb-10">
+      <MaxWidthWrapper className=" flex flex-col md:grid md:grid-cols-8 gap-8 items-stretch md:items-start  pt-40 pb-10">
         <SideBar />
-        <section className=" col-span-6">
+        <section className=" w-full col-span-full md:col-span-6">
         {children}
         </section>
       </MaxWidthWrapper>

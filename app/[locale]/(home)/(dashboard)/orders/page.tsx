@@ -70,7 +70,7 @@ const page = () => {
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, molestiae officia et numquam amet odit nemo
         in sunt quisquam molestias eos pariatur aut magnam atque cum magni fugiat vitae architecto."
       />
-      <TableDemo data={productsData} />
+      <TableDemo   data={productsData} />
     </div>
   );
 };

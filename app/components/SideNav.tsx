@@ -15,7 +15,7 @@ const SideNav = ({ icon, text, link }: { icon: React.ReactNode; text: string; li
     mounted && (
       <Link
         href={link}
-        className={`flex hover:bg-gray-100 hover:text-gray-800 duration-150 cursor-pointer w-full rounded-lg  py-2 px-4 items-center gap-2 self-start 
+        className={`flex hover:bg-gray-100 hover:text-gray-800 duration-150 cursor-pointer w-fit md:w-full rounded-lg  p-1  lg:py-2 lg:px-4 items-center gap-2 self-start 
          ${isActive ? "bg-gray-100" : ""}`}
       >
         {icon}

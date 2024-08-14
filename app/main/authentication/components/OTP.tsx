@@ -6,14 +6,15 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import CustomButton from "@/app/components/CustomButton";
 import { Server } from "../../Server";
 import { toast } from "react-toastify";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import FormInput from "@/app/components/FormInput";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/app/context/AuthContext";
+import { Suspense, useTransition } from "react";
+import Spinner from "@/app/components/Spinner";
 
 export function InputOTPPattern({
   handleSend,
@@ -22,6 +23,8 @@ export function InputOTPPattern({
   forgot = false,
   tfa,
   email,
+  activate,
+  revalidate,
 }: {
   handleSend: any;
   sendType: string;
@@ -29,6 +32,8 @@ export function InputOTPPattern({
   forgot?: boolean;
   tfa?: boolean;
   email?: boolean;
+  activate?: boolean;
+  revalidate?: any;
 }) {
   const { setLogin } = useAuth();
   const otpSchema = z.object({
@@ -45,70 +50,91 @@ export function InputOTPPattern({
   const form = useForm<z.infer<typeof otpSchema>>({ resolver: zodResolver(otpSchema) });
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
   const onSubmit = async (data: z.infer<typeof otpSchema>) => {
-    const res = await Server({
-      method: "POST",
-      resourceName: forgot ? "reset" : tfa ? "tfaValidate" : email ? "update_profile" : "validate",
-      id: searchParams.get("uuid") || "",
-      body: {
-        send_type: sendType,
-        send_by: sendType,
-        code: data.code,
-        uuid: searchParams.get("uuid"),
-        username: searchParams.get("username"),
-        type: searchParams.get("level"),
-        password: forgot && data.password,
-        email_code: email && data.code,
-      },
+    startTransition(async () => {
+      const res = await Server({
+        method: "POST",
+        resourceName: forgot
+          ? "reset"
+          : tfa
+          ? "tfaValidate"
+          : email
+          ? "update_profile"
+          : activate
+          ? "tfaActivate"
+          : "validate",
+        id: searchParams.get("uuid") || "",
+        body: {
+          send_type: sendType,
+          send_by: sendType,
+          code: data.code,
+          uuid: searchParams.get("uuid"),
+          username: searchParams.get("username"),
+          type: activate ? "verify" : searchParams.get("level"),
+          password: forgot && data.password,
+          email_code: email && data.code,
+          tfa: activate && "1",
+          email_uuid: email && searchParams.get("uuid"),
+          email: email && searchParams.get("email"),
+        },
+      });
+      console.log(res);
+      if (!res.status) setServerError(res.message);
+      if (res.status) {
+        if (res.token) cookies.set("jwt", res.token);
+        setLogin(true);
+        toast.success(res.message);
+        const updatedParams = new URLSearchParams(searchParams.toString());
+        ["username", "uuid", "level", "email"].forEach((p) => updatedParams.delete(p));
+        if (activate) return;
+        if (email) {
+          revalidate && revalidate();
+          return router.push(`?${updatedParams.toString()}`, { scroll: false });
+        }
+        forgot ? router.push("/login") : router.push("/");
+      }
     });
-    console.log(res);
-    if (!res.status) setServerError(res.message);
-    if (res.status) {
-      if (res.token) cookies.set("jwt", res.token);
-      setLogin(true);
-      toast.success(res.message);
-      const updatedParams = new URLSearchParams(searchParams.toString());
-      ["username", "uuid", "level"].forEach((p) => updatedParams.delete(p));
-      forgot ? router.push("/") : router.push("/login");
-    }
   };
 
   return (
-    <div className="flex flex-col items-center mt-8">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="code"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Vlidation code</FormLabel>
-                <FormControl>
-                  <InputOTP pattern={REGEXP_ONLY_DIGITS} maxLength={6} {...field}>
-                    <InputOTPGroup>
-                      <InputOTPSlot index={0} />
-                      <InputOTPSlot index={1} />
-                      <InputOTPSlot index={2} />
-                      <InputOTPSlot index={3} />
-                      <InputOTPSlot index={4} />
-                      {<InputOTPSlot index={5} />}
-                    </InputOTPGroup>
-                  </InputOTP>
-                </FormControl>
-                <FormDescription>Please enter the one-time code sent to you.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {forgot && <FormInput name="password" control={form.control} placeholder="ENTER NEW PASSWORD" password />}
-          <div className="mt-4 flex items-center gap-2">
-            <CustomButton text="SEND CODE AGAIN" onClick={(e: any) => handleSend(sendType)} />
-            <Button className=" rounded-full px-8" type="submit">
-              Submit
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </div>
+    <Suspense>
+      <div className="flex flex-col items-center mt-8">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="code"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Vlidation code</FormLabel>
+                  <FormControl>
+                    <InputOTP pattern={REGEXP_ONLY_DIGITS} maxLength={6} {...field}>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        {<InputOTPSlot index={5} />}
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </FormControl>
+                  <FormDescription>Please enter the one-time code sent to you.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {forgot && <FormInput name="password" control={form.control} placeholder="ENTER NEW PASSWORD" password />}
+            <div className="mt-4 flex items-center gap-2">
+              <CustomButton text="SEND CODE AGAIN" onClick={(e: any) => handleSend(sendType)} />
+              <Button disabled={isPending} className=" rounded-full px-8" type="submit">
+                {isPending ? <Spinner /> : "Submit"}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
+    </Suspense>
   );
 }
