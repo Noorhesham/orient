@@ -37,16 +37,13 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
   }, [isOpen]);
   return (
     <motion.nav
-      className={` w-0   h-full absolute inset-0 ${white ? "bg-white     overflow-y-scroll" : ""} `}
+      className={`   h-full absolute inset-0 ${white ? "bg-white     overflow-y-scroll" : ""} `}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
       ref={containerRef}
     >
-      <motion.div
-        className={`    absolute top-0 left-0  bottom-0 min-h-full ${isOpen ? "w-[300px] " : "w-0"} bg-white`}
-        variants={sidebar}
-      />
+      <motion.div className={`    absolute top-0 left-0 w-[300px]  bottom-0 min-h-full  bg-white`} variants={sidebar} />
       <Navigation isOpen={isOpen} links={links} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
