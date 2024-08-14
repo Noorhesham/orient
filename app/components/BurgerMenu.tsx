@@ -37,7 +37,7 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
   }, [isOpen]);
   return (
     <motion.nav
-      className={`   h-full absolute inset-0 ${white ? "bg-white     overflow-y-scroll" : ""} `}
+      className={`   h-full absolute inset-0 ${white ? "bg-white  " : ""} `}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
