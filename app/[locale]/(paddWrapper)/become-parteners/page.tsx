@@ -26,19 +26,19 @@ const page = () => {
       </section>
       <MaxWidthWrapper>
         <div className=" mt-5 md:mt-8 flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
-          <Section className="  col-span-2 flex flex-col gap-10">
+          <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
             <Partner tabs={tabs} />
           </Section>
           <div className=" col-span-full w-full lg:col-span-2">
             <Head1 text="DO YOU HAVE ANY QUESTIONS ?" />
-            <FormContainer
+            <FormContainer btnText="SEND MESSAGE"  
               schema={"contact"}
               formArray={[
                 { name: "name", placeholder: "NAME", type: "text" },
                 { name: "phone", placeholder: "PHONE", type: "text", phone: true },
                 { name: "email", placeholder: "EMAIL", type: "email" },
                 { name: "inquiry", placeholder: "INQUIREIS TYPE", type: "text", select: true },
-                { name: "message", placeholder: "MESSAGE", type: "text" },
+                { name: "message", placeholder: "MESSAGE", type: "text",area:true },
               ]}
             />
           </div>

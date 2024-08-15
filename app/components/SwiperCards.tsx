@@ -14,7 +14,9 @@ const SwiperCards = ({
   spaceBetween,
   btns,
   paginationImage,
-  rounded = false,logo,samePhone
+  rounded = false,
+  logo,
+  samePhone,
 }: {
   items: any;
   className?: string;
@@ -22,7 +24,9 @@ const SwiperCards = ({
   spaceBetween?: number;
   btns?: boolean;
   paginationImage?: boolean;
-  rounded?: boolean;logo?:boolean;samePhone?:boolean
+  rounded?: boolean;
+  logo?: boolean;
+  samePhone?: boolean;
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -43,11 +47,13 @@ const SwiperCards = ({
     <div className="relative h-full gap-3 w-full flex flex-col">
       <Swiper
         breakpoints={{
-          0: { slidesPerView: logo?2:samePhone?slidesPerView:1, centeredSlides: logo?false:true },
+          0: { slidesPerView: logo ? 2 : samePhone ? slidesPerView : 1, centeredSlides: logo ? false : true },
           768: { slidesPerView: slidesPerView || 2 },
           1024: { slidesPerView: slidesPerView || 3 },
           1280: { slidesPerView: slidesPerView || 3.4 },
-        }}  centeredSlides={false} initialSlide={0}
+        }}
+        centeredSlides={false}
+        initialSlide={0}
         onSwiper={(swiper) => setSwiper(swiper)}
         spaceBetween={spaceBetween || 10}
         slidesPerView={slidesPerView || 3.4}
@@ -56,7 +62,7 @@ const SwiperCards = ({
         {items.map(({ src, text, card }: { src: string; text: string; card: ReactNode }, i: number) => (
           <SwiperSlide className={`w-full h-full overflow-hidden ${rounded ? "rounded-2xl" : ""}`} key={i}>
             {card ? (
-              card
+             <div className="  w-full"> {card}</div>
             ) : (
               <>
                 <Image
@@ -64,7 +70,9 @@ const SwiperCards = ({
                   loading="eager"
                   src={src}
                   alt="product image"
-                  className={`object-contain object-center h-full w-full  ${rounded ? "rounded-2xl object-cover  lg:object-cover" : ""}`}
+                  className={`object-contain object-center h-full w-full  ${
+                    rounded ? "rounded-2xl object-cover  lg:object-cover" : ""
+                  }`}
                 />
                 {text && (
                   <h1 className="text-white text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
@@ -79,23 +87,23 @@ const SwiperCards = ({
           </SwiperSlide>
         ))}
       </Swiper>
-        {btns && (
-          <div className=" flex mb-4 items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 ">
-            <Button
-              onClick={() => swiper?.slidePrev()}
-              className=" rounded-full flex px-6 py-4 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
-            >
-              <ArrowLeft className="mr-1" />
-              Perv
-            </Button>
-            <Button
-              onClick={() => swiper?.slideNext()}
-              className=" rounded-full flex px-6 py-4 items-center  border border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
-            >
-              Next <ArrowRight />
-            </Button>
-          </div>
-        )}
+      {btns && (
+        <div className=" flex mb-4 items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 ">
+          <Button
+            onClick={() => swiper?.slidePrev()}
+            className=" rounded-full flex px-6 py-4 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
+          >
+            <ArrowLeft className="mr-1" />
+            Perv
+          </Button>
+          <Button
+            onClick={() => swiper?.slideNext()}
+            className=" rounded-full flex px-6 py-4 items-center  border border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
+          >
+            Next <ArrowRight />
+          </Button>
+        </div>
+      )}
       {paginationImage && (
         <div className="p-3 hidden md:flex z-10 mt-4 relative items-center gap-2">
           {items.map(({ src }: { src: string }, i: number) => (

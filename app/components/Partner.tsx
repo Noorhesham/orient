@@ -10,22 +10,23 @@ const Partner = ({ tabs }: { tabs: any[] }) => {
 
   return (
     <>
-      <div className="hidden flex-1 flex-grow md:flex w-full xl:w-[70%] justify-center mx-auto  flex-col gap-5">
+      <div className="hidden flex-1 flex-grow md:flex w-full xl:w-[70%] justify-center mx-auto items-center  flex-col gap-5">
         {tabs.map(({ link, text }, i) => (
           <CustomButton
             onClick={() => handleParam(link)}
             reverse={param === link}
             backgroundColor="dark"
             key={i}
-            className=" py-6 "
+            className=" py-6 w-full "
             text={text}
           />
         ))}
       </div>
-      <div className="  w-full  md:hidden flex mx-auto items-center justify-center  max-w-[30rem] h-20 ">
+      <div className="flex justify-center w-full">
+      <div className="  w-full  md:hidden flex mx-auto items-center justify-center max-w-[20rem]  md:max-w-lg overflow-hidden h-20 ">
         <SwiperCards
           className=" w-full h-full"
-          slidesPerView={1.6}
+          slidesPerView={1.8}
           items={tabs.map(({ link, text }, i) => ({
             card: (
               <CustomButton
@@ -33,12 +34,13 @@ const Partner = ({ tabs }: { tabs: any[] }) => {
                 reverse={param === link}
                 backgroundColor="dark"
                 key={i}
-                className="py-6  w-full"
+                className="py-6   w-full"
                 text={text}
               />
             ),
           }))}
         />
+      </div>
       </div>
     </>
   );
