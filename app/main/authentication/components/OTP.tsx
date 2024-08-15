@@ -89,7 +89,7 @@ export function InputOTPPattern({
         ["username", "uuid", "level", "email"].forEach((p) => updatedParams.delete(p));
         if (activate) return;
         if (email) {
-          revalidate && revalidate();
+          setLogin((l:boolean) => !l);  
           return router.push(`?${updatedParams.toString()}`, { scroll: false });
         }
         forgot ? router.push("/login") : router.push("/");

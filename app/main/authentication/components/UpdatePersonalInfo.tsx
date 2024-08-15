@@ -20,9 +20,6 @@ const personal = [
 const email = [{ name: "email", placeholder: "YOUR EMAIL" }];
 const phone = [{ name: "phone", placeholder: "YOUR PHONE NUMBER", phone: true }];
 const UpdatePersonalInfo = () => {
-  const revalidate = () => {
-    setLogin((l: any) => !l);
-  };
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setLogin, userSettings: user, loading } = useAuth();
@@ -36,7 +33,7 @@ const UpdatePersonalInfo = () => {
     if (res.status === true) {
       toast.success(res.message);
       setError(null);
-      revalidate();
+      setLogin((l: any) => !l);
     }
   };
 
@@ -46,6 +43,8 @@ const UpdatePersonalInfo = () => {
     if (!res.status) setError(res.errors?.length > 0 ? res.errors : res.errors.email || res.message)();
     if (res.status) {
       toast.success(res.message);
+      setLogin((l: any) => !l);
+
       const updatedParams = new URLSearchParams(searchParams);
       updatedParams.set("email", data.email);
       updatedParams.set("uuid", res.email_code_uuid);
@@ -78,7 +77,7 @@ const UpdatePersonalInfo = () => {
                 title="UPDATE EMAIL"
               />
               {searchParams.get("uuid") && (
-                <InputOTPPattern revalidate={revalidate} email sendType="email" handleSend={updateEmailInfo} />
+                <InputOTPPattern  email sendType="email" handleSend={updateEmailInfo} />
               )}
             </div>
           )
@@ -106,7 +105,7 @@ const UpdatePersonalInfo = () => {
                 title="UPDATE PHONE"
               />
               {searchParams.get("uuid") && (
-                <InputOTPPattern revalidate={revalidate} email sendType="email" handleSend={updateEmailInfo} />
+                <InputOTPPattern revalidate={()=> setLogin((l: any) => !l)} email sendType="email" handleSend={updateEmailInfo} />
               )}
             </div>
           )

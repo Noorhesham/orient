@@ -48,11 +48,8 @@ const page = () => {
                 alt="about"
                 width={348}
                 height={297}
-                className=" md:absolute   md:w-[60%]  md:-left-28  md:top-[40%]"
+                className=" absolute  top-[60%] left-10  md:w-[60%]  md:-left-28  md:top-[40%]"
               />
-            </div>
-            <div className="   block md:hidden w-full h-96 relative ">
-              <Image src="/about2.png" alt="about" fill className=" object-cover" />
             </div>
           </div>
         </section>
