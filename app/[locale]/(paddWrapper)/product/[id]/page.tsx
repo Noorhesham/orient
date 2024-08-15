@@ -164,7 +164,7 @@ const page = () => {
             link="/store"
             linkText="BROWSE ALL PRODUCTS"
           >
-            <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
+            <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-3 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
               <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
               <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
               <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
