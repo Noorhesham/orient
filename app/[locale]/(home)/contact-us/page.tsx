@@ -40,7 +40,7 @@ const page = () => {
         />
       </section>
       <MaxWidthWrapper>
-        <div className=" flex flex-col  gap-2 md:grid items-center  md:grid-cols-4">
+        <div className=" flex flex-col  gap-2 md:grid items-stetch  md:grid-cols-4">
           <Section
             CustomePadding="px-0  lg:px-0"
             className="  w-full col-span-2 flex flex-col gap-4"
@@ -82,7 +82,7 @@ const page = () => {
               <SocialMedia />
             </div>
           </Section>
-          <div className=" lg:mt-0 mt-2 w-full col-span-2">
+          <div className=" lg:mt-0 mt-2 w-full flex flex-col items-start col-span-2">
             <Head1 text="DO YOU HAVE ANY QUESTIONS ?" />
             <FormContainer
               schema={"contact"}

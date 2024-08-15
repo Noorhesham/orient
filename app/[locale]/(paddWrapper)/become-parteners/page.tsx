@@ -25,12 +25,9 @@ const page = () => {
         />
       </section>
       <MaxWidthWrapper>
-        <div className=" mt-5 md:mt-8 flex flex-col gap-3 md:flex-row  lg:grid items-center lg:grid-cols-4">
-          <Section CustomePadding="lg:px-20 px-2" className="  col-span-2 flex flex-col gap-10">
-         
-                <Partner tabs={tabs} />
-            
-         
+        <div className=" mt-5 md:mt-8 flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
+          <Section className="  col-span-2 flex flex-col gap-10">
+            <Partner tabs={tabs} />
           </Section>
           <div className=" col-span-full w-full lg:col-span-2">
             <Head1 text="DO YOU HAVE ANY QUESTIONS ?" />
