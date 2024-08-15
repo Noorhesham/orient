@@ -45,7 +45,7 @@ export default function Home() {
         />
       </div>
       <MaxWidthWrapper>
-        <div className=" flex flex-wrap justify-center  items-center gap-10 md:gap-20  my-5 ">
+        <div className=" flex flex-wrap justify-center  items-center gap-10 md:gap-20  mt-3 ">
           <Link href={"/color-trend"} className=" flex gap-3 ">
             <div className=" flex flex-col  items-center gap-2">
               <div className=" rounded-full w-44 h-44 relative">
@@ -66,7 +66,7 @@ export default function Home() {
           <Calculate />
         </div>
       </MaxWidthWrapper>
-      <div className=" h-[530px] relative w-full mt-[60px]">
+      <div className=" h-[530px] relative w-full ">
         <Image
           className=" lg:block hidden object-contain lg:object-cover w-full h-full"
           src={"/Rectangle 12333.png"}
