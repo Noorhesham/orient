@@ -80,7 +80,7 @@ const NavBar = () => {
           isHome
             ? "text-white placeholder:text-white "
             : `text-black placeholder:text-white ${!isScrollingDown && "bg-white/80"}`
-        } fixed inset-0 z-50 max-h-[10rem]   flex flex-col gap-2 px-4 lg:px-8 py-4 transition-all duration-300 ${
+        } fixed inset-0 z-50 max-h-[10rem]   flex flex-col gap-2  py-4 transition-all duration-300 ${
           isScrollingDown ? "-translate-y-full" : !isTopPage && !isScrollingDown ? "-translate-y-20" : "translate-y-0"
         }`}
       >
@@ -88,14 +88,14 @@ const NavBar = () => {
           <div className="absolute inset-0 h-[20rem] bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none z-10"></div>
         )}
 
-        <MaxWidthWrapper noPadding className="  md:px-10 ">
+        <MaxWidthWrapper noPadding >
           {
             <div className={`   relative z-20 flex flex-col  gap-5  lg:flex-row justify-between items-center`}>
               <div className="flex items-center gap-2 lg:gap-4 ">
                 <Logo type={isHome ? "white" : "blue"} />
                 <Language />
               </div>
-              <div className="flex  flex-row lg:flex-row-reverse  lg:basis-[36%]   items-center gap-4 lg:gap-5">
+              <div className="flex  flex-row lg:flex-row-reverse  lg:basis-[36%]   items-center gap-8 lg:gap-5">
                 <SearchBox active={active} setIsActive={setIsActive} />
 
                 {

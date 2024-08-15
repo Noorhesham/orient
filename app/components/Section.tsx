@@ -27,17 +27,17 @@ const Section = ({
   return (
     <section className={`${className || ""}  `}>
       <div className=" flex flex-col items-stretch w-full px-4">
-        <MotionContainer className="flex sm:flex-row flex-col items-center justify-between">
+        <MotionContainer className="flex flex-row items-center justify-between">
           {heading && (
             <MotionItem  nohover
-              className={` text-2xl  md:text-3xl  ${
+              className={` text-xl sm:text-2xl  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
             >
               {heading}
             </MotionItem>
           )}
-          {paragraph && <MotionItem nohover className="text-lg text-[20px] text-[#0D3B6F]">{paragraph}</MotionItem>}
+          {paragraph && <MotionItem nohover className=" text-sm sm:text-lg text-[20px] text-[#0D3B6F]">{paragraph}</MotionItem>}
           {link && (
             <Link
               href={link}

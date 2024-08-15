@@ -13,16 +13,16 @@ import React, { Suspense } from "react";
 
 const page = () => {
   return (
-    <main className=" bg-gray-50">
+    <MaxWidthWrapper className=" bg-gray-50">
       <section className=" min-h-screen  ">
         <Suspense>
-          <MotionItem initial={{ y: -100 }} animate={{ y: 1 }} className=" flex justify-center">
-            <MaxWidthWrapper className=" flex flex-col lg:grid lg:gap-10 lg:grid-cols-9  mt-5 justify-center">
+          <MotionItem nohover initial={{ y: -100 }} animate={{ y: 1 }} className=" flex justify-center">
+            <section className=" flex flex-col w-full lg:grid lg:gap-10 lg:grid-cols-9  mt-5 ">
               <div className="col-span-3 lg:block hidden">
                 <Filters />
               </div>
               <div className=" lg:col-span-6 grid-cols-3 ">
-                <div className="  gap-3 flex  items-center sm:flex-row flex-grow justify-between">
+                <div className="  gap-3 w-full flex  items-center sm:flex-row flex-grow justify-between">
                   <div className="flex  items-center">
                     <h1 className=" text-black font-semibold">65,867</h1>{" "}
                     <p className=" text-muted-foreground ml-2">Results Found</p>
@@ -32,7 +32,7 @@ const page = () => {
                   </div>
                   <FilterMobile />
                 </div>
-                <MotionContainer className="sm:grid duration-150 flex flex-col px-2 md:px-5  sm:grid-cols-2 lg:grid-cols-3 items-center gap-3 mt-[38px] justify-center">
+                <MotionContainer className="grid duration-150  w-full grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 ">
                   <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
                   <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
                   <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
@@ -53,11 +53,11 @@ const page = () => {
                   </div>
                 </MotionContainer>
               </div>
-            </MaxWidthWrapper>
+            </section>
           </MotionItem>
         </Suspense>
       </section>
-    </main>
+    </MaxWidthWrapper>
   );
 };
 

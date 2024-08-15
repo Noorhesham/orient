@@ -47,19 +47,19 @@ const PriceFilter = () => {
   const handlePriceChange = ({ range, isCustom }: any) => setPriceFilter({ range, isCustom });
 
   return (
-    <ul className="space-y-4 border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
+    <ul className="space-y-1 border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
       <li className="flex items-center  flex-row flex-wrap  lg:flex-col gap-4">
         <div className="self-start flex items-center gap-2 mr-auto">
-          {" "}
+ 
           <input
             type="radio"
             id={"price-custom"}
             checked={priceFilter?.isCustom}
             onChange={() => setPriceFilter({ isCustom: true, range: [0, 1000] })}
           />
-          <label
+          <label  onClick={() => setPriceFilter({ isCustom: true, range: [0, 1000] })}
             htmlFor={"price-custom"}
-            className="text-sm  mr-auto font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-lg  mr-auto font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Price Range
           </label>
@@ -80,7 +80,7 @@ const PriceFilter = () => {
           className={cn("w-full", !priceFilter?.isCustom && " opacity-50")}
         />
         {priceFilter && (
-          <div className="flex self-start justify-between">
+          <div className="flex self-start mb-3 justify-between">
             <div className="flex w-fit gap-5   items-center">
               <Input
                 onChange={(e) => {
@@ -102,12 +102,12 @@ const PriceFilter = () => {
           </div>
         )}
       </li>
-      <div className="flex flex-row flex-wrap gap-3 lg:flex-col" >
+      <div className="flex  flex-row flex-wrap gap-3   text-sm font-medium lg:flex-col">
         {" "}
         {PRICE_FILTERS.filter((p) => !p.isCustom).map((filter: any, i: number) => (
           <li
             key={i}
-            className={`${priceFilter === filter.value ? "text-gray-500" : "text-gray-900"} flex items-center gap-2`}
+            className={`${priceFilter === filter.value ? "text-gray-500" : "text-gray-900"}  flex items-center gap-2`}
           >
             <input
               type="radio"
@@ -127,7 +127,7 @@ const PriceFilter = () => {
             />
             <label
               htmlFor={filter.value}
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               {filter.label}
             </label>

@@ -16,15 +16,15 @@ const Box = ({ text, options, filter }: { text: string; options?: any[]; filter:
     setFilters((prev) => (!prev?.includes(filter) ? [...(prev || []), filter] : prev.filter((v) => v !== filter)));
   };
   return (
-    <div className="flex px-5 py-5 lg:py-10  bg-white uppercase flex-col ">
-      <h2 className=" text-xl lg:text-2xl font-medium mb-5">{text}</h2>
-      <ul className=" pb-3 border-b border-b-gray-400">
+    <div className="flex px-5 py-2 lg:py-4 font-medium  text-sm  bg-white uppercase flex-col ">
+      <h2 className="  text-lg mb-2">{text}</h2>
+      <ul className=" pb-3 flex flex-col gap-2 border-b border-b-gray-400">
         {filter !== "colors" &&
           filter !== "tags" &&
           options?.map((option, i) => (
             <li onClick={() => handleFilter(option)} key={i} className="flex items-center gap-2">
-              <input type="radio" name="" id="" />
-              <p>{option}</p>
+              <input type="radio" name="" id={option} />
+              <label htmlFor={option}>{option}</label>
             </li>
           ))}
         {filter === "colors" && (

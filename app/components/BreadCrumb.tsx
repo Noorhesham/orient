@@ -17,8 +17,8 @@ const BreadCrumb = () => {
   const links: any = pathName.split("/").filter((link) => !["ar", "en"].includes(link));
   console.log(links);
   return (
-    <Breadcrumb className=" py-3 px-6 bg-gradient-to-r from-[#ff007b2f] via-white to-[#00a2ff3f]">
-    <MaxWidthWrapper >
+    <Breadcrumb className=" py-3  bg-gradient-to-r from-[#ff007b2f] via-white to-[#00a2ff3f]">
+    <MaxWidthWrapper noPadding >
         <BreadcrumbList className=" ">
           {links.map((link: any, i: number) => {
             const isLast = i === links.length - 1;

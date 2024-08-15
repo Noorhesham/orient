@@ -23,7 +23,7 @@ const Footer = () => {
       <footer className=" relative bg-main2  ">
         <MaxWidthWrapper className=" relative z-10  items-center py-10 lg:py-20 lg:pt-28 md:pt-20 pt-10  ">
           <div className=" border-b border-gray-400 pb-5 grid gap-10 lg:gap-20 xl:gap-32  grid-cols-5 xl:grid-cols-8">
-            <div className=" col-span-full md:col-span-3 flex gap-4 flex-col">
+            <div className=" col-span-full md:col-span-3 items-center lg:items-start flex gap-4 flex-col">
               <Logo />
               <div className=" flex items-center gap-3">
                 <Phone /> <p className=" ml-2 tracking-wide text-white text-3xl font-[600]">19842</p>
@@ -32,7 +32,7 @@ const Footer = () => {
                 <HeadPhones />
                 <div className="text-white flex gap-1 flex-col">
                   <p className=" ml-2 tracking-wide  text-xl font-[500]">HEED OFFICE</p>
-                  <div className="ml-2  flex  gap-3 items-center text-[14px]">
+                  <div className="ml-2  flex flex-col lg:flex-row gap-3 items-center text-[14px]">
                     <p>Head Office Maadi, Cairo.</p>
                     <p className=" py-1 px-4 w-fit text-xs bg-gray-400/40 rounded-full">Show Map</p>
                   </div>
@@ -42,7 +42,7 @@ const Footer = () => {
                 <HeadPhones />
                 <div className="text-white flex gap-1 flex-col">
                   <p className=" ml-2 tracking-wide  text-xl font-[500]">Factory</p>
-                  <div className="ml-2  flex  gap-3 items-center text-[14px]">
+                  <div className="ml-2  flex flex-col lg:flex-row  gap-3 items-center text-[14px]">
                     <p>Head Office Maadi, Cairo.</p>
                     <p className=" py-1 px-4 w-fit text-xs bg-gray-400/40 rounded-full">Show Map</p>
                   </div>
@@ -51,8 +51,8 @@ const Footer = () => {
             </div>
 
             <div className=" ml-5  col-span-full md:col-span-2 text-gray-50">
-              <p>ABOUT ORIENT</p>
-              <ul className=" flex flex-col mt-10 gap-3">
+              <p className=" text-center lg:text-left">ABOUT ORIENT</p>
+              <ul className=" grid  text-center grid-cols-2 lg:items-start items-center lg:flex lg:flex-col mt-10 gap-3">
                 <Link href="/">HOME</Link>
                 <Link href={"/about-us"}>ABOUT US</Link>
                 <Link href={"products"}>PRODUCTS</Link>
@@ -62,10 +62,10 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="  col-span-full xl:col-span-3 pb-5 md:pb-10  flex gap-5 flex-col">
+            <div className="  col-span-full xl:col-span-3 pb-5 md:pb-10 items-center lg:items-start  flex gap-5 flex-col">
               <div>
-                <p className=" text-white">DOWNLOAD APP</p>
-                <div className=" flex items-center gap-3 mt-5">
+                <p className=" text-center lg:text-left  text-white">DOWNLOAD APP</p>
+                <div className=" flex lg:justify-normal justify-center items-center gap-3 mt-5">
                   <Google />
                   <Apple />
                 </div>

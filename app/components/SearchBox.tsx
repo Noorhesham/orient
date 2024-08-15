@@ -66,21 +66,21 @@ const SearchBox = ({
       ref={containerRef}
       className={` ${
         bg === "blue"
-          ? `bg-main2/15 text-gray-800 `
+          ? `bg-main2/15 text-gray-800 placeholder:text-gray-800 `
           : !bg && !active
           ? "   "
           : active
-          ? "bg-transparent lg:bg-white/10"
-          : ""
-      }  relative flex lg:w-full items-center lg:gap-10 rounded-3xl mr-1   ${
-        active && "-translate-x-20 py-2 px-4 lg:translate-x-0"
-      } duration-150`}
+          ? ""
+          : "placeholder:text-white"
+      }  relative flex lg:w-full items-center lg:bg-white/10 lg:gap-10 rounded-3xl mr-1   ${
+        active && "-translate-x-20  py-2 px-4 lg:translate-x-0"
+      } duration-150 lg:py-2 lg:px-4`}
     >
       <input
         ref={inputRef}
         onChange={handleSearchChange}
         className={` bg-transparent rounded-3xl duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
-          placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize placeholder:text-white lg:block  hidden outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
+          placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
         type="text"
         placeholder="Hey, what are you looking for?"
       />

@@ -15,7 +15,7 @@ const Comment = ({
   user: { name: string; photo?: string };
 }) => {
   return (
-    <div className=" border-b border-input py-4 px-4 md:px-8 flex flex-col">
+    <div className=" border-b border-input py-4   flex flex-col">
       <div className="flex my-2 items-start flex-col">
         <span className=" text-gray-400 font-semibold text-xs">{format(date, "dd/MM/yyyy")}</span>
         <Starrating MaxRating={5} size={20} defaultRating={rate} />
