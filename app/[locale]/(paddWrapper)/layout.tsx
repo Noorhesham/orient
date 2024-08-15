@@ -14,7 +14,7 @@ export default async function RootLayout({
   return (
     <main>
       <NavBar />
-      <section className=" py-40">
+      <section className=" pt-40">
         <BreadCrumb />
         {children}
       </section>

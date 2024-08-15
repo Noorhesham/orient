@@ -4,7 +4,7 @@ import { Progress } from "@/components/ui/progress";
 
 const Reviews = () => {
   return (
-    <section className=" flex sm:flex-row flex-col flex-wrap justify-between mt-10">
+    <section className=" flex sm:flex-row flex-col flex-wrap justify-between mt-5 lg:mt-10">
       <div className="flex mb-2 flex-grow items-start flex-col">
         <h2 className=" font-medium">REVIEWS</h2>
         <h3 className=" font-bold text-4xl mt-2">4.7</h3>

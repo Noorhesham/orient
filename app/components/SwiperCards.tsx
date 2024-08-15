@@ -64,7 +64,7 @@ const SwiperCards = ({
                   loading="eager"
                   src={src}
                   alt="product image"
-                  className={`object-contain object-center h-full w-full  ${rounded ? "rounded-2xl sm:object-cover object-contain  lg:object-cover" : ""}`}
+                  className={`object-contain object-center h-full w-full  ${rounded ? "rounded-2xl object-cover  lg:object-cover" : ""}`}
                 />
                 {text && (
                   <h1 className="text-white text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">

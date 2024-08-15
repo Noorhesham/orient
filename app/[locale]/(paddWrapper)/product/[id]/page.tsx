@@ -254,6 +254,17 @@ const page = () => {
                       </div>
                     ),
                   },
+                  {
+                    card: (
+                      <div className=" flex items-start gap-3">
+                        CreditCard
+                        <div className="flex flex-col gap-2">
+                          <h2 className=" text-black font-medium">SECURE PAYMENTS</h2>
+                          <p className=" text-sm text-muted-foreground">YOUR MONEY IS SAFE</p>
+                        </div>
+                      </div>
+                    ),
+                  },
                 ]}
               />
             </div>
