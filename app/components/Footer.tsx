@@ -31,7 +31,7 @@ const Footer = () => {
               <div className=" flex items-start gap-3 ">
                 <HeadPhones />
                 <div className="text-white flex gap-1 flex-col">
-                  <p className=" ml-2 tracking-wide  text-xl font-[500]">HEED OFFICE</p>
+                  <p className=" ml-2 tracking-wide text-center lg:text-left  text-xl font-[500]">HEED OFFICE</p>
                   <div  className="ml-2   flex justify-center flex-col lg:flex-row gap-3 items-center text-[14px]">
                     <p className=" text-center lg:text-left mx-auto">Head Office Maadi, Cairo.</p>
                     <p className=" py-1 px-4 w-fit text-xs bg-gray-400/40 rounded-full">Show Map</p>
@@ -41,7 +41,7 @@ const Footer = () => {
               <div className=" flex items-start gap-3 ">
                 <HeadPhones />
                 <div className="text-white flex  gap-1 flex-col">
-                  <p className=" ml-2 tracking-wide  text-xl font-[500]">Factory</p>
+                  <p className=" ml-2 tracking-wide text-center lg:text-left  text-xl font-[500]">Factory</p>
                   <div className="ml-2    flex  justify-center flex-col lg:flex-row  gap-3 items-center text-[14px]">
                     <p>Head Office Maadi, Cairo.</p>
                     <p className=" py-1 px-4 w-fit text-xs bg-gray-400/40 rounded-full">Show Map</p>
