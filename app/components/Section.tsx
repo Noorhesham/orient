@@ -30,7 +30,7 @@ const Section = ({
         <MotionContainer className="flex flex-row items-center justify-between">
           {heading && (
             <MotionItem  nohover
-              className={` text-xl sm:text-2xl  md:text-3xl  ${
+              className={` text-lg sm:text-2xl  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
             >

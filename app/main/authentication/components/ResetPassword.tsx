@@ -49,7 +49,7 @@ const ResetPassword = () => {
   };
   return (
     <Suspense fallback={<Spinner />}>
-      <Section CustomePadding="px-5 py-40" className=" bg-gray-50 flex flex-1  flex-col items-center">
+      <Section CustomePadding="px-5 py-40" className=" bg-gray-50 justify-center flex flex-1  flex-col items-center">
         <div className=" mx-auto flex flex-col items-center justify-center  w-full  ">
           <Logo size={{ width: 863, height: 338 }} type="blue" />
           <h1 className=" text-center text-2xl mt-8 font-bold text-main2">FORGOT PASSWORD</h1>

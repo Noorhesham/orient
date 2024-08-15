@@ -118,7 +118,7 @@ const Login = () => {
     },
   ];
   return (
-    <Section CustomePadding="px-5 py-20" className="bg-gray-50 flex flex-1 flex-col items-center">
+    <Section CustomePadding="px-5 py-20" className="bg-gray-50 justify-center flex flex-1 flex-col items-center">
       <div className="mx-auto flex flex-col items-center justify-center w-full">
         <Logo size={{ width: 863, height: 338 }} type="blue" />
         {!activate && (

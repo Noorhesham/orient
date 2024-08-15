@@ -54,7 +54,7 @@ const page = () => {
     <section className=" h-full relative">
       <MaxWidthWrapper noPadding className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
         <div className="lg:col-span-8 items-center max-w-full flex flex-col lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
-          <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-12 w-full">
+          <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
             <div className="  w-full h-96 ">
               <SwiperCards
                 rounded
@@ -88,15 +88,15 @@ const page = () => {
             </div>
             <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 px-5">
               <div className="lg:hidden border-b border-input flex flex-col items-start max-w-md ">
-              <div className=" flex items-center gap-2">
-                <div className=" flex self-center mx-auto  items-center gap-2">
-                  <h2 className=" text-sm text-black font-medium">AMOUNT :</h2>
-                  <Counter />
+                <div className=" flex items-center gap-2">
+                  <div className=" flex self-center mx-auto  items-center gap-2">
+                    <h2 className=" text-sm text-black font-medium">AMOUNT :</h2>
+                    <Counter />
+                  </div>
                 </div>
-              </div>
-              <div className=" lg:hidden flex flex-col  items-start ">
-                <Variants options={options} optionsSize={optionsSize} />
-              </div>
+                <div className=" lg:hidden flex flex-col  items-start ">
+                  <Variants options={options} optionsSize={optionsSize} />
+                </div>
               </div>
 
               <div className="flex  my-5  sticky top-0 z-20 flex-nowrap lg:flex-wrap w-full lg:flex-row flex-col items-center gap-2">
@@ -159,18 +159,18 @@ const page = () => {
 
           <Section
             CustomePadding=" px-0 py-5"
-            className=" col-span-7 mt-8 "
+            className=" col-span-7 mt-4 lg:mt-8 "
             heading="SIMILAT PRODUCTS"
             link="/store"
             linkText="BROWSE ALL PRODUCTS"
           >
-          <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
-          <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
+            <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
+              <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
               <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
               <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
             </MotionContainer>
             <section className="  w-full mt-8">
-              <div className="flex  my-10 z-10 w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
+              <div className="flex  my-3 lg:my-10 z-10 w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
                 <p>DESCRIPTION</p>
                 <p>REVIEW</p>
               </div>
