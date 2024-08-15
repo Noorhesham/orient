@@ -96,7 +96,7 @@ const Login = () => {
       },
     });
     console.log(res);
-    if (!res.status) setServerError(Array.isArray(res.errors) ? res.errors : res.errors.send_by || res.message);
+    if (!res.status) setServerError(Array.isArray(res.errors)&& res.errors.length > 0 ? res.errors : res.errors.send_by || res.message);
     if (res.status) {
       setServerError(null);
       toast.success(res.message);
@@ -180,7 +180,7 @@ const Login = () => {
             />
           )}
         </Suspense>
-        {activate && serverError && (
+        { serverError  && (
           <p className="text-red-500 text-center mt-3 text-sm font-semibold">{serverError}</p>
         )}
       </div>

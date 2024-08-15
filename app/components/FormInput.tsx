@@ -133,18 +133,18 @@ const FormInput = ({
                   </Suspense>
                 ) : switchToggle ? (
                   <div className="flex mx-auto   mt-3 gap-2 items-center ">
-                    <Label className=" md:text-sm flex-1 text-xs text-muted-foreground" htmlFor="sale">
+                    <Label className=" md:text-sm  text-xs text-muted-foreground" htmlFor="sale">
                       {label2 || ""}
                     </Label>
                     <Switch
                       noSwitch
                       disabled={disabled}
                       id="sale"
-                      className="flex-1"
+                      className=""
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
-                    <Label className="md:text-sm flex-grow flex-1 text-xs  text-muted-foreground" htmlFor="sale">
+                    <Label className="md:text-sm flex-grow  text-xs  text-muted-foreground" htmlFor="sale">
                       {label || ""}
                     </Label>
                   </div>

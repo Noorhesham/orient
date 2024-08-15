@@ -13,7 +13,7 @@ const page = () => {
           subText="articles about paints"
           paragraph=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ipsam cum quam ullam, nulla iure nesciunt a, tempora, obcaecati excepturi eos rem tenetur dolor. Ducimus praesentium sapiente provident voluptates officia?"
         />
-        <MotionContainer className=" gap-4 grid grid-cols-1 lg:grid-cols-3">
+        <MotionContainer className=" gap-4 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
           <CardHuge href="/blog/1" />
           <CardHuge />
           <CardHuge />

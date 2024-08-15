@@ -7,8 +7,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <MaxWidthWrapper className=" flex flex-col md:grid md:grid-cols-8 gap-8 items-stretch md:items-start  pt-40 pb-10">
+    <main className="pt-40">
+      <MaxWidthWrapper className=" flex flex-col md:grid md:grid-cols-8 gap-8 items-stretch md:items-start   pb-10">
         <SideBar />
         <section className=" w-full col-span-full md:col-span-6">
         {children}
