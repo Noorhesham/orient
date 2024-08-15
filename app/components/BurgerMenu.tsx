@@ -37,13 +37,16 @@ const BurgerMenu = ({ links }: { links: any[] }) => {
   }, [isOpen]);
   return (
     <motion.nav
-      className={`   h-full absolute inset-0 ${white ? "bg-white  " : ""} `}
+      className={`   h-full  absolute inset-0 ${white ? "bg-white  " : ""} `}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
       ref={containerRef}
     >
-      <motion.div className={`    absolute top-0 left-0 ${isOpen ? "w-[300px] " : "w-0"} bottom-0 min-h-full  bg-white`} variants={sidebar} />
+      <motion.div
+        className={` overflow-y-auto   absolute top-0 left-0  w-[300px] bottom-0 min-h-full  bg-white`}
+        variants={sidebar}
+      />
       <Navigation isOpen={isOpen} links={links} />
       <MenuToggle toggle={() => toggleOpen()} />
     </motion.nav>
@@ -91,7 +94,10 @@ const variants = {
 };
 
 const Navigation = ({ links, isOpen }: { links: any[]; isOpen: boolean }) => (
-  <motion.ul className={` absolute top-20   ${isOpen && "px-10 py-5"} w-full h-full z-[999]`} variants={variants}>
+  <motion.ul
+    className={` absolute ${isOpen ? " z-[999] " : "z-[-1]"} top-20    px-10 py-5 w-full h-full`}
+    variants={variants}
+  >
     {links.map((link, i) => (
       <MenuItem isOpen={isOpen} link={link} i={i} key={i} />
     ))}
@@ -119,16 +125,16 @@ const MenuItem = ({ i, link, isOpen }: { i: number; link: any; isOpen: boolean }
   const style = { border: `2px solid ${colors[i]}` };
   return (
     <motion.li
-      className={` flex ${isOpen ? "w-full" : "w-0"}  w-full items-center z-[999]`}
+      className={` flex  w-[180px]  items-center z-[999]`}
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
       <div className="icon-placeholder" style={style} />
       <div className="text-placeholder" style={style} />
-      {isOpen && link.subLinks ? (
-        <Accordion className={` z-[999] ml-3`} type="single" collapsible>
-          <AccordionItem value="item-1">
+      {link.subLinks ? (
+        <Accordion className={` z-[999] w-full ml-3`} type="single" collapsible>
+          <AccordionItem className=" w-full" value="item-1">
             <AccordionTrigger>{link.text}</AccordionTrigger>
             <AccordionContent className=" flex flex-col gap-2">
               {link.subLinks.map((subLink: any, i: number) => (
@@ -139,11 +145,11 @@ const MenuItem = ({ i, link, isOpen }: { i: number; link: any; isOpen: boolean }
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      ) : isOpen ? (
+      ) : (
         <Link className=" ml-3 py-2 px-3 text-nowrap" href={link.href || ""}>
           {link.text}
         </Link>
-      ) : null}
+      )}
     </motion.li>
   );
 };

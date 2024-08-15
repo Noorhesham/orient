@@ -65,38 +65,45 @@ const SearchBox = ({
     <div
       ref={containerRef}
       className={` ${
-        bg === "blue" ? `bg-main2/15 text-gray-800 ` : !bg && !active ? " bg-white/10 " : active ? "bg-transparent" : ""
-      }  relative flex lg:w-full items-center lg:gap-10 rounded-3xl mr-1  py-2 px-4 ${active&&'-translate-x-20'} duration-150`}
+        bg === "blue"
+          ? `bg-main2/15 text-gray-800 `
+          : !bg && !active
+          ? "   "
+          : active
+          ? "bg-transparent lg:bg-white/10"
+          : ""
+      }  relative flex lg:w-full items-center lg:gap-10 rounded-3xl mr-1   ${
+        active && "-translate-x-20 py-2 px-4 lg:translate-x-0"
+      } duration-150`}
     >
-       {isLg ? (
-        <input
-          ref={inputRef}
-          onChange={handleSearchChange}
-          className={` bg-transparent rounded-3xl duration-150 absolute py-3 px-4 lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
-          placeholder:my-auto outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
-          type="text"
-          placeholder="Hey, what are you looking for?"
-        />
-      ) : (
-        <motion.input
-          ref={inputRef}
-          initial={{ width: 0 }}
-          animate={{ width: active ? "350px" : 0 }}
-          transition={{ duration: 0.5 }}
-          onChange={handleSearchChange}
-          className={`${
-            active ? "bg-white/10" : "bg-transparent"
-          } rounded-3xl duration-150 absolute    py-3 px-4 left-0 pl-10 placeholder:font-[300] placeholder:my-auto outline-none placeholder:text-xs text-xs font-medium ${
-            active ? "z-50" : "w-0"
-          }`}
-          type="text"
-          placeholder="Hey, what are you looking for?"
-        />
-      )}
+      <input
+        ref={inputRef}
+        onChange={handleSearchChange}
+        className={` bg-transparent rounded-3xl duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
+          placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize placeholder:text-white lg:block  hidden outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
+        type="text"
+        placeholder="Hey, what are you looking for?"
+      />
+
+      <motion.input
+        ref={inputRef}
+        initial={{ width: 0 }}
+        animate={{ width: active ? "350px" : 0 }}
+        transition={{ duration: 0.5 }}
+        onChange={handleSearchChange}
+        className={`${
+          active ? "bg-white/10 py-3 px-4" : "bg-transparent placeholder:w-0"
+        } rounded-3xl duration-150 absolute  block lg:hidden     left-0 pl-12 placeholder:font-[300] placeholder:my-auto outline-none placeholder:text-xs text-xs font-medium ${
+          active ? "z-50" : "w-0"
+        }`}
+        type="text"
+        placeholder="Hey, what are you looking for?"
+      />
+
       <div
         onClick={() => setIsActive(!active)}
-        className={`${icon === "white" ? "px-2 py-1 rounded-full bg-main2" : ""} ${
-          active ? "rotate-[60deg]" : ""
+        className={`${icon === "white" ? " rounded-full bg-main2" : ""} ${
+          active ? "lg:rotate-0 rotate-[60deg]" : ""
         }  duration-150 cursor-pointer z-[60] `}
       >
         <SearchIcon color={pathname === "/ar" || pathname === "/en" || icon === "white" ? "white" : "black"} />

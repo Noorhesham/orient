@@ -1,5 +1,17 @@
 {
   "HomePage": {
     "title": "Hello world!"
+  },
+  "languageSwitcher": {
+    "selectLanguage": "English"
+  },
+  "navbar": {
+    "home": "Home",
+    "about us": "About",
+    "contact us": "Contact Us",
+    "shop now": "Shop Now",
+    "products": "Products",
+    "get inspired": "Get Inspired",
+    "become partener": "Become Parteners"
   }
 }

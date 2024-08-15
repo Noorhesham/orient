@@ -16,6 +16,8 @@ import { useAuth } from "../context/AuthContext";
 import ModalCustom from "./ModalCustom";
 import AppDownload from "./AppDownload";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import Language from "./Language";
+import PhoneNav from "./PhoneNav";
 const links = [
   {
     text: "Shop Now",
@@ -71,7 +73,7 @@ const NavBar = () => {
   return (
     <header className=" w-full">
       <div className={`z-[999] duration-150 h-full top-0  fixed left-0  lg:hidden block`}>
-        <BurgerMenu links={links} />
+        <PhoneNav isHome={isHome} navigation={links} />
       </div>
       <nav
         className={`${
@@ -88,11 +90,12 @@ const NavBar = () => {
 
         <MaxWidthWrapper noPadding className="  md:px-10 ">
           {
-            <div className={`   relative z-20 flex flex-col  md:gap-0 gap-5  lg:flex-row justify-between items-center`}>
-              <div className={`  duration-150 `}>
+            <div className={`   relative z-20 flex flex-col  gap-5  lg:flex-row justify-between items-center`}>
+              <div className="flex items-center gap-2 lg:gap-4 ">
                 <Logo type={isHome ? "white" : "blue"} />
+                <Language />
               </div>
-              <div className="flex  flex-row  lg:basis-[402px]   items-center gap-1 lg:gap-5">
+              <div className="flex  flex-row lg:flex-row-reverse  lg:basis-[36%]   items-center gap-4 lg:gap-5">
                 <SearchBox active={active} setIsActive={setIsActive} />
 
                 {

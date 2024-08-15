@@ -10,6 +10,7 @@ import LinkButton from "../../components/LinkButton";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
+import Paragraph from "@/app/components/Paragraph";
 // import Notifications from "@/app/components/Notificationts";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
@@ -21,14 +22,17 @@ export default function Home() {
         <ImageSlider />
         {/* <Notifications /> */}
       </section>
-      <Section link="#" className="mt-10 min-h-[30vh]" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
-        <MotionContainer className="sm:grid flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 mt-[62px] justify-center">
-          <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-          <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-          <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
-          <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (3).jpg" />
-        </MotionContainer>
-      </Section>
+      <MaxWidthWrapper>
+        <Section link="#" className="my-10 min-h-[30vh]" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
+          <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
+            <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
+            <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
+            <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
+            <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (3).jpg" />
+          </MotionContainer>
+        </Section>
+      </MaxWidthWrapper>
+
       <div className=" relative mt-2">
         <SwiperCards
           items={[
@@ -41,7 +45,7 @@ export default function Home() {
         />
       </div>
       <MaxWidthWrapper>
-        <div className=" flex flex-wrap justify-center pb-10 items-center gap-[121px] mt-[60px]">
+        <div className=" flex flex-wrap justify-center  items-center gap-10 md:gap-20  my-5 ">
           <Link href={"/color-trend"} className=" flex gap-3 ">
             <div className=" flex flex-col  items-center gap-2">
               <div className=" rounded-full w-44 h-44 relative">
@@ -64,38 +68,41 @@ export default function Home() {
       </MaxWidthWrapper>
       <div className=" h-[530px] relative w-full mt-[60px]">
         <Image
-          className=" md:block hidden object-contain lg:object-cover w-full h-full"
+          className=" lg:block hidden object-contain lg:object-cover w-full h-full"
           src={"/Rectangle 12333.png"}
           fill
           alt=""
         />
-        <Image className=" md:hidden block object-contain w-full h-full" src={"/bannar mobile.png"} fill alt="" />
+        <Image className=" lg:hidden block object-contain w-full h-full" src={"/bannar mobile.png"} fill alt="" />
         <div className=" hidden lg:block absolute inset-0 w-[97%] h-[23%] lg:h-[500px] top-1/2 lg:top-[5%] left-1/2 -translate-x-1/2 border-[3px] border-gray-100"></div>
       </div>
 
-      <Section headingColor="#E6007E" heading="PARKOSTIAN" className="relative mt-[60px]">
-        <div className="  mt-[17px]">
-          <p className=" xl:translate-x-1/2 z-10 relative mt-5 lg:mt-[60px] max-w-[810px] text-sm">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industrys standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          </p>
-          <div className="  w-[300px] lg:w-[345px]   h-full top-[14.2rem] md:top-[12.3rem] left-10 lg:left-[12rem]  absolute">
-            <Image src={"/brown.svg"} fill className=" object-contain lg:object-cover" alt="" />
+      <MaxWidthWrapper>
+        <Section headingColor="#E6007E" heading="PARKOSTIAN" className="relative mt-10">
+          <div className="  mt-5">
+            <Paragraph
+              description=" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industrys standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and
+              typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+              className=" translate-x-0 xl:translate-x-[60%] z-10 relative mt-5 "
+            />
+            <div className="   aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-96 bottom-0  top-[107%] sm:top-[90%] md:top-[82%] xl:top-[5.5rem] right-[20%] sm:right-[40%]    md:right-20 xl:left-0  absolute">
+              <Image src={"/brown.svg"} fill className=" object-cover " alt="" />
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      </MaxWidthWrapper>
       <div className=" px-3">
-        <div className=" mt-[40px]   grid grid-cols-6 gap-[4px]">
-          <div className=" w-full  h-[157px] bg-[#55402D]"></div>
-          <div className=" w-full  h-[157px] bg-[#A7835E]"></div>
-          <div className=" w-full ml-15 h-[157px] bg-[#A7835E]"></div>
-          <div className=" w-full h-[157px] bg-[#4D3A2A]"></div>
-          <div className=" w-full h-[157px] bg-[#73573F]"></div>
-          <div className=" w-full h-[157px] bg-[#A9835E]"></div>
+        <div className=" mt-10   grid grid-cols-6 gap-[4px]">
+          <div className=" w-full  h-52 bg-[#55402D]"></div>
+          <div className=" w-full  h-52 bg-[#A7835E]"></div>
+          <div className=" w-full h-52 bg-[#A7835E]"></div>
+          <div className=" w-full h-52 bg-[#4D3A2A]"></div>
+          <div className=" w-full h-52 bg-[#73573F]"></div>
+          <div className=" w-full h-52 bg-[#A9835E]"></div>
         </div>
       </div>
-      <MaxWidthWrapper className=" mt-14 lg:mt-20 flex pb-[89px] flex-col items-center justify-center">
+      <MaxWidthWrapper className="  flex  pb-14 flex-col items-center justify-center">
         <Heading
           mainText="DISCOVER THE MOST IMPORTANT"
           subText="ARTICLES ABOUT PAINTS"
@@ -103,12 +110,12 @@ export default function Home() {
         voluptatum unde magni pariatur expedita ullam reprehenderit corporis! Alias beatae quasi dolore nulla officiis
         rerum."
         />
-        <MotionContainer className=" grid grid-cols-1 lg:grid-cols-3 mx-auto gap-3 items-center ">
+        <MotionContainer className=" grid grid-cols-1 justify-items-center w-full lg:grid-cols-3 mx-auto gap-3 items-center ">
           <CardHuge />
           <CardHuge />
           <CardHuge />
         </MotionContainer>
-        <div className=" mt-[50px] ">
+        <div className=" mt-2 pb-8">
           <LinkButton text="BROWSE ALL BLOG" href="/blog" />
         </div>
       </MaxWidthWrapper>

@@ -33,10 +33,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body
-        // style={{ direction: locale === "ar" ? "rtl" : "ltr" }} ${locale === "ar" && "text-right"}
-        className={`${inter.className} `}
-      >
+      <body style={{ textAlign: locale === "ar" ? "right" : "left" }} className={`${inter.className} `}>
         <QueryProvider>
           <DeviceProvider>
             <AuthProvider>

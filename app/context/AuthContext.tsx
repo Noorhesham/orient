@@ -64,7 +64,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             last_update_date_user: res.user_settings?.last_update_date,
           }));
         }
-        if (res.user2_settings?.data && res.status !== false||!queryClient.getQueryData(["user2_settings"])) {
+        if ((res.user2_settings?.data && res.status !== false)||!queryClient.getQueryData(["user2_settings"])) {
           setUser2Settings(res.user2_settings.data);
           queryClient.setQueryData(["user2_settings"], res.user2_settings.data);
           setDates((prevDates: any) => ({

@@ -23,12 +23,13 @@ const Section = ({
   paragraph?: string;
   CustomePadding?: string;
 }) => {
+  // ${CustomePadding || "lg:px-20 px-5 md:px-10 py-8 lg:py-16"}
   return (
-    <section className={`${className || ""} ${CustomePadding || "lg:px-20 px-5 md:px-10 py-8 lg:py-16"} `}>
-      <div className=" w-full px-4">
-        <MotionContainer className="flex sm:flex-row flex-col justify-between">
+    <section className={`${className || ""}  `}>
+      <div className=" flex flex-col items-stretch w-full px-4">
+        <MotionContainer className="flex sm:flex-row flex-col items-center justify-between">
           {heading && (
-            <MotionItem 
+            <MotionItem  nohover
               className={` text-2xl  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
@@ -36,7 +37,7 @@ const Section = ({
               {heading}
             </MotionItem>
           )}
-          {paragraph && <MotionItem className="text-lg text-[20px] text-[#0D3B6F]">{paragraph}</MotionItem>}
+          {paragraph && <MotionItem nohover className="text-lg text-[20px] text-[#0D3B6F]">{paragraph}</MotionItem>}
           {link && (
             <Link
               href={link}

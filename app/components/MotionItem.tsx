@@ -8,18 +8,18 @@ const MotionItem = ({
   variants,
   initial,
   animate,
-  exit,whileInView
+  exit,whileInView,nohover
 }: {
   children: React.ReactNode;
   className?: string;
   variants?: Variants;
   initial?: any;
   animate?: any;
-  exit?: any;whileInView?:any
+  exit?: any;whileInView?:any,nohover?:boolean
 }) => {
   return (
-    <motion.div
-      whileHover={{ y: -10 }}
+    <motion.div 
+      whileHover={{ y: nohover?0:-10 }}
       initial={initial}
       animate={animate}
       exit={exit}
