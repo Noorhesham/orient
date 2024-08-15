@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Spinner from "./Spinner";
 import Starrating from "./Rate";
 import PhotoInput from "./PhotoInput";
+import { Textarea } from "@/components/ui/textarea";
 interface FormInputProps {
   control?: any;
   name: string;
@@ -32,6 +33,7 @@ interface FormInputProps {
   noProgress?: boolean;
   date?: boolean;
   rate?: boolean;
+  area?: boolean;
   photo?: boolean;
 }
 export interface PhoneProps {
@@ -61,6 +63,7 @@ const FormInput = ({
   date = false,
   rate = false,
   photo = false,
+  area = false,
 }: FormInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [PhoneSearchComponent, setPhoneSearchComponent] = useState<PhoneSearchComponentType>();
@@ -118,8 +121,10 @@ const FormInput = ({
                   <Suspense fallback={<Spinner />}>
                     <PhoneSearchComponent onChange={field.onChange} />
                   </Suspense>
+                ) : area ? (
+                  <Textarea placeholder="YOUR MESSAGE / NOTE" className="resize-none" {...field} />
                 ) : photo ? (
-                  <PhotoInput  value={field.value}    onChange={field.onChange}/>
+                  <PhotoInput value={field.value} onChange={field.onChange} />
                 ) : date && CalendarComponent ? (
                   <Suspense fallback={<Spinner />}>
                     <div className=" w-full">

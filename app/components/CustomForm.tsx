@@ -48,7 +48,7 @@ export interface InputProps {
   date?: boolean;
   password?: boolean;
   children?: ReactNode;
-  noProgress?: boolean;
+  noProgress?: boolean;area?: boolean;
 }
 const CustomForm = ({
   inputs,

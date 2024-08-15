@@ -13,6 +13,7 @@ import {
   emailSchema,
   phoneSchema,
 } from "../schema";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 interface FormContainerProps {
   formArray: InputProps[];
@@ -90,19 +91,21 @@ const FormContainer: React.FC<FormContainerProps> = ({
   };
   console.log(form.formState.errors);
   return (
-    <CustomForm
-      serverError={serverError}
-      btnText={btnText || "CONFIRM"}
-      form={form}
-      isPending={isPending}
-      cancel={cancel}
-      title={title || ""}
-      btnStyles={btnStyles || "w-[40%] mr-auto "}
-      inputs={formArray}
-      onSubmit={onSubmit}
-    >
-      {children}
-    </CustomForm>
+    <MaxWidthWrapper>
+      <CustomForm
+        serverError={serverError}
+        btnText={btnText || "CONFIRM"}
+        form={form}
+        isPending={isPending}
+        cancel={cancel}
+        title={title || ""}
+        btnStyles={btnStyles || "w-[40%] mr-auto "}
+        inputs={formArray}
+        onSubmit={onSubmit}
+      >
+        {children}
+      </CustomForm>
+    </MaxWidthWrapper>
   );
 };
 

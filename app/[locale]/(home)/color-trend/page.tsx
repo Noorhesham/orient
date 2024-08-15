@@ -12,7 +12,7 @@ import MotionContainer from "@/app/components/MotionContainer";
 
 const page = () => {
   return (
-    <main className=" py-40 min-h-screen  ">
+    <main className=" pt-40 min-h-screen  ">
       <BreadCrumb />
       <section className=" relative min-h-screen">
         <div
@@ -97,7 +97,7 @@ const page = () => {
           />
         </div>
       </MaxWidthWrapper>
-      <div className=" flex items-center  md:flex-row flex-col   mt-[128px]">
+      <div className=" flex items-center  md:flex-row flex-col   mt-10">
         <div className=" flex-grow  w-full lg:min-w-[563px] h-[435px] relative">
           <Image src={"/chair.png"} alt="" fill className=" object-cover" />
         </div>
@@ -109,7 +109,7 @@ const page = () => {
           </div>
         </Section>
       </div>
-      <MaxWidthWrapper className=" flex pb-[89px] flex-col items-center justify-center">
+      <MaxWidthWrapper className=" flex mt-5 lg:mt-10 flex-col items-center justify-center">
         <Heading
           mainText="DISCOVER THE MOST IMPORTANT"
           subText="ARTICLES ABOUT PAINTS"
@@ -117,7 +117,7 @@ const page = () => {
         voluptatum unde magni pariatur expedita ullam reprehenderit corporis! Alias beatae quasi dolore nulla officiis
         rerum."
         />
-        <MotionContainer className=" flex flex-wrap justify-center gap-3 items-center ">
+        <MotionContainer className=" grid md:grid-cols-3 grid-cols-1 justify-center gap-3 items-center ">
           <CardHuge />
           <CardHuge />
           <CardHuge />

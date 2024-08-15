@@ -80,7 +80,7 @@ const SwiperCards = ({
         ))}
       </Swiper>
         {btns && (
-          <div className=" flex mb-4 items-center gap-20  md:gap-10 justify-center  mt-5 ">
+          <div className=" flex mb-4 items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 ">
             <Button
               onClick={() => swiper?.slidePrev()}
               className=" rounded-full flex px-6 py-4 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"

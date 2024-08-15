@@ -21,6 +21,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
 import { FaMailBulk } from "react-icons/fa";
+import Paragraph from "@/app/components/Paragraph";
 
 const page = () => {
   return (
@@ -40,11 +41,15 @@ const page = () => {
       </section>
       <MaxWidthWrapper>
         <div className=" flex flex-col  gap-2 md:grid items-center  md:grid-cols-4">
-          <Section CustomePadding="py-8 lg:py-16 px-0 lg:px-20" className="  w-full col-span-2 flex flex-col gap-10" heading="CONTACT INFO">
-            <p className=" pb-5 max-w-md text-xs  mt-3">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry..Lorem Ipsum is simply dummy
-              text of the printing and typesetting industry..
-            </p>
+          <Section
+            CustomePadding="px-0  lg:px-0"
+            className="  w-full col-span-2 flex flex-col gap-4"
+            heading="CONTACT INFO"
+          >
+            <Paragraph
+              description="Lorem Ipsum is simply dummy text of the printing and typesetting industry..Lorem Ipsum is simply dummy
+              text of the printing and typesetting industry.."
+            />
             <IconWidget
               paragraph="25th building 5, 10 Star Street, 5th Settlement, New Cairo, Egypt"
               header="Address"
@@ -61,8 +66,8 @@ const page = () => {
               header="EMAIL Address"
               icon={<FaMailBulk className=" text-main" />}
             />
-            <IconWidget paragraph="From 09 am To 6 pm " header="All Week (off Line)" icon={<Calender />} />
-            <p className=" text-xs font-semibold py-3 inline md:flex items-center">
+            {/* <IconWidget paragraph="From 09 am To 6 pm " header="All Week (off Line)" icon={<Calender />} /> */}
+            <div className=" text-xs font-semibold py-3  flex items-center">
               <BookAIcon />
               <p className=" ml-2  inline lg:flex  items-center">
                 LEARN ANOUT OUR MOST IMPORTANT{" "}
@@ -70,23 +75,24 @@ const page = () => {
                   BRANCHES AND DISTRIBUTERS
                 </Link>
               </p>
-            </p>
-            <div className=" mt-5">
-              <h1 className=" font-semibold text-main">SOCIAL MEDIA</h1>
-              <p className=" text-sm text-black">CONNECT WITH US VIA SOCAIL MEDIA</p>
+            </div>
+            <div className=" mt-2">
+              <h1 className="  font-semibold text-main">SOCIAL MEDIA</h1>
+              <Paragraph description="CONNECT WITH US VIA SOCAIL MEDIA" />
               <SocialMedia />
             </div>
           </Section>
-          <div className=" w-full col-span-2">
+          <div className=" lg:mt-0 mt-2 w-full col-span-2">
             <Head1 text="DO YOU HAVE ANY QUESTIONS ?" />
             <FormContainer
               schema={"contact"}
+              btnText="SEND MESSAGE"
               formArray={[
                 { name: "name", placeholder: "NAME", type: "text" },
                 { name: "phone", placeholder: "PHONE", type: "text", phone: true },
                 { name: "email", placeholder: "EMAIL", type: "email" },
                 { name: "inquiry", placeholder: "INQUIREIS TYPE", type: "text", select: true },
-                { name: "message", placeholder: "MESSAGE", type: "text" },
+                { name: "message", placeholder: "MESSAGE", type: "text", area: true },
               ]}
             />
           </div>

@@ -20,9 +20,6 @@ const page = () => {
           }}
           className={`reveal_animation absolute inset-0 `}
         />
-        <h1 className=" text-[4rem] lg:text-[8rem] font-bold z-10  text-main capitalize absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          ABOUT US
-        </h1>
       </section>
       <MaxWidthWrapper>
         <section className=" mt-10">

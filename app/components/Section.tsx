@@ -26,7 +26,7 @@ const Section = ({
   // ${CustomePadding || "lg:px-20 px-5 md:px-10 py-8 lg:py-16"}
   return (
     <section className={`${className || ""}  `}>
-      <div className=" flex flex-col items-stretch w-full px-4">
+      <div className=" flex flex-col items-stretch w-full ">
         <MotionContainer className="flex flex-row items-center justify-between">
           {heading && (
             <MotionItem  nohover
