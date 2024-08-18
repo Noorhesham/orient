@@ -30,16 +30,16 @@
   },
   "inspiredLinks": {
     "all": "All",
-    "livingRoom": "Living Room",
+    "livingroom": "Living Room",
     "bedroom": "Bedroom",
     "kitchen": "Kitchen",
-    "kidsRoom": "Kids Room"
+    "kidsroom": "Kids Room"
   },
   "partnerLinks": {
-    "projectsProducts": "Projects/Products",
+    "projectsproducts": "Projects/Products",
     "export": "Export",
-    "colorCenter": "Color Center",
-    "localDistributor": "Local Distributor"
+    "colorcenter": "Color Center",
+    "localdistributor": "Local Distributor"
   },
   "productsLinks": {
     "interior": "Interior",
