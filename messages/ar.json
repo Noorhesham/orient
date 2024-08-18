@@ -13,5 +13,16 @@
     "products": "المنتجات",
     "get inspired": "احصل علي الالهام",
     "become partener": "انضم الينا"
+  },
+  "footer": {
+    "headOffice": "المكتب الرئيسي",
+    "headOfficeAddress": "المكتب الرئيسي المعادي، القاهرة.",
+    "factory": "المصنع",
+    "factoryAddress": "المصنع المعادي، القاهرة.",
+    "showMap": "عرض الخريطة",
+    "aboutOrient": "حول أوريانت",
+    "downloadApp": "تحميل التطبيق",
+    "followUs": "تابعنا",
+    "colorTrend": "اتجاه اللون"
   }
 }

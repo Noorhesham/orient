@@ -7,7 +7,7 @@ const Filters = () => {
   return (
     <div className="  max-h-96 rounded-2xl border bg-white shadow-md border-gray-400 overflow-y-auto lg:max-h-full col-span-full ">
       <div className="   flex flex-col py-4  px-3">
-        <Box filter="filters" text="Category" options={["All", "Paints", "Accessories", "Tools"]} />
+        <Box filter="category" text="Category" options={["All", "Paints", "Accessories", "Tools"]} />
         <PriceFilter />
         <Box
           filter="colors"

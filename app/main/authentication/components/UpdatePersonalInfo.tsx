@@ -28,7 +28,7 @@ const UpdatePersonalInfo = () => {
     formData.append("birth_day", format(data.birth_day, "yyyy-MM-dd"));
     formData.append("avatar", data.avatar[0]);
     formData.append("name", data.name);
-    const res = await Server({ resourceName: "update_profile", body: formData, method: "POST" });
+    const res = await Server({ resourceName: "update_profile", body: formData });
     if (!res.status) setError(Array.isArray(res.errors) ? res.errors : res.errors.password || res.message);
     if (res.status === true) {
       toast.success(res.message);
@@ -38,9 +38,12 @@ const UpdatePersonalInfo = () => {
   };
 
   const updateEmailInfo = async (data: any, setError: any) => {
-    const res = await Server({ resourceName: "update_profile", body: data, method: "POST" });
+    const res = await Server({ resourceName: "update_profile", body: data });
     console.log(res);
-    if (!res.status) setError(res.errors?.length > 0 ? res.errors : res.errors.email || res.message)();
+    if (!res.status) {
+      setError(res.errors?.length > 0 ? res.errors.join(", ") : res.errors?.email || res.message);
+      return;
+    }
     if (res.status) {
       toast.success(res.message);
       setLogin((l: any) => !l);
@@ -76,9 +79,7 @@ const UpdatePersonalInfo = () => {
                 formArray={email}
                 title="UPDATE EMAIL"
               />
-              {searchParams.get("uuid") && (
-                <InputOTPPattern  email sendType="email" handleSend={updateEmailInfo} />
-              )}
+              {searchParams.get("uuid") && <InputOTPPattern email sendType="email" handleSend={updateEmailInfo} />}
             </div>
           )
         }
@@ -105,7 +106,12 @@ const UpdatePersonalInfo = () => {
                 title="UPDATE PHONE"
               />
               {searchParams.get("uuid") && (
-                <InputOTPPattern revalidate={()=> setLogin((l: any) => !l)} email sendType="email" handleSend={updateEmailInfo} />
+                <InputOTPPattern
+                  revalidate={() => setLogin((l: any) => !l)}
+                  email
+                  sendType="email"
+                  handleSend={updateEmailInfo}
+                />
               )}
             </div>
           )

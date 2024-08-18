@@ -9,10 +9,8 @@ import QueryProvider from "@/lib/QueryProvider";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "../context/AuthContext";
-
-const inter = Poppins({ subsets: ["latin"], weight: ["400", "700", "900", "600", "200", "300", "500"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700", "600"] });
 const locales = ["en", "ar"];
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -30,10 +28,15 @@ export default async function RootLayout({
 }>) {
   const messages = await getMessages();
   unstable_setRequestLocale(locale);
-
+  let fontClassName = poppins.className;
+  if (locale === "ar") {
+    //@ts-ignore
+    await import("../cairo.css");
+    fontClassName = "cairo-font";
+  }
   return (
     <html lang={locale}>
-      <body style={{ textAlign: locale === "ar" ? "right" : "left" }} className={`${inter.className} `}>
+      <body style={{ textAlign: locale === "ar" ? "right" : "left",direction: locale === "ar" ? "rtl" : "ltr", }} className={fontClassName}>
         <QueryProvider>
           <DeviceProvider>
             <AuthProvider>
@@ -47,9 +50,7 @@ export default async function RootLayout({
                 pauseOnHover={false}
                 theme="light"
               />
-
               <ReactQueryDevtools initialIsOpen={false} />
-
               <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
             </AuthProvider>
           </DeviceProvider>
@@ -58,9 +59,3 @@ export default async function RootLayout({
     </html>
   );
 }
-
-/*
-there is a middleware that check on the existence of the token 
-the token is verfird on app first loads 
-user settings is saved in cache of react query 
- */

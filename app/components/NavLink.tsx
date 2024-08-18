@@ -34,10 +34,13 @@ const NavLink = ({
         <DropdownMenuTrigger className={linkStyles}>
           {text} <ArrowDownIcon color={isHome ? "white" : "#E6007E"} />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='start' className=" w-full rounded-lg">
+        <DropdownMenuContent align="start" className=" w-full rounded-lg">
           {subLinks.map((link) => (
             <DropdownMenuItem className=" uppercase   rounded-sm" key={link.text}>
-              <Link className=" text-xs pr-20 pl-3  py-2  w-full  font-[600] text-black  uppercase" href={link.href || "#"}>
+              <Link
+                className="  pr-20 pl-3  py-2  w-full text-xs  lg:text-sm  font-[600] text-black  uppercase"
+                href={link.href || "#"}
+              >
                 {link.text}
               </Link>
             </DropdownMenuItem>

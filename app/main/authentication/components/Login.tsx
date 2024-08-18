@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense,useLayoutEffect, useState, useTransition } from "react";
+import React, { Suspense, useLayoutEffect, useState, useTransition } from "react";
 import Section from "@/app/components/Section";
 import { Switch } from "@/components/ui/switch";
 import { Controller, useForm } from "react-hook-form";
@@ -41,7 +41,7 @@ const Login = () => {
   const redirect = searchParams.get("redirect");
   const router = useRouter();
   const { deviceInfo } = useDevice();
-  const [serverError, setServerError] = useState<string[] | null>(null);
+  const [serverError, setServerError] = useState<string[] | string | null>(null);
   const [isPending, startTransition] = useTransition();
   const { setLogin } = useAuth();
   useLayoutEffect(() => {
@@ -49,46 +49,48 @@ const Login = () => {
   }, [param]);
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     startTransition(async () => {
-      const res = await Server({
-        method: "POST",
-        resourceName: "login",
-        body: {
-          ...data,
-          device_info: deviceInfo,
-        },
-        headers: {
-          "device-unique-id": deviceInfo.device_unique_id,
-          Accept: "application/json",
-        },
-      });
-      console.log(res);
-      if (!res.status) setServerError(res.errors?.length > 0 ? res.errors : res.message);
-      if (res.status) {
-        setServerError(null);
-        toast.done(`${res.message} ...`);
-        if (res.require_activation || res.tfa) {
-          setActivate(true);
-          if (res.require_activation) handleParam(res.activation_uuid, "uuid");
-          setMethods(res.activation_methods || res.tfa_methods);
-          if (res.tfa) {
-            const updatedParams = new URLSearchParams(searchParams);
-            updatedParams.set("tfa", "true");
-            updatedParams.set("uuid", res.tfa_uuid);
-            router.push(`?${updatedParams.toString()}`, { scroll: false });
+      try {
+        const res = await Server({
+          resourceName: "login",
+          body: {
+            ...data,
+            device_info: deviceInfo,
+          },
+          headers: {
+            "device-unique-id": deviceInfo.device_unique_id,
+            Accept: "application/json",
+          },
+        });
+        console.log(res);
+        if (!res.status) setServerError(res.errors?.length > 0 ? res.errors : res.message);
+        if (res.status) {
+          setServerError(null);
+          toast.done(`${res.message} ...`);
+          if (res.require_activation || res.tfa) {
+            setActivate(true);
+            if (res.require_activation) handleParam(res.activation_uuid, "uuid");
+            setMethods(res.activation_methods || res.tfa_methods);
+            if (res.tfa) {
+              const updatedParams = new URLSearchParams(searchParams);
+              updatedParams.set("tfa", "true");
+              updatedParams.set("uuid", res.tfa_uuid);
+              router.push(`?${updatedParams.toString()}`, { scroll: false });
+            }
+            setMessage(res.message);
           }
-          setMessage(res.message);
+          if (!res.require_activation && !res.tfa) {
+            cookies.set("jwt", res.token);
+            setLogin(true);
+            router.push(redirect || "/");
+          }
         }
-        if (!res.require_activation && !res.tfa) {
-          cookies.set("jwt", res.token);
-          setLogin(true);
-          router.push(redirect || "/");
-        }
+      } catch (error: any) {
+        setServerError("Unexpected Error");
       }
     });
   };
   const handleSend = async (sendType?: string) => {
     const res = await Server({
-      method: "POST",
       resourceName: searchParams.get("tfa") === "true" ? "tfaSend" : "verify",
       id: param,
       body: {
@@ -96,7 +98,10 @@ const Login = () => {
       },
     });
     console.log(res);
-    if (!res.status) setServerError(Array.isArray(res.errors)&& res.errors.length > 0 ? res.errors : res.errors.send_by || res.message);
+    if (!res.status)
+      setServerError(
+        Array.isArray(res.errors) && res.errors.length > 0 ? res.errors : res.errors.send_by || res.message
+      );
     if (res.status) {
       setServerError(null);
       toast.success(res.message);
@@ -180,9 +185,7 @@ const Login = () => {
             />
           )}
         </Suspense>
-        { serverError  && (
-          <p className="text-red-500 text-center mt-3 text-sm font-semibold">{serverError}</p>
-        )}
+        {serverError && <p className="text-red-500 text-center mt-3 text-sm font-semibold">{serverError}</p>}
       </div>
     </Section>
   );

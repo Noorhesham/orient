@@ -72,7 +72,6 @@ const Signup = () => {
     console.log(data);
     startTransition(async () => {
       const res = await Server({
-        method: "POST",
         resourceName: "signup",
         body: {
           ...data,
@@ -85,7 +84,6 @@ const Signup = () => {
       if (res.status) {
         setServerError(null);
         const res = await Server({
-          method: "POST",
           resourceName: "login",
           body: {
             username: data.phone || data.email,

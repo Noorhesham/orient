@@ -6,7 +6,6 @@ import React from "react";
 
 const page = async () => {
   const res = await Server({
-    method: "POST",
     resourceName: "MGS",
     body: {
       needed: ["user_settings"],

@@ -31,7 +31,6 @@ const ResetPassword = () => {
   const handleSend = async (sendType?: string) => {
     startTransition(async () => {
       const res = await Server({
-        method: "POST",
         resourceName: "reset",
         body: {
           type: "forgot",

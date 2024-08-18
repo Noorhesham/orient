@@ -88,7 +88,7 @@ const NavBar = () => {
           <div className="absolute inset-0 h-[20rem] bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none z-10"></div>
         )}
 
-        <MaxWidthWrapper noPadding >
+        <MaxWidthWrapper noPadding>
           {
             <div className={`   relative z-20 flex flex-col  gap-5  lg:flex-row justify-between items-center`}>
               <div className="flex items-center gap-2 lg:gap-4 ">
@@ -123,7 +123,7 @@ const NavBar = () => {
                     {user && (
                       <LogOutIcon
                         onClick={async () => {
-                          const res = await Server({ method: "POST", resourceName: "logout" });
+                          const res = await Server({ resourceName: "logout" });
                           if (res.status) {
                             toast.success(res.message);
                             handleLogout();

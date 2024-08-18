@@ -10,7 +10,7 @@ const updatePassword = [
 ];
 const UpdatePassword = () => {
   const updatePasswordInfo = async (data: any, setError: any) => {
-    const res = await Server({ resourceName: "update_password", body: data, method: "POST" });
+    const res = await Server({ resourceName: "update_password", body: data});
     console.log(res);
     if (!res.status) setError(res.errors || res.message)();
     if (res) {

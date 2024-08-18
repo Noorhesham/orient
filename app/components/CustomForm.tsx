@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 export interface CustomFormProps {
   inputs: InputProps[];
   src?: string;
-  serverError?: string[] | null;
+  serverError?: string[] |string| null;
   title?: string;
   noimg?: boolean;
   text?: string;

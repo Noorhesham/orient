@@ -35,7 +35,6 @@ const Prepare = ({ setMethods, handleParam, setMessage }: { setMethods: any; han
   const onSubmit = (data: z.infer<typeof resetPasswordSchemaPrepare>) => {
     startTransition(async () => {
       const res = await Server({
-        method: "POST",
         resourceName: "reset",
         body: { ...data, type: "prepare" },
       });

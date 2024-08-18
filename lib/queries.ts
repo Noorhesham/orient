@@ -6,7 +6,6 @@ const useGetGeneralSettings = (needed: string[]) => {
     queryKey: [needed],
     queryFn: async () =>
       await Server({
-        method: "POST",
         resourceName: "MGS",
         body: {
           needed,

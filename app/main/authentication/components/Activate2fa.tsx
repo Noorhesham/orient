@@ -18,7 +18,6 @@ const Activate2fa = () => {
   }, []);
   const handleCheckTfa = async () => {
     const res = await Server({
-      method: "POST",
       body: { tfa: 1, type: "activate" },
       resourceName: "tfaActivate",
     });

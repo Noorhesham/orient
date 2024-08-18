@@ -11,11 +11,13 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
 import Paragraph from "@/app/components/Paragraph";
+import { cookies } from "next/headers";
 // import Notifications from "@/app/components/Notificationts";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
 export default function Home() {
+  const local = cookies().get("locale").value;
   return (
     <main style={{ padding: "0px 0px !important" }} className="">
       <section className="relative h-full min-h-[110vh] w-full">
@@ -74,7 +76,6 @@ export default function Home() {
           alt=""
         />
         <Image className=" lg:hidden block object-contain w-full h-full" src={"/bannar mobile.png"} fill alt="" />
-        <div className=" hidden lg:block absolute inset-0 w-[97%] h-[23%] lg:h-[500px] top-1/2 lg:top-[5%] left-1/2 -translate-x-1/2 border-[3px] border-gray-100"></div>
       </div>
 
       <MaxWidthWrapper>
@@ -84,9 +85,13 @@ export default function Home() {
               description=" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industrys standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and
               typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-              className=" translate-x-0 xl:translate-x-[60%] z-10 relative mt-5 "
+              className=" translate-x-0  z-10 relative mt-5 "
             />
-            <div className="   aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-96 bottom-0  top-[107%] sm:top-[90%] md:top-[82%] xl:top-[5.5rem] right-[20%] sm:right-[40%]    md:right-20 xl:left-0  absolute">
+            <div
+              className={` ${
+                local == "ar" ? "right-0" : "left-0"
+              }  aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-96 bottom-0  top-[107%] sm:top-[90%] md:top-[82%] xl:top-[5.5rem] right-[20%] sm:right-[40%]    md:right-20 xl:left-0  absolute`}
+            >
               <Image src={"/brown.svg"} fill className=" object-cover " alt="" />
             </div>
           </div>

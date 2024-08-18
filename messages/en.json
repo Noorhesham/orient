@@ -13,5 +13,16 @@
     "products": "Products",
     "get inspired": "Get Inspired",
     "become partener": "Become Parteners"
+  },
+  "footer": {
+    "headOffice": "HEED OFFICE",
+    "headOfficeAddress": "Head Office Maadi, Cairo.",
+    "factory": "Factory",
+    "factoryAddress": "Factory Maadi, Cairo.",
+    "showMap": "Show Map",
+    "aboutOrient": "ABOUT ORIENT",
+    "downloadApp": "DOWNLOAD APP",
+    "followUs": "FOLLOW US",
+    "colorTrend": "COLOR TREND"
   }
 }

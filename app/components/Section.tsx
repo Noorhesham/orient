@@ -29,7 +29,8 @@ const Section = ({
       <div className=" flex flex-col items-stretch w-full ">
         <MotionContainer className="flex flex-row items-center justify-between">
           {heading && (
-            <MotionItem  nohover
+            <MotionItem
+              nohover
               className={` text-lg sm:text-2xl  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
@@ -37,7 +38,11 @@ const Section = ({
               {heading}
             </MotionItem>
           )}
-          {paragraph && <MotionItem nohover className=" text-sm sm:text-lg text-[20px] text-[#0D3B6F]">{paragraph}</MotionItem>}
+          {paragraph && (
+            <MotionItem nohover className=" text-sm sm:text-lg text-[20px] text-[#0D3B6F]">
+              {paragraph}
+            </MotionItem>
+          )}
           {link && (
             <Link
               href={link}

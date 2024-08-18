@@ -5,7 +5,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 
 export default async function RootLayout({
   children,
-  params:{locale},
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: string };

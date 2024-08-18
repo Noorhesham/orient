@@ -54,7 +54,6 @@ export function InputOTPPattern({
   const onSubmit = async (data: z.infer<typeof otpSchema>) => {
     startTransition(async () => {
       const res = await Server({
-        method: "POST",
         resourceName: forgot
           ? "reset"
           : tfa
