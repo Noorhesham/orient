@@ -5,7 +5,7 @@ import { DialogContent } from "@/components/ui/dialog";
 
 const AppDownload = () => {
   return (
-    <DialogContent whiteClose className="  min-w-[100vw]  bg-black/90 border-none outline-none  h-screen w-full  ">
+    <DialogContent whiteClose className="  min-w-[100vw]  bg-black/60 border-none outline-none  h-screen w-full  ">
       <main className="  flex justify-center items-center flex-col  h-screen">
         <div className=" flex justify-center items-center py-20 px-40 flex-col gap-2">
           <Logo />
