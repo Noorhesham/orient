@@ -87,7 +87,7 @@ const PriceFilter = () => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [Number(e.target.value), prev.range[1]] }));
                 }}
-                defaultValue={ minPrice?.toFixed(0)}
+                value={ minPrice?.toFixed(0)||priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
               <Input
@@ -95,7 +95,7 @@ const PriceFilter = () => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [prev.range[0], Number(e.target.value)] }));
                 }}
-                defaultValue={maxPrice?.toFixed(0)}
+                value={maxPrice?.toFixed(0)||priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
             </div>
