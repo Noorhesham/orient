@@ -22,7 +22,7 @@ import { useTranslations } from "next-intl";
 
 const NavBar = () => {
   const t = useTranslations();
-  
+
   const links = [
     {
       text: t("navbar.shopNow"),
@@ -30,23 +30,23 @@ const NavBar = () => {
     },
     {
       text: t("navbar.products"),
-      subLinks: PRODUCTS_LINKS.map(link => ({
+      subLinks: PRODUCTS_LINKS.map((link) => ({
         ...link,
-        text: t(`productsLinks.${link.text.toLowerCase().replace(' ', '')}`)
+        text: t(`productsLinks.${link.text.toLowerCase().replace(" ", "")}`),
       })),
     },
     {
       text: t("navbar.getInspired"),
-      subLinks: INSPIRED_LINKS.map(link => ({
+      subLinks: INSPIRED_LINKS.map((link) => ({
         ...link,
-        text: t(`inspiredLinks.${link.text.toLowerCase().replace(' ', '')}`)
+        text: t(`inspiredLinks.${link.text.toLowerCase().replace(" ", "")}`),
       })),
     },
     {
       text: t("navbar.becomePartner"),
-      subLinks: PARTENER_LINKS.map(link => ({
+      subLinks: PARTENER_LINKS.map((link) => ({
         ...link,
-        text: t(`partnerLinks.${link.text.toLowerCase().replace(' ', '')}`)
+        text: t(`partnerLinks.${link.text.toLowerCase().replace(" ", "")}`),
       })),
     },
     {
@@ -58,7 +58,7 @@ const NavBar = () => {
       href: "/contact-us",
     },
   ];
-  
+
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [active, setIsActive] = useState(false);
   const router = useRouter();
@@ -67,7 +67,7 @@ const NavBar = () => {
   const pathName = usePathname();
   const { userSettings, handleLogout, generalSettings } = useAuth();
   const user = userSettings;
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY < 50) {
@@ -116,7 +116,9 @@ const NavBar = () => {
                 <SearchBox active={active} setIsActive={setIsActive} />
 
                 <div
-                  className={`flex ${active ? "opacity-0 lg:opacity-100" : "opacity-100"} duration-200 items-center gap-4`}
+                  className={`flex ${
+                    active ? "opacity-0 lg:opacity-100" : "opacity-100"
+                  } duration-200 items-center gap-4`}
                 >
                   <Dialog>
                     <DialogTrigger asChild>
@@ -153,12 +155,12 @@ const NavBar = () => {
           <div className="mt-4">
             <ul className="hidden lg:flex z-30 relative items-center justify-between">
               {links.map((link) => (
-                //@ts-ignore
                 <NavLink
                   isHome={isHome}
                   key={link.text}
                   href={link.href}
                   text={link.text}
+                  //@ts-ignore
                   subLinks={link.subLinks}
                 />
               ))}

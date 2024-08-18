@@ -6,8 +6,10 @@ import SwiperCards from "../../../components/SwiperCards";
 import ModalCustom from "@/app/components/ModalCustom";
 import ZoomImage from "@/app/components/ZoomImage";
 import Paragraph from "@/app/components/Paragraph";
+import { cookies } from "next/headers";
 
 const page = () => {
+  const local = cookies().get("NEXT_LOCALE")?.value;
   return (
     <>
       <section className=" relative min-h-screen">
@@ -27,14 +29,14 @@ const page = () => {
             <div className="flex max-w-2xl flex-col gap-4">
               <h1 className=" text-main uppercase text-2xl lg:text-4xl font-bold">our history</h1>
               <Paragraph
-                className=" text-center md:text-left md:mr-[6.3rem]"
+                className={` text-center md:text-left ${local === "ar" ? "md:ml-[6.3rem]" : "md:mr-[6.3rem]"}`}
                 description="Founded in 1946, Orient is built on a legacy of integrity, quality assurance, and innovative technology.
                 With a continuous effort to hold a unique leading position in the industry, Orient brings together
                 Egyptian manufacturing and German technology to offer products that you can rely on and a name you can
                 trust."
               />
               <Paragraph
-                className=" text-center md:text-left md:mr-[5.25rem]"
+                className={` text-center md:text-left ${local === "ar" ? "md:ml-[5.25rem]" : "md:mr-[5.25rem]"}`}
                 description="Founded in 1946, Orient is built on a legacy of integrity, quality assurance, and innovative technology.
                 With a continuous effort to hold a unique leading position in the industry, Orient brings together
                 Egyptian manufacturing and German technology to offer products that you can rely on and a name you can
@@ -48,7 +50,9 @@ const page = () => {
                 alt="about"
                 width={348}
                 height={297}
-                className=" absolute  top-[60%] left-10  md:w-[60%]  md:-left-28  md:top-[40%]"
+                className={` ${
+                  local === "ar" ? "right-10 md:-right-16" : "left-10 md:-left-28"
+                } absolute  top-[60%]   md:w-[60%]    md:top-[40%]`}
               />
             </div>
           </div>

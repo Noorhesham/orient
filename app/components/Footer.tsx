@@ -25,10 +25,10 @@ const Footer = () => {
   const local = cookies().get("locale")?.value;
   return (
     <>
-      <footer className="relative bg-main2">
-        <MaxWidthWrapper className="relative z-10 items-center py-10 lg:py-20 lg:pt-28 md:pt-20 pt-10">
+      <footer className="relative uppercase bg-main2">
+        <MaxWidthWrapper className="relative z-10 items-center py-10 lg:py-20 lg:pt-28 lg:pt-20 pt-10">
           <div className="border-b border-gray-400 pb-5 grid gap-10 lg:gap-20 xl:gap-32 grid-cols-5 xl:grid-cols-8">
-            <div className="col-span-full md:col-span-3 items-center lg:items-start flex gap-4 flex-col">
+            <div className="col-span-full lg:col-span-3 items-center lg:items-start flex gap-4 flex-col">
               <Logo />
               <div className="flex items-center gap-3">
                 <Phone />
@@ -37,11 +37,11 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <HeadPhones />
                 <div className="text-white flex gap-1 flex-col">
-                  <p className="ml-2 tracking-wide text-center  md:text-justify text-xl font-[500]">
+                  <p className="ml-2 tracking-wide text-center  lg:text-justify text-xl font-[500]">
                     {t("footer.headOffice")} {/* 'HEED OFFICE' in your translation file */}
                   </p>
                   <div className="ml-2 flex justify-center flex-col lg:flex-row gap-3 items-center text-[14px]">
-                    <p className="text-center  md:text-justify mx-auto">
+                    <p className="text-center  lg:text-justify mx-auto">
                       {t("footer.headOfficeAddress")} {/* 'Head Office Maadi, Cairo.' */}
                     </p>
                     <p className="py-1 px-4 w-fit text-xs bg-gray-400/40 rounded-full">
@@ -53,7 +53,7 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <HeadPhones />
                 <div className="text-white flex gap-1 flex-col">
-                  <p className="ml-2 tracking-wide text-center  md:text-justify text-xl font-[500]">
+                  <p className="ml-2 tracking-wide text-center  lg:text-justify text-xl font-[500]">
                     {t("footer.factory")} {/* 'Factory' */}
                   </p>
                   <div className="ml-2 flex justify-center flex-col lg:flex-row gap-3 items-center text-[14px]">
@@ -68,8 +68,8 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="ml-5 col-span-full md:col-span-2 text-gray-50">
-              <p className="text-center  md:text-justify">{t("footer.aboutus")}</p> {/* 'ABOUT ORIENT' */}
+            <div className="ml-5 col-span-full lg:col-span-2 text-gray-50">
+              <p className="text-center  lg:text-justify">{t("footer.aboutus")}</p> {/* 'ABOUT ORIENT' */}
               <ul className="grid text-center grid-cols-2 uppercase lg:items-start items-center lg:flex lg:flex-col mt-10 gap-3">
                 <Link href="/">{t("footer.home")}</Link>
                 <Link href="/about-us">{t("footer.aboutus")}</Link>
@@ -80,9 +80,9 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="col-span-full xl:col-span-3 pb-5 md:pb-10 items-center lg:items-start flex gap-5 flex-col">
+            <div className="col-span-full xl:col-span-3 pb-5 lg:pb-10 items-center lg:items-start flex gap-5 flex-col">
               <div>
-                <p className="text-center  md:text-justify text-white">{t("footer.downloadApp")}</p>{" "}
+                <p className="text-center  lg:text-justify text-white">{t("footer.downloadApp")}</p>{" "}
                 {/* 'DOWNLOAD APP' */}
                 <div className="flex lg:justify-normal justify-center items-center gap-3 mt-5">
                   <Google />
@@ -91,21 +91,21 @@ const Footer = () => {
                 <div className="flex flex-col items-start mt-5">
                   <p className="text-white">{t("footer.followUs")}</p> {/* 'FOLLOW US' */}
                   <SocialMedia />
-                  <div className="h-10 w-[23rem] mt-4 md:h-20 relative">
+                  <div className="h-10 w-[23rem] mt-4 lg:h-20 relative">
                     <Image src="/payments.png" alt="payments" fill className="object-contain" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="px-5 md:mt-5 md:grid hidden md:grid-cols-7 gap-10 justify-center mx-auto pt-5">
+          <div className="px-5 lg:mt-5 lg:grid hidden lg:grid-cols-7 gap-10 justify-center mx-auto pt-5">
             {images.map((img, i) => (
               <div key={i} className="relative h-24 w-full">
                 <Image src={img} alt="logo" fill className="object-contain" />
               </div>
             ))}
           </div>
-          <div className="justify-center mt-4 md:hidden flex items-center">
+          <div className="justify-center mt-4 lg:hidden flex items-center">
             <SwiperCards
               logo={true}
               spaceBetween={15}
