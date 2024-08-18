@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import cookies from "js-cookie";
 const NavLink = ({
   text,
   href,
@@ -21,6 +21,7 @@ const NavLink = ({
   subLinks: { text: string; href?: string }[];
   isHome?: boolean;
 }) => {
+  const locale = cookies.get("NEXT_LOCALE");
   const linkStyles = "uppercase flex items-center gap-2 font-[400]  font-medium text-sm xl:text-base tracking-wide ";
   if (!subLinks)
     return (
@@ -38,7 +39,9 @@ const NavLink = ({
           {subLinks.map((link) => (
             <DropdownMenuItem className=" uppercase   rounded-sm" key={link.text}>
               <Link
-                className="  pr-20 pl-3  py-2  w-full text-xs  lg:text-sm  font-[600] text-black  uppercase"
+                className={`${
+                  locale === "en" ? "pr-20" : "pl-20"
+                }   pl-3  py-2  w-full text-xs  lg:text-sm  font-[600] text-black  uppercase`}
                 href={link.href || "#"}
               >
                 {link.text}

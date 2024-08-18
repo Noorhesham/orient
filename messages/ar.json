@@ -24,9 +24,28 @@
     "followUs": "تابعنا",
     "colorTrend": "اتجاه اللون",
     "becomepartener": "انضم إلينا",
-    "getinspired":"احصل على الإلهام",
-    "aboutus":"من نحن",
-    "home":"الرئيسية",
-    "products":"المنتجات"
+    "getinspired": "احصل على الإلهام",
+    "aboutus": "من نحن",
+    "home": "الرئيسية",
+    "products": "المنتجات"
+  },
+  "inspiredLinks": {
+    "all": "الكل",
+    "livingroom": "غرفة المعيشة",
+    "bedroom": "غرفة النوم",
+    "kitchen": "المطبخ",
+    "kidsroom": "غرفة الأطفال"
+  },
+  "partnerLinks": {
+    "projectsproducts": "مشاريع/منتجات",
+    "export": "تصدير",
+    "colorcenter": "مركز الألوان",
+    "localdistributor": "الموزع المحلي"
+  },
+  "productsLinks": {
+    "interior": "داخلي",
+    "exterior": "خارجي",
+    "metal": "معدن",
+    "wood": "خشب"
   }
 }

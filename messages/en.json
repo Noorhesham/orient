@@ -25,7 +25,26 @@
     "colorTrend": "Color Trend",
     "becomepartener": "Become Partner",
     "getInspired": "Get Inspired",
-    "aboutus":"about us",
-    "home":"home"
+    "aboutus": "about us",
+    "home": "home"
+  },
+  "inspiredLinks": {
+    "all": "All",
+    "livingRoom": "Living Room",
+    "bedroom": "Bedroom",
+    "kitchen": "Kitchen",
+    "kidsRoom": "Kids Room"
+  },
+  "partnerLinks": {
+    "projectsProducts": "Projects/Products",
+    "export": "Export",
+    "colorCenter": "Color Center",
+    "localDistributor": "Local Distributor"
+  },
+  "productsLinks": {
+    "interior": "Interior",
+    "exterior": "Exterior",
+    "metal": "Metal",
+    "wood": "Wood"
   }
 }

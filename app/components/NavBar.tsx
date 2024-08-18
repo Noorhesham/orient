@@ -22,6 +22,7 @@ import { useTranslations } from "next-intl";
 
 const NavBar = () => {
   const t = useTranslations();
+  
   const links = [
     {
       text: t("navbar.shopNow"),
@@ -29,15 +30,24 @@ const NavBar = () => {
     },
     {
       text: t("navbar.products"),
-      subLinks: PRODUCTS_LINKS,
+      subLinks: PRODUCTS_LINKS.map(link => ({
+        ...link,
+        text: t(`productsLinks.${link.text.toLowerCase().replace(' ', '')}`)
+      })),
     },
     {
       text: t("navbar.getInspired"),
-      subLinks: INSPIRED_LINKS,
+      subLinks: INSPIRED_LINKS.map(link => ({
+        ...link,
+        text: t(`inspiredLinks.${link.text.toLowerCase().replace(' ', '')}`)
+      })),
     },
     {
       text: t("navbar.becomePartner"),
-      subLinks: PARTENER_LINKS,
+      subLinks: PARTENER_LINKS.map(link => ({
+        ...link,
+        text: t(`partnerLinks.${link.text.toLowerCase().replace(' ', '')}`)
+      })),
     },
     {
       text: t("navbar.aboutUs"),
@@ -48,6 +58,7 @@ const NavBar = () => {
       href: "/contact-us",
     },
   ];
+  
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [active, setIsActive] = useState(false);
   const router = useRouter();
@@ -56,6 +67,7 @@ const NavBar = () => {
   const pathName = usePathname();
   const { userSettings, handleLogout, generalSettings } = useAuth();
   const user = userSettings;
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY < 50) {
@@ -72,18 +84,20 @@ const NavBar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isTopPage]);
+
   const isHome = pathName === "/ar" || pathName === "/en";
+
   return (
-    <header className=" w-full">
-      <div className={`z-[999] duration-150 h-full top-0  fixed left-0  lg:hidden block`}>
+    <header className="w-full">
+      <div className={`z-[999] duration-150 h-full top-0 fixed left-0 lg:hidden block`}>
         <PhoneNav isHome={isHome} navigation={links} />
       </div>
       <nav
         className={`${
           isHome
-            ? "text-white placeholder:text-white "
+            ? "text-white placeholder:text-white"
             : `text-black placeholder:text-white ${!isScrollingDown && "bg-white/80"}`
-        } fixed inset-0 z-50 max-h-[10rem]   flex flex-col gap-2  py-4 transition-all duration-300 ${
+        } fixed inset-0 z-50 max-h-[10rem] flex flex-col gap-2 py-4 transition-all duration-300 ${
           isScrollingDown ? "-translate-y-full" : !isTopPage && !isScrollingDown ? "-translate-y-20" : "translate-y-0"
         }`}
       >
@@ -93,60 +107,60 @@ const NavBar = () => {
 
         <MaxWidthWrapper noPadding>
           {
-            <div className={`   relative z-20 flex flex-col  gap-5  lg:flex-row justify-between items-center`}>
-              <div className="flex items-center gap-2 lg:gap-4 ">
+            <div className={`relative z-20 flex flex-col gap-5 lg:flex-row justify-between items-center`}>
+              <div className="flex items-center gap-2 lg:gap-4">
                 <Logo type={isHome ? "white" : "blue"} />
                 <Language />
               </div>
-              <div className="flex  flex-row lg:flex-row-reverse  lg:basis-[36%]   items-center gap-8 lg:gap-5">
+              <div className="flex flex-row lg:flex-row-reverse lg:basis-[36%] items-center gap-8 lg:gap-5">
                 <SearchBox active={active} setIsActive={setIsActive} />
 
-                {
-                  <div
-                    className={`flex  ${
-                      active ? "opacity-0 lg:opacity-100" : "opacity-100"
-                    } duration-200 items-center gap-4`}
-                  >
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <div className=" cursor-pointer">
-                          <CloudIcon home={isHome} />
-                        </div>
-                      </DialogTrigger>
-                      <AppDownload />
-                    </Dialog>
+                <div
+                  className={`flex ${active ? "opacity-0 lg:opacity-100" : "opacity-100"} duration-200 items-center gap-4`}
+                >
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="cursor-pointer">
+                        <CloudIcon home={isHome} />
+                      </div>
+                    </DialogTrigger>
+                    <AppDownload />
+                  </Dialog>
 
-                    <Link href={user ? "/dashboard" : "/login"}>
-                      <BagIcon home={isHome} />
-                    </Link>
-                    <Link href={"/cart"}>
-                      {" "}
-                      <PersonIcon home={isHome} />
-                    </Link>
-                    {user && (
-                      <LogOutIcon
-                        onClick={async () => {
-                          const res = await Server({ resourceName: "logout" });
-                          if (res.status) {
-                            toast.success(res.message);
-                            handleLogout();
-                            // router.push(`/login?redirect=${pathName}`);
-                            router.refresh();
-                          }
-                        }}
-                        className=" hover:cursor-pointer hover:text-main duration-150"
-                      />
-                    )}
-                  </div>
-                }
+                  <Link href={user ? "/dashboard" : "/login"}>
+                    <BagIcon home={isHome} />
+                  </Link>
+                  <Link href={"/cart"}>
+                    <PersonIcon home={isHome} />
+                  </Link>
+                  {user && (
+                    <LogOutIcon
+                      onClick={async () => {
+                        const res = await Server({ resourceName: "logout" });
+                        if (res.status) {
+                          toast.success(res.message);
+                          handleLogout();
+                          router.refresh();
+                        }
+                      }}
+                      className="hover:cursor-pointer hover:text-main duration-150"
+                    />
+                  )}
+                </div>
               </div>
             </div>
           }
-          <div className=" mt-4">
-            <ul className=" hidden lg:flex z-30 relative items-center justify-between ">
+          <div className="mt-4">
+            <ul className="hidden lg:flex z-30 relative items-center justify-between">
               {links.map((link) => (
                 //@ts-ignore
-                <NavLink isHome={isHome} key={link.text} href={link.href} text={link.text} subLinks={link.subLinks} />
+                <NavLink
+                  isHome={isHome}
+                  key={link.text}
+                  href={link.href}
+                  text={link.text}
+                  subLinks={link.subLinks}
+                />
               ))}
             </ul>
           </div>
