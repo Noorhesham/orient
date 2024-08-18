@@ -3,7 +3,7 @@
     "title": "Hello world!"
   },
   "languageSwitcher": {
-    "selectLanguage": "English"
+    "selectLanguage": "Arabic"
   },
   "navbar": {
     "shopNow": "Shop Now",
@@ -14,14 +14,17 @@
     "contactUs": "Contact Us"
   },
   "footer": {
-    "headOffice": "HEED OFFICE",
+    "headOffice": "Head Office",
     "headOfficeAddress": "Head Office Maadi, Cairo.",
     "factory": "Factory",
     "factoryAddress": "Factory Maadi, Cairo.",
     "showMap": "Show Map",
-    "aboutOrient": "ABOUT ORIENT",
-    "downloadApp": "DOWNLOAD APP",
-    "followUs": "FOLLOW US",
-    "colorTrend": "COLOR TREND"
+    "aboutOrient": "About Orient",
+    "downloadApp": "Download App",
+    "followUs": "Follow Us",
+    "colorTrend": "Color Trend",
+    "becomepartener": "Become Partner",
+    "getInspired": "Get Inspired",
+    "aboutus":"about us"
   }
 }

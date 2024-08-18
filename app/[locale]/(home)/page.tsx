@@ -85,7 +85,7 @@ export default function Home() {
               description=" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industrys standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and
               typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-              className=" translate-x-0  z-10 relative mt-5 "
+              className=" translate-x-0  xl:translate-x-[24rem] z-10 relative mt-5 "
             />
             <div
               className={` ${

@@ -22,7 +22,7 @@ const Footer = () => {
     "/eos_logo 1.svg",
     "/12 1.svg",
   ];
-  const local=cookies().get("locale")?.value
+  const local = cookies().get("locale")?.value;
   return (
     <>
       <footer className="relative bg-main2">
@@ -69,20 +69,21 @@ const Footer = () => {
             </div>
 
             <div className="ml-5 col-span-full md:col-span-2 text-gray-50">
-              <p className="text-center  md:text-justify">{t("navbar.about us")}</p> {/* 'ABOUT ORIENT' */}
+              <p className="text-center  md:text-justify">{t("footer.aboutus")}</p> {/* 'ABOUT ORIENT' */}
               <ul className="grid text-center grid-cols-2 lg:items-start items-center lg:flex lg:flex-col mt-10 gap-3">
                 <Link href="/">{t("navbar.home")}</Link>
-                <Link href="/about-us">{t("navbar.about us")}</Link>
-                <Link href="/products">{t("navbar.products")}</Link>
+                <Link href="/about-us">{t("footer.aboutus")}</Link>
+                <Link href="/products">{t("footer.products")}</Link>
                 <Link href="/color-trend">{t("footer.colorTrend")}</Link> {/* 'COLOR TREND' */}
-                <Link href="/become-parteners">{t("navbar.become partener")}</Link>
-                <Link href="/get-inspired">{t("navbar.get inspired")}</Link>
+                <Link href="/become-parteners">{t("footer.becomepartener")}</Link>
+                <Link href="/get-inspired">{t("footer.getinspired")}</Link>
               </ul>
             </div>
 
             <div className="col-span-full xl:col-span-3 pb-5 md:pb-10 items-center lg:items-start flex gap-5 flex-col">
               <div>
-                <p className="text-center  md:text-justify text-white">{t("footer.downloadApp")}</p> {/* 'DOWNLOAD APP' */}
+                <p className="text-center  md:text-justify text-white">{t("footer.downloadApp")}</p>{" "}
+                {/* 'DOWNLOAD APP' */}
                 <div className="flex lg:justify-normal justify-center items-center gap-3 mt-5">
                   <Google />
                   <Apple />

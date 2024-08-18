@@ -1,9 +1,9 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "مرحبا بالعالم!"
   },
   "languageSwitcher": {
-    "selectLanguage": "عربي"
+    "selectLanguage": "English"
   },
   "navbar": {
     "shopNow": "تسوق الآن",
@@ -22,6 +22,9 @@
     "aboutOrient": "حول أوريانت",
     "downloadApp": "تحميل التطبيق",
     "followUs": "تابعنا",
-    "colorTrend": "اتجاه اللون"
+    "colorTrend": "اتجاه اللون",
+    "becomepartener": "انضم إلينا",
+    "getinspired":"احصل على الإلهام",
+    "aboutus":"من نحن"
   }
 }
