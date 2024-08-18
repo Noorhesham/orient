@@ -15,7 +15,7 @@ export const INSPIRED_LINKS = [
   { text: "kids room", href: "/get-inspired?category=kids-room" },
 ];
 export const PARTENER_LINKS = [
-  { text: "projects/products", href: "/become-parteners?category=all" },
+  { text: "projectsproducts", href: "/become-parteners?category=all" },
   { text: "export", href: "/become-parteners?category=projects" },
   { text: "color center", href: "/become-parteners?category=color_center" },
   { text: "local distributor", href: "/become-parteners?category=local_distributor" },
