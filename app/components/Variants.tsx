@@ -30,7 +30,7 @@ const Variants = ({ options, optionsSize }: { options?: string[]; optionsSize?: 
       </div>
       <div className="flex   mr-auto mt-2   items-center gap-2  pb-6 lg:border-b border-input">
         <h2 className=" text-nowrap text-sm text-black font-medium">SIZE :</h2>
-        <ul className="flex   lg:flex-nowrap flex-wrap  gap-3">
+        <ul className="flex   xl:flex-nowrap flex-wrap  gap-3">
           {optionsSize?.map((option, i) => (
             <li
               key={i}

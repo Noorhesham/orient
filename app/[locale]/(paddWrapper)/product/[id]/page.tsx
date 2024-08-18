@@ -53,7 +53,7 @@ const page = () => {
   return (
     <section className=" h-full relative">
       <MaxWidthWrapper noPadding className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
-        <div className="lg:col-span-8 items-center max-w-full flex flex-col gap-2  lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
+        <div className="lg:col-span-8 items-center max-w-full flex flex-col gap-4  lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
           <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
             <div className="  w-full h-96 ">
               <SwiperCards
@@ -80,7 +80,7 @@ const page = () => {
             CustomePadding="px-0 pb-5  py-0"
             headingColor="#E6007E"
             heading="PUTTY (ACRYLIC 1000) 233 WALL PAINTS"
-            className=" col-span-3 flex-grow text-wrap  mt-10"
+            className=" col-span-3 flex-grow text-wrap  mt-12"
           >
             <div className=" pb-5">
               <Stars />
