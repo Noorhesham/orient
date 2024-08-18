@@ -18,33 +18,36 @@ import AppDownload from "./AppDownload";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Language from "./Language";
 import PhoneNav from "./PhoneNav";
-const links = [
-  {
-    text: "Shop Now",
-    href: "/shop",
-  },
-  {
-    text: "Products",
-    subLinks: PRODUCTS_LINKS,
-  },
-  {
-    text: "Get Inspired",
-    subLinks: INSPIRED_LINKS,
-  },
-  {
-    text: "Become Partener",
-    subLinks: PARTENER_LINKS,
-  },
-  {
-    text: "About Us",
-    href: "/about-us",
-  },
-  {
-    text: "Contact Us",
-    href: "/contact-us",
-  },
-];
+import { useTranslations } from "next-intl";
+
 const NavBar = () => {
+  const t = useTranslations();
+  const links = [
+    {
+      text: t("navbar.shopNow"),
+      href: "/shop",
+    },
+    {
+      text: t("navbar.products"),
+      subLinks: PRODUCTS_LINKS,
+    },
+    {
+      text: t("navbar.getInspired"),
+      subLinks: INSPIRED_LINKS,
+    },
+    {
+      text: t("navbar.becomePartner"),
+      subLinks: PARTENER_LINKS,
+    },
+    {
+      text: t("navbar.aboutUs"),
+      href: "/about-us",
+    },
+    {
+      text: t("navbar.contactUs"),
+      href: "/contact-us",
+    },
+  ];
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [active, setIsActive] = useState(false);
   const router = useRouter();

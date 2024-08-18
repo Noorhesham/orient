@@ -17,7 +17,7 @@ const MotionContainer = dynamic(() => import("../../components/MotionContainer")
   ssr: false,
 });
 export default function Home() {
-  const local = cookies().get("locale").value;
+  const local = cookies().get("NEXT_LOCALE")?.value;
   return (
     <main style={{ padding: "0px 0px !important" }} className="">
       <section className="relative h-full min-h-[110vh] w-full">

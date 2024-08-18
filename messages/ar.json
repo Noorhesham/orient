@@ -6,13 +6,12 @@
     "selectLanguage": "عربي"
   },
   "navbar": {
-    "home": "الرئيسية",
-    "about us": "من نحن",
-    "contact us": "اتصل بنا",
-    "shop now": "تسوق الان",
+    "shopNow": "تسوق الآن",
     "products": "المنتجات",
-    "get inspired": "احصل علي الالهام",
-    "become partener": "انضم الينا"
+    "getInspired": "احصل على الإلهام",
+    "becomePartner": "انضم إلينا",
+    "aboutUs": "من نحن",
+    "contactUs": "اتصل بنا"
   },
   "footer": {
     "headOffice": "المكتب الرئيسي",

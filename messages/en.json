@@ -6,13 +6,12 @@
     "selectLanguage": "English"
   },
   "navbar": {
-    "home": "Home",
-    "about us": "About",
-    "contact us": "Contact Us",
-    "shop now": "Shop Now",
-    "products": "Products",
-    "get inspired": "Get Inspired",
-    "become partener": "Become Parteners"
+    "shopNow": "تسوق الآن",
+    "products": "المنتجات",
+    "getInspired": "احصل على الإلهام",
+    "becomePartner": "انضم إلينا",
+    "aboutUs": "من نحن",
+    "contactUs": "اتصل بنا"
   },
   "footer": {
     "headOffice": "HEED OFFICE",
