@@ -70,8 +70,8 @@ const Footer = () => {
 
             <div className="ml-5 col-span-full md:col-span-2 text-gray-50">
               <p className="text-center  md:text-justify">{t("footer.aboutus")}</p> {/* 'ABOUT ORIENT' */}
-              <ul className="grid text-center grid-cols-2 lg:items-start items-center lg:flex lg:flex-col mt-10 gap-3">
-                <Link href="/">{t("navbar.home")}</Link>
+              <ul className="grid text-center grid-cols-2 uppercase lg:items-start items-center lg:flex lg:flex-col mt-10 gap-3">
+                <Link href="/">{t("footer.home")}</Link>
                 <Link href="/about-us">{t("footer.aboutus")}</Link>
                 <Link href="/products">{t("footer.products")}</Link>
                 <Link href="/color-trend">{t("footer.colorTrend")}</Link> {/* 'COLOR TREND' */}
