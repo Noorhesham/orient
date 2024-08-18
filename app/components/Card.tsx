@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import MotionItem from "./MotionItem";
+import Link from "next/link";
 
 const Card = ({
   img,
@@ -20,7 +21,7 @@ const Card = ({
 }) => {
   return (
     <MotionItem className="hover:shadow-md  w-full h-full   self-center flex-grow cursor-pointer duration-150 bg-white flex flex-col justify-start items-center relative rounded-2xl overflow-hidden border border-gray-400">
-      <div className="flex flex-col w-full items-center">
+      <Link href={'/product/1'} className="flex flex-col w-full items-center">
         <div className={` ${width ? width : "aspect-[590/400]"} h-auto mb-auto self-start w-full relative `}>
           <Image src={img} className="object-cover object-top" fill alt="logo" />
         </div>
@@ -29,7 +30,7 @@ const Card = ({
           {price && <p className="text-[#CA0096] uppercase text-center text-xs lg:text-base font-medium">{price}</p>}
           {children}
         </div>
-      </div>
+      </Link>
     </MotionItem>
   );
 };
