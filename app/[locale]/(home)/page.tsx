@@ -89,8 +89,8 @@ export default function Home() {
             />
             <div
               className={` ${
-                local == "ar" ? "right-0" : "left-0"
-              }  aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-96 bottom-0  top-[107%] sm:top-[90%] md:top-[82%] xl:top-[5.5rem] right-[20%] sm:right-[40%]    md:right-20 xl:left-0  absolute`}
+                local == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
+              }  aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-96 bottom-0  top-[107%] sm:top-[90%] md:top-[82%] xl:top-[5.5rem]  absolute`}
             >
               <Image src={"/brown.svg"} fill className=" object-cover " alt="" />
             </div>
