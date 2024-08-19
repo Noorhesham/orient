@@ -83,8 +83,23 @@
   "browse": "BROWSE ALL BLOGS",
   "sellers": "OUR BEST SELLERS",
   "aboutusPage": {
+    "parteners": "OUR PARTNERS",
+    "vision": "OUR VISION",
+    "certificate": "CERTIFICATES",
     "history": "OUR HISTORY",
     "desc1": "Founded in 1946, Orient is built on a legacy of integrity, quality assurance, and innovative technology. With a continuous effort to hold a unique leading position in the industry, Orient brings together Egyptian manufacturing and German technology to offer products that you can rely on and a name you can trust."
   },
-  "search": "Hey, what are you looking for?"
+  "search": "Hey, what are you looking for?",
+  "previous": "PREV",
+  "next": "NEXT",
+  "hello": "HELLO,",
+  "accountDashboard": "From your account dashboard, you can easily check & view your",
+  "recentOrders": "Recent Orders",
+  "manage": "manage your",
+  "shippingAndBillingAddresses": "Shipping and Billing Addresses",
+  "andEdit": "and edit your",
+  "password": "Password",
+  "and": "and",
+  "accountDetails": "Account Details"
+  
 }

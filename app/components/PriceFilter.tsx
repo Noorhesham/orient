@@ -50,14 +50,7 @@ const PriceFilter = () => {
     <ul className="space-y-1 border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
       <li className="flex items-center  flex-row flex-wrap  lg:flex-col gap-4">
         <div className="self-start flex items-center gap-2 mr-auto">
-          <input
-            type="radio"
-            id={"price-custom"}
-            checked={priceFilter?.isCustom}
-            onChange={() => setPriceFilter({ isCustom: true, range: [0, 1000] })}
-          />
           <label
-            onClick={() => setPriceFilter({ isCustom: true, range: [0, 1000] })}
             htmlFor={"price-custom"}
             className="text-lg  mr-auto font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
@@ -76,7 +69,6 @@ const PriceFilter = () => {
             console.log({ newMin, newMax });
             handlePriceChange({ range: [newMin, newMax], isCustom: true, debounce: true });
           }}
-          disabled={!priceFilter?.isCustom}
           className={cn("w-full", !priceFilter?.isCustom && " opacity-50")}
         />
         {priceFilter && (
@@ -87,7 +79,7 @@ const PriceFilter = () => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [Number(e.target.value), prev.range[1]] }));
                 }}
-                value={ minPrice?.toFixed(0)||priceFilter?.range[1]?.toFixed(0)}
+                value={minPrice?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
               <Input
@@ -95,7 +87,7 @@ const PriceFilter = () => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [prev.range[0], Number(e.target.value)] }));
                 }}
-                value={maxPrice?.toFixed(0)||priceFilter?.range[1]?.toFixed(0)}
+                value={maxPrice?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
             </div>

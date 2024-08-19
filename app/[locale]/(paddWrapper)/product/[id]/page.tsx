@@ -55,11 +55,11 @@ const page = () => {
       <MaxWidthWrapper noPadding className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
         <div className="lg:col-span-8 items-center max-w-full flex flex-col gap-4  lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
           <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
-            <div className="  w-full h-96 ">
+            <div className="aspect-square  w-full h-full ">
               <SwiperCards
                 rounded
                 spaceBetween={50}
-                className="w-full h-full"
+                className="w-full aspect-square h-full"
                 slidesPerView={1}
                 items={[
                   { src: "/Product (1).jpg" },
@@ -203,13 +203,13 @@ const page = () => {
                 </div>
               }
               content={
-                <div className=" w-full h-full flex items-center justify-center">
+                <div className="relative w-full h-0" style={{ paddingBottom: "56.25%" }}>
                   <iframe
-                    width="80%"
-                    height="100%"
+                    className="absolute  md:-top-20 top-1/2 left-0 w-full h-full"
                     src="https://www.youtube.com/embed/QczGoCmX-pI?si=agurhHubDIgVjErj"
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    frameBorder="0"
                   ></iframe>
                 </div>
               }

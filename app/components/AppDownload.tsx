@@ -1,13 +1,20 @@
+"use client";
 import React from "react";
 import Logo from "./Logo";
 import Image from "next/image";
 import { DialogContent } from "@/components/ui/dialog";
+import { useAuth } from "../context/AuthContext";
+import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AppDownload = () => {
+  const { generalSettings, loading } = useAuth();
+  if (loading) return <Skeleton />;
+  const { store_url } = generalSettings;
   return (
     <DialogContent whiteClose className="  min-w-[100vw]  bg-black/60 border-none outline-none  h-screen w-full  ">
-      <main className="  flex justify-center items-center flex-col  h-screen">
-        <div className=" flex justify-center items-center py-20 px-40 flex-col gap-2">
+      <main className="  flex justify-center items-center gap-5 flex-col  h-screen">
+        <div className=" flex justify-center items-center  flex-col gap-2">
           <Logo />
           <h1 className=" text-4xl my-3 text-white font-bold">DOWNLOAD THE APP</h1>
           <p className=" max-w-lg text-white text-center">
@@ -17,20 +24,24 @@ const AppDownload = () => {
           </p>
         </div>
         <div className="flex flex-col gap-3">
-          <Image
-            alt=" download from google play"
-            src={"/google.png"}
-            width={200}
-            height={200}
-            className=" object-cover cursor-pointer"
-          />
-          <Image
-            alt=" download from apple store"
-            src={"/apple.png"}
-            width={200}
-            height={200}
-            className="  cursor-pointerobject-cover"
-          />
+          <Link href={store_url.play_store}>
+            <Image
+              alt=" download from google play"
+              src={"/google.png"}
+              width={200}
+              height={200}
+              className=" object-cover cursor-pointer"
+            />
+          </Link>
+          <Link href={store_url.app_store}>
+            <Image
+              alt=" download from apple store"
+              src={"/apple.png"}
+              width={200}
+              height={200}
+              className="cursor-pointer object-cover"
+            />
+          </Link>
         </div>
       </main>{" "}
     </DialogContent>

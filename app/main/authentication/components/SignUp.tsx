@@ -69,7 +69,6 @@ const Signup = () => {
   const [methods, setMethods] = useLocalStorageState([], "methods");
   console.log(deviceInfo);
   const onSubmit = async (data: z.infer<typeof signupSchema>) => {
-    console.log(data);
     startTransition(async () => {
       const res = await Server({
         resourceName: "signup",
@@ -78,8 +77,6 @@ const Signup = () => {
           device_info: deviceInfo,
         },
       });
-      // toast.success(`${res.message} ...`);
-      //   redirect("/login");
       if (!res.status) setServerError(res.errors);
       if (res.status) {
         console.log(deviceInfo, data.phone, data.email, data.password);
@@ -96,7 +93,7 @@ const Signup = () => {
             Accept: "application/json",
           },
         });
-        if (res) {
+        if (res.activation_methods) {
           console.log(res);
           setMethods(res.activation_methods);
           toast.success(`${res.message} ...`);

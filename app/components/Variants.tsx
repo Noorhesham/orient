@@ -8,23 +8,15 @@ const Variants = ({ options, optionsSize }: { options?: string[]; optionsSize?: 
         <div className="grid grid-cols-4 lg:grid-cols-7 items-start lg:items-center   w-full">
           <h2 className="  col-span-1 lg:col-span-2 text-nowrap text-sm text-black font-medium">COLOURS :</h2>
 
-          <div className="  col-span-3 lg:col-span-5  flex items-start  w-full">
-            <SwiperCards
-              slidesPerView={6}
-              samePhone
-              spaceBetween={-10}
-              className=" w-full  h-5"
-              items={options?.map((option, i) => ({
-                card: (
-                  <div
-                    style={{ backgroundColor: option }}
-                    key={i}
-                    className={` flex items-start   cursor-pointer p-1 hover:opacity-90 duration-100 
-                  shadow-sm   gap-2  w-5 h-5 self-center my-auto rounded-md `}
-                  />
-                ),
-              }))}
-            />
+          <div className="  col-span-3 lg:col-span-5 flex-wrap gap-4  flex items-start  w-full">
+            {options?.map((option, i) => (
+              <div
+                style={{ backgroundColor: option }}
+                key={i}
+                className={` flex items-start   cursor-pointer p-1 hover:opacity-90 duration-100 
+           shadow-sm   gap-2  w-5 h-5 self-center my-auto rounded-md `}
+              />
+            ))}
           </div>
         </div>
       </div>

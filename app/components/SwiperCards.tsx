@@ -7,6 +7,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import cookies from "js-cookie";
+import { useTranslations } from "next-intl";
 const SwiperCards = ({
   items,
   className,
@@ -17,6 +19,7 @@ const SwiperCards = ({
   rounded = false,
   logo,
   samePhone,
+  contain,
 }: {
   items: any;
   className?: string;
@@ -27,6 +30,7 @@ const SwiperCards = ({
   rounded?: boolean;
   logo?: boolean;
   samePhone?: boolean;
+  contain?: boolean;
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -43,6 +47,9 @@ const SwiperCards = ({
       });
     });
   }, [swiper, items]);
+  const local = cookies.get("NEXT_LOCALE");
+  console.log(local);
+  const t = useTranslations();
   return (
     <div className="relative h-full gap-3 w-full flex flex-col">
       <Swiper
@@ -62,7 +69,7 @@ const SwiperCards = ({
         {items.map(({ src, text, card }: { src: string; text: string; card: ReactNode }, i: number) => (
           <SwiperSlide className={`w-full h-full overflow-hidden ${rounded ? "rounded-2xl" : ""}`} key={i}>
             {card ? (
-             <div className="  w-full"> {card}</div>
+              <div className="  w-full"> {card}</div>
             ) : (
               <>
                 <Image
@@ -70,9 +77,9 @@ const SwiperCards = ({
                   loading="eager"
                   src={src}
                   alt="product image"
-                  className={`object-contain 2xl:object-cover object-center h-full w-full  ${
-                    rounded ? "rounded-2xl object-cover  lg:object-cover" : ""
-                  }`}
+                  className={` object-center h-full w-full  ${
+                    rounded && !contain ? "rounded-2xl object-cover  lg:object-cover" : ""
+                  } ${contain ? "lg:object-contain" : "object-contain  2xl:object-cover"}`}
                 />
                 {text && (
                   <h1 className="text-white text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
@@ -88,24 +95,29 @@ const SwiperCards = ({
         ))}
       </Swiper>
       {btns && (
-        <div className=" flex mb-4 items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 ">
+        <div
+          style={{ flexDirection: local === "ar" ? "row-reverse" : "row" }}
+          className=" flex mb-4 items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 "
+        >
           <Button
+            style={{ flexDirection: local === "ar" ? "row-reverse" : "row" }}
             onClick={() => swiper?.slidePrev()}
-            className=" rounded-full flex px-6 py-4 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
+            className={`rounded-full flex px-6 py-4 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main `}
           >
             <ArrowLeft className="mr-1" />
-            Perv
+            {t("previous")}
           </Button>
           <Button
+            style={{ flexDirection: local === "ar" ? "row-reverse" : "row" }}
             onClick={() => swiper?.slideNext()}
-            className=" rounded-full flex px-6 py-4 items-center  border border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
+            className={` rounded-full flex px-6 py-4 items-center  border border-main bg-white text-main duration-150 hover:text-white hover:bg-main`}
           >
-            Next <ArrowRight />
+            {t("next")} <ArrowRight />
           </Button>
         </div>
       )}
       {paginationImage && (
-        <div className="p-3 hidden md:flex z-10 mt-4 relative items-center gap-2">
+        <div className="p-3 hidden justify-center md:flex z-10 mt-4 relative items-center gap-2">
           {items.map(({ src }: { src: string }, i: number) => (
             <div
               className={cn(

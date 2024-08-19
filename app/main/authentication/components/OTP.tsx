@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/app/context/AuthContext";
 import { Suspense, useTransition } from "react";
 import Spinner from "@/app/components/Spinner";
+import { useDevice } from "@/app/context/DeviceContext";
 
 export function InputOTPPattern({
   handleSend,
@@ -51,6 +52,8 @@ export function InputOTPPattern({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const { deviceInfo } = useDevice();
+
   const onSubmit = async (data: z.infer<typeof otpSchema>) => {
     startTransition(async () => {
       const res = await Server({
@@ -76,6 +79,7 @@ export function InputOTPPattern({
           tfa: activate && "1",
           email_uuid: email && searchParams.get("uuid"),
           email: email && searchParams.get("email"),
+          device_info: deviceInfo,
         },
       });
       console.log(res);
@@ -88,7 +92,7 @@ export function InputOTPPattern({
         ["username", "uuid", "level", "email"].forEach((p) => updatedParams.delete(p));
         if (activate) return;
         if (email) {
-          setLogin((l:boolean) => !l);  
+          setLogin((l: boolean) => !l);
           return router.push(`?${updatedParams.toString()}`, { scroll: false });
         }
         forgot ? router.push("/login") : router.push("/");

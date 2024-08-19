@@ -16,7 +16,7 @@ const SocialMedia = () => {
       </div>
     );
   const { company_contacts } = generalSettings;
-  console.log(generalSettings);
+
   return (
     <div className=" flex mt-2 items-center gap-2">
       {company_contacts?.whatsapp && (

@@ -81,8 +81,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             device_id: deviceInfo.device_unique_id,
           },
         });
-
+        console.log(res.general_settings, res.user_settings, res.user2_settings);
         // Handle general settings
+
         updateFn({
           checker: res.general_settings.data,
           setState: setGeneralSettings,
@@ -119,7 +120,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     fetchData();
-  }, [login, queryClient]);
+  }, [login]);
   // useLayoutEffect(() => {
   //   console.log(queryClient.getQueryData(["general_settings"]), "asdadsadsadasdasdsad  ");
   //   if (!queryClient.getQueryData(["general_settings"])) {

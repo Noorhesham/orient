@@ -20,8 +20,10 @@ import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
 import Methods from "./Methods";
 import { InputOTPPattern } from "./OTP";
 import { useAuth } from "@/app/context/AuthContext";
+import { useTranslations } from "next-intl";
 
 const Login = () => {
+  const t = useTranslations();
   const [useEmail, setUseEmail] = useState(false);
   const [activate, setActivate] = useState(false);
   const [methods, setMethods] = useLocalStorageState([], "methods");
@@ -119,7 +121,7 @@ const Login = () => {
       type: "password",
       password: true,
       noProgress: true,
-      placeholder: "Add Your Password...",
+      placeholder: t('password'),
     },
   ];
   return (

@@ -47,41 +47,43 @@ const page = () => {
                 width={348}
                 height={297}
                 className={` ${
-                  local === "ar" ? "right-10 lg:-right-16" : "left-10 lg:left-[-10%]"
+                  local === "ar" ? "right-10 " : "left-10 lg:left-[-10%]"
                 } absolute  w-[80%]  md:w-[45%]   lg:w-[60%]  top-[65%] md:top-[47%]  lg:top-[40%]`}
               />
             </div>
           </div>
         </section>
       </MaxWidthWrapper>
-      <div className=" h-[400px] lg:h-[571px] w-full relative">
-        <ZoomImage
-          btn={
+
+      <ZoomImage
+        btn={
+          <div className=" cursor-pointer h-[400px] lg:h-[571px] w-full relative">
             <div className=" cursor-pointer hover:opacity-90 duration-150 absolute  bottom-10 left-40 -translate-x-1/2 -translate-y-1/2 z-10">
               <PlayIcon />
             </div>
-          }
-          content={
-            <div className=" w-full h-full flex items-center justify-center">
-              <iframe
-                width="80%"
-                height="100%"
-                src="https://www.youtube.com/embed/E8lXC2mR6-k?si=mUOcdTwpLWz7Zusb"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              ></iframe>
-            </div>
-          }
-        />
-        <Image src="/about3.png" alt="about" className=" object-contain" fill />
-      </div>
+            <Image src="/about3.png" alt="about" className=" object-contain" fill />
+          </div>
+        }
+        content={
+          <div className=" w-full h-full flex items-center justify-center">
+            <iframe
+              width="80%"
+              height="100%"
+              src="https://www.youtube.com/embed/E8lXC2mR6-k?si=mUOcdTwpLWz7Zusb"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </div>
+        }
+      />
+
       <MaxWidthWrapper className=" mt-20">
         <div className="flex md:flex-row gap-4 flex-col items-center">
           <div className=" w-full lg:min-w-[576px] flex-grow h-[200px] relative">
             <Image src="/About Oud 2.jpg" alt="about" className=" object-cover" fill />
           </div>
           <div className=" flex-shrink flex flex-col gap-2">
-            <h1 className=" text-3xl font-bold text-main">OUR VISION</h1>
+            <h1 className=" text-3xl font-bold text-main">{t("aboutusPage.vision")}</h1>
             <Paragraph
               full
               description=" Donec mattis porta eros, aliquet finibus ri sus interdum at. Nulla vivethe as it was Donec mattis porta
@@ -93,7 +95,7 @@ const page = () => {
 
         <div className="flex md:flex-row flex-col mt-10 gap-4 items-center">
           <div className=" flex-shrink flex flex-col gap-2">
-            <h1 className=" text-3xl font-bold text-main">OUR VISION</h1>
+            <h1 className=" text-3xl font-bold text-main">{t("aboutusPage.vision")}</h1>
             <Paragraph
               full
               description=" Donec mattis porta eros, aliquet finibus ri sus interdum at. Nulla vivethe as it was Donec mattis porta
@@ -108,8 +110,8 @@ const page = () => {
 
         <div className="flex  lg:my-10 my-5 gap-4 lg:gap-8 items-start flex-col md:flex-row lg:items-end">
           <div className=" flex-grow  relative">
-            <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">OUR</h1>
-            <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">CERTIFICATES</h1>
+            {local === "en" && <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">OUR</h1>}
+            <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.certificate")}</h1>
           </div>
 
           <Paragraph
@@ -167,8 +169,8 @@ const page = () => {
         <div className="">
           <div className="flex mt-5  gap-4 lg:gap-8 items-start flex-col md:flex-row lg:items-end">
             <div className=" flex-grow  relative">
-              <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">OUR</h1>
-              <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">PARTENERS</h1>
+            {local === "en" && <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">OUR</h1>}
+              <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.parteners")}</h1>
             </div>
 
             <Paragraph
@@ -184,8 +186,8 @@ const page = () => {
               btns={true}
               logo={true}
               spaceBetween={50}
-              slidesPerView={5}
-              className=" w-full  h-32 "
+              slidesPerView={5} contain
+              className=" w-full  object-contain  h-32 "
               items={[
                 { src: "/Artboard-1@300x-1.png" },
                 { src: "/Artboard-1@300x-1 (1).png" },

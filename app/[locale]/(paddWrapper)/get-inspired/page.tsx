@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import ImageGrid from "../../../components/ImageGrid";
 import Tabing from "../../../components/Tabing";
+import { PaginationDemo } from "@/app/components/Pagination";
 
 const page = () => {
   const tabs = [
@@ -47,6 +48,7 @@ const page = () => {
       </p>
       <Suspense>
         <Tabing defaultValue="all" options={tabs} />
+        <PaginationDemo />
       </Suspense>
     </MaxWidthWrapper>
   );
