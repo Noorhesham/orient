@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 .reveal_animation {
   opacity: 0;
   animation: reveal 0.5s ease-out forwards;
@@ -74,13 +72,13 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
   }
-
 }
 .special-label {
   display: none !important;
 }
 .react-tel-input {
   padding: 0 !important;
+  direction: ltr !important;
 }
 .form-control {
   @apply py-2 px-4  w-full  border-none pl-14 !important;

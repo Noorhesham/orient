@@ -11,6 +11,8 @@ import Spinner from "./Spinner";
 import Starrating from "./Rate";
 import PhotoInput from "./PhotoInput";
 import { Textarea } from "@/components/ui/textarea";
+import { useTranslations } from "next-intl";
+import cookies from "js-cookie";
 interface FormInputProps {
   control?: any;
   name: string;
@@ -99,7 +101,8 @@ const FormInput = ({
       loadCalendar();
     }
   }, [phone, date]);
-
+  const t = useTranslations();
+  const local = cookies.get("NEXT_LOCALE") || "en";
   return (
     <>
       <FormField
@@ -114,7 +117,13 @@ const FormInput = ({
             )}
             <div className={`relative  w-full inline-flex items-center justify-center ${className}`}>
               {!optional && !switchToggle && (
-                <span className="  absolute  z-10 right-2 -top-[-13px] font-normal text-red-600">*</span>
+                <span
+                  className={`absolute ${
+                    local === "en" ? "right-1 -top-[-13px]" : " top-1 right-1"
+                  }  z-10   font-normal text-red-600`}
+                >
+                  *
+                </span>
               )}
               <FormControl className={`  ${switchToggle ? "" : "  py-1 duration-200"} `}>
                 {phone && PhoneSearchComponent ? (
@@ -122,7 +131,7 @@ const FormInput = ({
                     <PhoneSearchComponent onChange={field.onChange} />
                   </Suspense>
                 ) : area ? (
-                  <Textarea placeholder="YOUR MESSAGE / NOTE" className="resize-none" {...field} />
+                  <Textarea placeholder={t("forms.message")} className="resize-none" {...field} />
                 ) : photo ? (
                   <PhotoInput value={field.value} onChange={field.onChange} />
                 ) : date && CalendarComponent ? (
@@ -150,7 +159,7 @@ const FormInput = ({
                   </div>
                 ) : rate ? (
                   <div>
-                    <Label>YOUR PRODUCT RATING</Label>
+                    <Label>{t("forms.rate")}</Label>
                     <Starrating OnSetRating={field.onChange} MaxRating={5} />
                   </div>
                 ) : (

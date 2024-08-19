@@ -48,5 +48,43 @@
     "exterior": "Exterior",
     "metal": "Metal",
     "wood": "Wood"
-  }
+  },
+  "address": {
+    "title": "Address",
+    "phone": "Phone",
+    "hotline": "Hotline",
+    "email": "EMAIL ADDRESS"
+  },
+  "contact": {
+    "title": "CONTACT INFO",
+    "description": "you can contact us anytime via email or phone.",
+    "book": "LEARN ANOUT OUR MOST IMPORTANT",
+    "branches": "BRANCHES AND DISTRIBUTERS",
+    "contact": "SOCIAL MEDIA",
+    "question": "DO YOU HAVE ANY QUESTIONS ?",
+    "send": "SEND MESSAGE",
+    "contactDescription": "CONNECT WITH US VIA SOCAIL MEDIA"
+  },
+  "Submit": "CONFIRM",
+  "cancel": "CANCEL",
+  "forms": {
+    "message": "YOUR MESSAGE / NOTE",
+    "rate": "YOUR PRODUCT RATING",
+    "email": "EMAIL ADDRESS",
+    "phone": "PHONE NUMBER",
+    "name": "YOUR NAME",
+    "inquiry": "YOUR INQUIRY"
+  },
+  "phone": "PHONE NUMBER",
+  "color_center": "Requesting to open coloring centers",
+  "projects": "Getting quotations for Projects",
+  "local_distributor": "becoming a local distributor",
+  "all": "export projects",
+  "browse": "BROWSE ALL BLOGS",
+  "sellers": "OUR BEST SELLERS",
+  "aboutusPage": {
+    "history": "OUR HISTORY",
+    "desc1": "Founded in 1946, Orient is built on a legacy of integrity, quality assurance, and innovative technology. With a continuous effort to hold a unique leading position in the industry, Orient brings together Egyptian manufacturing and German technology to offer products that you can rely on and a name you can trust."
+  },
+  "search": "Hey, what are you looking for?"
 }

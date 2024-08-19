@@ -67,7 +67,7 @@ const Signup = () => {
   const { deviceInfo } = useDevice();
   const [isPending, startTransition] = useTransition();
   const [methods, setMethods] = useLocalStorageState([], "methods");
-
+  console.log(deviceInfo);
   const onSubmit = async (data: z.infer<typeof signupSchema>) => {
     console.log(data);
     startTransition(async () => {
@@ -82,6 +82,7 @@ const Signup = () => {
       //   redirect("/login");
       if (!res.status) setServerError(res.errors);
       if (res.status) {
+        console.log(deviceInfo, data.phone, data.email, data.password);
         setServerError(null);
         const res = await Server({
           resourceName: "login",
@@ -96,6 +97,7 @@ const Signup = () => {
           },
         });
         if (res) {
+          console.log(res);
           setMethods(res.activation_methods);
           toast.success(`${res.message} ...`);
           redirect(`/login?uuid=${res.activation_uuid}`);

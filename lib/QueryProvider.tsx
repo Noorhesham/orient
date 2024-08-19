@@ -11,7 +11,7 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false, // Does not refetch on window focus
-            refetchOnReconnect: false,
+            refetchOnReconnect: false,staleTime:Infinity
           },
         },
       })

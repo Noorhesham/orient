@@ -25,10 +25,17 @@ const UpdatePersonalInfo = () => {
   const { setLogin, userSettings: user, loading } = useAuth();
   const updatePersonalInfro = async (data: any, setError: any) => {
     const formData = new FormData();
-    formData.append("birth_day", format(data.birth_day, "yyyy-MM-dd"));
-    formData.append("avatar", data.avatar[0]);
-    formData.append("name", data.name);
-    const res = await Server({ resourceName: "update_profile", body: formData });
+    if (data.name) formData.append("name", data.name);
+    if (data.birth_day) formData.append("birth_day", format(data.birth_day, "yyyy-MM-dd"));
+    if (data.avatar) formData.append("avatar", data.avatar[0]); // Assuming `avatar` is an array with a single file
+
+    console.log(data);
+    const res = await Server({
+      resourceName: "update_profile",
+      body: {
+        formData,
+      },
+    });
     if (!res.status) setError(Array.isArray(res.errors) ? res.errors : res.errors.password || res.message);
     if (res.status === true) {
       toast.success(res.message);

@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 import cookies from "js-cookie";
 import { Server } from "../main/Server";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
@@ -90,16 +90,16 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           dateKey: "last_update_date_general",
           setDates,
           queryClient,
-          status: res.status,
+          status: res.general_settings.status,
         });
         updateFn({
-          checker: res.user_settings,
+          checker: res.user_settings.data,
           setState: setUserSettings,
           key: "user_settings",
           dateKey: "last_update_date_user",
           setDates,
           queryClient,
-          status: res.status,
+          status: res.user_settings.status,
         });
         console.log(res.user_settings, res.user2_settings, res.general_settings);
         updateFn({
@@ -109,7 +109,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           dateKey: "last_update_date_user2",
           setDates,
           queryClient,
-          status: res.status,
+          status: res.user2_settings.status,
         });
       } catch (error) {
         console.error("Error fetching settings:", error);
@@ -120,7 +120,16 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     fetchData();
   }, [login, queryClient]);
-
+  // useLayoutEffect(() => {
+  //   console.log(queryClient.getQueryData(["general_settings"]), "asdadsadsadasdasdsad  ");
+  //   if (!queryClient.getQueryData(["general_settings"])) {
+  //     setLogin(false);
+  //     setDates((prevDates: any) => ({
+  //       ...prevDates,
+  //       last_update_date_general: "",
+  //     }));
+  //   }
+  // }, []);
   const handleLogout = () => {
     setLoading(true);
     cookies.remove("jwt");

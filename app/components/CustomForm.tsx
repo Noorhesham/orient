@@ -9,10 +9,11 @@ import { cn } from "@/lib/utils";
 import Head1 from "./Head1";
 import { DialogClose } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 export interface CustomFormProps {
   inputs: InputProps[];
   src?: string;
-  serverError?: string[] |string| null;
+  serverError?: string[] | string | null;
   title?: string;
   noimg?: boolean;
   text?: string;
@@ -48,7 +49,8 @@ export interface InputProps {
   date?: boolean;
   password?: boolean;
   children?: ReactNode;
-  noProgress?: boolean;area?: boolean;
+  noProgress?: boolean;
+  area?: boolean;
 }
 const CustomForm = ({
   inputs,
@@ -65,6 +67,7 @@ const CustomForm = ({
   btnStyles,
   cancel,
 }: CustomFormProps) => {
+  const t = useTranslations();
   return (
     <Form {...form}>
       <form className="flex w-full items-stretch gap-2" onSubmit={form.handleSubmit(onSubmit)}>
@@ -99,7 +102,7 @@ const CustomForm = ({
                     type="button"
                     className="text-xs flex-grow mr-auto self-end mx-0  hover:bg-main2 hover:text-white rounded-full flex  items-center gap-2 px-6  border border-main2 bg-white text-main2"
                   >
-                    CANCEL
+                    {t("cancel")}
                   </Button>
                 }
               </DialogClose>

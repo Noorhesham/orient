@@ -68,9 +68,9 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="ml-5 col-span-full lg:col-span-2 text-gray-50">
+            <div className="lg:ml-5 col-span-full lg:col-span-2 text-gray-50">
               <p className="text-center  lg:text-justify">{t("footer.aboutus")}</p> {/* 'ABOUT ORIENT' */}
-              <ul className="grid text-center grid-cols-2 uppercase lg:items-start items-center lg:flex lg:flex-col mt-10 gap-3">
+              <ul className="grid text-center grid-cols-2 uppercase lg:items-start items-center lg:flex lg:flex-col mt-2 lg:mt-10 gap-3">
                 <Link href="/">{t("footer.home")}</Link>
                 <Link href="/about-us">{t("footer.aboutus")}</Link>
                 <Link href="/products">{t("footer.products")}</Link>
@@ -88,13 +88,15 @@ const Footer = () => {
                   <Google />
                   <Apple />
                 </div>
-                <div className="flex flex-col items-start mt-5">
-                  <p className="text-white">{t("footer.followUs")}</p> {/* 'FOLLOW US' */}
-                  <SocialMedia />
-                  <div className="h-10 w-[23rem] mt-4 lg:h-20 relative">
-                    <Image src="/payments.png" alt="payments" fill className="object-contain" />
+
+                  <div className="flex flex-col items-start mt-5">
+                    <p className="text-white">{t("footer.followUs")}</p> {/* 'FOLLOW US' */}
+                    <SocialMedia />
+                    <div className="h-10  w-full mt-4 lg:h-20 relative">
+                      <Image src="/payments.png" alt="payments" fill className="object-contain" />
+                    </div>
                   </div>
-                </div>
+          
               </div>
             </div>
           </div>

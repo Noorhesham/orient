@@ -12,20 +12,22 @@ import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
 import Paragraph from "@/app/components/Paragraph";
 import { cookies } from "next/headers";
+import { useTranslations } from "next-intl";
 // import Notifications from "@/app/components/Notificationts";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
 export default function Home() {
   const local = cookies().get("NEXT_LOCALE")?.value;
+  const t = useTranslations();
   return (
     <main style={{ padding: "0px 0px !important" }} className="">
-      <section className="relative h-full min-h-[110vh] w-full">
+      <section className="relative h-full  min-h-[110vh] w-full">
         <ImageSlider />
         {/* <Notifications /> */}
       </section>
-      <MaxWidthWrapper>
-        <Section link="#" className="my-10 min-h-[30vh]" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
+      <MaxWidthWrapper className="my-2 ">
+        <Section link="#" className=" min-h-[30vh]" heading={t("sellers")} linkText={t("browse")}>
           <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
             <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
             <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
@@ -68,7 +70,7 @@ export default function Home() {
           <Calculate />
         </div>
       </MaxWidthWrapper>
-      <div className=" h-[530px] relative w-full ">
+      <div className=" 2xl:h-[55vh] xl:h-[530px] relative w-full ">
         <Image
           className=" lg:block hidden object-contain lg:object-cover w-full h-full"
           src={"/Rectangle 12333.png"}
@@ -79,7 +81,7 @@ export default function Home() {
       </div>
 
       <MaxWidthWrapper>
-        <Section headingColor="#E6007E" heading="PARKOSTIAN" className="relative mt-10">
+        <Section headingColor="#E6007E" heading="PARKOSTIAN" className="relative">
           <div className="  mt-5">
             <Paragraph
               description=" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -107,7 +109,7 @@ export default function Home() {
           <div className=" w-full h-52 bg-[#A9835E]"></div>
         </div>
       </div>
-      <MaxWidthWrapper className="  flex  pb-14 flex-col items-center justify-center">
+      <MaxWidthWrapper className="  flex   flex-col items-center justify-center">
         <Heading
           mainText="DISCOVER THE MOST IMPORTANT"
           subText="ARTICLES ABOUT PAINTS"
@@ -120,8 +122,8 @@ export default function Home() {
           <CardHuge />
           <CardHuge />
         </MotionContainer>
-        <div className=" mt-2 pb-8">
-          <LinkButton text="BROWSE ALL BLOG" href="/blog" />
+        <div className=" mt-2 ">
+          <LinkButton text={t("browse")} href="/blog" />
         </div>
       </MaxWidthWrapper>
     </main>

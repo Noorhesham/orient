@@ -70,7 +70,7 @@ const SwiperCards = ({
                   loading="eager"
                   src={src}
                   alt="product image"
-                  className={`object-contain object-center h-full w-full  ${
+                  className={`object-contain 2xl:object-cover object-center h-full w-full  ${
                     rounded ? "rounded-2xl object-cover  lg:object-cover" : ""
                   }`}
                 />

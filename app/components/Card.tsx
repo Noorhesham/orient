@@ -27,7 +27,7 @@ const Card = ({
         </div>
         <div className="md:px-8 px-4 md:py-4 py-2 ">
           <p className="uppercase text-xs mb-2 text-gray-900 font-semibold">{text} </p>
-          {price && <p className="text-[#CA0096] uppercase text-center text-xs lg:text-base font-medium">{price}</p>}
+          {price && <p className="text-[#CA0096] uppercase text-center text-xs lg:text-base font-semibold">{price}</p>}
           {children}
         </div>
       </Link>

@@ -3,14 +3,17 @@ import Head1 from "@/app/components/Head1";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
-import React, { Suspense } from "react";
-const tabs = [
-  { link: "color_center", text: "Requesting to open coloring centers" },
-  { text: "Getting quotations for Projects", link: "projects" },
-  { link: "local_distributor", text: "becoming a local distributor" },
-  { link: "all", text: "export projects" },
-];
+import { useTranslations } from "next-intl";
+
 const page = () => {
+  const t = useTranslations();
+
+  const tabs = [
+    { link: "color_center", text: t("color_center") },
+    { link: "projects", text: t("projects") },
+    { link: "local_distributor", text: t("local_distributor") },
+    { link: "all", text: t("all") },
+  ];
   return (
     <main className="">
       <section className=" relative min-h-[60vh]">
@@ -25,20 +28,21 @@ const page = () => {
         />
       </section>
       <MaxWidthWrapper>
-        <div className=" mt-5 md:mt-8 flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
+        <div className="  flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
           <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
             <Partner tabs={tabs} />
           </Section>
           <div className=" col-span-full w-full lg:col-span-2">
-            <Head1 text="DO YOU HAVE ANY QUESTIONS ?" />
-            <FormContainer btnText="SEND MESSAGE"  
+            <Head1 text={t("contact.question")} />
+            <FormContainer
+              btnText={t("contact.send")}
               schema={"contact"}
               formArray={[
-                { name: "name", placeholder: "NAME", type: "text" },
-                { name: "phone", placeholder: "PHONE", type: "text", phone: true },
-                { name: "email", placeholder: "EMAIL", type: "email" },
-                { name: "inquiry", placeholder: "INQUIREIS TYPE", type: "text", select: true },
-                { name: "message", placeholder: "MESSAGE", type: "text",area:true },
+                { name: "name", placeholder: t("forms.name"), type: "text" },
+                { name: "phone", placeholder: t("forms.phone"), type: "text", phone: true },
+                { name: "email", placeholder: t("forms.email"), type: "email" },
+                { name: "inquiry", placeholder: t("forms.inquiry"), type: "text", select: true },
+                { name: "message", placeholder: "MESSAGE", type: "text", area: true },
               ]}
             />
           </div>

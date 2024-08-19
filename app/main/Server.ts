@@ -75,6 +75,7 @@ export async function Server({
   headers,
   noHeaders = false,
   cache = false,
+  img = false,
 }: {
   resourceName: ResourceNameProps;
   id?: string;
@@ -83,6 +84,7 @@ export async function Server({
   headers?: any;
   noHeaders?: boolean;
   cache?: boolean;
+  img?: boolean;
 }) {
   try {
     // Get the token and device info from cookies
@@ -91,7 +93,7 @@ export async function Server({
 
     // Set up headers
     const combinedHeaders: { [key: string]: string } = {
-      "Content-Type": "application/json",
+      "Content-Type": img ? "multipart/form-data" : "application/json",
       ...headers,
     };
 
@@ -104,7 +106,7 @@ export async function Server({
 
     // Get the URL and method from the resource name
     const { url, method: resolvedMethod } = getURL(resourceName, id);
-
+    console.log(body);
     // Fetch data from the server
     const response = await fetch(url, {
       method: method || resolvedMethod,
@@ -112,7 +114,6 @@ export async function Server({
       body: body ? JSON.stringify(body) : undefined,
       cache: cache ? "force-cache" : "no-cache",
     });
-
     if (!response.ok) throw new Error(`Error: ${response.status}`);
 
     const data = await response.json();

@@ -13,6 +13,7 @@ import {
   emailSchema,
   phoneSchema,
 } from "../schema";
+import { useTranslations } from "next-intl";
 
 interface FormContainerProps {
   formArray: InputProps[];
@@ -68,7 +69,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
         throw new Error("Invalid schema type provided");
     }
   };
-
+  const t = useTranslations();
   const form = useForm({
     resolver: zodResolver(schemaResolver()),
     mode: "onChange",
@@ -90,20 +91,19 @@ const FormContainer: React.FC<FormContainerProps> = ({
   };
   console.log(form.formState.errors);
   return (
-      <CustomForm
-        serverError={serverError}
-        btnText={btnText || "CONFIRM"}
-        form={form}
-        isPending={isPending}
-        cancel={cancel}
-        title={title || ""}
-        btnStyles={btnStyles || "w-[40%] mr-auto "}
-        inputs={formArray}
-        onSubmit={onSubmit}
-      >
-        {children}
-      </CustomForm>
-  
+    <CustomForm
+      serverError={serverError}
+      btnText={btnText || t("Submit")}
+      form={form}
+      isPending={isPending}
+      cancel={cancel}
+      title={title || ""}
+      btnStyles={btnStyles || "w-[40%] mr-auto "}
+      inputs={formArray}
+      onSubmit={onSubmit}
+    >
+      {children}
+    </CustomForm>
   );
 };
 
