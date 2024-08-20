@@ -1,4 +1,4 @@
-import { Server } from "@/app/main/Server";
+import { ResourceNameProps, Server } from "@/app/main/Server";
 import { useQuery } from "@tanstack/react-query";
 import cookies from "js-cookie";
 const useGetGeneralSettings = (needed: string[]) => {
@@ -17,4 +17,14 @@ const useGetGeneralSettings = (needed: string[]) => {
 
   return { data, isLoading };
 };
-export { useGetGeneralSettings };
+const useGetEntity = (resourseName: ResourceNameProps, body?: any) => {
+  const { data, isLoading } = useQuery({
+    queryKey: [resourseName],
+    queryFn: async () =>
+      await Server({
+        resourceName: resourseName,
+      }),
+  });
+  return { data, isLoading };
+};
+export { useGetGeneralSettings, useGetEntity };

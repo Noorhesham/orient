@@ -26,6 +26,8 @@ export function InputOTPPattern({
   email,
   activate,
   revalidate,
+  phone,
+  country_key,
 }: {
   handleSend: any;
   sendType: string;
@@ -35,6 +37,8 @@ export function InputOTPPattern({
   email?: boolean;
   activate?: boolean;
   revalidate?: any;
+  phone?: boolean;
+  country_key?: string;
 }) {
   const { setLogin } = useAuth();
   const otpSchema = z.object({
@@ -80,6 +84,8 @@ export function InputOTPPattern({
           email_uuid: email && searchParams.get("uuid"),
           email: email && searchParams.get("email"),
           device_info: deviceInfo,
+          phone: phone && searchParams.get("phone"),
+          country_key,
         },
       });
       console.log(res);

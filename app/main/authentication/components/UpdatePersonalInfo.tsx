@@ -12,15 +12,18 @@ import Activate2fa from "./Activate2fa";
 import { MailIcon, PhoneIcon } from "lucide-react";
 import Spinner from "@/app/components/Spinner";
 import { InputOTPPattern } from "./OTP";
-const personal = [
-  { name: "name", placeholder: "YOUR NAME" },
-  { name: "birth_day", placeholder: "YOUR BIRTHDAY", date: true },
-  { name: "avatar", placeholder: "YOUR PHOTO", photo: true },
-];
-const email = [{ name: "email", placeholder: "YOUR EMAIL" }];
-const phone = [{ name: "phone", placeholder: "YOUR PHONE NUMBER", phone: true }];
+import { useTranslations } from "next-intl";
+
 const UpdatePersonalInfo = () => {
+  const t = useTranslations();
   const router = useRouter();
+  const personal = [
+    { name: "name", placeholder: t("name") },
+    { name: "birth_day", placeholder: t("birth_day"), date: true },
+    { name: "avatar", placeholder: t("avatar"), photo: true },
+  ];
+  const email = [{ name: "email", placeholder: t("email") }];
+  const phone = [{ name: "phone", placeholder: t("phone"), phone: true }];
   const searchParams = useSearchParams();
   const { setLogin, userSettings: user, loading } = useAuth();
   const updatePersonalInfro = async (data: any, setError: any) => {
@@ -45,8 +48,13 @@ const UpdatePersonalInfo = () => {
   };
 
   const updateEmailInfo = async (data: any, setError: any) => {
+    if (data.phone && data.phone.startsWith(user.country_key)) {
+      // Remove the country_key from the phone number
+      data.phone = data.phone.slice(user.country_key.length);
+      data.country_key = user.country_key;
+    }
     const res = await Server({ resourceName: "update_profile", body: data });
-    console.log(res);
+
     if (!res.status) {
       setError(res.errors?.length > 0 ? res.errors.join(", ") : res.errors?.email || res.message);
       return;
@@ -56,8 +64,10 @@ const UpdatePersonalInfo = () => {
       setLogin((l: any) => !l);
 
       const updatedParams = new URLSearchParams(searchParams);
-      updatedParams.set("email", data.email);
-      updatedParams.set("uuid", res.email_code_uuid);
+      data.phone
+        ? updatedParams.set("phone", data.phone.slice(user.country_key.length))
+        : updatedParams.set("email", data.email);
+      data.phone ? updatedParams.set("uuid", res.phone_code_uuid) : updatedParams.set("uuid", res.email_code_uuid);
       setError(null);
       router.push(`?${updatedParams.toString()}`, { scroll: false });
     }
@@ -68,7 +78,11 @@ const UpdatePersonalInfo = () => {
       <ModalCustom
         btn={
           <div>
-            <UpdateCard text="UPDATE EMAIL" desc={user?.email} icon={<MailIcon className=" text-main w-10 h-10" />} />
+            <UpdateCard
+              text={t("updateEmail")}
+              desc={user?.email}
+              icon={<MailIcon className=" text-main w-10 h-10" />}
+            />
           </div>
         }
         content={
@@ -81,10 +95,10 @@ const UpdatePersonalInfo = () => {
                 cancel={true}
                 defaultValues={user}
                 btnStyles={"w-full"}
-                btnText="SAVE CHANGES"
+                btnText={t("confirm")}
                 schema="email"
                 formArray={email}
-                title="UPDATE EMAIL"
+                title={t("updateEmail")}
               />
               {searchParams.get("uuid") && <InputOTPPattern email sendType="email" handleSend={updateEmailInfo} />}
             </div>
@@ -94,7 +108,11 @@ const UpdatePersonalInfo = () => {
       <ModalCustom
         btn={
           <div>
-            <UpdateCard text="UPDATE PHONE" desc={user?.email} icon={<PhoneIcon className=" text-main w-10 h-10" />} />
+            <UpdateCard
+              text={t("updatePhone")}
+              desc={`+${user?.country_key} ${user?.phone}`}
+              icon={<PhoneIcon className=" text-main w-10 h-10" />}
+            />
           </div>
         }
         content={
@@ -107,16 +125,17 @@ const UpdatePersonalInfo = () => {
                 cancel={true}
                 defaultValues={user}
                 btnStyles={"w-full"}
-                btnText="SAVE CHANGES"
+                btnText={t("confirm")}
                 schema="phone"
                 formArray={phone}
-                title="UPDATE PHONE"
+                title={t("updatePhone")}
               />
               {searchParams.get("uuid") && (
                 <InputOTPPattern
                   revalidate={() => setLogin((l: any) => !l)}
-                  email
-                  sendType="email"
+                  phone
+                  country_key={user.country_key}
+                  sendType="username"
                   handleSend={updateEmailInfo}
                 />
               )}
@@ -128,8 +147,8 @@ const UpdatePersonalInfo = () => {
         btn={
           <div>
             <UpdateCard
-              text="PERSONAL INFO"
-              desc="CONFIGURE CUSTOM SETTINGS"
+              text={t("personalInfo")}
+              desc={t("personalDetails")}
               icon={<GoPeople className=" text-main w-10 h-10" />}
             />
           </div>
@@ -147,7 +166,7 @@ const UpdatePersonalInfo = () => {
                 btnText="SAVE CHANGES"
                 schema="personalInfo"
                 formArray={personal}
-                title="UPDATE Personal INFO"
+                title={t("updatePersonalInfo")}
               />
               <Activate2fa />
             </div>

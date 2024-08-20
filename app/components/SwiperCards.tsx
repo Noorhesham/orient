@@ -79,7 +79,7 @@ const SwiperCards = ({
                   alt="product image"
                   className={` object-center h-full w-full  ${
                     rounded && !contain ? "rounded-2xl object-cover  lg:object-cover" : ""
-                  } ${contain ? "lg:object-contain" : "object-contain  2xl:object-cover"}`}
+                  } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
                 />
                 {text && (
                   <h1 className="text-white text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">

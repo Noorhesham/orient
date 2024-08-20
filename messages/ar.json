@@ -99,5 +99,15 @@
   "andEdit": "وتعديل",
   "password": "كلمة المرور",
   "and": "و",
-  "accountDetails": "تفاصيل الحساب"
+  "accountDetails": "تفاصيل الحساب",
+  "email":" البريد الالكتروني",
+  "name":"اسمك",
+  "birth_day":"تاريخ الميلاد",
+  "avatar":"الصورة الشخصية",
+  "updatePhone":"تحديث الهاتف",
+  "updateEmail":"تحديث البريد الالكتروني",
+  "personalInfo": "المعلومات الشخصية",
+  "personalDetails": "تكوين الاعدادات الخاصة",
+  "updatePersonalInfo": "تحديث المعلومات الشخصية",
+  "confirm": "تاكيد"
 }

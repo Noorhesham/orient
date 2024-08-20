@@ -19,17 +19,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-// Request permission to show notifications
+// Request permission to show notificationsexport const requestPermission = async () => {
 export const requestPermission = async () => {
   try {
-    const token = await getToken(messaging, { vapidKey: "BN6WAOKbpbGGnhCHXisFDt8AIBUDRldWnK6jMegDHkjwTtK7W2fRZEf843QFKLmxjX4-BmZZ5XvERKuwEDt2qXM" });
+    const token = await getToken(messaging, {
+      vapidKey: "BN6WAOKbpbGGnhCHXisFDt8AIBUDRldWnK6jMegDHkjwTtK7W2fRZEf843QFKLmxjX4-BmZZ5XvERKuwEDt2qXM",
+    });
     console.log("FCM Token:", token);
-    // Handle the FCM token
   } catch (error) {
     console.error("Error getting FCM token", error);
   }
 };
-
 // Register the service worker
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
@@ -44,15 +44,10 @@ if ("serviceWorker" in navigator) {
 
 // Listen for messages when the app is in the foreground
 export const onMessageListener = () =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     onMessage(messaging, (payload) => {
       console.log("Message received. ", payload);
       resolve(payload);
-      // Optionally, display a notification here
-      if (Notification.permission === "granted") {
-        const { title, body } = payload.notification;
-        new Notification(title, { body });
-      }
     });
   });
 

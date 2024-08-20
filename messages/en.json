@@ -100,6 +100,16 @@
   "andEdit": "and edit your",
   "password": "Password",
   "and": "and",
-  "accountDetails": "Account Details"
-  
+  "accountDetails": "Account Details",
+  "email": "ENTER YOUR EMAIL",
+  "name": "ENTER YOUR NAME",
+  "birth_day": "ENTER YOUR BIRTHDAY",
+  "avatar": " UPLOAD YOUR AVATAR",
+  "updatePhone": "UPDATE YOUR PHONE",
+  "updateEmail": "UPDATE YOUR EMAIL",
+  "updatePassword": "UPDATE YOUR PASSWORD",
+  "personalInfo": "PERSONAL INFORMATION",
+  "personalDetails": "CONFIGURE CUSTOM SETTINGS",
+  "updatePersonalInfo": "UPDATE PERSONAL INFORMATION",
+  "confirm": "SAVE CHANGES"
 }

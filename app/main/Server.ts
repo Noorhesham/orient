@@ -23,7 +23,8 @@ export type ResourceNameProps =
   | "update_password"
   | "update_profile"
   | "remove_account"
-  | "tfaActivate";
+  | "tfaActivate"
+  | "getDevices";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string) => {
@@ -61,6 +62,8 @@ const getURL = (resourceName: ResourceNameProps, id?: string) => {
       return { url: `${url}/rm_users/${VERSION}/update_password`, method: "POST" };
     case "remove_account":
       return { url: `${url}/rm_users/${VERSION}/remove_account`, method: "POST" };
+    case "getDevices":
+      return { url: `${url}/rm_users/${VERSION}/devices/get`, method: "GET" };
     default:
       return { url, method: "GET" as MethodProps };
   }
