@@ -13,6 +13,7 @@ import Calculate from "../../components/Calculate";
 import Paragraph from "@/app/components/Paragraph";
 import { cookies } from "next/headers";
 import { useTranslations } from "next-intl";
+import Notifications from "@/app/components/Notificationts";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
@@ -24,6 +25,7 @@ export default function Home() {
       <section className="relative h-full  min-h-[110vh] w-full">
         <ImageSlider />
       </section>
+      <Notifications />
       <MaxWidthWrapper className="my-2 ">
         <Section link="#" className=" min-h-[30vh]" heading={t("sellers")} linkText={t("browse")}>
           <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">

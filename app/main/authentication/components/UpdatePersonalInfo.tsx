@@ -30,7 +30,7 @@ const UpdatePersonalInfo = () => {
     const formData = new FormData();
     if (data.name) formData.append("name", data.name);
     if (data.birth_day) formData.append("birth_day", format(data.birth_day, "yyyy-MM-dd"));
-    if (data.avatar) formData.append("avatar", data.avatar[0]); // Assuming `avatar` is an array with a single file
+    if (data.avatar) formData.append("avatar", data.avatar[0]); 
 
     console.log(data);
     const res = await Server({

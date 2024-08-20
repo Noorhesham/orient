@@ -1,20 +1,14 @@
-import React from "react";
-import Notifications from "@/app/components/Notificationts";
-
+"use client";
 import UpdatePassword from "@/app/main/authentication/components/UpdatePassword";
 import UpdatePersonalInfo from "@/app/main/authentication/components/UpdatePersonalInfo";
 import UpdateNotifications from "@/app/main/authentication/components/UpdateNotifications";
 import DeleteAccount from "@/app/main/authentication/components/DeleteAccount";
 import Devices from "@/app/main/authentication/components/Devices";
-import { unstable_setRequestLocale } from "next-intl/server";
 
-const Page = ({ params: { locale } }: { params: { locale: string } }) => {
-  unstable_setRequestLocale(locale);
-
+const page = () => {
   return (
     <>
       <div className="z-10 flex flex-col mx-auto justify-center flex-wrap lg:grid gap-4  lg:grid-cols-3">
-        <Notifications />
         <UpdatePassword />
         <UpdateNotifications />
         <UpdatePersonalInfo />
@@ -25,4 +19,4 @@ const Page = ({ params: { locale } }: { params: { locale: string } }) => {
   );
 };
 
-export default Page;
+export default page;
