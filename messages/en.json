@@ -112,6 +112,8 @@
   "personalDetails": "CONFIGURE CUSTOM SETTINGS",
   "updatePersonalInfo": "UPDATE PERSONAL INFORMATION",
   "confirm": "SAVE CHANGES",
-"message":"YOUR MESSAGE / NOTE",
-"photo":"UPLOAD YOUR IMAGE"
+  "message": "YOUR MESSAGE / NOTE",
+  "photo": "UPLOAD YOUR IMAGE",
+  "deleteAccount": "Are You Sure You Want To Delete Your Account ?",
+  "confirmDelete": "Please Confirm Your Password before proceeding."
 }

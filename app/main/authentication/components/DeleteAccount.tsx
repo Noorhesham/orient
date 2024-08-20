@@ -1,3 +1,4 @@
+"use client";
 import FormContainer from "@/app/components/FormContainer";
 import ModalCustom from "@/app/components/ModalCustom";
 import { useAuth } from "@/app/context/AuthContext";
@@ -5,13 +6,14 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { Server } from "../../Server";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 const DeleteAccount = () => {
   const router = useRouter();
   const { handleLogout } = useAuth();
-
+  const t = useTranslations();
   const removeAccount = async (data: any, setError: any) => {
-    const res = await Server({ resourceName: "remove_account", body: data});
+    const res = await Server({ resourceName: "remove_account", body: data });
     if (!res.status) setError(res.errors?.length > 0 ? res.errors : res.message)();
     if (res.status) {
       toast.success(res.message);
@@ -28,8 +30,8 @@ const DeleteAccount = () => {
       }
       content={
         <div className=" px-5 lg:px-20 py-5">
-          <p>Are You Sure You Want To Delete Your Account ?</p>
-          <p>Please Confirm Your Password before proceeding.</p>
+          <p>{t("deleteAccount")}</p>
+          <p>{t("confirmDelete")}</p>
           <FormContainer
             btnText="CONFIRM DELETE"
             schema="forgotPassword"
