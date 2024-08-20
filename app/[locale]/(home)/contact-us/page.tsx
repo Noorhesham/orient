@@ -78,7 +78,7 @@ const page = ( {params: { locale }}:{ params: { locale: string }}) => {
                 { name: "phone", placeholder: t("forms.phone"), type: "text", phone: true },
                 { name: "email", placeholder: t("forms.email"), type: "email" },
                 { name: "inquiry", placeholder: t("forms.inquiry"), type: "text", select: true },
-                { name: "message", placeholder: "MESSAGE", type: "text", area: true },
+                { name: "message", placeholder: t("forms.message") , type: "text", area: true },
               ]}
             />
           </div>

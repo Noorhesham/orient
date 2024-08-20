@@ -111,5 +111,7 @@
   "personalInfo": "PERSONAL INFORMATION",
   "personalDetails": "CONFIGURE CUSTOM SETTINGS",
   "updatePersonalInfo": "UPDATE PERSONAL INFORMATION",
-  "confirm": "SAVE CHANGES"
+  "confirm": "SAVE CHANGES",
+"message":"YOUR MESSAGE / NOTE",
+"photo":"UPLOAD YOUR IMAGE"
 }
