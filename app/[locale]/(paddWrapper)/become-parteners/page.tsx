@@ -4,9 +4,10 @@ import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-const page = () => {
-  const t = useTranslations();
+const page = async () => {
+  const t = await getTranslations();
 
   const tabs = [
     { link: "color_center", text: t("color_center") },
