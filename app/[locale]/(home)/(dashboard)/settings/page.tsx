@@ -8,8 +8,11 @@ import UpdatePersonalInfo from "@/app/main/authentication/components/UpdatePerso
 import UpdateNotifications from "@/app/main/authentication/components/UpdateNotifications";
 import DeleteAccount from "@/app/main/authentication/components/DeleteAccount";
 import Devices from "@/app/main/authentication/components/Devices";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const Page = () => {
+const Page = ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+
   return (
     <>
       <div className="z-10 flex flex-col mx-auto justify-center flex-wrap lg:grid gap-4  lg:grid-cols-3">

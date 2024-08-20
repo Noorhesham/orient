@@ -10,8 +10,10 @@ import BreadCrumb from "@/app/components/BreadCrumb";
 import Paragraph from "@/app/components/Paragraph";
 import MotionContainer from "@/app/components/MotionContainer";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const page = () => {
+const page = ( {params: { locale }}:{ params: { locale: string }}) => {
+  unstable_setRequestLocale(locale);
   const t = useTranslations();
   return (
     <main className=" pt-40 min-h-screen  ">

@@ -4,10 +4,12 @@ import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const page = async () => {
-  const t = await getTranslations();
+const page = ( {params: { locale }}:{ params: { locale: string }}) => {
+  unstable_setRequestLocale(locale);
+
+  const t = useTranslations();
 
   const tabs = [
     { link: "color_center", text: t("color_center") },

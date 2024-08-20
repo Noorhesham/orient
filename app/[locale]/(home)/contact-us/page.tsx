@@ -22,8 +22,10 @@ import React from "react";
 import Paragraph from "@/app/components/Paragraph";
 import Address from "@/app/components/Address";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const page = () => {
+const page = ( {params: { locale }}:{ params: { locale: string }}) => {
+  unstable_setRequestLocale(locale);
   const t = useTranslations();
   return (
     <main className=" pt-40">
