@@ -14,7 +14,7 @@ const page = async () => {
     },
   });
   const user = res.user_settings.data;
-  const { name, email, birthday, phone, photo } = user;
+  const { name, email,  phone } = user;
   return (
     <section className=" ">
       <div className="   ml-5 flex flex-col items-start">

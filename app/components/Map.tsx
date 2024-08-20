@@ -22,7 +22,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
       setPosition(new L.LatLng(lat, lng));
       setLocation && setLocation({ lat, lng });
     } else {
-      navigator.geolocation.getCurrentPosition(
+      window?.navigator?.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           console.log(latitude, longitude, position);

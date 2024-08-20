@@ -1,3 +1,4 @@
+"use client";
 import ModalCustom from "@/app/components/ModalCustom";
 import Spinner from "@/app/components/Spinner";
 import UpdateCard from "@/app/components/UpdateCard";

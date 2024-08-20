@@ -5,8 +5,9 @@ import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 
-const page = ( {params: { locale }}:{ params: { locale: string }}) => {
+const page = ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
 
   const t = useTranslations();
@@ -32,9 +33,11 @@ const page = ( {params: { locale }}:{ params: { locale: string }}) => {
       </section>
       <MaxWidthWrapper>
         <div className="  flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
-          <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
-            <Partner tabs={tabs} />
-          </Section>
+          <Suspense>
+            <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
+              <Partner tabs={tabs} />
+            </Section>
+          </Suspense>
           <div className=" col-span-full w-full lg:col-span-2">
             <Head1 text={t("contact.question")} />
             <FormContainer

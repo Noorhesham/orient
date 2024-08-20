@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Server } from "../../Server";
 import { toast } from "react-toastify";

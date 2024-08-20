@@ -8,8 +8,8 @@ import { FiCopy } from "react-icons/fi";
 
 const AddToWishlist = ({ className }: { className: string }) => {
   const handleShare = () => {
-    if (navigator.share) {
-      navigator
+    if (global?.navigator.share) {
+      global?.navigator
         .share({
           title: "Check out this product!",
           url: global?.window?.location.href,
@@ -17,7 +17,7 @@ const AddToWishlist = ({ className }: { className: string }) => {
         .catch((error) => console.error("Error sharing", error));
     } else {
       // Fallback for desktop or browsers that don't support the Web Share API
-      navigator.clipboard.writeText(global?.window?.location.href);
+      global?.navigator.clipboard.writeText(global?.window?.location.href);
       alert("Link copied to clipboard!");
     }
   };

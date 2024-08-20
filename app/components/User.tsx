@@ -7,7 +7,7 @@ const User = ({ user }: { user: { name: string; photo?: string } }) => {
   return (
     <div className="flex items-center gap-3">
       <Avatar>
-        <AvatarImage src={user.photo || ""} alt="@shadcn" />
+        <AvatarImage src={user?.photo || ""} alt="@shadcn" />
         <AvatarFallback>{user.name}</AvatarFallback>
       </Avatar>
       <p>{user.name}</p>

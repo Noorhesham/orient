@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect } from "react";
 import { onMessageListener, requestPermission } from "../firebase";
 import { toast } from "react-toastify";
@@ -7,25 +8,21 @@ const Notifications = () => {
   const [notifications, setNotifications] = React.useState([]);
 
   useEffect(() => {
-    requestPermission();
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      requestPermission();
 
-    const unsubscribe = onMessageListener().then((payload: any) => {
-      toast.success(`${payload.notification.title} - ${payload.notification.body}`);
-      //@ts-ignore
-      setNotifications((prevNotifications) => [
-        ...prevNotifications,
-        { title: payload.notification.title, body: payload.notification.body },
-      ]);
-    });
-
-    return () => {
-      unsubscribe.catch((err: any) => console.error(err));
-    };
+      onMessageListener().then((payload: any) => {
+        toast.success(`${payload.notification.title} - ${payload.notification.body}`);
+        setNotifications((prevNotifications) => [
+          ...prevNotifications,
+          { title: payload.notification.title, body: payload.notification.body },
+        ]);
+      }).catch((err) => console.error(err));
+    }
   }, []);
 
   return (
     <div>
-      {/* Rendering notifications if needed */}
       {notifications.map((notification, index) => (
         <div key={index}>
           <strong>{notification.title}</strong>

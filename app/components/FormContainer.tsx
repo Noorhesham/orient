@@ -78,7 +78,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
         ...defaultValues,
         birth_day: defaultValues?.birthday || "",
         phone: ` ${defaultValues?.country_key}${defaultValues?.phone}` || "",
-        avatar: defaultValues.photo || "",
+        avatar: defaultValues?.photo || "",
       } || {},
   });
   const [serverError, setServerError] = useState<string[] | null>(null);

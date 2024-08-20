@@ -22,6 +22,7 @@ const messaging = getMessaging(app);
 // Request permission to show notificationsexport const requestPermission = async () => {
 export const requestPermission = async () => {
   try {
+    if (!global?.window || !global?.navigator) return;
     const token = await getToken(messaging, {
       vapidKey: "BN6WAOKbpbGGnhCHXisFDt8AIBUDRldWnK6jMegDHkjwTtK7W2fRZEf843QFKLmxjX4-BmZZ5XvERKuwEDt2qXM",
     });
@@ -31,7 +32,7 @@ export const requestPermission = async () => {
   }
 };
 // Register the service worker
-if ("serviceWorker" in navigator) {
+if (typeof window !== "undefined" && "serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/firebase-messaging-sw.js", { scope: "/" })
     .then((registration) => {
@@ -41,7 +42,6 @@ if ("serviceWorker" in navigator) {
       console.error("Service Worker registration failed:", error);
     });
 }
-
 // Listen for messages when the app is in the foreground
 export const onMessageListener = () =>
   new Promise((resolve, reject) => {
