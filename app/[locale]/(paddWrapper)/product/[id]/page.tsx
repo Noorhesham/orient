@@ -13,7 +13,7 @@ import SwiperCards from "@/app/components/SwiperCards";
 import Variants from "@/app/components/Variants";
 import { formatPrice } from "@/app/helpers/utils";
 import { Button } from "@/components/ui/button";
-import { BoxIcon, CreditCard, DownloadIcon, Headphones, StarIcon } from "lucide-react";
+import { BoxIcon, CreditCard, CreditCardIcon, DownloadIcon, Headphones, StarIcon } from "lucide-react";
 import React from "react";
 import { CiCalculator2 } from "react-icons/ci";
 
@@ -257,7 +257,7 @@ const page = () => {
                   {
                     card: (
                       <div className=" flex items-start gap-3">
-                        CreditCard
+                        <CreditCardIcon/>
                         <div className="flex flex-col gap-2">
                           <h2 className=" text-black font-medium">SECURE PAYMENTS</h2>
                           <p className=" text-sm text-muted-foreground">YOUR MONEY IS SAFE</p>

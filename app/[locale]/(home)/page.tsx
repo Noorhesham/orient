@@ -17,6 +17,38 @@ import Notifications from "@/app/components/Notificationts";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
+const items = [
+  {
+    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
+    main_gallery:[ {
+      sizes: {
+        large: "/unsplash_FWoq_ldWlNQ.png",
+      },
+    }],
+    content:
+      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
+  },
+  {
+    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
+    main_gallery:[ {
+      sizes: {
+        large: "/unsplash_FWoq_ldWlNQ.png",
+      },
+    }],
+    content:
+      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
+  },
+  {
+    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
+    main_gallery:[ {
+      sizes: {
+        large: "/unsplash_FWoq_ldWlNQ.png",
+      },
+    }],
+    content:
+      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
+  },
+];
 export default function Home() {
   const local = cookies().get("NEXT_LOCALE")?.value;
   const t = useTranslations();
@@ -109,7 +141,7 @@ export default function Home() {
           <div className=" w-full h-52 bg-[#A9835E]"></div>
         </div>
       </div>
-      <MaxWidthWrapper className="  flex   flex-col items-center justify-center">
+      <MaxWidthWrapper className="  flex  gap-4  flex-col items-center justify-center">
         <Heading
           mainText="DISCOVER THE MOST IMPORTANT"
           subText="ARTICLES ABOUT PAINTS"
@@ -118,9 +150,9 @@ export default function Home() {
         rerum."
         />
         <MotionContainer className=" grid grid-cols-1 justify-items-center w-full lg:grid-cols-3 mx-auto gap-3 items-center ">
-          <CardHuge />
-          <CardHuge />
-          <CardHuge />
+          {items.map((item, i) => (
+            <CardHuge item={item} key={i} />
+          ))}
         </MotionContainer>
         <div className=" mt-2 ">
           <LinkButton text={t("browse")} href="/blog" />

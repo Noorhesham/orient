@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-export function convertToHTML(input) {
+export function convertToHTML(input:string) {
   let html = input;
 
   // Convert <strong> and <em> tags
@@ -15,6 +15,7 @@ export function convertToHTML(input) {
   html = html.replace(/<p>([^<]+)<\/p>/g, "<p>$1</p>");
 
   // Convert <ol> and <li> tags
+  //@ts-ignore
   html = html.replace(/<ol>(.*?)<\/ol>/gs, "<ol>$1</ol>");
   html = html.replace(/<li>([^<]+)<\/li>/g, "<li>$1</li>");
 
