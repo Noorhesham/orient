@@ -5,12 +5,12 @@ import ModalCustom from "@/app/components/ModalCustom";
 import { Lock } from "lucide-react";
 import UpdateCard from "@/app/components/UpdateCard";
 import FormContainer from "@/app/components/FormContainer";
-const updatePassword = [
-  { name: "password", placeholder: "NEW PASSWORD", type: "password", password: true, noProgress: false },
-];
+import { useTranslations } from "next-intl";
+
 const UpdatePassword = () => {
+  const t = useTranslations();
   const updatePasswordInfo = async (data: any, setError: any) => {
-    const res = await Server({ resourceName: "update_password", body: data});
+    const res = await Server({ resourceName: "update_password", body: data });
     console.log(res);
     if (!res.status) setError(res.errors || res.message)();
     if (res) {
@@ -18,14 +18,16 @@ const UpdatePassword = () => {
       setError(null);
     }
   };
-
+  const updatePassword = [
+    { name: "password", placeholder: t("password"), type: "password", password: true, noProgress: false },
+  ];
   return (
     <ModalCustom
       btn={
         <div>
           <UpdateCard
-            text="UPDATE PASSWORD"
-            desc="CONFIGURE CUSTOM SETTINGS"
+            text={t("updatePassword")}
+            desc={t("personalDetails")}
             icon={<Lock className="w-10 h-10 text-main" />}
           />
         </div>
@@ -36,10 +38,10 @@ const UpdatePassword = () => {
             submit={updatePasswordInfo}
             cancel={true}
             btnStyles={"w-full"}
-            btnText="SAVE CHANGES"
+            btnText={t("confirm")}
             schema="forgotPassword"
             formArray={updatePassword}
-            title="UPDATE PASSWORD"
+            title={t("updatePassword")}
           />
         </div>
       }

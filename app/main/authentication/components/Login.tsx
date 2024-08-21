@@ -113,7 +113,7 @@ const Login = () => {
   const loginArray = [
     {
       name: "username",
-      placeholder: `Add Your ${useEmail ? "Email" : "Phone"}...`,
+      placeholder: useEmail ? t("email") : t("phone"),
       phone: !useEmail,
     },
     {
@@ -121,7 +121,7 @@ const Login = () => {
       type: "password",
       password: true,
       noProgress: true,
-      placeholder: t('password'),
+      placeholder: t("password"),
     },
   ];
   return (
@@ -130,10 +130,10 @@ const Login = () => {
         <Logo size={{ width: 863, height: 338 }} type="blue" />
         {!activate && (
           <>
-            <h1 className="text-center text-xl md:text-2xl mt-8 font-bold text-main2">LOGIN TO YOUR ACCOUNT</h1>
+            <h1 className="text-center text-xl md:text-2xl mt-8 font-bold text-main2">{t("login")}</h1>
             <div className="w-full mt-5 px-5 lg:px-14 flex flex-col">
               <div className="text-main2 self-center mx-auto text-base flex items-center gap-2">
-                <p className="text-main2 font-medium text-sm">BY PHONE</p>
+                <p className="text-main2 font-medium text-sm">{t("loginWithPhone")}</p>
                 <Switch
                   noSwitch={true}
                   checked={useEmail}
@@ -142,12 +142,12 @@ const Login = () => {
                     form.setValue("useEmail", !useEmail);
                   }}
                 />
-                <p className="text-main2 font-medium text-sm">BY EMAIL</p>
+                <p className="text-main2 font-medium text-sm">{t("loginWithEmail")}</p>
               </div>
               <CustomForm
                 serverError={serverError}
                 link="/forgot-password?level=prepare"
-                linkText="Forgot Password ?"
+                linkText={t("forgotPassword")}
                 btnText="LOGIN"
                 isPending={isPending}
                 form={form}
@@ -166,9 +166,10 @@ const Login = () => {
               <Socials />
             </div>
             <div className="mt-8 text-sm flex flex-col gap-2 md:gap-0 md:flex-row items-center">
-              <span className="font-[400] text-main2">NOT REGISTERED YET?</span>
+              <span className="font-[400] text-main2">{t("dontHaveAccount")}</span>
               <Link href="/signup" className="hover:underline duration-150 ml-1 text-main font-[700]">
-                CREATE NEW ACCOUNT
+                {" "}
+                {t("createAccount")}{" "}
               </Link>
             </div>
           </>

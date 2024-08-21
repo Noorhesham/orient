@@ -4,6 +4,7 @@ import UpdatePersonalInfo from "@/app/main/authentication/components/UpdatePerso
 import UpdateNotifications from "@/app/main/authentication/components/UpdateNotifications";
 import DeleteAccount from "@/app/main/authentication/components/DeleteAccount";
 import Devices from "@/app/main/authentication/components/Devices";
+import Activate2fa from "@/app/main/authentication/components/Activate2fa";
 
 const page = () => {
   return (
@@ -13,6 +14,7 @@ const page = () => {
         <UpdateNotifications />
         <UpdatePersonalInfo />
         <Devices />
+        <Activate2fa />
       </div>
       <DeleteAccount />
     </>

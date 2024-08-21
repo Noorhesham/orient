@@ -10,13 +10,13 @@ const SearchBox = ({
   icon,
   onSearch,
   active,
-  setIsActive,
+  setIsActive,nonactive
 }: {
   bg?: string;
   icon?: any;
   onSearch?: (value: string) => void;
   active: boolean;
-  setIsActive: (value: boolean) => void;
+  setIsActive?: (value: boolean) => void;nonactive?:boolean
 }) => {
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,7 +44,7 @@ const SearchBox = ({
   // Handle clicks outside the search box to close it
   const handleClickOutside = (event: MouseEvent) => {
     if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-      setIsActive(false);
+      setIsActive && setIsActive(false);
     }
   };
 
@@ -77,35 +77,40 @@ const SearchBox = ({
         active && "-translate-x-20  py-2 px-4 lg:translate-x-0"
       } duration-150 lg:py-2 lg:px-4 ${locale === "ar" && "lg:flex-row-reverse"} `}
     >
-      <input
-        ref={inputRef}
-        onChange={handleSearchChange}
-        className={` bg-transparent rounded-3xl duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
+      {nonactive ? (
+        <input  onChange={handleSearchChange}  placeholder={t("search")} className="bg-transparent outline-none placeholder:text-black rounded-3xl py-3 px-6  w-full" />
+      ) : (
+        <input
+          ref={inputRef}
+          onChange={handleSearchChange}
+          className={` bg-transparent rounded-3xl duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
           placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
-        type="text"
-        placeholder={t("search")}
-      />
+          type="text"
+          placeholder={t("search")}
+        />
+      )}
 
-      <motion.input
-        ref={inputRef}
-        initial={{ width: 0 }}
-        animate={{ width: active ? "350px" : 0 }}
-        transition={{ duration: 0.5 }}
-        onChange={handleSearchChange}
-        className={`${
-          active ? "bg-white/10 py-3 px-4" : "bg-transparent placeholder:w-0"
-        } rounded-3xl duration-150 absolute  block lg:hidden     left-0 pl-12 placeholder:font-[300] placeholder:my-auto outline-none placeholder:text-xs text-xs font-medium ${
-          active ? "z-50" : "w-0"
-        }`}
-        type="text"
-        placeholder="Hey, what are you looking for?"
-      />
-
+      {active && (
+        <motion.input
+          ref={inputRef}
+          initial={{ width: 0 }}
+          animate={{ width: active ? "350px" : 0 }}
+          transition={{ duration: 0.5 }}
+          onChange={handleSearchChange}
+          className={`${
+            active ? "bg-white/10 py-3 px-4" : "bg-transparent placeholder:w-0"
+          } rounded-3xl duration-150 absolute  block lg:hidden     left-0 pl-12 placeholder:font-[300] placeholder:my-auto outline-none placeholder:text-xs text-xs font-medium ${
+            active ? "z-50" : "w-0"
+          }`}
+          type="text"
+          placeholder="Hey, what are you looking for?"
+        />
+      )}
       <div
-        onClick={() => setIsActive(!active)}
+        onClick={() => setIsActive && setIsActive(!active)}
         className={`${icon === "white" ? " rounded-full bg-main2" : ""} ${
           active ? "lg:rotate-0 rotate-[60deg]" : ""
-        }  duration-150 cursor-pointer z-[60] `}
+        }  duration-150 cursor-pointer z-[60] mr-4 `}
       >
         <SearchIcon color={pathname === "/ar" || pathname === "/en" || icon === "white" ? "white" : "black"} />
       </div>

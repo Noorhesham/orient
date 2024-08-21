@@ -13,18 +13,31 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import { MdOutlineLanguage } from "react-icons/md";
 import cookies from "js-cookie";
+import { Server } from "../main/Server";
+import { useDevice } from "../context/DeviceContext";
 const Language = () => {
   const [isPending, startTransition] = useTransition();
+  const { deviceInfo } = useDevice();
   const router = useRouter();
   const currentLocale = useLocale();
   const pathName = usePathname();
   const t = useTranslations();
   const handleSelect = (value: string) => {
     if (value === currentLocale) return;
-    startTransition(() => {
+    startTransition(async () => {
       const newPathName = pathName.replace(`/${currentLocale}`, `/${value}`);
       router.push(newPathName);
       cookies.set("NEXT_LOCALE", value);
+      const res = await Server({
+        resourceName: "languageUpdate",
+        body: {
+          key: "language",
+          value: cookies.get("NEXT_LOCALE"),
+          device_info: deviceInfo,
+          action: "set",
+          default: "en",
+        },
+      });
       router.refresh();
     });
   };

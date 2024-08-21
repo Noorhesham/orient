@@ -7,7 +7,7 @@ export function useLocalStorageState(initialState: any, key: string, cookie = fa
     if (cookie) {
       cookies.set(key, storedValue || initialState);
     }
-    return storedValue ? JSON.parse(storedValue) : initialState;
+    return storedValue&&storedValue!=="undefined" ? JSON.parse(storedValue) : initialState;
   });
 
   useEffect(

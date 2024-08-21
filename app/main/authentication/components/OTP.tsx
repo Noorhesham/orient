@@ -13,9 +13,12 @@ import FormInput from "@/app/components/FormInput";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/app/context/AuthContext";
-import { Suspense, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import Spinner from "@/app/components/Spinner";
 import { useDevice } from "@/app/context/DeviceContext";
+import Timer from "@/app/components/Timer";
+import Paragraph from "@/app/components/Paragraph";
+import { useTranslations } from "next-intl";
 
 export function InputOTPPattern({
   handleSend,
@@ -41,6 +44,7 @@ export function InputOTPPattern({
   country_key?: string;
 }) {
   const { setLogin } = useAuth();
+  const [timer, setTimer] = useState(true);
   const otpSchema = z.object({
     code: z.string().min(6).max(6),
     password: !forgot
@@ -57,7 +61,7 @@ export function InputOTPPattern({
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const { deviceInfo } = useDevice();
-
+  const t = useTranslations();
   const onSubmit = async (data: z.infer<typeof otpSchema>) => {
     startTransition(async () => {
       const res = await Server({
@@ -65,7 +69,7 @@ export function InputOTPPattern({
           ? "reset"
           : tfa
           ? "tfaValidate"
-          : email
+          : email || phone
           ? "update_profile"
           : activate
           ? "tfaActivate"
@@ -85,7 +89,9 @@ export function InputOTPPattern({
           email: email && searchParams.get("email"),
           device_info: deviceInfo,
           phone: phone && searchParams.get("phone"),
-          country_key,
+          phone_uuid: phone && searchParams.get("uuid"),
+          phone_code: phone && data.code,
+          country_key: phone && country_key,
         },
       });
       console.log(res);
@@ -97,7 +103,7 @@ export function InputOTPPattern({
         const updatedParams = new URLSearchParams(searchParams.toString());
         ["username", "uuid", "level", "email"].forEach((p) => updatedParams.delete(p));
         if (activate) return;
-        if (email) {
+        if (email || phone) {
           setLogin((l: boolean) => !l);
           return router.push(`?${updatedParams.toString()}`, { scroll: false });
         }
@@ -105,7 +111,6 @@ export function InputOTPPattern({
       }
     });
   };
-
   return (
     <Suspense>
       <div className="flex flex-col items-center mt-8">
@@ -116,7 +121,7 @@ export function InputOTPPattern({
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Vlidation code</FormLabel>
+                  <FormLabel>{t("validation")}</FormLabel>
                   <FormControl>
                     <InputOTP pattern={REGEXP_ONLY_DIGITS} maxLength={6} {...field}>
                       <InputOTPGroup>
@@ -129,14 +134,22 @@ export function InputOTPPattern({
                       </InputOTPGroup>
                     </InputOTP>
                   </FormControl>
-                  <FormDescription>Please enter the one-time code sent to you.</FormDescription>
+                  <FormDescription>{t("validation_code")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {forgot && <FormInput name="password" control={form.control} placeholder="ENTER NEW PASSWORD" password />}
+            {forgot && <FormInput name="password" control={form.control} placeholder={t("password")} password />}
             <div className="mt-4 flex items-center gap-2">
-              <CustomButton text="SEND CODE AGAIN" onClick={(e: any) => handleSend(sendType)} />
+              {!activate && (
+                <CustomButton
+                  text={t("resend_code")}
+                  onClick={(e: any) => {
+                    handleSend(sendType);
+                    setTimer(true);
+                  }}
+                />
+              )}
               <Button disabled={isPending} className=" rounded-full px-8" type="submit">
                 {isPending ? <Spinner /> : "Submit"}
               </Button>

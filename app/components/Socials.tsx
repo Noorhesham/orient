@@ -1,6 +1,8 @@
+import { useTranslations } from "next-intl";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 
 const Socials = () => {
+  const t = useTranslations();
   return (
     <div className=" flex flex-col mt-10">
       <div className="relative">
@@ -8,7 +10,7 @@ const Socials = () => {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <p className=" text-xs  text-main2 bg-gray-50 font-[400] mx-auto text-center">OR SIGN IN WITH</p>
+          <p className=" text-xs  text-main2 bg-gray-50 font-[400] mx-auto text-center">{t("orSign")}</p>
         </div>
       </div>
       <div className="flex text-gray-50 self-center mt-3 items-center gap-5">

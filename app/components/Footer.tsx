@@ -8,6 +8,7 @@ import Link from "next/link";
 import SwiperCards from "./SwiperCards";
 import { useTranslations } from "next-intl";
 import { cookies } from "next/headers";
+import Download from "./Download";
 // Assuming you're using a translation library
 
 const Footer = () => {
@@ -84,19 +85,14 @@ const Footer = () => {
               <div>
                 <p className="text-center  lg:text-justify text-white">{t("footer.downloadApp")}</p>{" "}
                 {/* 'DOWNLOAD APP' */}
-                <div className="flex lg:justify-normal justify-center items-center gap-3 mt-5">
-                  <Google />
-                  <Apple />
-                </div>
-
-                  <div className="flex flex-col items-start mt-5">
-                    <p className="text-white">{t("footer.followUs")}</p> {/* 'FOLLOW US' */}
-                    <SocialMedia />
-                    <div className="h-10  w-full mt-4 lg:h-20 relative">
-                      <Image src="/payments.png" alt="payments" fill className="object-contain" />
-                    </div>
+                <Download />
+                <div className="flex flex-col items-start mt-5">
+                  <p className="text-white">{t("footer.followUs")}</p> {/* 'FOLLOW US' */}
+                  <SocialMedia />
+                  <div className="h-10  w-full mt-4 lg:h-20 relative">
+                    <Image src="/payments.png" alt="payments" fill className="object-contain" />
                   </div>
-          
+                </div>
               </div>
             </div>
           </div>

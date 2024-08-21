@@ -10,8 +10,8 @@ import { useTranslations } from "next-intl";
 
 const DeleteAccount = () => {
   const router = useRouter();
-  const { handleLogout } = useAuth();
   const t = useTranslations();
+  const { handleLogout } = useAuth();
   const removeAccount = async (data: any, setError: any) => {
     const res = await Server({ resourceName: "remove_account", body: data });
     if (!res.status) setError(res.errors?.length > 0 ? res.errors : res.message)();
@@ -25,7 +25,7 @@ const DeleteAccount = () => {
     <ModalCustom
       btn={
         <p className=" cursor-pointer z-10  mt-5 ml-3 font-semibold text-red-500 hover:text-red-400 duration-150">
-          Delete Account ?
+          {t('deleteAccount')}
         </p>
       }
       content={
@@ -33,14 +33,14 @@ const DeleteAccount = () => {
           <p>{t("deleteAccount")}</p>
           <p>{t("confirmDelete")}</p>
           <FormContainer
-            btnText="CONFIRM DELETE"
+            btnText={t("delete")}
             schema="forgotPassword"
             submit={removeAccount}
             formArray={[
               {
                 name: "password",
                 type: "password",
-                placeholder: "Enter Your Password",
+                placeholder: t("password"),
               },
             ]}
           />

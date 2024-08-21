@@ -44,6 +44,7 @@
     "orient": "file:",
     "qrcode": "^1.5.4",
     "react": "^18",
+    "react-circular-progressbar": "^2.1.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",

@@ -30,14 +30,12 @@ const UpdatePersonalInfo = () => {
     const formData = new FormData();
     if (data.name) formData.append("name", data.name);
     if (data.birth_day) formData.append("birth_day", format(data.birth_day, "yyyy-MM-dd"));
-    if (data.avatar) formData.append("avatar", data.avatar[0]); 
-
+    if (data.avatar) formData.append("avatar", data.avatar[0]);
     console.log(data);
     const res = await Server({
       resourceName: "update_profile",
-      body: {
-        formData,
-      },
+      body: formData,
+      img: true,
     });
     if (!res.status) setError(Array.isArray(res.errors) ? res.errors : res.errors.password || res.message);
     if (res.status === true) {
@@ -48,13 +46,17 @@ const UpdatePersonalInfo = () => {
   };
 
   const updateEmailInfo = async (data: any, setError: any) => {
-    if (data.phone && data.phone.startsWith(user.country_key)) {
-      // Remove the country_key from the phone number
-      data.phone = data.phone.slice(user.country_key.length);
-      data.country_key = user.country_key;
-    }
-    const res = await Server({ resourceName: "update_profile", body: data });
+    const phone = data?.phone?.slice(user.country_key.toString().split("").length);
+    const updatedData = {
+      ...data,
+      country_key: data.phone && user.country_key,
+      phone: phone || null,
+    };
 
+    const res = await Server({
+      resourceName: "update_profile",
+      body: updatedData,
+    });
     if (!res.status) {
       setError(res.errors?.length > 0 ? res.errors.join(", ") : res.errors?.email || res.message);
       return;
@@ -64,9 +66,7 @@ const UpdatePersonalInfo = () => {
       setLogin((l: any) => !l);
 
       const updatedParams = new URLSearchParams(searchParams);
-      data.phone
-        ? updatedParams.set("phone", data.phone.slice(user.country_key.length))
-        : updatedParams.set("email", data.email);
+      data.phone ? updatedParams.set("phone", phone) : updatedParams.set("email", data.email);
       data.phone ? updatedParams.set("uuid", res.phone_code_uuid) : updatedParams.set("uuid", res.email_code_uuid);
       setError(null);
       router.push(`?${updatedParams.toString()}`, { scroll: false });
@@ -131,13 +131,7 @@ const UpdatePersonalInfo = () => {
                 title={t("updatePhone")}
               />
               {searchParams.get("uuid") && (
-                <InputOTPPattern
-                  revalidate={() => setLogin((l: any) => !l)}
-                  phone
-                  country_key={user.country_key}
-                  sendType="username"
-                  handleSend={updateEmailInfo}
-                />
+                <InputOTPPattern sendType="" phone country_key={user.country_key} handleSend={updateEmailInfo} />
               )}
             </div>
           )
@@ -168,7 +162,6 @@ const UpdatePersonalInfo = () => {
                 formArray={personal}
                 title={t("updatePersonalInfo")}
               />
-              <Activate2fa />
             </div>
           )
         }
@@ -178,3 +171,21 @@ const UpdatePersonalInfo = () => {
 };
 
 export default UpdatePersonalInfo;
+// let avatarBase64;
+// if (data.avatar && data.avatar[0]) {
+//   const reader = new FileReader();
+
+//   // Create a promise that resolves when the file is read
+//   avatarBase64 = await new Promise<string>((resolve, reject) => {
+//     reader.onloadend = () => {
+//       resolve(reader.result as string); // Resolve with the Base64 string
+//     };
+//     reader.onerror = (error) => {
+//       reject(error); // Reject on error
+//     };
+
+//     // Read the file as a data URL (Base64)
+//     reader.readAsDataURL(data.avatar[0]);
+//   });
+// }
+// console.log(avatarBase64)

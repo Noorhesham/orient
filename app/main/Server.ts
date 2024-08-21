@@ -24,10 +24,14 @@ export type ResourceNameProps =
   | "update_profile"
   | "remove_account"
   | "tfaActivate"
-  | "getDevices";
+  | "getDevices"
+  | "deviceLogout"
+  | "languageUpdate"
+  | "getEntity"
+  | "getSingleEntity";
 
 // Function to get the full URL from the resource name
-const getURL = (resourceName: ResourceNameProps, id?: string) => {
+const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string) => {
   const url = BASE_URL;
   switch (resourceName) {
     case "user":
@@ -64,6 +68,14 @@ const getURL = (resourceName: ResourceNameProps, id?: string) => {
       return { url: `${url}/rm_users/${VERSION}/remove_account`, method: "POST" };
     case "getDevices":
       return { url: `${url}/rm_users/${VERSION}/devices/get`, method: "GET" };
+    case "deviceLogout":
+      return { url: `${url}/rm_users/${VERSION}/devices/stop`, method: "POST" };
+    case "languageUpdate":
+      return { url: `${url}/rm_users/${VERSION}/device_sys`, method: "POST" };
+    case "getEntity":
+      return { url: `${url}/${entityName}/entities-operations`, method: "GET" };
+    case "getSingleEntity":
+      return { url: `${url}/${entityName}/entities-operations/${id}`, method: "GET" };
     default:
       return { url, method: "GET" as MethodProps };
   }
@@ -79,6 +91,7 @@ export async function Server({
   noHeaders = false,
   cache = false,
   img = false,
+  entityName,
 }: {
   resourceName: ResourceNameProps;
   id?: string;
@@ -88,6 +101,7 @@ export async function Server({
   noHeaders?: boolean;
   cache?: boolean;
   img?: boolean;
+  entityName?: string;
 }) {
   try {
     // Get the token and device info from cookies
@@ -108,19 +122,19 @@ export async function Server({
     }
 
     // Get the URL and method from the resource name
-    const { url, method: resolvedMethod } = getURL(resourceName, id);
-    console.log(body);
+    const { url, method: resolvedMethod } = getURL(resourceName, id, entityName);
     // Fetch data from the server
     const response = await fetch(url, {
       method: method || resolvedMethod,
       headers: combinedHeaders,
-      body: body ? JSON.stringify(body) : undefined,
-      cache: cache ? "force-cache" : "no-cache",
+      body: body && !img ? JSON.stringify(body) : img ? body : undefined,
+      cache: "no-cache",
     });
+
     if (!response.ok) throw new Error(`Error: ${response.status}`);
 
     const data = await response.json();
-    console.log(data, body, combinedHeaders);
+    console.log(data, body);
     return data;
   } catch (error: any) {
     console.error("Server request error:", error);
