@@ -10,11 +10,50 @@ import BreadCrumb from "@/app/components/BreadCrumb";
 import Paragraph from "@/app/components/Paragraph";
 import MotionContainer from "@/app/components/MotionContainer";
 import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
-
-const page = ( {params: { locale }}:{ params: { locale: string }}) => {
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+const items = [
+  {
+    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
+    main_gallery: [
+      {
+        sizes: {
+          large: "/unsplash_FWoq_ldWlNQ.png",
+        },
+      },
+    ],
+    content:
+      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
+  },
+  {
+    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
+    main_gallery: [
+      {
+        sizes: {
+          large: "/unsplash_FWoq_ldWlNQ.png",
+        },
+      },
+    ],
+    content:
+      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
+  },
+  {
+    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
+    main_gallery: [
+      {
+        sizes: {
+          large: "/unsplash_FWoq_ldWlNQ.png",
+        },
+      },
+    ],
+    content:
+      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
+  },
+];
+const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
-  const t = useTranslations();
+  // const t = useTranslations();
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
   return (
     <main className=" pt-40 min-h-screen  ">
       <BreadCrumb />
@@ -115,9 +154,9 @@ const page = ( {params: { locale }}:{ params: { locale: string }}) => {
         rerum."
         />
         <MotionContainer className=" grid md:grid-cols-3 grid-cols-1 justify-center gap-3 lg:gap-10 items-center ">
-          <CardHuge />
-          <CardHuge />
-          <CardHuge />
+          {items.map((item, i) => (
+            <CardHuge item={item} key={i} />
+          ))}
         </MotionContainer>
         <div className=" ">
           <LinkButton text={t("browse")} href="/blog" />
@@ -127,4 +166,4 @@ const page = ( {params: { locale }}:{ params: { locale: string }}) => {
   );
 };
 
-export default page;
+export default Page;

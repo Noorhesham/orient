@@ -30,7 +30,6 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
         </div>
         <h1 className=" capitalize mb-4 text-4xl text-main2 text-left font-semibold max-w-5xl">{title}</h1>
         <div className=" font-[300] text-base" dangerouslySetInnerHTML={{ __html: contentHTML }} />
-     
       </MaxWidthWrapper>
     </section>
   );
