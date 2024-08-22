@@ -10,13 +10,15 @@ const SearchBox = ({
   icon,
   onSearch,
   active,
-  setIsActive,nonactive
+  setIsActive,
+  nonactive,
 }: {
   bg?: string;
   icon?: any;
   onSearch?: (value: string) => void;
   active: boolean;
-  setIsActive?: (value: boolean) => void;nonactive?:boolean
+  setIsActive?: (value: boolean) => void;
+  nonactive?: boolean;
 }) => {
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -74,11 +76,19 @@ const SearchBox = ({
           ? ""
           : "placeholder:text-white"
       }  relative flex lg:w-full items-center lg:bg-white/10 lg:gap-10 rounded-3xl mr-1   ${
-        active && "-translate-x-20  py-2 px-4 lg:translate-x-0"
+        active && locale === "ar"
+          ? "translate-x-20  py-2 px-4 lg:translate-x-0"
+          : active && locale === "en"
+          ? "-translate-x-20  py-2 px-4 lg:translate-x-0"
+          : "translate-x-0"
       } duration-150 lg:py-2 lg:px-4 ${locale === "ar" && "lg:flex-row-reverse"} `}
     >
       {nonactive ? (
-        <input  onChange={handleSearchChange}  placeholder={t("search")} className="bg-transparent outline-none placeholder:text-black rounded-3xl py-3 px-6  w-full" />
+        <input
+          onChange={handleSearchChange}
+          placeholder={t("search")}
+          className="bg-transparent outline-none placeholder:text-black rounded-3xl py-3 px-6  w-full"
+        />
       ) : (
         <input
           ref={inputRef}
@@ -99,7 +109,9 @@ const SearchBox = ({
           onChange={handleSearchChange}
           className={`${
             active ? "bg-white/10 py-3 px-4" : "bg-transparent placeholder:w-0"
-          } rounded-3xl duration-150 absolute  block lg:hidden     left-0 pl-12 placeholder:font-[300] placeholder:my-auto outline-none placeholder:text-xs text-xs font-medium ${
+          } rounded-3xl duration-150 absolute  block lg:hidden ${
+            locale === "ar" ? "right-0 pr-14" : " left-0  pl-14 "
+          }     placeholder:font-[300] placeholder:my-auto outline-none placeholder:text-xs text-xs font-medium ${
             active ? "z-50" : "w-0"
           }`}
           type="text"
@@ -110,7 +122,7 @@ const SearchBox = ({
         onClick={() => setIsActive && setIsActive(!active)}
         className={`${icon === "white" ? " rounded-full bg-main2" : ""} ${
           active ? "lg:rotate-0 rotate-[60deg]" : ""
-        }  duration-150 cursor-pointer z-[60] mr-4 `}
+        }  duration-150 cursor-pointer z-[60]  `}
       >
         <SearchIcon color={pathname === "/ar" || pathname === "/en" || icon === "white" ? "white" : "black"} />
       </div>

@@ -5,6 +5,8 @@ import React from "react";
 import { FaFacebook, FaPinterest } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FiCopy } from "react-icons/fi";
+import ModalCustom from "./ModalCustom";
+import Link from "next/link";
 
 const AddToWishlist = ({ className }: { className: string }) => {
   const handleShare = () => {
@@ -24,9 +26,19 @@ const AddToWishlist = ({ className }: { className: string }) => {
 
   return (
     <div className={`flex items-center flex-col gap-2 ${className || ""}`}>
-      <Button variant={"link"} className="flex items-center gap-1">
-        <Heart /> ADD TO WISHLIST
-      </Button>
+      <ModalCustom
+        btn={
+          <Button variant={"link"} className="flex items-center gap-1">
+            <Heart /> ADD TO WISHLIST
+          </Button>
+        }
+        content={
+          <Link href={'/login'} className=" text-2xl hover:underline duration-150 py-10 text-main uppercase font-semibold text-center ">
+            Login First to add product to wishlist .... ! 
+            
+          </Link>
+        }
+      />
       <div className="flex items-center gap-1 text-sm">
         <p>SHARE PRODUCT :</p>
         <FiCopy onClick={handleShare} className="cursor-pointer hover:text-blue-500" />

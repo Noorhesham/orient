@@ -16,13 +16,14 @@ const CartItem = ({
   img: string;
   wishlist?: boolean;
   size?: string;
+  nocheck?: boolean;
 }) => {
-  const { text, price, discount, img, wishlist, size } = props;
+  const { text, price, discount, img, wishlist, size, nocheck } = props;
   return (
     <div>
       <div className=" flex items-center">
         <div className=" flex items-center gap-2">
-          <CheckIcon />
+          {!nocheck && <CheckIcon />}
           <div className=" aspect-square relative w-full h-20">
             <Image src={img} fill alt="product" className=" object-contain" />
           </div>
@@ -48,7 +49,7 @@ const CartItem = ({
                 <p className=" cursor-pointer text-xs text-muted-foreground">Remove from Wishlist</p>
               </div>
             )}
-            <Counter />
+            {!nocheck && <Counter />}
           </div>
         )}
       </div>

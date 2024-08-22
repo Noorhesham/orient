@@ -7,7 +7,9 @@
   animation: reveal 0.5s ease-out forwards;
   transition: all 0.5s ease-out;
 }
-
+* {
+  scroll-behavior: smooth;
+}
 @keyframes reveal {
   0% {
     opacity: 0;

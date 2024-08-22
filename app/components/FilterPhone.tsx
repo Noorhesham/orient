@@ -5,6 +5,7 @@ import Sort from "./Sort";
 import Filters from "./Filters";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { XIcon } from "lucide-react";
 const FilterMobile = () => {
   const [filterMobile, setFilterMobile] = React.useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,13 +35,20 @@ const FilterMobile = () => {
 
       <AnimatePresence>
         {filterMobile && (
-          <motion.div ref={containerRef}
+          <motion.div
+            ref={containerRef}
             className="fixed z-[11111199]  top-0 -left-10  w-[300px]  lg:hidden h-full"
             initial={{ x: "-140%" }}
             exit={{ x: "-140%" }}
             animate={{ x: filterMobile ? "0%" : "-100%" }}
           >
-            <Filters />
+            <Filters
+              colseBtn={
+                <button onClick={() => setFilterMobile(false)} className=" items-end self-end block lg:hidden text-black">
+                  <XIcon />
+                </button>
+              }
+            />
           </motion.div>
         )}
       </AnimatePresence>

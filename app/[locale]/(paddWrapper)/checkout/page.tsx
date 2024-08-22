@@ -46,11 +46,11 @@ const page = () => {
               <Head1 className=" text-xl font-bold" text={"PAYMENT METHODS  "} />
             </Container>
             <Container className=" py-8 flex flex-col gap-5">
-              <CartItem img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem img="/Product (2).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem img="/Product (3).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
+              <CartItem nocheck img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
+              <CartItem nocheck img="/Product (2).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
+              <CartItem nocheck img="/Product (3).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
+              <CartItem nocheck img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
+              <CartItem nocheck img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
             </Container>
           </div>
           <div className="col-span-4 flex flex-col gap-5 ">
@@ -77,7 +77,7 @@ const page = () => {
                 </div>
                 <div className="flex w-fit pt-5  mx-auto mt-3 flex-col">
                   <Button className="flex rounded-full py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
-                    <Link href="/checkout" className="flex items-center">
+                    <Link href="/checkout" className="flex gap-2 items-center">
                       <CreditCard />
                       PROCEED TO CHECKOUT
                     </Link>

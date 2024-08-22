@@ -9,6 +9,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import cookies from "js-cookie";
 import { useTranslations } from "next-intl";
+import { Autoplay } from "swiper/modules"; // Correct import for Autoplay
+
 const SwiperCards = ({
   items,
   className,
@@ -20,6 +22,8 @@ const SwiperCards = ({
   logo,
   samePhone,
   contain,
+  autoplay,
+  mobile,
 }: {
   items: any;
   className?: string;
@@ -31,6 +35,8 @@ const SwiperCards = ({
   logo?: boolean;
   samePhone?: boolean;
   contain?: boolean;
+  autoplay?: boolean;
+  mobile?: number;
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -54,11 +60,17 @@ const SwiperCards = ({
     <div className="relative h-full gap-3 w-full flex flex-col">
       <Swiper
         breakpoints={{
-          0: { slidesPerView: logo ? 2 : samePhone ? slidesPerView : 1, centeredSlides: logo ? false : true },
-          768: { slidesPerView: slidesPerView || 2 },
+          0: {
+            slidesPerView: mobile ? mobile : logo ? 2 : samePhone ? slidesPerView : 1,
+            centeredSlides: logo ? false : true,
+          },
+          512: { slidesPerView: mobile||slidesPerView || 2 },
           1024: { slidesPerView: slidesPerView || 3 },
           1280: { slidesPerView: slidesPerView || 3.4 },
         }}
+        modules={[Autoplay]}
+        autoplay={autoplay ? { delay: 2000 } : false}
+        loop={autoplay}
         centeredSlides={false}
         initialSlide={0}
         onSwiper={(swiper) => setSwiper(swiper)}

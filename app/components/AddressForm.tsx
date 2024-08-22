@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ModalCustom from "./ModalCustom";
 import CustomButton from "./CustomButton";
+import { Button } from "@/components/ui/button";
 const schema = z.object({
   name: z.string(),
   phone: z.string().email(),
@@ -35,11 +36,18 @@ const AddressForm = () => {
     { name: "postal code", placeholder: "YOUR POSTAL CODE" },
   ];
   return (
-    <ModalCustom cancelBtn={false}
-      btn={<CustomButton text="ADD SHIPPING ADDRESS" />}
+    <ModalCustom
+      cancelBtn={false}
+      btn={
+        <Button
+          className={`min-w-[130px] w-fit  bg-main2 hover:bg-white hover:border-main2 border hover:text-main2 text-white text-sm  rounded-full  px-6   flex items-center gap-2 duration-150`}
+        >
+          ADD SHIPPING ADDRESS
+        </Button>
+      }
       content={
         <div className=" px-20">
-          <CustomForm 
+          <CustomForm
             btnStyles="my-2"
             cancel={() => setIsOpen(false)}
             form={form}

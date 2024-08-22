@@ -7,7 +7,6 @@ import { Server } from "@/app/main/Server";
 
 const page = async () => {
   const data = await Server({ resourceName: "getEntity", entityName: "blogs" });
-  console.log(data.data[1].main_gallery), data.data;
   return (
     <section className=" min-h-screen  ">
       <MaxWidthWrapper className="flex flex-col items-center  mt-5 justify-center">

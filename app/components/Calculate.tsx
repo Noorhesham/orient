@@ -15,10 +15,10 @@ const Calculate = ({ btn }: { btn?: React.ReactNode }) => {
           <div>
             <div className=" cursor-pointer flex gap-3 ">
               <div className=" flex flex-col  items-center gap-2">
-                <div className=" rounded-full w-44 h-44 relative">
+                <div className=" rounded-full w-28 h-28  md:w-44  md:h-44 relative">
                   <Image src={"/Ellipse 860.png"} fill className="rounded-full object-cover" alt="" />
                 </div>
-                <h1 className="  text-2xl text-main2 font-[500] mt-4 ">PAINT CALCULATOR</h1>
+                <h1 className=" text-center  sm:text-sm md:text-2xl text-main2 font-[500] mt-4 ">PAINT CALCULATOR</h1>
               </div>
             </div>
           </div>

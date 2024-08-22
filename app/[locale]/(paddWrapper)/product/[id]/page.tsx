@@ -26,6 +26,7 @@ import Feature from "@/app/components/Feature";
 import MotionContainer from "@/app/components/MotionContainer";
 import AddComment from "@/app/components/AddComment";
 import Paragraph from "@/app/components/Paragraph";
+import VideoZoom from "@/app/components/VideoZoom";
 
 const options = ["#3F3F46", "#F43F5E", "#FECDD3", "#DB2777", "#A21CAF", "#FECDD3", "#A21CAF", "#DB2777"];
 const optionsSize = ["0.5k", "1k", "5k", "10k", "20k"];
@@ -71,7 +72,7 @@ const page = () => {
               />
             </div>
           </div>
-          <div className=" sticky z-[999] top-10 w-full flex items-center bg-white/30 justify-center  lg:hidden gap-3 mt-3">
+          <div className=" fixed z-50  bottom-0 left-0 p-4 w-full flex items-center bg-white/90 justify-center  lg:hidden gap-3 mt-3">
             <CustomButton className=" w-full px-8 py-5" icon={<BsHandbag />} text="ADD TO CART" />
             <CustomButton className=" w-full px-8 py-5" reverse icon={<TbShoppingCartPlus />} text="BUY NOW" />
           </div>
@@ -87,14 +88,14 @@ const page = () => {
               <PriceWithSale price={443} discount={324} />
             </div>
             <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 px-5">
-              <div className="lg:hidden border-b border-input flex flex-col items-start max-w-md ">
-                <div className=" flex items-center gap-2">
+              <div className="lg:hidden border-b border-input gap-3 flex flex-col items-start max-w-md ">
+                <div className=" flex items-center ">
                   <div className=" flex self-center mx-auto  items-center gap-2">
                     <h2 className=" text-sm text-black font-medium">AMOUNT :</h2>
                     <Counter />
                   </div>
                 </div>
-                <div className=" lg:hidden flex flex-col  items-start ">
+                <div className=" lg:hidden flex flex-col  gap-3 items-start ">
                   <Variants options={options} optionsSize={optionsSize} />
                 </div>
               </div>
@@ -157,71 +158,86 @@ const page = () => {
             />
           </Section>
 
-          <Section
-            CustomePadding=" px-0 py-5"
-            className=" col-span-7 mt-4 lg:mt-8 "
-            heading="SIMILAT PRODUCTS"
-            link="/store"
-            linkText="BROWSE ALL PRODUCTS"
-          >
-            <MotionContainer className="sm:grid justify-items-center   flex flex-col  sm:grid-cols-2 lg:grid-cols-3 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
-              <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
-            </MotionContainer>
-            <section className="  w-full mt-8">
-              <div className="flex  my-3 lg:my-10 z-10 w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
-                <p>DESCRIPTION</p>
-                <p>REVIEW</p>
+          <MaxWidthWrapper className=" col-span-7 mt-4 lg:mt-8 " noPaddingX>
+            <Section
+              CustomePadding=" px-0 py-5"
+              heading="SIMILAT PRODUCTS"
+              link="/store"
+              id="desc"
+              linkText="BROWSE ALL PRODUCTS"
+            >
+              {" "}
+              <div className=" mt-4 flex lg:hidden">
+                <SwiperCards
+                  slidesPerView={2}
+                  className=" w-full h-full"
+                  items={[
+                    { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+                    { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+                    { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+                    { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+                  ]}
+                />
               </div>
-              <h1 className=" text-xl font-semibold">DESCRIPTION</h1>
-              <Paragraph
-                description=" SUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate of cementitious
+              <MotionContainer className="lg:grid justify-items-center   hidden  lg:grid-cols-3 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
+                <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
+                <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
+                <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
+              </MotionContainer>
+              <div className="flex  my-3 lg:my-10 z-[50] w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
+                <a href="#desc">DESCRIPTION</a>
+                <a href="#review">REVIEW</a>
+              </div>
+              <section className="  w-full mt-8">
+                <h1 className=" text-xl font-semibold">DESCRIPTION</h1>
+                <Paragraph
+                  description=" SUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate of cementitious
                 materials, plasters and limes. SUPER SEAL 123 binds the substrate and the surface to give a solid base
                 for painting SUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate of
                 cementitious materials, plasters and limes. SUPER SEAL 123 binds the substrate and the surface to give a
                 solid base for paintingSUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate
                 of cementitious materials, plasters and limes. SUPER SEAL 123 binds the substrate and the surface to
                 give a solid base for painting"
-              />
-              <br />
-              <Paragraph
-                description=" SUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate of cementitious
+                />
+                <br />
+                <Paragraph
+                  description=" SUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate of cementitious
                 materials, plasters and limes. SUPER SEAL 123 binds the substrate and the surface to give a solid base
                 for painting SUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate of
                 cementitious materials, plasters and limes. SUPER SEAL 123 binds the substrate and the surface to give a
                 solid base for paintingSUPER SEAL123isahighlydevelopedproductthatis absorbed deeply into the substrate
                 of cementitious materials, plasters and limes. SUPER SEAL 123 binds the substrate and the surface to
                 give a solid base for painting"
+                />
+                <Feature />
+              </section>
+              <VideoZoom
+                btn={
+                  <div>
+                    <YoutubeThumbnail url="https://youtu.be/QczGoCmX-pI?si=T_IxM6ylmXUq5kZf" />
+                  </div>
+                }
+                content={
+                  <div className="relative w-full h-auto overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full"
+                      src="https://www.youtube.com/embed/QczGoCmX-pI?si=agurhHubDIgVjErj"
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      frameBorder="0"
+                    ></iframe>
+                  </div>
+                }
               />
-              <Feature />
-            </section>
-            <ZoomImage
-              btn={
-                <div>
-                  <YoutubeThumbnail url="https://youtu.be/QczGoCmX-pI?si=T_IxM6ylmXUq5kZf" />
-                </div>
-              }
-              content={
-                <div className="relative w-full h-0" style={{ paddingBottom: "56.25%" }}>
-                  <iframe
-                    className="absolute  md:-top-20 top-1/2 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/QczGoCmX-pI?si=agurhHubDIgVjErj"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    frameBorder="0"
-                  ></iframe>
-                </div>
-              }
-            />
-            <Reviews />
-            <div>
-              {comments.map((comment) => (
-                <Comment {...comment} key={comment.date} />
-              ))}
-            </div>
-            <AddComment />
-          </Section>
+              <Reviews />
+              <div>
+                {comments.map((comment) => (
+                  <Comment {...comment} key={comment.date} />
+                ))}
+              </div>
+              <AddComment />
+            </Section>{" "}
+          </MaxWidthWrapper>
         </div>
 
         {/* sidebar */}
@@ -229,6 +245,7 @@ const page = () => {
           <Container className=" py-12">
             <div className=" flex flex-col items-start gap-2 pb-4 border-b  border-input">
               <SwiperCards
+                autoplay
                 slidesPerView={1.4}
                 className=" h-20"
                 items={[
@@ -257,7 +274,7 @@ const page = () => {
                   {
                     card: (
                       <div className=" flex items-start gap-3">
-                        <CreditCardIcon/>
+                        <CreditCardIcon />
                         <div className="flex flex-col gap-2">
                           <h2 className=" text-black font-medium">SECURE PAYMENTS</h2>
                           <p className=" text-sm text-muted-foreground">YOUR MONEY IS SAFE</p>
@@ -297,12 +314,24 @@ const page = () => {
       </MaxWidthWrapper>
       <MaxWidthWrapper>
         <Section link="#" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
-          <MotionContainer className="grid  flex-col  grid-cols-2 lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
+          <MotionContainer className=" hidden lg:grid  lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
             <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
             <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
             <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
             <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (3).jpg" />
           </MotionContainer>
+          <div className=" mt-4 flex lg:hidden">
+            <SwiperCards
+              slidesPerView={2}
+              className=" w-full h-full"
+              items={[
+                { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+                { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+                { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+                { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
+              ]}
+            />
+          </div>
         </Section>
       </MaxWidthWrapper>
     </section>

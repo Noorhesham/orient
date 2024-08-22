@@ -32,7 +32,7 @@ const page = () => {
                   </div>
                   <FilterMobile />
                 </div>
-                <MotionContainer className="grid duration-150  w-full grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 ">
+                <MotionContainer className="grid duration-150  w-full grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 ">
                   <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
                   <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
                   <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />

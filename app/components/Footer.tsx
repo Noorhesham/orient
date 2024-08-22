@@ -27,16 +27,20 @@ const Footer = () => {
   return (
     <>
       <footer className="relative uppercase bg-main2">
-        <MaxWidthWrapper className="relative z-10 items-center py-10 lg:py-20 lg:pt-28 lg:pt-20 pt-10">
+        <MaxWidthWrapper className="relative z-10 items-center py-10  ">
           <div className="border-b border-gray-400 pb-5 grid gap-10 lg:gap-20 xl:gap-32 grid-cols-5 xl:grid-cols-8">
             <div className="col-span-full lg:col-span-3 items-center lg:items-start flex gap-4 flex-col">
               <Logo />
               <div className="flex items-center gap-3">
-                <Phone />
+                <div className=" lg:block hidden">
+                  <Phone />
+                </div>
                 <p className="ml-2 tracking-wide text-white text-3xl font-[600]">19842</p>
               </div>
               <div className="flex items-start gap-3">
-                <HeadPhones />
+                <div className=" lg:block hidden">
+                  <HeadPhones />
+                </div>
                 <div className="text-white flex gap-1 flex-col">
                   <p className="ml-2 tracking-wide text-center  lg:text-justify text-xl font-[500]">
                     {t("footer.headOffice")} {/* 'HEED OFFICE' in your translation file */}
@@ -52,7 +56,9 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <HeadPhones />
+                <div className=" lg:block hidden">
+                  <HeadPhones />
+                </div>
                 <div className="text-white flex gap-1 flex-col">
                   <p className="ml-2 tracking-wide text-center  lg:text-justify text-xl font-[500]">
                     {t("footer.factory")} {/* 'Factory' */}
@@ -86,7 +92,7 @@ const Footer = () => {
                 <p className="text-center  lg:text-justify text-white">{t("footer.downloadApp")}</p>{" "}
                 {/* 'DOWNLOAD APP' */}
                 <Download />
-                <div className="flex flex-col items-start mt-5">
+                <div className="flex flex-col items-center lg:items-start mt-5">
                   <p className="text-white">{t("footer.followUs")}</p> {/* 'FOLLOW US' */}
                   <SocialMedia />
                   <div className="h-10  w-full mt-4 lg:h-20 relative">
@@ -105,6 +111,7 @@ const Footer = () => {
           </div>
           <div className="justify-center mt-4 lg:hidden flex items-center">
             <SwiperCards
+              autoplay={true}
               logo={true}
               spaceBetween={15}
               slidesPerView={2.5}

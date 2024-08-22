@@ -4,8 +4,8 @@ import SwiperCards from "./SwiperCards";
 const Variants = ({ options, optionsSize }: { options?: string[]; optionsSize?: any[] }) => {
   return (
     <>
-      <div className="flex items-center   py-2 lg:py-5 flex-col ">
-        <div className="grid grid-cols-4 lg:grid-cols-7 items-start lg:items-center   w-full">
+      <div className="flex items-center gap-3  py-2 lg:py-5 flex-col ">
+        <div className="grid grid-cols-4  lg:grid-cols-7 items-start lg:items-center   w-full">
           <h2 className="  col-span-1 lg:col-span-2 text-nowrap text-sm text-black font-medium">COLOURS :</h2>
 
           <div className="  col-span-3 lg:col-span-5 flex-wrap gap-4  flex items-start  w-full">

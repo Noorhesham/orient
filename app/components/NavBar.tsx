@@ -89,9 +89,8 @@ const NavBar = () => {
 
   return (
     <header className="w-full">
-      <div className={`z-[999] duration-150 h-full top-0 fixed left-0 lg:hidden block`}>
-        <PhoneNav isHome={isHome} navigation={links} />
-      </div>
+      {/* <div className={`z-[999] duration-150 h-full top-0 fixed left-0 lg:hidden block`}> */}
+      {/* </div> */}
       <nav
         className={`${
           isHome
@@ -112,9 +111,9 @@ const NavBar = () => {
                 <Logo type={isHome ? "white" : "blue"} />
                 <Language />
               </div>
-              <div className="flex flex-row lg:flex-row-reverse lg:basis-[36%] items-center gap-8 lg:gap-5">
-                <SearchBox active={active} setIsActive={setIsActive} />
 
+              <div className="flex flex-row lg:flex-row-reverse lg:basis-[36%] items-center gap-3 lg:gap-5">
+                <SearchBox active={active} setIsActive={setIsActive} />{" "}
                 <div
                   className={`flex ${
                     active ? "opacity-0 lg:opacity-100" : "opacity-100"
@@ -128,13 +127,15 @@ const NavBar = () => {
                     </DialogTrigger>
                     <AppDownload />
                   </Dialog>
-
                   <Link href={user ? "/dashboard" : "/login"}>
                     <BagIcon home={isHome} />
                   </Link>
                   <Link href={"/cart"}>
                     <PersonIcon home={isHome} />
                   </Link>
+                  <div className=" h-full w-full lg:hidden block">
+                    <PhoneNav isHome={isHome} navigation={links} />
+                  </div>
                   {user && (
                     <LogOutIcon
                       onClick={async () => {

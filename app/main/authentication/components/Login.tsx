@@ -23,6 +23,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { useTranslations } from "next-intl";
 
 const Login = () => {
+
   const t = useTranslations();
   const [useEmail, setUseEmail] = useState(false);
   const [activate, setActivate] = useState(false);
