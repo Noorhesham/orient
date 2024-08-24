@@ -158,7 +158,7 @@ const page = () => {
             />
           </Section>
 
-          <MaxWidthWrapper className=" col-span-7 mt-4 lg:mt-8 " noPaddingX>
+          <MaxWidthWrapper className=" col-span-7 mt-4 lg:mt-8 " noPaddingX={true}>
             <Section
               CustomePadding=" px-0 py-5"
               heading="SIMILAT PRODUCTS"
