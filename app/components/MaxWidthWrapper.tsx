@@ -3,7 +3,7 @@ import React from "react";
 const MaxWidthWrapper = ({
   className,
   children,
-  noPadding = false,noPaddingX
+  noPadding = false,noPaddingX=false
 }: {
   className?: string;
   children: React.ReactNode;
