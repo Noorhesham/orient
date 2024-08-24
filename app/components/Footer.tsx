@@ -9,6 +9,8 @@ import SwiperCards from "./SwiperCards";
 import { useTranslations } from "next-intl";
 import { cookies } from "next/headers";
 import Download from "./Download";
+import FooterWrapper from "./FooterWrapper";
+import Locations from "./Locations";
 // Assuming you're using a translation library
 
 const Footer = () => {
@@ -23,7 +25,7 @@ const Footer = () => {
     "/eos_logo 1.svg",
     "/12 1.svg",
   ];
-  const local = cookies().get("locale")?.value;
+
   return (
     <>
       <footer className="relative uppercase bg-main2">
@@ -41,19 +43,7 @@ const Footer = () => {
                 <div className=" lg:block hidden">
                   <HeadPhones />
                 </div>
-                <div className="text-white flex gap-1 flex-col">
-                  <p className="ml-2 tracking-wide text-center  lg:text-justify text-xl font-[500]">
-                    {t("footer.headOffice")} {/* 'HEED OFFICE' in your translation file */}
-                  </p>
-                  <div className="ml-2 flex justify-center flex-col lg:flex-row gap-3 items-center text-[14px]">
-                    <p className="text-center  lg:text-justify mx-auto">
-                      {t("footer.headOfficeAddress")} {/* 'Head Office Maadi, Cairo.' */}
-                    </p>
-                    <p className="py-1 px-4 w-fit text-xs bg-gray-400/40 rounded-full">
-                      {t("footer.showMap")} {/* 'Show Map' */}
-                    </p>
-                  </div>
-                </div>
+                <Locations />
               </div>
               <div className="flex items-start gap-3">
                 <div className=" lg:block hidden">
@@ -109,19 +99,7 @@ const Footer = () => {
               </div>
             ))}
           </div>
-          <div className="justify-center mt-4 lg:hidden flex items-center">
-            <SwiperCards
-              autoplay={true}
-              logo={true}
-              spaceBetween={15}
-              slidesPerView={2.5}
-              samePhone
-              className="w-full h-32"
-              items={images.map((img) => {
-                return { src: img };
-              })}
-            />
-          </div>
+          <FooterWrapper images={images} />
         </MaxWidthWrapper>
       </footer>
     </>

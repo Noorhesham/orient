@@ -137,17 +137,19 @@ const NavBar = () => {
                     <PhoneNav isHome={isHome} navigation={links} />
                   </div>
                   {user && (
-                    <LogOutIcon
-                      onClick={async () => {
-                        const res = await Server({ resourceName: "logout" });
-                        if (res.status) {
-                          toast.success(res.message);
-                          handleLogout();
-                          router.refresh();
-                        }
-                      }}
-                      className="hover:cursor-pointer hover:text-main duration-150"
-                    />
+                    <div>
+                      <LogOutIcon
+                        onClick={async () => {
+                          const res = await Server({ resourceName: "logout" });
+                          if (res.status) {
+                            toast.success(res.message);
+                            handleLogout();
+                            router.refresh();
+                          }
+                        }}
+                        className="hover:cursor-pointer  hover:text-main duration-150"
+                      />
+                    </div>
                   )}
                 </div>
               </div>

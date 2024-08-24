@@ -134,11 +134,17 @@
   "validation": "VALIDATION CODE",
   "resend_code": "SEND CODE AGAIN",
   "close": "CLOSE",
-  "loginWithPhone":"BY PHONE",
-  "loginWithEmail":"BY EMAIL",
+  "loginWithPhone": "BY PHONE",
+  "loginWithEmail": "BY EMAIL",
   "dontHaveAccount": "NOT REGISTERED YET?",
   "createAccount": "CREATE AN ACCOUNT",
   "forgotPassword": "FORGOT YOUR PASSWORD?",
-  "orSign":"OR SIGN IN WITH",
-  "login":"LOGIN TO YOUR ACCOUNT"
+  "orSign": "OR SIGN IN WITH",
+  "login": "LOGIN TO YOUR ACCOUNT",
+  "found": "Results Found",
+  "backtowebsite": "BACK TO WEBSITE",
+  "strong": "strong",
+  "good": "good",
+  "weak": "weak",
+  "fair": "fair"
 }

@@ -31,7 +31,7 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
     setCurrentPage(page);
   };
   return (
-    <Pagination className=" my-10 col-span-full">
+    <Pagination className=" mt-10 col-span-full">
       <PaginationContent>
         <PaginationItem>
           <Button

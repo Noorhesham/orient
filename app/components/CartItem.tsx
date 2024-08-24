@@ -1,4 +1,4 @@
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, XIcon } from "lucide-react";
 import { IoIosHeart } from "react-icons/io";
 
 import Image from "next/image";
@@ -23,7 +23,7 @@ const CartItem = ({
     <div>
       <div className=" flex items-center">
         <div className=" flex items-center gap-2">
-          {!nocheck && <CheckIcon />}
+          {!nocheck && <XIcon />}
           <div className=" aspect-square relative w-full h-20">
             <Image src={img} fill alt="product" className=" object-contain" />
           </div>

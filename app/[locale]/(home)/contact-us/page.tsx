@@ -22,11 +22,11 @@ import React from "react";
 import Paragraph from "@/app/components/Paragraph";
 import Address from "@/app/components/Address";
 import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
+import ContactUsLocation from "@/app/components/ContactUsLocation";
 
-const page = ( {params: { locale }}:{ params: { locale: string }}) => {
-  unstable_setRequestLocale(locale);
+const Page = () => {
   const t = useTranslations();
+
   return (
     <main className=" pt-40">
       <BreadCrumb />
@@ -78,17 +78,15 @@ const page = ( {params: { locale }}:{ params: { locale: string }}) => {
                 { name: "phone", placeholder: t("forms.phone"), type: "text", phone: true },
                 { name: "email", placeholder: t("forms.email"), type: "email" },
                 { name: "inquiry", placeholder: t("forms.inquiry"), type: "text", select: true },
-                { name: "message", placeholder: t("forms.message") , type: "text", area: true },
+                { name: "message", placeholder: t("forms.message"), type: "text", area: true },
               ]}
             />
           </div>
         </div>
       </MaxWidthWrapper>
-      <div className=" w-full h-[500px]">
-        <MapComponent />
-      </div>
+      <ContactUsLocation/>
     </main>
   );
 };
 
-export default page;
+export default Page;

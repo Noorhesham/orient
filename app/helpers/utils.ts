@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 export function formatPrice(
   price: number | string,
   options: { currency?: "EGP"; notation?: Intl.NumberFormatOptions["notation"] } = {}

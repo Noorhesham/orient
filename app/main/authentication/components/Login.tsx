@@ -23,7 +23,6 @@ import { useAuth } from "@/app/context/AuthContext";
 import { useTranslations } from "next-intl";
 
 const Login = () => {
-
   const t = useTranslations();
   const [useEmail, setUseEmail] = useState(false);
   const [activate, setActivate] = useState(false);
@@ -173,6 +172,11 @@ const Login = () => {
                 {t("createAccount")}{" "}
               </Link>
             </div>
+
+            <Link href="/signup" className="hover:underline duration-150 mt-2 text-main  font-semibold">
+              {" "}
+              {t("backtowebsite")}{" "}
+            </Link>
           </>
         )}{" "}
         <Suspense>

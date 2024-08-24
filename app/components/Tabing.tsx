@@ -30,7 +30,7 @@ const Tabing = ({ defaultValue, options }: TabingProps) => {
   };
   console.log(activeIndex);
   return (
-    <div className="w-full mt-[34px]">
+    <div className="w-full mt-10">
       <div className="flex   items-center gap-3">
         <button
           disabled={activeIndex === 0}

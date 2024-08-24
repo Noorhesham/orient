@@ -32,7 +32,7 @@ const CardHuge = ({ h1, h2, href, item }: { h1?: string; h2?: string; href?: str
   return (
     <MotionItem className=" h-full" >
       <Link href={`/blog/${item.id}`} className="  w-full  h-full  ">
-        <div className=" max-w-[424px] h-full  w-full xl:max-w-full  px-5 shadow-md pb-10 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between">
+        <div className="  w-full h-full   xl:max-w-full  px-5 shadow-md pb-10 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between">
           <div className="self-center rounded-2xl w-full mt-10 relative h-[248px]">
             <Image
               src={main_gallery[0].sizes.large}

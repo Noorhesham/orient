@@ -9,7 +9,7 @@ import Paragraph from "@/app/components/Paragraph";
 import { cookies } from "next/headers";
 import { useTranslations } from "next-intl";
 
-const page = () => {
+const Page = () => {
   const local = cookies().get("NEXT_LOCALE")?.value;
   const t = useTranslations();
   return (
@@ -31,11 +31,11 @@ const page = () => {
             <div className="flex max-w-2xl flex-col gap-4">
               <h1 className=" text-main uppercase text-2xl lg:text-4xl font-bold">{t("aboutusPage.history")}</h1>
               <Paragraph
-                className={` =${local === "ar" ? "lg:ml-[6.3rem]" : "lg:mr-[6.3rem]"}`}
+                className={` ${local === "ar" ? "lg:ml-[6.3rem]" : "lg:mr-[6.3rem]"}`}
                 description={t("aboutusPage.desc1")}
               />
               <Paragraph
-                className={` =  ${local === "ar" ? "lg:ml-[5.25rem]" : "lg:mr-[5.25rem]"}`}
+                className={`  ${local === "ar" ? "lg:ml-[5.25rem]" : "lg:mr-[5.25rem]"}`}
                 description={t("aboutusPage.desc1")}
               />
             </div>
@@ -47,7 +47,7 @@ const page = () => {
                 width={348}
                 height={297}
                 className={` ${
-                  local === "ar" ? "right-10 " : "left-10 lg:left-[-10%]"
+                  local === "ar" ? "right-10 " : "left-10 lg:left-[-13%]"
                 } absolute  w-[80%]  md:w-[45%]   lg:w-[60%]  top-[65%] md:top-[47%]  lg:top-[40%]`}
               />
             </div>
@@ -77,7 +77,7 @@ const page = () => {
         }
       />
 
-      <MaxWidthWrapper className=" mt-20">
+      <MaxWidthWrapper className="">
         <div className="flex md:flex-row gap-4 flex-col items-center">
           <div className=" w-full lg:min-w-[576px] flex-grow h-[200px] relative">
             <Image src="/About Oud 2.jpg" alt="about" className=" object-cover" fill />
@@ -103,7 +103,7 @@ const page = () => {
               risus interdum at. Nulla vivethe as it was"
             />
           </div>
-          <div className=" w-full lg:min-w-[576px] flex-grow h-[200px] relative">
+          <div className=" w-full lg:min-w-[576px] lg:mt-0 mt-10 flex-grow h-[200px] relative">
             <Image src="/About Oud 2.jpg" alt="about" className=" object-cover" fill />
           </div>
         </div>
@@ -121,39 +121,13 @@ const page = () => {
               risus interdum at. Nulla vivethe as it was"
           />
         </div>
-        <div className=" mt-8 hidden  md:grid grid-cols-4 lg:grid-cols-7 pb-10 border-main border-b-2  justify-between items-center ">
-          <div className=" w-24 aspect-square  relative">
-            <Image src={"/Vector Smart Object 1.png"} alt="Vector Smart" className=" object-contain" fill />
-          </div>
-          <div className=" w-24 aspect-square  relative">
-            <Image
-              src={"/PROUDLY MADE IN EGYPT بكل فخر صنع في مصر 23-02 1.png"}
-              alt="PROUDLY MADE IN EGYPT بكل فخر صنع في مصر 23-02 1.png"
-              className=" object-contain"
-              fill
-            />
-          </div>
-          <div className=" w-24 aspect-square  relative">
-            <Image src={"/klml 1.png"} alt="/klml 1.png" className=" object-contain" fill />
-          </div>
-          <div className=" w-24 aspect-square  relative">
-            <Image src={"/t 1.png"} alt="/t 1.png" className=" object-contain" fill />
-          </div>
-          <div className=" w-24 aspect-square  relative">
-            <Image src={"/12 1.png"} alt="/12 1.png" className=" object-contain" fill />
-          </div>
-          <div className=" w-24 aspect-square  relative">
-            <Image src={"/2 5001.png"} alt="2 5001.png" className=" object-contain" fill />
-          </div>
-          <div className=" w-24 aspect-square  relative">
-            <Image src={"/eos_logo 1.png"} alt="es logo" className=" object-contain" fill />
-          </div>
-        </div>
-        <div className="md:hidden block">
+
+        <div className=" block">
           <SwiperCards
             btns={true}
             logo={true}
             spaceBetween={50}
+            contain
             slidesPerView={5}
             className=" w-full  h-32 "
             items={[
@@ -169,7 +143,6 @@ const page = () => {
         <div className="">
           <div className="flex mt-5  gap-4 lg:gap-8 items-start flex-col md:flex-row lg:items-end">
             <div className=" flex-grow  relative">
-            {local === "en" && <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">OUR</h1>}
               <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.parteners")}</h1>
             </div>
 
@@ -186,7 +159,8 @@ const page = () => {
               btns={true}
               logo={true}
               spaceBetween={50}
-              slidesPerView={5} contain
+              slidesPerView={5}
+              contain
               className=" w-full  object-contain  h-32 "
               items={[
                 { src: "/Artboard-1@300x-1.png" },
@@ -204,4 +178,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

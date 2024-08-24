@@ -1,17 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents, Popup, useMap } from "react-leaflet";
-import L from "leaflet";
+import L, { marker } from "leaflet";
 
 interface MapComponentProps {
   setLocation?: (location: { lat: number; lng: number }) => void;
   defaultLocation?: { lat: number; lng: number };
+  markers: { position: L.LatLng; title: string }[];
 }
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
 
-const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocation }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocation, markers }) => {
   const [position, setPosition] = useState<L.LatLng | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -40,7 +41,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
     }
   }, [defaultLocation, setLocation]);
 
-
   return (
     mounted &&
     position && (
@@ -49,7 +49,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MapMarker position={position} setPosition={setPosition} setLocation={setLocation} />
+        {markers ? (
+          markers.map((marker) => <Marker key={marker.title} position={marker.position} />)
+        ) : (
+          <MapMarker position={position} setPosition={setPosition} setLocation={setLocation} />
+        )}
       </MapContainer>
     )
   );

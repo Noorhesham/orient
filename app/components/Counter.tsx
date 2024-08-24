@@ -9,7 +9,7 @@ const Counter = () => {
       <Button
         variant={"outline"}
         className=" rounded-full p-2 h-7  border-main2 text-main2 w-7"
-        onClick={() => setCount((c) => (c > 1 ? c - 1 : c))}
+        onClick={() => setCount((c) => (c >= 1 ? c - 1 : c))}
       >
         -
       </Button>

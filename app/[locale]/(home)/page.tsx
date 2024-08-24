@@ -14,6 +14,9 @@ import Paragraph from "@/app/components/Paragraph";
 import { cookies } from "next/headers";
 import { useTranslations } from "next-intl";
 import Notifications from "@/app/components/Notificationts";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+
+import AppDownload from "@/app/components/AppDownload";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
@@ -60,7 +63,7 @@ export default function Home() {
   const t = useTranslations();
   return (
     <main style={{ padding: "0px 0px !important" }} className="">
-      <section className="relative h-full  min-h-[100vh] lg:min-h-[110vh] w-full">
+      <section className="relative h-full min-h-[100vh] 2xl:min-h-[100vh] lg:min-h-[110vh] w-full">
         <ImageSlider />
       </section>
       <Notifications />
@@ -100,19 +103,19 @@ export default function Home() {
         />
       </div>
       <MaxWidthWrapper>
-        <div className=" flex  justify-center  items-start gap-10 md:gap-20  mt-3 ">
+        <div className=" flex  sm:flex-nowrap   justify-center  items-start gap-10 md:gap-20  mt-3 ">
           <Link href={"/color-trend"} className=" flex gap-3 ">
             <div className=" flex flex-col  items-center gap-2">
-              <div className=" rounded-full  md:w-44 w-28 h-28 md:h-44 relative">
+              <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                 <Image src={"/Ellipse 860.svg"} fill className="rounded-full object-cover" alt="" />
               </div>
-              <h1 className=" text-base md:text-center  md:text-2xl text-main2 font-[500] mt-4 ">COLOR TRENDS</h1>
+              <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">COLOR TRENDS</h1>
             </div>
           </Link>
 
           <Link href={"/get-inspired"} className=" flex gap-3 ">
             <div className=" flex flex-col  items-center gap-2">
-              <div className=" rounded-full  md:w-44 w-28 h-28 md:h-44 relative">
+              <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                 <Image src={"/Rectangle 156397.png"} fill className="rounded-full object-cover" alt="" />
               </div>
               <h1 className=" text-base md:text-center  md:text-2xl text-main2 font-[500] mt-4 ">GET INSPIRED</h1>
@@ -121,15 +124,25 @@ export default function Home() {
           <Calculate />
         </div>
       </MaxWidthWrapper>
-      <div className=" 2xl:h-[55vh] xl:h-[530px] relative w-full ">
-        <Image
-          className=" lg:block hidden object-contain lg:object-cover w-full h-full"
-          src={"/Rectangle 12333.png"}
-          fill
-          alt=""
-        />
-        <Image className=" lg:hidden block object-contain w-full h-full" src={"/bannar mobile.png"} fill alt="" />
-      </div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <div className=" cursor-pointer 2xl:h-[68vh] h-[450px]  relative w-full ">
+            <Image
+              className=" lg:block hidden xl:hidden 2xl:block object-contain lg:object-cover  w-full h-full"
+              src={"/Rectangle 12333.png"}
+              fill
+              alt=""
+            />
+            <Image
+              className=" xl:block 2xl:hidden lg:hidden block object-contain w-full h-full"
+              src={"/bannar mobile.png"}
+              fill
+              alt=""
+            />
+          </div>
+        </DialogTrigger>
+        <AppDownload />
+      </Dialog>
 
       <MaxWidthWrapper>
         <Section headingColor="#E6007E" heading="PARKOSTIAN" className=" relative">
@@ -138,7 +151,9 @@ export default function Home() {
               description=" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industrys standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and
               typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-              className={` ${local == "ar" ? "" : "xl:translate-x-[24rem]"} translate-x-0 text-center   z-10 relative mt-5 `}
+              className={` ${
+                local == "ar" ? "" : "xl:translate-x-[24rem]"
+              } translate-x-0 text-center   z-10 relative mt-5 `}
             />
             <div
               className={` ${
@@ -168,14 +183,17 @@ export default function Home() {
         voluptatum unde magni pariatur expedita ullam reprehenderit corporis! Alias beatae quasi dolore nulla officiis
         rerum."
         />
-        <MotionContainer className=" hidden lg:grid justify-items-center w-full lg:grid-cols-3 mx-auto gap-3 items-center ">
+        <MotionContainer className=" hidden xl:grid justify-items-center w-full xl:grid-cols-3 mx-auto gap-3 items-center ">
           {items.map((item, i) => (
             <CardHuge item={item} key={i} />
           ))}
         </MotionContainer>
-        <div className=" mt-4 w-full  lg:hidden">
+        <div className=" mt-4 w-full  h-full xl:hidden">
           <SwiperCards
-            slidesPerView={2}
+            className=" w-full h-full"
+            slidesPerView={2.3}
+            md={2}
+            mobile={1}
             items={items.map((item, i) => {
               return { card: <CardHuge item={item} key={i} /> };
             })}

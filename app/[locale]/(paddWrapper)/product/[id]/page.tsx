@@ -61,7 +61,7 @@ const page = () => {
                 rounded
                 spaceBetween={50}
                 className="w-full aspect-square h-full"
-                slidesPerView={1}
+                slidesPerView={1}  md={1}
                 items={[
                   { src: "/Product (1).jpg" },
                   { src: "/Product (2).jpg" },

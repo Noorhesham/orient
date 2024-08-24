@@ -9,8 +9,8 @@ import ZoomImage from "../../../components/ZoomImage";
 import BreadCrumb from "@/app/components/BreadCrumb";
 import Paragraph from "@/app/components/Paragraph";
 import MotionContainer from "@/app/components/MotionContainer";
-import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import SwiperCards from "@/app/components/SwiperCards";
 const items = [
   {
     title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
@@ -52,7 +52,7 @@ const items = [
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   // const t = useTranslations();
-  const t = await getTranslations({ locale, namespace: "Metadata" });
+  const t = await getTranslations({ locale});
 
   return (
     <main className=" pt-40 min-h-screen  ">
@@ -131,21 +131,23 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           />
         </div>
       </MaxWidthWrapper>
-      <div className=" flex items-center  gap-4  md:flex-row flex-col  ">
-        <div className="  flex-1 basis-[45%]   h-[435px] relative">
+      <div className="flex items-center">
+        <div className="  flex-1 lg:flex hidden lg:basis-[45%]   h-[435px] relative">
           <Image src={"/chair.png"} alt="" fill className=" object-cover" />
         </div>
-        <MaxWidthWrapper className=" lg:basis-full   flex-1  lg:px-0">
-          <Section link="#" className="mt-5 w-full " heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
-            <div className="  lg:grid flex flex-col   justify-center lg:grid-cols-3 items-center gap-2 mt-5">
-              <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
-              <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
-              <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
-            </div>
-          </Section>
+        <MaxWidthWrapper  className=" lg:basis-full   flex-1  ">
+          <div className=" flex items-center  gap-4  md:flex-row flex-col  ">
+            <Section link="#" className="mt-5 w-full " heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
+              <div className="  lg:grid flex flex-col   justify-center lg:grid-cols-3 items-center gap-2 mt-5">
+                <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
+                <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
+                <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
+              </div>
+            </Section>
+          </div>
         </MaxWidthWrapper>
       </div>
-      <MaxWidthWrapper className=" flex mt-5 lg:mt-10 flex-col items-center justify-center">
+      <MaxWidthWrapper className="  flex  gap-4  flex-col items-center justify-center">
         <Heading
           mainText="DISCOVER THE MOST IMPORTANT"
           subText="ARTICLES ABOUT PAINTS"
@@ -153,12 +155,23 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         voluptatum unde magni pariatur expedita ullam reprehenderit corporis! Alias beatae quasi dolore nulla officiis
         rerum."
         />
-        <MotionContainer className=" grid md:grid-cols-3 grid-cols-1 justify-center gap-3 lg:gap-10 items-center ">
+        <MotionContainer className=" hidden xl:grid justify-items-center w-full xl:grid-cols-3 mx-auto gap-3 items-center ">
           {items.map((item, i) => (
             <CardHuge item={item} key={i} />
           ))}
         </MotionContainer>
-        <div className=" ">
+        <div className=" mt-4 w-full  h-full xl:hidden">
+          <SwiperCards
+            className=" w-full h-full"
+            slidesPerView={2.3}
+            md={2}
+            mobile={1}
+            items={items.map((item, i) => {
+              return { card: <CardHuge item={item} key={i} /> };
+            })}
+          />
+        </div>
+        <div className=" mt-2 ">
           <LinkButton text={t("browse")} href="/blog" />
         </div>
       </MaxWidthWrapper>

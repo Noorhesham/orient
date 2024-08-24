@@ -87,13 +87,13 @@ const SearchBox = ({
         <input
           onChange={handleSearchChange}
           placeholder={t("search")}
-          className="bg-transparent outline-none placeholder:text-black rounded-3xl py-3 px-6  w-full"
+          className="bg-transparent  outline-none placeholder:text-black  py-3 px-6  w-full"
         />
       ) : (
         <input
           ref={inputRef}
           onChange={handleSearchChange}
-          className={` bg-transparent rounded-3xl duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
+          className={` bg-transparent  duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
           placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
           type="text"
           placeholder={t("search")}
@@ -109,9 +109,9 @@ const SearchBox = ({
           onChange={handleSearchChange}
           className={`${
             active ? "bg-white/10 py-3 px-4" : "bg-transparent placeholder:w-0"
-          } rounded-3xl duration-150 absolute  block lg:hidden ${
+          }  duration-150 absolute  block lg:hidden ${
             locale === "ar" ? "right-0 pr-14" : " left-0  pl-14 "
-          }     placeholder:font-[300] placeholder:my-auto outline-none placeholder:text-xs text-xs font-medium ${
+          }     placeholder:font-[300] outline-1 placeholder:my-auto  rounded-3xl outline-none placeholder:text-xs text-xs font-medium ${
             active ? "z-50" : "w-0"
           }`}
           type="text"

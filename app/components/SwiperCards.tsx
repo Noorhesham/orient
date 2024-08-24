@@ -21,9 +21,10 @@ const SwiperCards = ({
   rounded = false,
   logo,
   samePhone,
-  contain,
+  contain = false,
   autoplay,
   mobile,
+  md,
 }: {
   items: any;
   className?: string;
@@ -37,6 +38,7 @@ const SwiperCards = ({
   contain?: boolean;
   autoplay?: boolean;
   mobile?: number;
+  md?: number;
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -53,8 +55,8 @@ const SwiperCards = ({
       });
     });
   }, [swiper, items]);
-  const local = cookies.get("NEXT_LOCALE");
-  console.log(local);
+  const local = cookies.get("NEXT_LOCALE")?.trim();
+
   const t = useTranslations();
   return (
     <div className="relative h-full gap-3 w-full flex flex-col">
@@ -64,8 +66,9 @@ const SwiperCards = ({
             slidesPerView: mobile ? mobile : logo ? 2 : samePhone ? slidesPerView : 1,
             centeredSlides: logo ? false : true,
           },
-          512: { slidesPerView: mobile||slidesPerView || 2 },
-          1024: { slidesPerView: slidesPerView || 3 },
+          580: { slidesPerView: md || mobile || slidesPerView || 2 },
+          768: { slidesPerView: md || 2 },
+          900: { slidesPerView: slidesPerView || 3 },
           1280: { slidesPerView: slidesPerView || 3.4 },
         }}
         modules={[Autoplay]}
@@ -90,7 +93,7 @@ const SwiperCards = ({
                   src={src}
                   alt="product image"
                   className={` object-center h-full w-full  ${
-                    rounded && !contain ? "rounded-2xl object-cover  lg:object-cover" : ""
+                    rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
                   } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
                 />
                 {text && (

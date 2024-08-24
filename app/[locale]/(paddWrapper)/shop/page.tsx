@@ -7,11 +7,12 @@ import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import MotionContainer from "@/app/components/MotionContainer";
 import MotionItem from "@/app/components/MotionItem";
 import { PaginationDemo } from "@/app/components/Pagination";
-import PriceFilter from "@/app/components/PriceFilter";
 import Sort from "@/app/components/Sort";
+import { useTranslations } from "next-intl";
 import React, { Suspense } from "react";
 
 const page = () => {
+  const t = useTranslations();
   return (
     <MaxWidthWrapper className=" bg-gray-50">
       <section className=" min-h-screen  ">
@@ -23,9 +24,9 @@ const page = () => {
               </div>
               <div className=" lg:col-span-6 grid-cols-3 ">
                 <div className="  gap-3 w-full flex  items-center sm:flex-row flex-grow justify-between">
-                  <div className="flex  items-center">
+                  <div className="flex  gap-1  items-center">
+                    <p className=" text-muted-foreground ml-2">{t("found")}</p>
                     <h1 className=" text-black font-semibold">65,867</h1>{" "}
-                    <p className=" text-muted-foreground ml-2">Results Found</p>
                   </div>
                   <div className="lg:block hidden">
                     <Sort options={["Price: Low to High", "Price: High to Low"]} />

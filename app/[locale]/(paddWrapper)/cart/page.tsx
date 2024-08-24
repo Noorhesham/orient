@@ -26,7 +26,7 @@ const page = () => {
           <div className="col-span-7  gap-7 flex flex-col">
             <Container>
               <h1 className=" font-[600] mt-4 ml-2  uppercase text-2xl  text-main2 mb-3">The Cart {`(3)`}</h1>
-              <div className="sm:flex-row text-xs md:text-base  font-semibold capitalize mt-3 flex items-center ">
+              {/* <div className="sm:flex-row text-xs md:text-base  font-semibold capitalize mt-3 flex items-center ">
                 <span className=" mr-4 flex  items-center gap-2">
                   <CheckIcon className=" h-4 w-4 md:h-8 md:w-8" /> Select all products
                 </span>{" "}
@@ -35,7 +35,7 @@ const page = () => {
                   <span className=" -left-1 top-[2px] h-3 md:h-5 mr-2 w-[2px] bg-gray-800 absolute"></span>delete
                   selected products
                 </span>
-              </div>
+              </div> */}
             </Container>
             <Container className=" py-8 flex flex-col gap-5">
               <CartItem img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />

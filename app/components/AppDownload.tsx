@@ -24,7 +24,7 @@ const AppDownload = () => {
           </p>
         </div>
         <div className="flex flex-col gap-3">
-          <Link href={store_url.play_store}>
+          <Link target="_blank" href={store_url.play_store}>
             <Image
               alt=" download from google play"
               src={"/google.png"}
@@ -33,7 +33,7 @@ const AppDownload = () => {
               className=" object-cover cursor-pointer"
             />
           </Link>
-          <Link href={store_url.app_store}>
+          <Link target="_blank" href={store_url.app_store}>
             <Image
               alt=" download from apple store"
               src={"/apple.png"}
