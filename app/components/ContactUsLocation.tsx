@@ -1,9 +1,16 @@
 "use client";
-import React from "react";
-import MapComponent from "./Map";
+import React, { useEffect } from "react";
+const MapComponent = dynamic(() => import("@/app/components/Map"), {
+  loading: () => (
+    <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <Spinner />
+    </div>
+  ),
+  ssr: false,
+});
 import { useAuth } from "../context/AuthContext";
-import { SkeletonCard } from "./SkeletonCard";
 import Spinner from "./Spinner";
+import dynamic from "next/dynamic";
 interface BranchProps {
   is_main_branch: boolean;
   co_info_email: string;
@@ -18,6 +25,10 @@ interface BranchProps {
   lng: number;
 }
 const ContactUsLocation = () => {
+  const [mount, setMount] = React.useState(false);
+  useEffect(() => {
+    setMount(true);
+  }, []);
   const { generalSettings, loading } = useAuth();
   if (loading) return <Spinner />;
   const { company_contacts } = generalSettings;
@@ -29,10 +40,9 @@ const ContactUsLocation = () => {
     },
     title: branch.co_info_location,
   }));
-  console.log(markers);
   return (
     <div className=" w-full h-[500px]">
-      <MapComponent defaultLocation={markers[0].position} markers={markers} />
+      {mount && <MapComponent defaultLocation={markers[0].position} markers={markers} />}
     </div>
   );
 };

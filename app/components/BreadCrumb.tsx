@@ -18,7 +18,7 @@ const BreadCrumb = () => {
   console.log(links);
   return (
     <Breadcrumb className=" py-3  bg-gradient-to-r from-[#ff007b2f] via-white to-[#00a2ff3f]">
-    <MaxWidthWrapper noPadding >
+    <MaxWidthWrapper  >
         <BreadcrumbList className=" ">
           {links.map((link: any, i: number) => {
             const isLast = i === links.length - 1;

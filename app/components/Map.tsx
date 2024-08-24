@@ -1,7 +1,8 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents, Popup, useMap } from "react-leaflet";
-import L, { marker } from "leaflet";
+import L from "leaflet";
 
 interface MapComponentProps {
   setLocation?: (location: { lat: number; lng: number }) => void;
@@ -17,27 +18,28 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    if (defaultLocation) {
-      const { lat, lng } = defaultLocation;
-      setPosition(new L.LatLng(lat, lng));
-      setLocation && setLocation({ lat, lng });
-    } else {
-      window?.navigator?.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          console.log(latitude, longitude, position);
-          setPosition(new L.LatLng(latitude, longitude));
-          setLocation && setLocation({ lat: latitude, lng: longitude });
-        },
-        (error) => {
-          console.error("Error getting geolocation:", error);
-          // Fallback to a default location, e.g., center of a city
-          const fallbackPosition = new L.LatLng(51.505, -0.09); // Example: London
-          setPosition(fallbackPosition);
-          setLocation && setLocation({ lat: 51.505, lng: -0.09 });
-        }
-      );
+    if (typeof window !== "undefined") {
+      // Ensure this runs only on the client
+      setMounted(true);
+      if (defaultLocation) {
+        const { lat, lng } = defaultLocation;
+        setPosition(new L.LatLng(lat, lng));
+        setLocation && setLocation({ lat, lng });
+      } else {
+        global?.window?.navigator?.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setPosition(new L.LatLng(latitude, longitude));
+            setLocation && setLocation({ lat: latitude, lng: longitude });
+          },
+          (error) => {
+            console.error("Error getting geolocation:", error);
+            const fallbackPosition = new L.LatLng(51.505, -0.09); // Example: London
+            setPosition(fallbackPosition);
+            setLocation && setLocation({ lat: 51.505, lng: -0.09 });
+          }
+        );
+      }
     }
   }, [defaultLocation, setLocation]);
 
@@ -50,7 +52,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {markers ? (
-          markers.map((marker) => <Marker key={marker.title} position={marker.position} />)
+          markers.map((marker) => (
+            <Marker key={marker.title} position={marker.position}>
+              <Popup>{marker.title}</Popup>
+            </Marker>
+          ))
         ) : (
           <MapMarker position={position} setPosition={setPosition} setLocation={setLocation} />
         )}
@@ -58,6 +64,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
     )
   );
 };
+
 const MapMarker: React.FC<{
   position: L.LatLng;
   setPosition: React.Dispatch<React.SetStateAction<L.LatLng | null>>;
@@ -69,12 +76,13 @@ const MapMarker: React.FC<{
     map.flyTo(position, map.getZoom());
   }, [position, map]);
 
-  useMap().on("click", (e) => {
-    if (!setLocation) return;
-    const { lat, lng } = e.latlng;
-    setPosition(e.latlng);
-    setLocation && setLocation({ lat, lng });
-    map.flyTo(e.latlng, map.getZoom());
+  useMapEvents({
+    click(e) {
+      const { lat, lng } = e.latlng;
+      setPosition(e.latlng);
+      setLocation && setLocation({ lat, lng });
+      map.flyTo(e.latlng, map.getZoom());
+    },
   });
 
   return <Marker position={position} />;

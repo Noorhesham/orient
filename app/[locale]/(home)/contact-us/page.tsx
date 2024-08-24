@@ -1,31 +1,20 @@
 import BreadCrumb from "@/app/components/BreadCrumb";
 import FormContainer from "@/app/components/FormContainer";
 import Head1 from "@/app/components/Head1";
-
-import Spinner from "@/app/components/Spinner";
-
-const MapComponent = dynamic(() => import("@/app/components/Map"), {
-  loading: () => (
-    <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <Spinner />
-    </div>
-  ),
-  ssr: false,
-});
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import Section from "@/app/components/Section";
 import SocialMedia from "@/app/components/SocialMedia";
 import { BookAIcon } from "lucide-react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
 import Paragraph from "@/app/components/Paragraph";
 import Address from "@/app/components/Address";
-import { useTranslations } from "next-intl";
 import ContactUsLocation from "@/app/components/ContactUsLocation";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-const Page = () => {
-  const t = useTranslations();
+const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+  const t = await getTranslations({ locale });
 
   return (
     <main className=" pt-40">
@@ -84,7 +73,7 @@ const Page = () => {
           </div>
         </div>
       </MaxWidthWrapper>
-      <ContactUsLocation/>
+      <ContactUsLocation />
     </main>
   );
 };

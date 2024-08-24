@@ -1,5 +1,4 @@
-import Box from "@/app/components/Box";
-import BreadCrumb from "@/app/components/BreadCrumb";
+
 import Card from "@/app/components/Card";
 import FilterMobile from "@/app/components/FilterPhone";
 import Filters from "@/app/components/Filters";
@@ -8,11 +7,12 @@ import MotionContainer from "@/app/components/MotionContainer";
 import MotionItem from "@/app/components/MotionItem";
 import { PaginationDemo } from "@/app/components/Pagination";
 import Sort from "@/app/components/Sort";
-import { useTranslations } from "next-intl";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import React, { Suspense } from "react";
 
-const page = () => {
-  const t = useTranslations();
+const page = async ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+  const t = await getTranslations(locale);
   return (
     <MaxWidthWrapper className=" bg-gray-50">
       <section className=" min-h-screen  ">
