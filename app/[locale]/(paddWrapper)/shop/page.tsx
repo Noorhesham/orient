@@ -12,7 +12,7 @@ import React, { Suspense } from "react";
 
 const page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
-  const t = await getTranslations(locale);
+  const t = await getTranslations({locale});
   return (
     <MaxWidthWrapper className=" bg-gray-50">
       <section className=" min-h-screen  ">
