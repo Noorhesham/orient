@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { getToken, onMessage, Unsubscribe } from "firebase/messaging";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { fetchToken, messaging } from "@/firebase";
+import { toast } from "react-toastify";
 
 async function getNotificationPermissionAndToken() {
   // Step 1: Check if Notifications are supported in the browser.
@@ -104,17 +104,18 @@ const useFcmToken = () => {
         const link = payload.fcmOptions?.link || payload.data?.link;
 
         if (link) {
-          toast.info(`${payload.notification?.title}: ${payload.notification?.body}`, {
-            action: {
-              label: "Visit",
+          toast(
+            `${payload.notification?.title || "New message"}: ${payload.notification?.body || "This is a new message"}`,
+            {
               onClick: () => {
-                const link = payload.fcmOptions?.link || payload.data?.link;
                 if (link) {
                   router.push(link);
                 }
               },
-            },
-          });
+              autoClose: false, // Keeps the toast open until the user interacts with it
+              closeOnClick: true, // Closes the toast when clicked
+            }
+          );
         } else {
           toast.info(`${payload.notification?.title}: ${payload.notification?.body}`);
         }
