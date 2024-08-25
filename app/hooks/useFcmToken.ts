@@ -98,6 +98,7 @@ const useFcmToken = () => {
 
       // Step 9: Register a listener for incoming FCM messages.
       const unsubscribe = onMessage(m, (payload) => {
+        console.log(Notification.permission)
         if (Notification.permission !== "granted") return;
 
         console.log("Foreground push notification received:", payload);
