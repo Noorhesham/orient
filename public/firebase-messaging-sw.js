@@ -1,50 +1,58 @@
-try {
-  importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js");
-  importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js");
-  firebase.initializeApp({
-    apiKey: "AIzaSyAL3AouHec0aKu3SzgtQ2YjtTtNvAaJudA",
-    authDomain: "react-6bd52.firebaseapp.com",
-    projectId: "react-6bd52",
-    storageBucket: "react-6bd52.appspot.com",
-    messagingSenderId: "453925556171",
-    appId: "1:453925556171:web:a3801d8bd6e7283593304e",
-    measurementId: "G-EK136EZXQV",
-  });
+importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js");
+firebase.initializeApp({
+  apiKey: "AIzaSyAL3AouHec0aKu3SzgtQ2YjtTtNvAaJudA",
+  authDomain: "react-6bd52.firebaseapp.com",
+  projectId: "react-6bd52",
+  storageBucket: "react-6bd52.appspot.com",
+  messagingSenderId: "453925556171",
+  appId: "1:453925556171:web:a3801d8bd6e7283593304e",
+  measurementId: "G-EK136EZXQV",
+});
 
-  const messaging = firebase.messaging();
+const messaging = firebase.messaging();
 
-  messaging.onBackgroundMessage(function (payload) {
-    console.log("[firebase-messaging-sw.js] Received background message ", payload);
-    const notificationTitle = payload.notification.title || "Background Message Title";
-    const link = payload.fcmOptions.link || payload.data.link;
-    const notificationOptions = {
-      body: payload.notification.body || "Background Message body.",
-      icon: "/firebase-logo.png",
-      data: { link },
-    };
+messaging.onBackgroundMessage((payload) => {
+  console.log("[firebase-messaging-sw.js] Received background message ", payload);
 
-    self.registration.showNotification(notificationTitle, notificationOptions);
-  });
-} catch (error) {
-  console.error("Service Worker Error:", error);
-}
+  // payload.fcmOptions?.link comes from our backend API route handle
+  // payload.data.link comes from the Firebase Console where link is the 'key'
+  const link = payload.fcmOptions?.link || payload.data?.link;
+
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: "./logo.png",
+    data: { url: link },
+  };
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
 self.addEventListener("notificationclick", function (event) {
+  console.log("[firebase-messaging-sw.js] Notification click received.");
+
   event.notification.close();
+
+  // This checks if the client is already open and if it is, it focuses on the tab. If it is not open, it opens a new tab with the URL passed in the notification payload
   event.waitUntil(
     clients
-      .matchAll({
-        type: "window",
-        includeUncontrolled: true,
-      })
+      // https://developer.mozilla.org/en-US/docs/Web/API/Clients/matchAll
+      .matchAll({ type: "window", includeUncontrolled: true })
       .then(function (clientList) {
-        for (var i = 0; i < clientList.length; i++) {
-          var client = clientList[i];
-          if (client.url == event.notification.data.link && "focus" in client) {
-            return client.focus(); // Just focus if it's already opened
+        const url = event.notification.data.url;
+
+        if (!url) return;
+
+        // If relative URL is passed in firebase console or API route handler, it may open a new window as the client.url is the full URL i.e. https://example.com/ and the url is /about whereas if we passed in the full URL, it will focus on the existing tab i.e. https://example.com/about
+        for (const client of clientList) {
+          if (client.url === url && "focus" in client) {
+            return client.focus();
           }
         }
+
         if (clients.openWindow) {
-          return clients.openWindow(event.notification.data.link);
+          console.log("OPENWINDOW ON CLIENT");
+          return clients.openWindow(url);
         }
       })
   );
