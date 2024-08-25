@@ -1,6 +1,6 @@
 try {
-  importScripts("https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js");
-  importScripts("https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js");
+  importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js");
+  importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js");
   firebase.initializeApp({
     apiKey: "AIzaSyAL3AouHec0aKu3SzgtQ2YjtTtNvAaJudA",
     authDomain: "react-6bd52.firebaseapp.com",
@@ -42,7 +42,7 @@ self.addEventListener("notificationclick", function (event) {
           if (client.url == event.notification.data.link && "focus" in client) {
             return client.focus(); // Just focus if it's already opened
           }
-        } 
+        }
         if (clients.openWindow) {
           return clients.openWindow(event.notification.data.link);
         }
