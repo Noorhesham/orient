@@ -16,10 +16,8 @@ import { Button } from "@/components/ui/button";
 import { BoxIcon, CreditCard, CreditCardIcon, DownloadIcon, Headphones, StarIcon } from "lucide-react";
 import React from "react";
 import { CiCalculator2 } from "react-icons/ci";
-
 import { TbShoppingCartPlus, TbView360Arrow } from "react-icons/tb";
 import YoutubeThumbnail from "@/app/components/YoutubeThumbnail";
-import ZoomImage from "@/app/components/ZoomImage";
 import Reviews from "@/app/components/Reviews";
 import Comment from "@/app/components/Comment";
 import Feature from "@/app/components/Feature";
@@ -27,6 +25,7 @@ import MotionContainer from "@/app/components/MotionContainer";
 import AddComment from "@/app/components/AddComment";
 import Paragraph from "@/app/components/Paragraph";
 import VideoZoom from "@/app/components/VideoZoom";
+import Head from "next/head";
 
 const options = ["#3F3F46", "#F43F5E", "#FECDD3", "#DB2777", "#A21CAF", "#FECDD3", "#A21CAF", "#DB2777"];
 const optionsSize = ["0.5k", "1k", "5k", "10k", "20k"];
@@ -50,9 +49,66 @@ const comments = [
     text: "Working at Sam.AI has been an incredible journey so far. The technology we're building is truly cutting-edge, and being a part of a team that's revolutionizing how people achieve their goals is immensely fulfilling.  Working at Sam.AI has been an incredible journey so far. The technology we're building is truly cutting-edge, and being a part of a team that's revolutionizing how people achieve their goals is immensely fulfilling. ",
   },
 ];
+export const metadata = {
+  title: "PUTTY (ACRYLIC 1000) 233 WALL PAINTS | Your Store Name",
+  description:
+    "Explore the premium quality PUTTY (ACRYLIC 1000) 233 WALL PAINTS. A highly-developed product that absorbs deeply into cementitious materials for a solid base for painting. Fast delivery and secure payment options available.",
+  keywords:
+    "PUTTY, ACRYLIC 1000, WALL PAINTS, premium quality, cementitious materials, painting base, fast delivery, secure payment",
+  canonical: "https://yourdomain.com/products/putty-acrylic-1000-233",
+  openGraph: {
+    title: "PUTTY (ACRYLIC 1000) 233 WALL PAINTS",
+    description:
+      "A highly-developed product that provides a solid base for painting. Fast delivery and secure payment options available.",
+    url: "https://yourdomain.com/products/putty-acrylic-1000-233",
+    images: [
+      {
+        url: "https://yourdomain.com/Product%20(1).jpg",
+        alt: "PUTTY (ACRYLIC 1000) 233 WALL PAINTS",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PUTTY (ACRYLIC 1000) 233 WALL PAINTS",
+    description:
+      "Explore the premium quality PUTTY (ACRYLIC 1000) 233 WALL PAINTS. A highly-developed product for a solid base for painting.",
+    images: [
+      {
+        url: "https://yourdomain.com/Product%20(1).jpg",
+        alt: "PUTTY (ACRYLIC 1000) 233 WALL PAINTS",
+      },
+    ],
+  },
+};
 const page = () => {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "PUTTY (ACRYLIC 1000) 233 WALL PAINTS",
+    image: "https://yourdomain.com/Product%20(1).jpg",
+    description:
+      "A highly-developed product that provides a solid base for painting. Fast delivery and secure payment options available.",
+    brand: {
+      "@type": "Brand",
+      name: "Orient",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "EGP",
+      price: "442.12",
+      availability: "https://schema.org/InStock",
+      url: "http://localhost:3001/en/product/1",
+    },
+  };
   return (
     <section className=" h-full relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        key="profile-jsonld"
+      />
+
       <MaxWidthWrapper noPadding className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
         <div className="lg:col-span-8 items-center max-w-full flex flex-col gap-4  lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
           <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
@@ -61,7 +117,8 @@ const page = () => {
                 rounded
                 spaceBetween={50}
                 className="w-full aspect-square h-full"
-                slidesPerView={1}  md={1}
+                slidesPerView={1}
+                md={1}
                 items={[
                   { src: "/Product (1).jpg" },
                   { src: "/Product (2).jpg" },
