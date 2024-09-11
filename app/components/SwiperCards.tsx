@@ -5,12 +5,12 @@ import "swiper/css";
 import type SwiperType from "swiper";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import cookies from "js-cookie";
 import { useTranslations } from "next-intl";
 import { Autoplay } from "swiper/modules"; // Correct import for Autoplay
-
+import { TransformWrapper, TransformComponent, useControls } from "react-zoom-pan-pinch";
 const SwiperCards = ({
   items,
   className,
@@ -25,6 +25,7 @@ const SwiperCards = ({
   autoplay,
   mobile,
   md,
+  zoom,
 }: {
   items: any;
   className?: string;
@@ -39,6 +40,7 @@ const SwiperCards = ({
   autoplay?: boolean;
   mobile?: number;
   md?: number;
+  zoom?: boolean;
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -82,20 +84,54 @@ const SwiperCards = ({
         className={`w-full   ${className || "h-96"}`}
       >
         {items.map(({ src, text, card }: { src: string; text: string; card: ReactNode }, i: number) => (
-          <SwiperSlide className={`w-full h-full overflow-hidden ${rounded ? "rounded-2xl" : ""}`} key={i}>
+          <SwiperSlide className={`w-full h-full  ${rounded ? "rounded-2xl" : ""}`} key={i}>
             {card ? (
               <div className="  w-full"> {card}</div>
             ) : (
               <>
-                <Image
-                  fill
-                  loading="eager"
-                  src={src}
-                  alt="product image"
-                  className={` object-center h-full w-full  ${
-                    rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
-                  } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
-                />
+                {zoom ? (
+                  <div>
+                    <TransformWrapper
+                      panning={{ disabled: false }} // Enables drag control
+                      zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
+                      doubleClick={{ disabled: false }}
+                      smooth
+                      initialScale={1}
+                      initialPositionX={0}
+                      initialPositionY={0}
+                    >
+                      {({ zoomIn, zoomOut, ...rest }) => (
+                        <>
+                          <div className=" mb-3">
+                            <Button variant="outline" size={"sm"} className=" mr-2" onClick={() => zoomIn()}>
+                              <ZoomInIcon />
+                            </Button>
+                            <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
+                              <ZoomOutIcon />
+                            </Button>
+                          </div>
+                          <TransformComponent
+                            contentStyle={{ width: "100%", height: "100%" }}
+                            wrapperStyle={{ width: "100%", height: "100%" }}
+                          >
+                            <img src={src} style={{ width: "100%" }} />
+                          </TransformComponent>
+                        </>
+                      )}
+                    </TransformWrapper>
+                  </div>
+                ) : (
+                  <Image
+                    fill
+                    loading="eager"
+                    src={src}
+                    alt="product image"
+                    className={` object-center h-full w-full  ${
+                      rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
+                    } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
+                  />
+                )}
+
                 {text && (
                   <h1 className="text-white text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
                     {text}

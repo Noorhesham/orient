@@ -5,9 +5,10 @@ import React, { ReactNode, Children, cloneElement, ReactElement } from "react";
 interface MotionContainerProps {
   children: ReactNode;
   className?: string;
+  serverAnimate?: boolean;
 }
 
-const MotionContainer = ({ children, className }: MotionContainerProps) => {
+const MotionContainer = ({ children, className, serverAnimate }: MotionContainerProps) => {
   const childrenArray = Children.toArray(children) as ReactElement[];
   const childCount = childrenArray.length;
 
@@ -15,7 +16,6 @@ const MotionContainer = ({ children, className }: MotionContainerProps) => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-
     },
   };
 
@@ -30,8 +30,29 @@ const MotionContainer = ({ children, className }: MotionContainerProps) => {
     },
   });
 
-  return (
-    <motion.div className={className} variants={container} initial="hidden" viewport={{ once: true }} whileInView="visible">
+  return serverAnimate ? (
+    <motion.div
+      className={className}
+      variants={container}
+      initial="hidden"
+      viewport={{ once: true }}
+      animate="visible"
+      whileInView="visible"
+    >
+      {childrenArray.map((child, index) =>
+        cloneElement(child, {
+          variants: staggerEffect(index),
+        })
+      )}
+    </motion.div>
+  ) : (
+    <motion.div
+      className={className}
+      variants={container}
+      initial="hidden"
+      viewport={{ once: true }}
+      whileInView="visible"
+    >
       {childrenArray.map((child, index) =>
         cloneElement(child, {
           variants: staggerEffect(index),

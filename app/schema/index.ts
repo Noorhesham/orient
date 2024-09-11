@@ -83,9 +83,8 @@ export const personalSchema = z.object({
 });
 
 export const commentSchema = z.object({
-  comment: z.string(),
-  name: z.string(),
-  rate: z.number(),
+  content: z.string(),
+  rating: z.number(),
 });
 export const emailSchema = z.object({
   email: z.string().email(),

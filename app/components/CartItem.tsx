@@ -1,4 +1,3 @@
-import { CheckIcon, XIcon } from "lucide-react";
 import { IoIosHeart } from "react-icons/io";
 
 import Image from "next/image";
@@ -6,6 +5,8 @@ import React from "react";
 import { formatPrice } from "../helpers/utils";
 import Counter from "./Counter";
 import { cn } from "@/lib/utils";
+
+import CartDelete from "./CartDelete";
 
 const CartItem = ({
   ...props
@@ -17,13 +18,16 @@ const CartItem = ({
   wishlist?: boolean;
   size?: string;
   nocheck?: boolean;
+  quantity?: number;
+  id?: any;
 }) => {
-  const { text, price, discount, img, wishlist, size, nocheck } = props;
+  const { text, price, discount, img, wishlist, size, nocheck, quantity, id } = props;
+
   return (
     <div>
       <div className=" flex items-center">
         <div className=" flex items-center gap-2">
-          {!nocheck && <XIcon />}
+          {!nocheck && <CartDelete id={id} />}
           <div className=" aspect-square relative w-full h-20">
             <Image src={img} fill alt="product" className=" object-contain" />
           </div>
@@ -49,7 +53,7 @@ const CartItem = ({
                 <p className=" cursor-pointer text-xs text-muted-foreground">Remove from Wishlist</p>
               </div>
             )}
-            {!nocheck && <Counter />}
+            {!nocheck && <Counter value={id} defaultcount={quantity} />}
           </div>
         )}
       </div>

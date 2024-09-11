@@ -3,15 +3,17 @@ import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import Image from "next/image";
 import { PlayIcon } from "../../../components/Icons";
 import SwiperCards from "../../../components/SwiperCards";
-import ModalCustom from "@/app/components/ModalCustom";
 import ZoomImage from "@/app/components/ZoomImage";
 import Paragraph from "@/app/components/Paragraph";
 import { cookies } from "next/headers";
-import { useTranslations } from "next-intl";
+import { Server } from "@/app/main/Server";
+import { getTranslations } from "next-intl/server";
 
-const Page = () => {
+const Page = async () => {
   const local = cookies().get("NEXT_LOCALE")?.value;
-  const t = useTranslations();
+  const t = await getTranslations();
+  const data = await Server({ resourceName: "about-us", cache: 3600 });
+
   return (
     <>
       <section className=" relative min-h-screen 2xl:min-h-[80vh]">

@@ -28,10 +28,19 @@ export type ResourceNameProps =
   | "deviceLogout"
   | "languageUpdate"
   | "getEntity"
-  | "getSingleEntity";
+  | "getSingleEntity"
+  | "getSearch"
+  | "addToCart"
+  | "getActiveCart"
+  | "getProduct"
+  | "addToCartQuantity"
+  | "about-us"
+  | "addComment"
+  | "getForms"
+  | "submitForm";
 
 // Function to get the full URL from the resource name
-const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string) => {
+const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
   const url = BASE_URL;
   switch (resourceName) {
     case "user":
@@ -74,8 +83,26 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/rm_users/${VERSION}/device_sys`, method: "POST" };
     case "getEntity":
       return { url: `${url}/${entityName}/entities-operations`, method: "GET" };
+    case "getSearch":
+      return { url: `${url}/rm_ecommarce/${VERSION}/products/search?${queryParams}`, method: "GET" };
     case "getSingleEntity":
       return { url: `${url}/${entityName}/entities-operations/${id}`, method: "GET" };
+    case "addToCart":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/add_to_cart`, method: "POST" };
+    case "getActiveCart":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/get_active_cart?${queryParams}`, method: "GET" };
+    case "getProduct":
+      return { url: `${url}/rm_ecommarce/${VERSION}/products/${id}?${queryParams}`, method: "POST" };
+    case "addToCartQuantity":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/change_item_count`, method: "POST" };
+    case "addComment":
+      return { url: `${url}/rm_ecommarce/${VERSION}/products/${id}/review`, method: "POST" };
+    case "about-us":
+      return { url: `${url}/rm_page/v1/show?with=metas&slug=about-us-web`, method: "GET" };
+    case "getForms":
+      return { url: `${url}/forms/getForms`, method: "POST" };
+    case "submitForm":
+      return { url: `${url}/forms/${id}/submit`, method: "POST" };
     default:
       return { url, method: "GET" as MethodProps };
   }
@@ -89,9 +116,11 @@ export async function Server({
   body,
   headers,
   noHeaders = false,
-  cache = false,
+  cache = 0,
   img = false,
   entityName,
+  queryParams,
+  formData,
 }: {
   resourceName: ResourceNameProps;
   id?: string;
@@ -99,9 +128,11 @@ export async function Server({
   body?: any;
   headers?: any;
   noHeaders?: boolean;
-  cache?: boolean;
+  cache?: number;
   img?: boolean;
   entityName?: string;
+  queryParams?: URLSearchParams;
+  formData?: boolean;
 }) {
   // Get the token and device info from cookies
   const jwt = cookies().get("jwt")?.value;
@@ -120,21 +151,24 @@ export async function Server({
     combinedHeaders["device-unique-id"] = JSON.parse(deviceId).device_unique_id;
   }
   try {
-
-    // Get the URL and method from the resource name
-    const { url, method: resolvedMethod } = getURL(resourceName, id, entityName);
-    // Fetch data from the server
+    const { url, method: resolvedMethod } = getURL(resourceName, id, entityName, queryParams);
+    let requestBody;
+    if (formData) requestBody = body;
+    else {
+      requestBody = body ? JSON.stringify(body) : undefined;
+      combinedHeaders["Content-Type"] = "application/json";
+    }
     const response = await fetch(url, {
       method: method || resolvedMethod,
       headers: combinedHeaders,
-      body: body && !img ? JSON.stringify(body) : img ? body : undefined,
-      cache: "no-cache",
+      body: requestBody,  
+      next: { revalidate: cache ? cache : 0 },
     });
 
     if (!response.ok) throw new Error(`Error: ${response.status}`);
 
     const data = await response.json();
-    console.log(data, body);
+    console.log(body);
     return data;
   } catch (error: any) {
     console.error("Server request error:", error);

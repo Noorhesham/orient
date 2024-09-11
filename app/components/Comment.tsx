@@ -4,24 +4,26 @@ import Starrating from "./Rate";
 import User from "./User";
 import Paragraph from "./Paragraph";
 const Comment = ({
-  rate,
+  rating,
   date,
-  text,
+  content,
   user,
+  id,
 }: {
-  rate: number;
+  rating: number;
   date: any;
-  text: string;
+  content: string;
   user: { name: string; photo?: string };
+  id?: string;
 }) => {
   return (
     <div className=" border-b border-input py-4   flex flex-col">
       <div className="flex my-2 items-start flex-col">
         <span className=" text-gray-400 font-semibold text-xs">{format(date, "dd/MM/yyyy")}</span>
-        <Starrating MaxRating={5} size={20} defaultRating={rate} />
+        <Starrating MaxRating={5} size={20} defaultRating={rating} />
       </div>
       <User user={user} />
-      <Paragraph full description={text} />
+      <Paragraph full description={content} />
     </div>
   );
 };

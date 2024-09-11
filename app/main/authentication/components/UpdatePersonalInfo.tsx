@@ -3,17 +3,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Server } from "../../Server";
 import { toast } from "react-toastify";
 import { useAuth } from "@/app/context/AuthContext";
-import { format } from "date-fns";
-import ModalCustom from "@/app/components/ModalCustom";
 import UpdateCard from "@/app/components/UpdateCard";
 import { GoPeople } from "react-icons/go";
-import FormContainer from "@/app/components/FormContainer";
-import Activate2fa from "./Activate2fa";
+
 import { MailIcon, PhoneIcon } from "lucide-react";
 import Spinner from "@/app/components/Spinner";
 import { InputOTPPattern } from "./OTP";
 import { useTranslations } from "next-intl";
-
+import { format } from "date-fns";
+import FormContainer from "@/app/components/FormContainer";
+import ModalCustom from "@/app/components/ModalCustom";
 const UpdatePersonalInfo = () => {
   const t = useTranslations();
   const router = useRouter();
@@ -28,21 +27,31 @@ const UpdatePersonalInfo = () => {
   const { setLogin, userSettings: user, loading } = useAuth();
   const updatePersonalInfro = async (data: any, setError: any) => {
     const formData = new FormData();
-    if (data.name) formData.append("name", data.name);
-    if (data.birth_day) formData.append("birth_day", format(data.birth_day, "yyyy-MM-dd"));
-    if (data.avatar) formData.append("avatar", data.avatar[0]);
-    console.log(data);
-    const res = await Server({
-      resourceName: "update_profile",
-      body: formData,
-      img: true,
+    // Correctly append all fields to FormData
+    Object.keys(data).forEach((key) => {
+      if (key === "birth_day" && data[key] instanceof Date) {
+        const formattedDate = format(data[key], "yyyy-MM-dd");
+        formData.append(key, formattedDate);
+      } else if (key === "avatar") {
+        if (data[key] instanceof FileList && data[key].length > 0) {
+          formData.append(key, data[key][0]);
+        }
+      } else if (data[key] !== undefined) {
+        formData.append(key, data[key]);
+      }
     });
-    if (!res.status) setError(Array.isArray(res.errors) ? res.errors : res.errors.password || res.message);
-    if (res.status === true) {
-      toast.success(res.message);
-      setError(null);
-      setLogin((l: any) => !l);
+
+    const res = await Server({ resourceName: "update_profile", body: formData, formData: true });
+    // const res = await updatePhone(formData)
+    console.log(res);
+
+    if (!res.status) {
+      setError(Array.isArray(res.errors) ? res.errors : res.message);
+      return;
     }
+    toast.success(res.message);
+    setError(null);
+    setLogin((l: any) => !l);
   };
 
   const updateEmailInfo = async (data: any, setError: any) => {
@@ -110,7 +119,7 @@ const UpdatePersonalInfo = () => {
           <div>
             <UpdateCard
               text={t("updatePhone")}
-              desc={`+${user?.country_key} ${user?.phone}`}
+              desc={loading ? "" : `+${user?.country_key} ${user?.phone}`}
               icon={<PhoneIcon className=" text-main w-10 h-10" />}
             />
           </div>
@@ -171,21 +180,3 @@ const UpdatePersonalInfo = () => {
 };
 
 export default UpdatePersonalInfo;
-// let avatarBase64;
-// if (data.avatar && data.avatar[0]) {
-//   const reader = new FileReader();
-
-//   // Create a promise that resolves when the file is read
-//   avatarBase64 = await new Promise<string>((resolve, reject) => {
-//     reader.onloadend = () => {
-//       resolve(reader.result as string); // Resolve with the Base64 string
-//     };
-//     reader.onerror = (error) => {
-//       reject(error); // Reject on error
-//     };
-
-//     // Read the file as a data URL (Base64)
-//     reader.readAsDataURL(data.avatar[0]);
-//   });
-// }
-// console.log(avatarBase64)

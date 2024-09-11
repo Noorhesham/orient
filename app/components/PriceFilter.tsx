@@ -23,24 +23,24 @@ const PriceFilter = () => {
     isCustom: false,
   });
   const searchParams = useSearchParams();
-  const minPrice = Number(searchParams.get("minPrice"));
-  const maxPrice = Number(searchParams.get("maxPrice"));
+  const price_from = Number(searchParams.get("price_from"));
+  const price_to = Number(searchParams.get("price_to"));
   const custom = searchParams.get("custom") === "true" ? true : false;
   useEffect(() => {
-    if (minPrice && maxPrice) {
+    if (price_from && price_to) {
       setPriceFilter({
-        range: [Number(minPrice), Number(maxPrice)],
+        range: [Number(price_from), Number(price_to)],
         isCustom: custom || false,
       });
     }
-  }, [minPrice, maxPrice, custom]);
+  }, [price_from, price_to, custom]);
   const { replace } = useRouter();
 
   useEffect(() => {
     const url = new URL(window.location.href);
-    ["minPrice", "maxPrice", "custom"].forEach((key) => url.searchParams.delete(key));
-    url.searchParams.append("minPrice", priceFilter.range[0].toString());
-    url.searchParams.append("maxPrice", priceFilter.range[1].toString());
+    ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
+    url.searchParams.append("price_from", priceFilter.range[0].toString());
+    url.searchParams.append("price_to", priceFilter.range[1].toString());
     url.searchParams.append("custom", priceFilter.isCustom.toString());
     replace(url.toString(), { scroll: false });
   }, [priceFilter, replace]);
@@ -79,7 +79,7 @@ const PriceFilter = () => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [Number(e.target.value), prev.range[1]] }));
                 }}
-                value={minPrice?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
+                value={price_from?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
               <Input
@@ -87,7 +87,7 @@ const PriceFilter = () => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [prev.range[0], Number(e.target.value)] }));
                 }}
-                value={maxPrice?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
+                value={price_to?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
             </div>

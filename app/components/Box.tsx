@@ -7,7 +7,21 @@ interface Filters {
   [key: string]: string[];
 }
 
-const Box = ({ text, options, filter }: { text: string; options?: any[]; filter: string }) => {
+const Box = ({
+  text,
+  options,
+  filter,
+  id,
+  color,
+  single,
+}: {
+  text: string;
+  options?: any[];
+  filter: string;
+  id?: string;
+  color?: boolean;
+  single?: boolean;
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -46,8 +60,6 @@ const Box = ({ text, options, filter }: { text: string; options?: any[]; filter:
     setFilters((prevFilters) => {
       const currentFilters = prevFilters[filterName] || [];
       const isFilterSelected = currentFilters.includes(filterValue);
-
-      // Toggle the filter on/off
       const updatedFilters = isFilterSelected
         ? currentFilters.filter((item) => item !== filterValue) // Remove the filter
         : [...currentFilters, filterValue]; // Add the filter
@@ -71,16 +83,15 @@ const Box = ({ text, options, filter }: { text: string; options?: any[]; filter:
       };
     });
   };
-
+  console.log(filters);
   return (
     <div className="flex px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
       <h2 className="text-lg mb-2">{text}</h2>
       <ul className="pb-3 flex flex-col gap-2 border-b border-b-gray-400">
-        {filter !== "colors" &&
-          filter !== "tags" &&
+        {filter === "category_id" &&
           options?.map((option, i) => (
             <li
-              onClick={() => handleFilter(option, "category")}
+              onClick={() => handleFilter(option.id, "category_id")}
               key={i}
               className="flex items-center gap-2 cursor-pointer"
             >
@@ -88,44 +99,87 @@ const Box = ({ text, options, filter }: { text: string; options?: any[]; filter:
                 type="checkbox"
                 name={filter}
                 id={option}
-                checked={filters["category"]?.includes(option) || false}
-                onChange={() => handleFilter(option, "category")}
+                checked={filters["category_id"]?.includes(option.id) || false}
+                onChange={() => handleFilter(option.id, "category_id")}
               />
-              <label htmlFor={option}>{option}</label>
+              <label htmlFor={option}>{option.title}</label>
             </li>
           ))}
-        {filter === "colors" && (
-          <div className="flex flex-wrap lg:grid lg:grid-cols-8 gap-2">
-            {options?.map((option, i) => (
+
+        {filter !== "tags" &&
+          filter !== "category_id" &&
+          (color ? (
+            <div className="flex flex-wrap lg:grid lg:grid-cols-8 gap-2">
+              {options?.map((option, i) => (
+                <li
+                  key={i}
+                  style={{ backgroundColor: `#${option.data}` }}
+                  onClick={() => {
+                    if (single && !filters[filter]?.includes(`${id}:${option.id}`)) handleReset(filter);
+                    handleFilter(`${id}:${option.id}`, filter);
+                  }}
+                  className={`cursor-pointer p-1 hover:opacity-90 duration-100 ${
+                    filters[filter]?.includes(`${id}:${option.id}`) ? "border-2 border-main" : ""
+                  } shadow-sm w-10 h-10 aspect-square rounded-md lg:w-full lg:h-full`}
+                ></li>
+              ))}
+            </div>
+          ) : !single ? (
+            options?.map((option, i) => (
               <li
-                style={{ backgroundColor: option }}
-                onClick={() => handleFilter(option, "colors")}
                 key={i}
-                className={`cursor-pointer p-1 hover:opacity-90 duration-100 ${
-                  filters["colors"]?.includes(option) ? "border-2 border-main" : ""
-                } shadow-sm w-10 h-10 aspect-square rounded-md lg:w-full lg:h-full`}
-              ></li>
-            ))}
-          </div>
-        )}
+                onClick={() => handleFilter(`${id}:${option.id}`, filter)}
+                className="flex w-full items-center gap-2 cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  name={filter}
+                  id={option.id}
+                  checked={filters[filter]?.includes(`${id}:${option.id}`) || false}
+                  onChange={() => handleFilter(`${id}:${option.id}`, filter)}
+                />
+                <label htmlFor={option.id}>{option.title}</label>
+              </li>
+            ))
+          ) : (
+            <div className="flex items-center gap-2">
+              {options?.map((option, i) => (
+                <li
+                  onClick={() => {
+                    if (single && !filters[filter]?.includes(`${id}:${option.id}`)) handleReset(filter);
+                    handleFilter(`${id}:${option.id}`, filter);
+                  }}
+                  key={i}
+                  className={`w-8 text-center cursor-pointer p-1 ${
+                    filters[filter]?.includes(`${id}:${option.id}`) ? "bg-main text-gray-50" : "bg-white text-black"
+                  } hover:opacity-90 duration-100 shadow-sm text-xs  border  border-black rounded-md`}
+                >
+                  {option.title}
+                </li>
+              ))}
+            </div>
+          ))}
+
         {filter === "tags" && (
           <div className="flex flex-wrap gap-2">
             {options?.map((option, i) => (
               <Button
-                onClick={() => handleFilter(option, "tags")}
+                onClick={() => handleFilter(option.id, "tags")}
                 key={i}
-                className={filters["tags"]?.includes(option) ? "bg-yellow-100 text-main border-main border" : ""}
+                className={filters["tags"]?.includes(option.id) ? "bg-yellow-100 text-main border-main border" : ""}
                 variant="outline"
               >
-                {option}
+                {option.title}
               </Button>
             ))}
           </div>
         )}
       </ul>
-      <Button variant={"outline"} className="w-full mt-4" onClick={() => handleReset(filter)}>
-        RESET
-      </Button>
+      {!single && (
+        <Button variant={"outline"} className="w-full mt-4" onClick={() => handleReset(filter)}>
+          RESET
+        </Button>
+      )}
     </div>
   );
 };

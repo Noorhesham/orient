@@ -11,11 +11,27 @@ import Paragraph from "@/app/components/Paragraph";
 import Address from "@/app/components/Address";
 import ContactUsLocation from "@/app/components/ContactUsLocation";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { Server } from "@/app/main/Server";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   const t = await getTranslations({ locale });
-
+  const { forms } = await Server({ resourceName: "getForms", body: { slugs: ["contact-us"] } });
+  const fields = forms[0].fields
+    .map((field: any) => {
+      if (field.type === "button") return;
+      return {
+        name: field.key,
+        label: field.label,
+        placeholder: field.label,
+        type: field.type === "textfield" ? "text" : field.type,
+        area: field.type === "textarea" ? true : false,
+        phone: field.type === "phoneNumber" ? true : false,
+        select: false,
+      };
+    })
+    .filter((field: any) => field !== undefined);
+  let success = "";
   return (
     <main className=" pt-40">
       <BreadCrumb />
@@ -59,17 +75,9 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           </Section>
           <div className=" lg:mt-0 mt-2 w-full flex flex-col items-start col-span-2">
             <Head1 text={t("contact.question")} />
-            <FormContainer
-              schema={"contact"}
-              btnText={t("contact.send")}
-              formArray={[
-                { name: "name", placeholder: t("forms.name"), type: "text" },
-                { name: "phone", placeholder: t("forms.phone"), type: "text", phone: true },
-                { name: "email", placeholder: t("forms.email"), type: "email" },
-                { name: "inquiry", placeholder: t("forms.inquiry"), type: "text", select: true },
-                { name: "message", placeholder: t("forms.message"), type: "text", area: true },
-              ]}
-            />
+            <FormContainer server submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
+
+            {success && <p className=" text-sm font-semibold text-green-500">{success}</p>}
           </div>
         </div>
       </MaxWidthWrapper>

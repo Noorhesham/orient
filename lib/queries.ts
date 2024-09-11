@@ -1,6 +1,8 @@
 import { ResourceNameProps, Server } from "@/app/main/Server";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 const useGetGeneralSettings = (needed: string[]) => {
   const { data, isLoading } = useQuery({
     queryKey: [needed],
@@ -17,14 +19,37 @@ const useGetGeneralSettings = (needed: string[]) => {
 
   return { data, isLoading };
 };
-const useGetEntity = (resourseName: ResourceNameProps, body?: any) => {
+const useGetEntity = (resourceName: ResourceNameProps, key?: any) => {
   const { data, isLoading } = useQuery({
-    queryKey: [resourseName],
+    queryKey: [key],
     queryFn: async () =>
       await Server({
-        resourceName: resourseName,
+        resourceName: resourceName,
       }),
   });
+  console.log(data);
   return { data, isLoading };
 };
-export { useGetGeneralSettings, useGetEntity };
+const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string) => {
+  const router = useRouter();
+  const QueryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationKey: [resourceName],
+    mutationFn: async (body: any) => {
+      return await Server({
+        resourceName: resourceName,
+        body: body,
+      });
+    },
+    onSuccess: (data) => {
+      console.log("success", data);
+      router.refresh();
+      QueryClient.invalidateQueries({ queryKey: [queryKey] });
+      if (data.status) toast.success(data.message);
+    },
+  });
+
+  return { mutate, isPending };
+};
+
+export { useGetGeneralSettings, useGetEntity, useCreateEntity };

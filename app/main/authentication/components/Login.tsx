@@ -135,7 +135,7 @@ const Login = () => {
               <div className="text-main2 self-center mx-auto text-base flex items-center gap-2">
                 <p className="text-main2 font-medium text-sm">{t("loginWithPhone")}</p>
                 <Switch
-                  noSwitch={true}
+                  noSwitch={true} 
                   checked={useEmail}
                   onCheckedChange={() => {
                     setUseEmail((e) => !e);

@@ -146,5 +146,21 @@
   "strong": "strong",
   "good": "good",
   "weak": "weak",
-  "fair": "fair"
+  "fair": "fair",
+  "buyNow": "BUY NOW",
+  "calculateQuantity": "CALCULATE THE QUANTITY",
+  "downloadProduct": "DOWNLOAD PRODUCT",
+  "fastestDelivery": "FASTEST DELIVERY",
+  "deliveryTime": "DELIVERY IN 24/H",
+  "support": "Support 24/7",
+  "supportContact": "Live contact/message",
+  "securePayments": "SECURE PAYMENTS",
+  "moneySafe": "YOUR MONEY IS SAFE",
+  "amount": "AMOUNT",
+  "prices": "PRICES",
+  "similarProducts": "SIMILAR PRODUCTS",
+  "browseAllProducts": "BROWSE ALL PRODUCTS",
+  "description": "DESCRIPTION",
+  "review": "REVIEW",
+  "left":"PIECEES AVIALABLE"
 }

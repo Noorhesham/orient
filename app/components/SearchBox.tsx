@@ -124,7 +124,7 @@ const SearchBox = ({
           active ? "lg:rotate-0 rotate-[60deg]" : ""
         }  duration-150 cursor-pointer z-[60]  `}
       >
-        <SearchIcon color={pathname === "/ar" || pathname === "/en" || icon === "white" ? "white" : "black"} />
+          <SearchIcon color={pathname === "/ar" || pathname === "/en" || icon === "white" ? "white" : "black"} />
       </div>
     </div>
   );

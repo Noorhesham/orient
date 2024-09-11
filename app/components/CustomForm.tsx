@@ -75,13 +75,13 @@ const CustomForm = ({
           {title && <Head1 className=" text-lg text-center" text={title} />}
           <div className="flex pt-4 flex-col gap-2">
             {inputs.map((input) =>
-              input.select ? (
+              input?.select ? (
                 <FormSelect placeholder={input.placeholder} key={input.name} {...input} />
               ) : (
                 <FormInput
                   disabled={disabled}
-                  label2={input.label2 || ""}
-                  switchToggle={input.switchToggle}
+                  label2={input?.label2 || ""}
+                  switchToggle={input?.switchToggle}
                   phone={input.phone || false}
                   key={input.name}
                   {...input}

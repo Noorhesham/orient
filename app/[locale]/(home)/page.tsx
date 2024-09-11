@@ -13,7 +13,6 @@ import Calculate from "../../components/Calculate";
 import Paragraph from "@/app/components/Paragraph";
 import { cookies } from "next/headers";
 import { useTranslations } from "next-intl";
-import Notifications from "@/app/components/Notificationts";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 import AppDownload from "@/app/components/AppDownload";
@@ -66,7 +65,7 @@ export default function Home() {
       <section className="relative h-full min-h-[100vh] 2xl:min-h-[100vh] lg:min-h-[110vh] w-full">
         <ImageSlider />
       </section>
-      <Notifications />
+
       <MaxWidthWrapper className="my-2 ">
         <Section link="#" className="  min-h-[30vh]" heading={t("sellers")} linkText={t("browse")}>
           <MotionContainer className="lg:grid justify-items-center   hidden   lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">

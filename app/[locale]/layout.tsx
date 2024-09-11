@@ -9,6 +9,7 @@ import QueryProvider from "@/lib/QueryProvider";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "../context/AuthContext";
+import Notifications from "../components/Notificationts";
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700", "600"] });
 const locales = ["en", "ar"];
 export function generateStaticParams() {
@@ -36,10 +37,15 @@ export default async function RootLayout({
   }
   return (
     <html lang={locale}>
-      <body style={{ textAlign: locale === "ar" ? "right" : "left",direction: locale === "ar" ? "rtl" : "ltr", }} className={fontClassName}>
+      <body
+        style={{ textAlign: locale === "ar" ? "right" : "left", direction: locale === "ar" ? "rtl" : "ltr" }}
+        className={fontClassName}
+      >
         <QueryProvider>
           <DeviceProvider>
             <AuthProvider>
+              <Notifications />
+
               <ToastContainer
                 position="top-center"
                 autoClose={3500}

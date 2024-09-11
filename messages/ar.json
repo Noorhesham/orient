@@ -145,5 +145,21 @@
   "strong": "قوية",
   "good": "جيدة",
   "weak": "قليلة",
-  "fair": "غير جيدة"
+  "fair": "غير جيدة",
+  "buyNow": "اشترِ الآن",
+  "calculateQuantity": "احسب الكمية",
+  "downloadProduct": "تحميل المنتج",
+  "fastestDelivery": "أسرع توصيل",
+  "deliveryTime": "التوصيل في 24 ساعة",
+  "support": "دعم 24/7",
+  "supportContact": "اتصال مباشر/رسالة",
+  "securePayments": "مدفوعات آمنة",
+  "moneySafe": "أموالك بأمان",
+  "amount": "الكمية",
+  "prices": "الأسعار",
+  "similarProducts": "منتجات مشابهة",
+  "browseAllProducts": "تصفح جميع المنتجات",
+  "description": "الوصف",
+  "review": "المراجعة",
+  "left": "قطع متبقية"
 }
