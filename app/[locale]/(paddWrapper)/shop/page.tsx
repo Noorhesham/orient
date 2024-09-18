@@ -11,7 +11,7 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import React, { Suspense } from "react";
 
 const page = async ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
-  const { price_from, price_to, category_id, brand_id, page, sort, color, volume } = searchParams;
+  const { price_from, price_to, category_id, brand_id, page, sort, color, volume, search } = searchParams;
   unstable_setRequestLocale(locale);
   const queryParams = new URLSearchParams({
     price_from: price_from || "",
@@ -20,6 +20,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     brand_id: brand_id || "",
     page: page || "",
     sort: sort || "",
+    search: search || "",
   });
   const array = color
     ?.split(",")
@@ -42,8 +43,8 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     queryParams,
   });
 
-  const { products, categories, attributes, tags } = data;
-  console.log(attributes);
+  const { products, categories, attributes, tags, count } = data;
+  console.log(data);
   return (
     <MaxWidthWrapper className=" bg-gray-50">
       <section className=" min-h-screen  ">
@@ -54,12 +55,22 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                 <Filters filters={[categories, attributes, tags]} />
               </div>
               <div className=" lg:col-span-6 grid-cols-3 ">
-                <div className="  gap-3 w-full flex  items-center sm:flex-row flex-grow justify-between">
+                <div className="  gap-3 w-full flex-col md:flex-row  flex  lg:items-center sm:flex-row flex-grow justify-between">
                   <div className="flex  gap-1  items-center">
-                    <p className=" text-muted-foreground ml-2">{t("found")}</p>
                     <h1 className=" text-black font-semibold">{data.count}</h1>{" "}
+                    <p className=" text-muted-foreground ml-2">
+                      {t("found")}
+                      {search ? (
+                        <span>
+                          {" "}
+                          FOR <span className=" font-semibold text-main"> {search}</span>
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                    </p>
                   </div>
-                  <div className="lg:block hidden">
+                  <div className="flex items-center ml-auto ">
                     <Sort
                       options={[
                         { label: "Price: Low to High", value: "price_lth" },
@@ -69,8 +80,8 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                         },
                       ]}
                     />
+                    <FilterMobile filters={[categories, attributes, tags]} />
                   </div>
-                  <FilterMobile />
                 </div>
                 <MotionContainer
                   serverAnimate
@@ -81,12 +92,13 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                       key={product.id}
                       id={product.id || ""}
                       text={product.title}
-                      img={product.main_cover[0].sizes.large || "/default-thumbnail.jpg"}
+                      sell={product.sell_price ? product.regular_price : null}
+                      img={product.main_cover[0].sizes.medium || "/default-thumbnail.jpg"}
                       price={product.price.toString()}
                     />
                   ))}
                   <div className="flex justify-center col-span-full">
-                    <PaginationDemo />
+                    <PaginationDemo totalPages={Math.ceil(count / 18)} />
                   </div>
                 </MotionContainer>
               </div>

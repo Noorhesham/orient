@@ -6,9 +6,11 @@ import { DialogContent } from "@/components/ui/dialog";
 import { useAuth } from "../context/AuthContext";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "next-intl";
 
 const AppDownload = () => {
   const { generalSettings, loading } = useAuth();
+  const t = useTranslations();
   if (loading) return <Skeleton />;
   const { store_url } = generalSettings;
   return (
@@ -16,15 +18,11 @@ const AppDownload = () => {
       <main className="  flex justify-center items-center gap-5 flex-col  h-screen">
         <div className=" flex justify-center items-center  flex-col gap-2">
           <Logo />
-          <h1 className=" text-4xl my-3 text-white font-bold">DOWNLOAD THE APP</h1>
-          <p className=" max-w-lg text-white text-center">
-            Founded in 1946, Orient is built on a legacy of integrity, quality assurance, and innovative technology.
-            With a continuous effort to hold a unique leading position in the industry, Orient brings together Egyptian
-            manufacturing .
-          </p>
+          <h1 className=" text-4xl my-3 text-white  text-center font-bold">DOWNLOAD THE APP</h1>
+          <p className=" max-w-lg text-white text-center">{t("download")}.</p>
         </div>
         <div className="flex flex-col gap-3">
-          <Link target="_blank" href={store_url.play_store}>
+          <Link target="_blank" href={`${store_url.play_store}`}>
             <Image
               alt=" download from google play"
               src={"/google.png"}
@@ -33,7 +31,7 @@ const AppDownload = () => {
               className=" object-cover cursor-pointer"
             />
           </Link>
-          <Link target="_blank" href={store_url.app_store}>
+          <Link target="_blank" href={`${store_url.app_store}`}>
             <Image
               alt=" download from apple store"
               src={"/apple.png"}

@@ -6,7 +6,7 @@ import SwiperCards from "./SwiperCards";
 import cookies from "js-cookie";
 
 const Partner = ({ tabs }: { tabs: any[] }) => {
-  const [param, handleParam, deleteParam] = useParams("category", "all");
+  const [param, handleParam, deleteParam] = useParams("category", "coloring-centers");
   console.log(param);
   const local = cookies.get("NEXT_LOCALE") || "en";
   return (

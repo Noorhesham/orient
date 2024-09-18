@@ -40,7 +40,6 @@ const Box = ({
   // Update URL when filters change
   const updateURL = () => {
     const params = new URLSearchParams(window.location.search);
-
     // Update the params with the current filters state
     Object.entries(filters).forEach(([key, values]) => {
       if (values.length > 0) {
@@ -111,17 +110,17 @@ const Box = ({
           (color ? (
             <div className="flex flex-wrap lg:grid lg:grid-cols-8 gap-2">
               {options?.map((option, i) => (
-                <li
+                <button
                   key={i}
                   style={{ backgroundColor: `#${option.data}` }}
                   onClick={() => {
                     if (single && !filters[filter]?.includes(`${id}:${option.id}`)) handleReset(filter);
                     handleFilter(`${id}:${option.id}`, filter);
                   }}
-                  className={`cursor-pointer p-1 hover:opacity-90 duration-100 ${
-                    filters[filter]?.includes(`${id}:${option.id}`) ? "border-2 border-main" : ""
+                  className={`cursor-pointer  border-2 border-input p-1 hover:opacity-90 duration-100 ${
+                    filters[filter]?.includes(`${id}:${option.id}`) ? "outline-2  outline outline-main" : ""
                   } shadow-sm w-10 h-10 aspect-square rounded-md lg:w-full lg:h-full`}
-                ></li>
+                ></button>
               ))}
             </div>
           ) : !single ? (

@@ -7,13 +7,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 const PRICE_FILTERS = [
   { value: [0, 10000], label: "All Price", isCustom: false },
-  { value: [1, 200], label: "Under 20$", isCustom: false },
-  { value: [25, 100], label: "25$ to 100$", isCustom: false },
-  { value: [100, 300], label: "100$ to 300$", isCustom: false },
-  { value: [300, 500], label: "300$ to 500$", isCustom: false },
-  { value: [500, 1000], label: "500$ to 1000$", isCustom: false },
-  { value: [1000, 2000], label: "1000$ to 2000$", isCustom: false },
-  { isCustom: true, value: [0, 10000] },
+  { value: [1, 200], label: "Under 200EGP", isCustom: false },
+  { value: [25, 100], label: "25EGP to 100EGP", isCustom: false },
+  { value: [100, 300], label: "100EGP to 300EGP", isCustom: false },
+  { value: [300, 500], label: "300EGP to 500EGP", isCustom: false },
+  { value: [500, 1000], label: "500EGP to 1000EGP", isCustom: false },
+  { value: [1000, 2000], label: "1000EGP to 2000EGP", isCustom: false },
+  { isCustom: true, value: [0, 100000] },
 ];
 const DEFAULT_RANGE = [0, 10000];
 
@@ -47,7 +47,7 @@ const PriceFilter = () => {
   const handlePriceChange = ({ range, isCustom }: any) => setPriceFilter({ range, isCustom });
 
   return (
-    <ul className="space-y-1 border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
+    <ul className="space-y-1 filter border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
       <li className="flex items-center  flex-row flex-wrap  lg:flex-col gap-4">
         <div className="self-start flex items-center gap-2 mr-auto">
           <label
@@ -99,7 +99,7 @@ const PriceFilter = () => {
         {PRICE_FILTERS.filter((p) => !p.isCustom).map((filter: any, i: number) => (
           <li
             key={i}
-            className={`${priceFilter === filter.value ? "text-gray-500" : "text-gray-900"}  flex items-center gap-2`}
+            className={`EGP{priceFilter === filter.value ? "text-gray-500" : "text-gray-900"}  flex items-center gap-2`}
           >
             <input
               type="radio"

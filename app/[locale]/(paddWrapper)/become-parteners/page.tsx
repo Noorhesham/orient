@@ -3,21 +3,42 @@ import Head1 from "@/app/components/Head1";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
-import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { Server } from "@/app/main/Server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 
-const page = ({ params: { locale } }: { params: { locale: string } }) => {
+const page = async ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
   unstable_setRequestLocale(locale);
 
-  const t = useTranslations();
-
+  const t = await getTranslations();
+  const { category } = searchParams;
+  console.log(category);
   const tabs = [
-    { link: "color_center", text: t("color_center") },
-    { link: "projects", text: t("projects") },
-    { link: "local_distributor", text: t("local_distributor") },
-    { link: "all", text: t("all") },
+    { link: "coloring-centers", text: t("color_center") },
+    { link: "export-projects", text: t("projects") },
+    { link: "local-distributors", text: t("local_distributor") },
+    { link: "project-quotations", text: t("quotations") },
   ];
+  const { forms } = await Server({
+    resourceName: "getForms",
+    body: { slugs: [category || "coloring-centers"] },
+    cache: Infinity,
+  });
+  console.log(forms[0].fields);
+  const fields = forms[0].fields
+    .map((field: any) => {
+      if (field.type === "button") return;
+      return {
+        name: field.key,
+        label: field.label,
+        placeholder: field.label,
+        type: field.type === "textfield" ? "text" : field.type,
+        area: field.type === "textarea" ? true : false,
+        phone: field.type === "phoneNumber" ? true : false,
+        select: false,
+      };
+    })
+    .filter((field: any) => field !== undefined);
   return (
     <main className="">
       <section className=" relative min-h-[60vh]">
@@ -40,17 +61,7 @@ const page = ({ params: { locale } }: { params: { locale: string } }) => {
           </Suspense>
           <div className=" col-span-full w-full lg:col-span-2">
             <Head1 text={t("contact.question")} />
-            <FormContainer
-              btnText={t("contact.send")}
-              schema={"contact"}
-              formArray={[
-                { name: "name", placeholder: t("forms.name"), type: "text" },
-                { name: "phone", placeholder: t("forms.phone"), type: "text", phone: true },
-                { name: "email", placeholder: t("forms.email"), type: "email" },
-                { name: "inquiry", placeholder: t("forms.inquiry"), type: "text", select: true },
-                { name: "message", placeholder: "MESSAGE", type: "text", area: true },
-              ]}
-            />
+            <FormContainer server submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
           </div>
         </div>
       </MaxWidthWrapper>

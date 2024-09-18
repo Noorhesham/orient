@@ -1,6 +1,7 @@
 import Head1 from "@/app/components/Head1";
 import Paragraph from "@/app/components/Paragraph";
 import { TableDemo } from "@/app/components/TableComponent";
+import { Server } from "@/app/main/Server";
 import React from "react";
 const productsData = [
   {
@@ -61,16 +62,24 @@ const productsData = [
   },
 ];
 
-const page = () => {
+const page = async () => {
+  const { orders } = await Server({ resourceName: "my_orders" });
+  const orderDetailed = await Promise.all(
+    orders.map(async (order: any) => {
+      const order_details = await Server({ resourceName: "my_order", id: order.id });
+      return order_details;
+    })
+  );
+  console.log(orderDetailed);
   return (
     <div>
       <Head1 text="MY ORDERS" className=" text-4xl font-bold" />
-      
+
       <Paragraph
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, molestiae officia et numquam amet odit nemo
         in sunt quisquam molestias eos pariatur aut magnam atque cum magni fugiat vitae architecto."
       />
-      <TableDemo   data={productsData} />
+      <TableDemo data={orders} />
     </div>
   );
 };

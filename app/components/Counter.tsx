@@ -3,14 +3,28 @@ import { Button } from "@/components/ui/button";
 import { useCreateEntity } from "@/lib/queries";
 import React from "react";
 import debounce from "lodash.debounce";
+import { useQueryClient } from "@tanstack/react-query";
 
-const Counter = ({ value, max, defaultcount }: { value: number; max?: number; defaultcount?: number }) => {
+const Counter = ({
+  value,
+  max,
+  defaultcount,
+  handleAdd,
+}: {
+  value: number;
+  max?: number;
+  defaultcount?: number;
+  handleAdd?: any;
+}) => {
+  const queryClient = useQueryClient();
   const [count, setCount] = React.useState(defaultcount || 1);
   const { mutate, isPending } = useCreateEntity("addToCartQuantity", "cart");
   const debouncedMutate = React.useCallback(
     debounce((newCount) => {
-      console.log("debouncedMutate", newCount, value);
       mutate({ item_id: value, qty: newCount });
+      if (newCount === 0) {
+        handleAdd&& handleAdd(value);
+      }
     }, 300),
     [mutate, value]
   );

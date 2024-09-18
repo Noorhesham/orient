@@ -87,6 +87,7 @@ const FormContainer: React.FC<Formcontainer> = ({
       if (server) {
         try {
           const res = await Server({ resourceName: "submitForm", body: data, id: "contact-us" });
+          console.log(res)
           if (res.status) toast.success(res.message);
           if (!res.status) setServerError(res.errors);
         } catch (error) {

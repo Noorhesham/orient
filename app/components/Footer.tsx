@@ -40,33 +40,12 @@ const Footer = () => {
                 <p className="ml-2 tracking-wide text-white text-3xl font-[600]">19842</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className=" lg:block hidden">
-                  <HeadPhones />
-                </div>
                 <Locations />
-              </div>
-              <div className="flex items-start gap-3">
-                <div className=" lg:block hidden">
-                  <HeadPhones />
-                </div>
-                <div className="text-white flex gap-1 flex-col">
-                  <p className="ml-2 tracking-wide text-center  lg:text-justify text-xl font-[500]">
-                    {t("footer.factory")} {/* 'Factory' */}
-                  </p>
-                  <div className="ml-2 flex justify-center flex-col lg:flex-row gap-3 items-center text-[14px]">
-                    <p>
-                      {t("footer.factoryAddress")} {/* 'Factory Maadi, Cairo.' */}
-                    </p>
-                    <p className="py-1 px-4 w-fit text-xs bg-gray-400/40 rounded-full">
-                      {t("footer.showMap")} {/* 'Show Map' */}
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
 
             <div className="lg:ml-5 col-span-full lg:col-span-2 text-gray-50">
-              <p className="text-center  lg:text-justify">{t("footer.aboutus")}</p> {/* 'ABOUT ORIENT' */}
+              <p className="text-center  lg:text-justify">{t("footer.whoAre")}</p> {/* 'ABOUT ORIENT' */}
               <ul className="grid text-center grid-cols-2 uppercase lg:items-start items-center lg:flex lg:flex-col mt-2 lg:mt-10 gap-3">
                 <Link href="/">{t("footer.home")}</Link>
                 <Link href="/about-us">{t("footer.aboutus")}</Link>

@@ -1,22 +1,20 @@
 import AddressForm from "@/app/components/AddressForm";
-import Card from "@/app/components/Card";
 import CartItem from "@/app/components/CartItem";
+import CompeleteOrder from "@/app/components/CompeleteOrder";
 import Container from "@/app/components/Container";
-import CustomButton from "@/app/components/CustomButton";
 import Head1 from "@/app/components/Head1";
-import { Location } from "@/app/components/Icons";
-import IconWidget from "@/app/components/IconWidget";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
-import MotionContainer from "@/app/components/MotionContainer";
-import Section from "@/app/components/Section";
-import { formatPrice } from "@/app/helpers/utils";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { CheckIcon, CreditCard } from "lucide-react";
-import Link from "next/link";
+import PaymentMethods from "@/app/components/PaymentMethods";
+import PriceWithSale from "@/app/components/PriceWithSale";
+import ShippingList from "@/app/components/ShippingList";
+import { Server } from "@/app/main/Server";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const data = await Server({ resourceName: "checkout" });
+  console.log(data);
+  const { payment_methods, cart, user_addresses } = data;
+  console.log(cart);
   return (
     <main className=" bg-gray-50">
       <div className=" pt-5  min-h-screen  ">
@@ -26,31 +24,27 @@ const page = () => {
               <Container CustomePadding=" py-8 px-8" className=" w-full flex flex-col gap-3 px-4">
                 <Head1 className=" text-xl font-bold" text={"SHIPPING ADDRESS  "} />
                 <AddressForm />
-                <div className=" flex flex-col lg:flex-row gap-2 lg:gap-5  items-start lg:items-center">
-                  <IconWidget
-                    paragraph={"147 Vacation Road, Holiday Town, Rome, Italy"}
-                    header="HOME"
-                    icon={<Location />}
-                  />
-                </div>
-                <div className=" flex  flex-col lg:flex-row  gap-2 lg:gap-5 items-start lg:items-center">
-                  <IconWidget
-                    paragraph={"147 Vacation Road, Holiday Town, Rome, Italy"}
-                    header="HOME"
-                    icon={<Location />}
-                  />
-                </div>
+                <ShippingList user_addresses={user_addresses} user_address={data.user_address} />
               </Container>
             </div>
+
             <Container>
               <Head1 className=" text-xl font-bold" text={"PAYMENT METHODS  "} />
+
+              <PaymentMethods methods={payment_methods} />
             </Container>
             <Container className=" py-8 flex flex-col gap-5">
-              <CartItem nocheck img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem nocheck img="/Product (2).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem nocheck img="/Product (3).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem nocheck img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
-              <CartItem nocheck img="/Product (1).jpg" price="443" discount="324" text="putty (acrylic 1000) 233" />
+              {cart.items.map((item: any) => (
+                <CartItem
+                  nocheck
+                  key={item.id}
+                  img={item.image[0].sizes.large}
+                  price={item.price_after_discount}
+                  discount={item.price}
+                  name={item.name}
+                  quantity={item.quantity}
+                />
+              ))}
             </Container>
           </div>
           <div className="col-span-4 flex flex-col gap-5 ">
@@ -58,34 +52,20 @@ const page = () => {
               <h1 className=" text-main2 text-xl font-semibold text-center">CART TOTAL</h1>
               <div className="  px-14 mt-5">
                 <div className=" flex pb-1 border-b border-input flex-col  gap-2">
-                  <div className="flex  justify-between">
+                  <div className="flex  items-center justify-between">
                     <h2 className="text-main2 font-medium ">SUB TOTAL</h2>
-                    <p>{formatPrice(4000)}</p>
+                    <PriceWithSale size="sm" price={cart.sub_total} />
                   </div>
-                  <div className="flex  justify-between">
+                  <div className="flex  items-center justify-between">
                     <h2 className="text-main2 font-medium ">DISCOUNT</h2>
-                    <p>{formatPrice(4000)}</p>
-                  </div>
-                  <div className="flex  justify-between">
-                    <h2 className="text-main2 font-medium ">TAX</h2>
-                    <p>{formatPrice(4000)}</p>
+                    <PriceWithSale size="sm" price={cart.discount_total} />
                   </div>
                 </div>
-                <div className="flex  pt-1  justify-between">
+                <div className="flex  items-center pt-1  justify-between">
                   <h2 className="text-main2 font-medium ">TOTAL PRICE</h2>
-                  <p>{formatPrice(4000)}</p>
+                  <PriceWithSale size="sm" price={cart.total} />
                 </div>
-                <div className="flex w-fit pt-5  mx-auto mt-3 flex-col">
-                  <Button className="flex rounded-full py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
-                    <Link href="/checkout" className="flex gap-2 items-center">
-                      <CreditCard />
-                      PROCEED TO CHECKOUT
-                    </Link>
-                  </Button>
-                  <p className=" mt-4 text-center text-xs text-black font-medium ">
-                    SPECAIL DISCOUNTS ON LARGE QUANTITIES
-                  </p>
-                </div>
+               <CompeleteOrder/>
               </div>
             </Container>
           </div>

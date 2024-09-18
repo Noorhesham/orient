@@ -31,7 +31,6 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
       };
     })
     .filter((field: any) => field !== undefined);
-  let success = "";
   return (
     <main className=" pt-40">
       <BreadCrumb />
@@ -76,8 +75,6 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           <div className=" lg:mt-0 mt-2 w-full flex flex-col items-start col-span-2">
             <Head1 text={t("contact.question")} />
             <FormContainer server submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
-
-            {success && <p className=" text-sm font-semibold text-green-500">{success}</p>}
           </div>
         </div>
       </MaxWidthWrapper>

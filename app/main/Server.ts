@@ -1,10 +1,12 @@
 "use server";
+import { isRedirectError } from "next/dist/client/components/redirect";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 // Constants
 const BASE_URL = "https://lab.r-m.dev/api";
 const VERSION = "v1";
-
+const WebsiteUrl = "https://localhost:3000";
 // Types for Method and Resource Names
 export type MethodProps = "GET" | "POST" | "PUT" | "DELETE";
 export type ResourceNameProps =
@@ -37,7 +39,24 @@ export type ResourceNameProps =
   | "about-us"
   | "addComment"
   | "getForms"
-  | "submitForm";
+  | "submitForm"
+  | "getReviews"
+  | "createShipping"
+  | "updateEntity"
+  | "checkout"
+  | "applyCoupon"
+  | "updateCart"
+  | "deleteCoupon"
+  | "getProducts"
+  | "completeOrder"
+  | "my_orders"
+  | "my_order"
+  | "deleteEntity"
+  | "countries"
+  | "states"
+  | "home"
+  | "getWishlist"
+  | "addWishlist";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -82,9 +101,24 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
     case "languageUpdate":
       return { url: `${url}/rm_users/${VERSION}/device_sys`, method: "POST" };
     case "getEntity":
-      return { url: `${url}/${entityName}/entities-operations`, method: "GET" };
+      return { url: `${url}/${entityName}/entities-operations?${queryParams}`, method: "GET" };
+    case "countries":
+      return { url: `${url}/countries/entities-operations?itemsCount=200&${queryParams}`, method: "GET" };
+    case "states":
+      return {
+        url: `${url}/states/entities-operations?itemsCount=200&country_id=${id}`,
+        method: "GET",
+      };
+    case "createShipping":
+      return { url: `${url}/${entityName}/entities-operations/store`, method: "POST" };
+    case "updateEntity":
+      return { url: `${url}/${entityName}/entities-operations/${id}/update`, method: "PUT" };
+    case "deleteEntity":
+      return { url: `${url}/${entityName}/entities-operations/${id}/delete?trash=1`, method: "DELETE" };
     case "getSearch":
       return { url: `${url}/rm_ecommarce/${VERSION}/products/search?${queryParams}`, method: "GET" };
+    case "getProducts":
+      return { url: `${url}/rm_ecommarce/${VERSION}/products?${queryParams}`, method: "GET" };
     case "getSingleEntity":
       return { url: `${url}/${entityName}/entities-operations/${id}`, method: "GET" };
     case "addToCart":
@@ -103,6 +137,28 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/forms/getForms`, method: "POST" };
     case "submitForm":
       return { url: `${url}/forms/${id}/submit`, method: "POST" };
+    case "getReviews":
+      return { url: `${url}/rm_ecommarce/${VERSION}/products/${id}/reviews`, method: "GET" };
+    case "checkout":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/prepare_checkout`, method: "GET" };
+    case "applyCoupon":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/apply_coupon`, method: "POST" };
+    case "deleteCoupon":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/delete_coupon`, method: "POST" };
+    case "updateCart":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/update_cart`, method: "POST" };
+    case "completeOrder":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/complete_order`, method: "POST" };
+    case "my_orders":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/my_orders`, method: "GET" };
+    case "my_order":
+      return { url: `${url}/rm_ecommarce/${VERSION}/cart/my_orders/${id}`, method: "GET" };
+    case "home":
+      return { url: `${url}/rm_page/${VERSION}/show?slug=home-web`, method: "GET" };
+    case "getWishlist":
+      return { url: `${url}/ec-products/entities-operations/bookmarks/list`, method: "GET" };
+    case "addWishlist":
+      return { url: `${url}/ec-products/entities-operations/${id}/bookmarks`, method: "POST" };
     default:
       return { url, method: "GET" as MethodProps };
   }
@@ -134,7 +190,6 @@ export async function Server({
   queryParams?: URLSearchParams;
   formData?: boolean;
 }) {
-  // Get the token and device info from cookies
   const jwt = cookies().get("jwt")?.value;
   const deviceId = cookies().get("deviceInfo")?.value;
 
@@ -152,6 +207,7 @@ export async function Server({
   }
   try {
     const { url, method: resolvedMethod } = getURL(resourceName, id, entityName, queryParams);
+    console.log(url);
     let requestBody;
     if (formData) requestBody = body;
     else {
@@ -161,17 +217,29 @@ export async function Server({
     const response = await fetch(url, {
       method: method || resolvedMethod,
       headers: combinedHeaders,
-      body: requestBody,  
+      body: requestBody,
       next: { revalidate: cache ? cache : 0 },
     });
-
     if (!response.ok) throw new Error(`Error: ${response.status}`);
 
     const data = await response.json();
-    console.log(body);
+    // console.log(data);
+
+    if (data.message === "Device token mismatch" || data.message === "Login again please") {
+      redirect("/login?error=true");
+    }
     return data;
   } catch (error: any) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    if (error.message === "Device token mismatch" || error.message === "Login again please") {
+    }
     console.error("Server request error:", error);
     throw new Error(`Error: ${error.message}`);
   }
 }
+
+const logout = () => {
+  cookies().delete("jwt");
+};

@@ -7,7 +7,6 @@ const FormSelect = ({ name, label, placeholder, description, id, options, select
   const form = useFormContext();
   const selectedValue = form.watch(name);
 
-  // Filter out the selected value from the options
   const filteredOptions = options?.filter((p) => !selected?.includes(p._id));
   return (
     <FormField
@@ -16,7 +15,7 @@ const FormSelect = ({ name, label, placeholder, description, id, options, select
       render={({ field }) => {
         const selected = options?.find((p) => p._id === form.getValues(name)?._id || p._id === selectedValue);
         return (
-          <FormItem  className=' shadow-sm' id={id || ""}>
+          <FormItem className=" shadow-sm" id={id || ""}>
             <FormLabel>{label}</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
@@ -28,7 +27,7 @@ const FormSelect = ({ name, label, placeholder, description, id, options, select
                 {filteredOptions &&
                   filteredOptions.map((option, i) => (
                     <SelectItem key={i} value={option._id || option}>
-                      {option.name || option}
+                      {option.name||option.label || option}
                     </SelectItem>
                   ))}
               </SelectContent>

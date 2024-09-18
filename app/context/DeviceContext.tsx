@@ -2,7 +2,18 @@
 import { createContext, useContext } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
-const DeviceContext = createContext<{ deviceInfo: { device_unique_id: string; operating_system: string; type: string; operating_system_version: string }; setDeviceUniqueId: any } | undefined>(undefined);
+const DeviceContext = createContext<
+  | {
+      deviceInfo: {
+        device_unique_id: string;
+        operating_system: string;
+        type: string;
+        operating_system_version: string;
+      };
+      setDeviceUniqueId: any;
+    }
+  | undefined
+>(undefined);
 const generateUniqueId = (os: string, version: string) => {
   const randomComponent = Date.now().toString(36) + Math.random().toString(36).substr(2);
   return `${version}${randomComponent}`;

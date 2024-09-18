@@ -12,8 +12,10 @@ import { getTranslations } from "next-intl/server";
 const Page = async () => {
   const local = cookies().get("NEXT_LOCALE")?.value;
   const t = await getTranslations();
-  const data = await Server({ resourceName: "about-us", cache: 3600 });
-
+  const data = await Server({ resourceName: "about-us", cache: 0 });
+  const { page } = data;
+  console.log(page);
+  const {certificates} = page;
   return (
     <>
       <section className=" relative min-h-screen 2xl:min-h-[80vh]">

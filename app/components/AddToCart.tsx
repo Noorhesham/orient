@@ -6,26 +6,40 @@ import { useCreateEntity, useGetEntity } from "@/lib/queries";
 import Counter from "./Counter";
 import Spinner from "./Spinner";
 import { useTranslations } from "next-intl";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
-const AddToCart = ({ id, max }: { id: number; max?: number }) => {
-  console.log(id);
-  const { data, isLoading } = useGetEntity("getActiveCart", "cart");
+const AddToCart = ({
+  id,
+  max,
+  cartCount,
+  inCart,
+  cartId,
+}: {
+  id: number;
+  max?: number;
+  cartCount?: number;
+  inCart?: boolean;
+  cartId?: any;
+}) => {
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useCreateEntity("addToCart", "cart");
   const t = useTranslations();
-  if (isLoading) return <Spinner />;
-  const exists = data?.cart.items.find((item: any) => item.product_id === id);
-  console.log(exists);
-  return exists ? (
+  const router = useRouter();
+  return inCart ? (
     <div className=" flex items-center ">
       <div className=" flex self-center mx-auto  items-center gap-2">
         <h2 className=" text-sm text-black font-medium">{t("amount")}</h2>
-        <Counter defaultcount={exists.quantity} max={max} value={exists.id} />
+        <Counter defaultcount={cartCount} max={max} value={cartId} />
       </div>
     </div>
   ) : (
     <CustomButton
       isPending={isPending}
-      onClick={() => mutate({ product_id: id, qty: 1 })}
+      onClick={() => {
+        mutate({ product_id: id, qty: 1 });
+        router.refresh();
+      }}
       className=" px-8 py-4"
       icon={<BsHandbag />}
       text="ADD TO CART"

@@ -32,3 +32,4 @@ export const PRODUCTS_LINKS = [
   { text: "metal", href: "" },
   { text: "wood", href: "" },
 ];
+export const BASE_URL = "https://lab.r-m.dev/api";

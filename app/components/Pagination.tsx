@@ -33,13 +33,12 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
   return (
     <Pagination className=" mt-10 col-span-full">
       <PaginationContent>
-        <PaginationItem>
+        <PaginationItem className=" w-fit">
           <Button
-            className={
-              currentPage >= (totalPages || 5)
-                ? " cursor-not-allowed  opacity-80"
-                : "rounded-full flex mr-1 md:mr-3 p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
-            }
+            size={"sm"}
+            className={`${
+              currentPage >= (totalPages || 5) ? " cursor-not-allowed  opacity-80" : ""
+            } rounded-full flex mr-1 md:mr-3 p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main`}
             onClick={(e) => {
               e.preventDefault();
               if (currentPage > 1) handlePageChange(currentPage - 1);
@@ -74,11 +73,10 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
         </PaginationItem>
         <PaginationItem>
           <Button
-            className={
-              currentPage >= totalPages
-                ? " cursor-not-allowed  opacity-80"
-                : "rounded-full ml-1 md:ml-3 flex p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main"
-            }
+            size={"sm"}
+            className={`${
+              currentPage >= totalPages ? " cursor-not-allowed  opacity-80" : ""
+            } rounded-full ml-1  w-fit md:ml-3 flex p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main`}
             onClick={(e) => {
               e.preventDefault();
               if (currentPage >= totalPages) return null;

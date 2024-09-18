@@ -19,18 +19,28 @@ const useGetGeneralSettings = (needed: string[]) => {
 
   return { data, isLoading };
 };
-const useGetEntity = (resourceName: ResourceNameProps, key?: any) => {
+const useGetEntity = (
+  resourceName: ResourceNameProps,
+  key?: any,
+  id?: string,
+  options: { enabled?: boolean } = {},
+  queryParams?: any
+) => {
   const { data, isLoading } = useQuery({
     queryKey: [key],
     queryFn: async () =>
       await Server({
         resourceName: resourceName,
+        id: id,
+        queryParams,
       }),
+    enabled: options.enabled,
   });
+
   console.log(data);
   return { data, isLoading };
 };
-const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string) => {
+const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string, id?: string) => {
   const router = useRouter();
   const QueryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
@@ -39,6 +49,7 @@ const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string) => {
       return await Server({
         resourceName: resourceName,
         body: body,
+        id,
       });
     },
     onSuccess: (data) => {

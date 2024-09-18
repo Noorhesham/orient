@@ -1,9 +1,15 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { SearchIcon } from "./Icons";
-import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { redirect, usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { useGetEntity } from "@/lib/queries";
+import debounce from "lodash.debounce";
+import CartItem from "./CartItem";
+import Image from "next/image";
+import Link from "next/link";
+import MotionItem from "./MotionItem";
 
 const SearchBox = ({
   bg,
@@ -20,6 +26,21 @@ const SearchBox = ({
   setIsActive?: (value: boolean) => void;
   nonactive?: boolean;
 }) => {
+  const [val, setVal] = useState("");
+  const [query, setQuery] = useState<string>("");
+  console.log(query);
+  useEffect(() => {
+    searchParams.set("search", query);
+  }, [query]);
+  const searchParams = new URLSearchParams();
+  const { data, isLoading } = useGetEntity(
+    "getProducts",
+    query ? `search=${query}` : "",
+    "",
+    { enabled: !!query },
+    `search=${query}`
+  );
+  console.log(data);
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,15 +59,26 @@ const SearchBox = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const search = React.useCallback(
+    debounce((newsearch) => {
+      setQuery(newsearch);
+    }, 500),
+    [query]
+  );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVal(event.target.value);
     onSearch && onSearch(event.target.value);
+    search(event.target.value);
   };
 
   // Handle clicks outside the search box to close it
   const handleClickOutside = (event: MouseEvent) => {
     if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-      setIsActive && setIsActive(false);
+      if (setIsActive) {
+        setResultActive(false);
+        setIsActive(false);
+      }
     }
   };
 
@@ -64,6 +96,7 @@ const SearchBox = ({
     }
   }, [active]);
   const locale = pathname?.split("/")[1];
+  const [resultActive, setResultActive] = useState(true);
   return (
     <div
       ref={containerRef}
@@ -81,16 +114,52 @@ const SearchBox = ({
           : active && locale === "en"
           ? "-translate-x-20  py-2 px-4 lg:translate-x-0"
           : "translate-x-0"
-      } duration-150 lg:py-2 lg:px-4 ${locale === "ar" && "lg:flex-row-reverse"} `}
+      } duration-150 lg:py-2 z-[9999] relative lg:px-4 ${locale === "ar" && "lg:flex-row-reverse"} `}
     >
+      <AnimatePresence>
+        {data && resultActive && (
+          <MotionItem
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className=" flex items-start w-[340px] xl:w-full bg-white absolute gap-2 top-full py-4 px-2 rounded-md  max-h-[14rem] overflow-y-scroll flex-col left-0"
+          >
+            {data.products.length > 1 ? (
+              data.products.map((item: any) => (
+                <Link
+                  key={item.id}
+                  href={`/product/${item.id}`}
+                  className=" hover:bg-gray-100 duration-150 w-full flex items-center gap-2"
+                >
+                  <div className=" overflow-hidden rounded-md w-10 h-10 relative">
+                    <Image src={item.main_cover[0].sizes.thumbnail} fill alt="product" className=" object-contain" />
+                  </div>
+                  <h2 className=" text-black text-xs line-clamp-1 font-medium rounded-xl">{item.title}</h2>
+                </Link>
+              ))
+            ) : (
+              <p className=" text-main text-xs">No results Found</p>
+            )}
+            <Link
+              className=" text-main duration-150 hover:underline"
+              href={data.products.length > 1 ? `/shop?search=${query}` : "/shop"}
+            >
+              {`${data.products.length > 1 ? `Browse All Products For ${query}` : "View All Products"}`}
+            </Link>
+          </MotionItem>
+        )}
+      </AnimatePresence>
       {nonactive ? (
         <input
+          onSubmit={redirect("/shop")}
+          value={val}
           onChange={handleSearchChange}
           placeholder={t("search")}
           className="bg-transparent  outline-none placeholder:text-black  py-3 px-6  w-full"
         />
       ) : (
         <input
+          value={val}
           ref={inputRef}
           onChange={handleSearchChange}
           className={` bg-transparent  duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
@@ -102,6 +171,7 @@ const SearchBox = ({
 
       {active && (
         <motion.input
+          value={val}
           ref={inputRef}
           initial={{ width: 0 }}
           animate={{ width: active ? "350px" : 0 }}
@@ -119,12 +189,17 @@ const SearchBox = ({
         />
       )}
       <div
-        onClick={() => setIsActive && setIsActive(!active)}
+        onClick={() => {
+          if (setIsActive) {
+            setResultActive(!resultActive);
+            setIsActive(!active);
+          }
+        }}
         className={`${icon === "white" ? " rounded-full bg-main2" : ""} ${
           active ? "lg:rotate-0 rotate-[60deg]" : ""
         }  duration-150 cursor-pointer z-[60]  `}
       >
-          <SearchIcon color={pathname === "/ar" || pathname === "/en" || icon === "white" ? "white" : "black"} />
+        <SearchIcon color={pathname === "/ar" || pathname === "/en" || icon === "white" ? "white" : "black"} />
       </div>
     </div>
   );

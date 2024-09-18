@@ -28,7 +28,8 @@
     "aboutus": "about us",
     "home": "home",
     "products": "Products",
-    "getinspired": "Get Inspired"
+    "getinspired": "Get Inspired",
+    "whoAre": "Who are we?"
   },
   "inspiredLinks": {
     "all": "All",
@@ -148,8 +149,8 @@
   "weak": "weak",
   "fair": "fair",
   "buyNow": "BUY NOW",
-  "calculateQuantity": "CALCULATE THE QUANTITY",
-  "downloadProduct": "DOWNLOAD PRODUCT",
+  "calculateQuantity": "Calculate The Quantity",
+  "downloadProduct": "Download Product",
   "fastestDelivery": "FASTEST DELIVERY",
   "deliveryTime": "DELIVERY IN 24/H",
   "support": "Support 24/7",
@@ -162,5 +163,9 @@
   "browseAllProducts": "BROWSE ALL PRODUCTS",
   "description": "DESCRIPTION",
   "review": "REVIEW",
-  "left":"PIECEES AVIALABLE"
+  "left": "PIECEES AVIALABLE",
+  "quotations": "Getting quotations for Projects",
+  "miss-shipping": "Missing Shipping address Details,start adding now ! ",
+  "download": " Founded in 1946, Orient is built on a legacy of integrity, quality assurance, and innovative technology",
+  "outOfStock": "OUT OF STOCK"
 }

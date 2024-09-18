@@ -6,7 +6,8 @@ import Filters from "./Filters";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { XIcon } from "lucide-react";
-const FilterMobile = () => {
+
+const FilterMobile = ({ filters }: { filters: any }) => {
   const [filterMobile, setFilterMobile] = React.useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const handleClickOuttside = (e: MouseEvent) => {
@@ -26,7 +27,7 @@ const FilterMobile = () => {
         {" "}
         <button
           onClick={() => setFilterMobile(!filterMobile)}
-          className=" lg:hidden z-50 relative block text-gray-400 text-xl hover:text-orange-400 duration-150 "
+          className=" lg:hidden z-50 relative block text-gray-400 text-xl hover:text-main duration-150 "
         >
           <FaFilter />
         </button>
@@ -43,8 +44,12 @@ const FilterMobile = () => {
             animate={{ x: filterMobile ? "0%" : "-100%" }}
           >
             <Filters
+              filters={filters}
               colseBtn={
-                <button onClick={() => setFilterMobile(false)} className=" items-end self-end block lg:hidden text-black">
+                <button
+                  onClick={() => setFilterMobile(false)}
+                  className=" items-end self-end block lg:hidden text-black"
+                >
                   <XIcon />
                 </button>
               }

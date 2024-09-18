@@ -17,6 +17,7 @@ import MiniHeader from "./MiniHeader";
 import Container from "./Container";
 import CartItem from "./CartItem";
 import Paragraph from "./Paragraph";
+import PriceWithSale from "./PriceWithSale";
 
 export function TableDemo({ data }: { data: any }) {
   return (
@@ -53,7 +54,9 @@ export function TableDemo({ data }: { data: any }) {
               </TableCell>
               <TableCell className=" text-xs lg:text-sm text-main2">{product.status}</TableCell>
               <TableCell className="text-xs lg:text-sm">{product.date}</TableCell>
-              <TableCell className="text-xs lg:text-sm">{formatPrice(product.total)}</TableCell>
+              <TableCell className="text-xs lg:text-sm">
+                <PriceWithSale size="sm" price={product.total} />
+              </TableCell>
               <TableCell className="text-right ">
                 <ModalCustom
                   cancelBtn={false}

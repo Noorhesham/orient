@@ -8,25 +8,32 @@ import SwiperCards from "@/app/components/SwiperCards";
 import { formatPrice } from "@/app/helpers/utils";
 import { Server } from "@/app/main/Server";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { CheckIcon, CreditCard } from "lucide-react";
+import { CreditCard } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import NotFound from "../../not-found";
+import CoponApply from "@/app/components/CoponApply";
+import CartItems from "@/app/components/CartItems";
 
 const page = async () => {
   const queryParams = new URLSearchParams();
   queryParams.append("type", "default");
   const { cart } = await Server({ resourceName: "getActiveCart", queryParams });
-  if (!cart) return <NotFound />;
+  if (!cart) return <NotFound message="Cart not found" />;
   const cartCount = cart.items.reduce((acc: number, item: Product) => item.quantity + acc, 0);
 
   const subTotal = formatPrice(cart.sub_total);
   const discountTotal = formatPrice(cart.discount_total);
-  const taxTotal = formatPrice(cart.taxes_total);
   const totalPrice = formatPrice(cart.total);
-
-  console.log(cart.items[0], cartCount);
+  queryParams.delete("type");
+  queryParams.append("id", JSON.stringify(cart.items.map((item: any) => item.product_id)));
+  queryParams.append("with", "crossSells");
+  queryParams.append("type", "variations");
+  const { products: similarProducts } = await Server({
+    resourceName: "getProducts",
+    queryParams,
+  });
+  console.log(cart);
   return (
     <main className=" bg-gray-50">
       <div className=" py-5  min-h-screen  ">
@@ -51,67 +58,45 @@ const page = async () => {
                 </span>
               </div> */}
             </Container>
-            <Container className=" py-8 flex flex-col gap-5">
-              {cart.items.map((item: any) => (
-                <CartItem
-                  key={item.id}
-                  img={item.image[0].sizes.large}
-                  price={item.price_after_discount}
-                  discount={item.price}
-                  text={item.title}
-                  quantity={item.quantity}
-                  id={item.id}
-                />
-              ))}
-            </Container>
+            <CartItems cart={cart.items} />
           </div>
           <div className="col-span-4 flex flex-col gap-5 ">
-            <Container className="pt-10 pb-10 flex flex-col">
-              <h1 className="text-main2 text-xl font-semibold text-center">CART TOTAL</h1>
-              <div className="px-4 mt-5">
-                <div className="flex pb-1 border-b border-input flex-col gap-2">
-                  <div className="flex justify-between">
-                    <h2 className="text-main2 font-medium">SUB TOTAL</h2>
-                    <p>{subTotal}</p>
+            {cart.items.length > 0 && (
+              <Container className="pt-10 pb-10 flex flex-col">
+                <h1 className="text-main2 text-xl font-semibold text-center">CART TOTAL</h1>
+                <div className="px-4 mt-5">
+                  <div className="flex pb-1 border-b border-input flex-col gap-2">
+                    <div className="flex justify-between">
+                      <h2 className="text-main2 font-medium">SUB TOTAL</h2>
+                      <p>{subTotal}</p>
+                    </div>
+                    <div className="flex justify-between">
+                      <h2 className="text-main2 font-medium">DISCOUNT</h2>
+                      <p>{discountTotal}</p>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <h2 className="text-main2 font-medium">DISCOUNT</h2>
-                    <p>{discountTotal}</p>
+                  <div className="flex pt-1 justify-between">
+                    <h2 className="text-main2 font-medium">TOTAL PRICE</h2>
+                    <p>{totalPrice}</p>
                   </div>
-                  <div className="flex justify-between">
-                    <h2 className="text-main2 font-medium">TAX</h2>
-                    <p>{taxTotal}</p>
+                  <div className="flex w-fit pt-5 mx-auto mt-3 flex-col">
+                    <Button className="lg:flex hidden rounded-full py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
+                      <Link href="/checkout" className="flex gap-2 items-center">
+                        <CreditCard />
+                        PROCEED TO CHECKOUT
+                      </Link>
+                    </Button>
                   </div>
                 </div>
-                <div className="flex pt-1 justify-between">
-                  <h2 className="text-main2 font-medium">TOTAL PRICE</h2>
-                  <p>{totalPrice}</p>
-                </div>
-                <div className="flex w-fit pt-5 mx-auto mt-3 flex-col">
-                  <Button className="lg:flex hidden rounded-full py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
-                    <Link href="/checkout" className="flex gap-2 items-center">
-                      <CreditCard />
-                      PROCEED TO CHECKOUT
-                    </Link>
-                  </Button>
-                  <p className="mt-4 text-center text-xs text-black font-medium">
-                    SPECIAL DISCOUNTS ON LARGE QUANTITIES
-                  </p>
-                </div>
-              </div>
-            </Container>
-            <Container className="  pt-10 pb-10 flex flex-col">
-              <h1 className=" text-main2 text-xl font-semibold text-center">COUPON CODE</h1>
-              <div className=" flex flex-col px-4 items-center gap-2">
-                <Input className=" mt-5" placeholder="Enter coupon code" />
-                <Button className="flex  w-[70%] rounded-full py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
-                  <Link className=" flex items-center gap-1" href={"/check-out"}>
-                    <CheckIcon />
-                    APPLY COUPON
-                  </Link>
-                </Button>
-              </div>
-            </Container>
+              </Container>
+            )}
+            {cart.items.length > 0 && (
+              <Container className="  pt-10 pb-10 flex flex-col">
+                <h1 className=" text-main2 text-xl font-semibold text-center">COUPON CODE</h1>
+
+                <CoponApply applied_coupon={cart.applied_coupon} />
+              </Container>
+            )}
           </div>
         </MaxWidthWrapper>
         <MaxWidthWrapper>
@@ -119,33 +104,40 @@ const page = async () => {
             link="/shop"
             CustomePadding=" px-0"
             className=" md:px-0 min-h-[30vh]"
-            heading="PUR PAINTS"
+            heading="SIMILAR PRODUCTS"
             linkText="BROWSE ALL PRODUCTS"
           >
             <MotionContainer className="lg:grid hidden  lg:grid-cols-4 items-center gap-5 mt-[62px] justify-center">
-              <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (3).jpg" />
-              <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (3).jpg" />
+              {similarProducts.map((item: any) => (
+                <Card
+                  key={item.id}
+                  img={item.main_cover?.[0]?.sizes.large}
+                  price={item.price_after_discount}
+                  sell={item.price}
+                  text={item.title}
+                  id={item.id}
+                />
+              ))}
             </MotionContainer>{" "}
             <div className=" mt-4 flex lg:hidden">
               <SwiperCards
                 slidesPerView={2}
                 samePhone
                 className=" w-full h-full"
-                items={[
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                ]}
+                items={similarProducts.map((item: any) => {
+                  return {
+                    card: (
+                      <Card
+                        key={item.id}
+                        img={item.main_cover?.[0].sizes.large}
+                        price={item.price_after_discount}
+                        sell={item.price}
+                        text={item.title}
+                        id={item.id}
+                      />
+                    ),
+                  };
+                })}
               />
             </div>
           </Section>

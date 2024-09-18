@@ -49,7 +49,7 @@ const Section = ({
           )}
           {link && (
             <Link
-              href={link}
+              href={`${link}`}
               className={`text-[#E6007E] text-xs md:text-sm font-semibold flex flex-row items-center gap-1 md:gap-2 ${
                 locale?.trim() === "ar" ? "flex-row-reverse" : " "
               }`}

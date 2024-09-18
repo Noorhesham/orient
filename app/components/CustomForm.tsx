@@ -10,6 +10,7 @@ import Head1 from "./Head1";
 import { DialogClose } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import CountriesInput from "./CountriesInput";
 export interface CustomFormProps {
   inputs: InputProps[];
   src?: string;
@@ -51,6 +52,10 @@ export interface InputProps {
   children?: ReactNode;
   noProgress?: boolean;
   area?: boolean;
+  country?: boolean;
+
+  countryName?: string | any;
+  stateName?: string | any;
 }
 const CustomForm = ({
   inputs,
@@ -77,6 +82,8 @@ const CustomForm = ({
             {inputs.map((input) =>
               input?.select ? (
                 <FormSelect placeholder={input.placeholder} key={input.name} {...input} />
+              ) : input.country ? (
+                <CountriesInput countryName={input.countryName} stateName={input.stateName} />
               ) : (
                 <FormInput
                   disabled={disabled}

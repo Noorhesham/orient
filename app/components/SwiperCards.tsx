@@ -10,7 +10,10 @@ import { cn } from "@/lib/utils";
 import cookies from "js-cookie";
 import { useTranslations } from "next-intl";
 import { Autoplay } from "swiper/modules"; // Correct import for Autoplay
-import { TransformWrapper, TransformComponent, useControls } from "react-zoom-pan-pinch";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import ZoomImage from "./ZoomImage";
+import { IoOpenOutline } from "react-icons/io5";
+
 const SwiperCards = ({
   items,
   className,
@@ -26,6 +29,7 @@ const SwiperCards = ({
   mobile,
   md,
   zoom,
+  paginationImgs,
 }: {
   items: any;
   className?: string;
@@ -41,25 +45,27 @@ const SwiperCards = ({
   mobile?: number;
   md?: number;
   zoom?: boolean;
+  paginationImgs?: string[];
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [slideConfig, setSlideConfig] = React.useState({
     isBeginning: true,
-    isEnd: activeIndex === (items.length ?? 0) - 1,
+    isEnd: activeIndex === (items?.length ?? 0) - 1,
   });
   useEffect(() => {
     swiper?.on("slideChange", ({ activeIndex }) => {
       setActiveIndex(activeIndex);
       setSlideConfig({
         isBeginning: activeIndex === 0,
-        isEnd: activeIndex === (items.length ?? 0) - 1,
+        isEnd: activeIndex === (items?.length ?? 0) - 1,
       });
     });
   }, [swiper, items]);
   const local = cookies.get("NEXT_LOCALE")?.trim();
 
   const t = useTranslations();
+  const pagination = paginationImgs?.length > 0 ? paginationImgs : items;
   return (
     <div className="relative h-full gap-3 w-full flex flex-col">
       <Swiper
@@ -81,45 +87,65 @@ const SwiperCards = ({
         onSwiper={(swiper) => setSwiper(swiper)}
         spaceBetween={spaceBetween || 10}
         slidesPerView={slidesPerView || 3.4}
-        className={`w-full   ${className || "h-96"}`}
+        className={`w-full h-full ${className || "h-96"} `}
       >
-        {items.map(({ src, text, card }: { src: string; text: string; card: ReactNode }, i: number) => (
-          <SwiperSlide className={`w-full h-full  ${rounded ? "rounded-2xl" : ""}`} key={i}>
+        {items?.map(({ src, text, card }: { src: string; text: string; card: ReactNode }, i: number) => (
+          <SwiperSlide className={`w-full  ${rounded ? "rounded-2xl" : ""}`} key={i}>
             {card ? (
-              <div className="  w-full"> {card}</div>
+              card
             ) : (
               <>
                 {zoom ? (
-                  <div>
-                    <TransformWrapper
-                      panning={{ disabled: false }} // Enables drag control
-                      zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
-                      doubleClick={{ disabled: false }}
-                      smooth
-                      initialScale={1}
-                      initialPositionX={0}
-                      initialPositionY={0}
-                    >
-                      {({ zoomIn, zoomOut, ...rest }) => (
-                        <>
-                          <div className=" mb-3">
-                            <Button variant="outline" size={"sm"} className=" mr-2" onClick={() => zoomIn()}>
-                              <ZoomInIcon />
-                            </Button>
-                            <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
-                              <ZoomOutIcon />
-                            </Button>
-                          </div>
-                          <TransformComponent
-                            contentStyle={{ width: "100%", height: "100%" }}
-                            wrapperStyle={{ width: "100%", height: "100%" }}
-                          >
-                            <img src={src} style={{ width: "100%" }} />
-                          </TransformComponent>
-                        </>
-                      )}
-                    </TransformWrapper>
-                  </div>
+                  <ZoomImage
+                    className=" overflow-hidden lg:max-w-4xl"
+                    btn={
+                      <div className="cursor-pointer hover:opacity-90 duration-150">
+                        {" "}
+                        <Image
+                          fill
+                          loading="eager"
+                          src={src}
+                          alt="product image"
+                          className={` object-center h-full w-full  ${
+                            rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
+                          } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
+                        />
+                        <IoOpenOutline className=" w-6 h-6  absolute top-0 left-4" />
+                      </div>
+                    }
+                    content={
+                      <div className=" absolute left-1/2 w-[60%] -translate-x-1/2 inset-0">
+                        <TransformWrapper
+                          panning={{ disabled: false }} // Enables drag control
+                          zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
+                          doubleClick={{ disabled: false }}
+                          smooth
+                          initialScale={1}
+                          initialPositionX={0}
+                          initialPositionY={-70}
+                        >
+                          {({ zoomIn, zoomOut, ...rest }) => (
+                            <>
+                              <div className=" mt-14  mb-3">
+                                <Button variant="outline" size={"sm"} className=" mr-2" onClick={() => zoomIn()}>
+                                  <ZoomInIcon />
+                                </Button>
+                                <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
+                                  <ZoomOutIcon />
+                                </Button>
+                              </div>
+                              <TransformComponent
+                                contentStyle={{ width: "100%", height: "100%" }}
+                                wrapperStyle={{ width: "100%", height: "100%" }}
+                              >
+                                <img className=" object-contain" src={src} style={{ width: "100%" }} />
+                              </TransformComponent>
+                            </>
+                          )}
+                        </TransformWrapper>
+                      </div>
+                    }
+                  />
                 ) : (
                   <Image
                     fill
@@ -169,7 +195,7 @@ const SwiperCards = ({
       )}
       {paginationImage && (
         <div className="p-3 hidden justify-center md:flex z-10 mt-4 relative items-center gap-2">
-          {items.map(({ src }: { src: string }, i: number) => (
+          {pagination.map(({ src }: { src: string }, i: number) => (
             <div
               className={cn(
                 "overflow-hidden cursor-pointer hover:opacity-95 duration-200 relative aspect-square h-20 w-20 rounded-xl",

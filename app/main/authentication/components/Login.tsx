@@ -47,6 +47,11 @@ const Login = () => {
   const [isPending, startTransition] = useTransition();
   const { setLogin } = useAuth();
   useLayoutEffect(() => {
+    if (searchParams.get("error")) {
+      const updatedParams = new URLSearchParams(searchParams);
+      updatedParams.delete("error");
+      router.push(`?${updatedParams.toString()}`, { scroll: false });
+    }
     if (param !== "") setActivate(true);
   }, [param]);
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
@@ -135,7 +140,7 @@ const Login = () => {
               <div className="text-main2 self-center mx-auto text-base flex items-center gap-2">
                 <p className="text-main2 font-medium text-sm">{t("loginWithPhone")}</p>
                 <Switch
-                  noSwitch={true} 
+                  noSwitch={true}
                   checked={useEmail}
                   onCheckedChange={() => {
                     setUseEmail((e) => !e);

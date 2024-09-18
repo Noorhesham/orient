@@ -105,7 +105,7 @@ const UpdatePersonalInfo = () => {
                 defaultValues={user}
                 btnStyles={"w-full"}
                 btnText={t("confirm")}
-                schema="email"
+
                 formArray={email}
                 title={t("updateEmail")}
               />
@@ -135,7 +135,6 @@ const UpdatePersonalInfo = () => {
                 defaultValues={user}
                 btnStyles={"w-full"}
                 btnText={t("confirm")}
-                schema="phone"
                 formArray={phone}
                 title={t("updatePhone")}
               />
@@ -167,7 +166,6 @@ const UpdatePersonalInfo = () => {
                 defaultValues={user}
                 btnStyles={"w-full"}
                 btnText="SAVE CHANGES"
-                schema="personalInfo"
                 formArray={personal}
                 title={t("updatePersonalInfo")}
               />

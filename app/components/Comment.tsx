@@ -9,12 +9,14 @@ const Comment = ({
   content,
   user,
   id,
+  user_did_buy,
 }: {
   rating: number;
   date: any;
   content: string;
-  user: { name: string; photo?: string };
+  user: { name: string; avatar?: string };
   id?: string;
+  user_did_buy: boolean;
 }) => {
   return (
     <div className=" border-b border-input py-4   flex flex-col">
@@ -22,7 +24,7 @@ const Comment = ({
         <span className=" text-gray-400 font-semibold text-xs">{format(date, "dd/MM/yyyy")}</span>
         <Starrating MaxRating={5} size={20} defaultRating={rating} />
       </div>
-      <User user={user} />
+      <User user_did_buy={user_did_buy} user={user} />
       <Paragraph full description={content} />
     </div>
   );

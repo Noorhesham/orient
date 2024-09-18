@@ -11,20 +11,26 @@ import { useAuth } from "../context/AuthContext";
 import Heading from "./Heading";
 import Head1 from "./Head1";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 const commentForm = [
   {
     name: "content",
     placeholder: "COMMENT",
   },
-  { name: "rating", placeholder: "RATE", rate: true },
+  { name: "rating", placeholder: "RATE", rate: true, type: "number" },
 ];
 const AddComment = ({ id }: { id?: string }) => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const addComment = async (data: any, setError: any) => {
     const res = await Server({ resourceName: "addComment", body: data, id });
     console.log(res);
     if (res.status === true) {
       toast.success(res.message);
       setError(null);
+      router.refresh();
+      queryClient.invalidateQueries({ queryKey: [`reviews-${id}`] });
     }
     if (res.status === false || !res.status) setError(res.message || res.errors);
   };
@@ -36,14 +42,14 @@ const AddComment = ({ id }: { id?: string }) => {
         !userSettings ? (
           <Link
             href={`/login?redirect=/product/${id}`}
-            className=" text-2xl hover:underline duration-150 py-10 text-main uppercase font-semibold text-center "
+            className=" text-xl hover:underline duration-150 py-10 text-main uppercase font-semibold text-center "
           >
-            Login First to add product to wishlist .... !
+            Login First to add product to Review this product ...!
           </Link>
         ) : (
           <div className="flex flex-col items-start px-20">
             <Paragraph description="Share your opinions with others" />
-            <FormContainer submit={addComment} formArray={commentForm} schema="commentSchema" />
+            <FormContainer submit={addComment} formArray={commentForm} />
           </div>
         )
       }

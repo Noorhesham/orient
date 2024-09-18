@@ -12,13 +12,11 @@ const Download = () => {
 
   return (
     <div className="flex sm:flex-row flex-col lg:justify-normal justify-center items-center gap-3 mt-5">
-      <Link target="_blank" href={store_url.play_store}>
-        {" "}
+      <Link target="_blank" href={`${store_url.play_store}`}>
         <Google />
       </Link>
 
-      <Link target="_blank" href={store_url.app_store}>
-        {" "}
+      <Link target="_blank" href={`${store_url.app_store}`}>
         <Apple />
       </Link>
     </div>

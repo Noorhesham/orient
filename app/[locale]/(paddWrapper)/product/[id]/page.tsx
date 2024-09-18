@@ -26,36 +26,18 @@ import { Server } from "@/app/main/Server";
 import AddToCart from "@/app/components/AddToCart";
 import { getTranslations } from "next-intl/server";
 import RightClickProvider from "@/app/context/RightClickDisable";
-import Box from "@/app/components/Box";
 import NotFound from "@/app/components/NotFound";
-
-const comments = [
-  {
-    rate: 5,
-    date: Date.now(),
-    user: { name: "MOHAMED A." },
-    text: "Working at Sam.AI has been an incredible journey so far. The technology we're building is truly cutting-edge, and being a part of a team that's revolutionizing how people achieve their goals is immensely fulfilling. ",
-  },
-  {
-    rate: 5,
-    date: Date.now(),
-    user: { name: "Sayed Mohamed" },
-    text: "Working at Sam.AI has been an incredible journey so far. The technology we're building is truly cutting-edge, and being a part of a team that's revolutionizing how people achieve their goals is immensely fulfilling. ",
-  },
-  {
-    rate: 5,
-    date: Date.now(),
-    user: { name: "Sara Ahmed" },
-    text: "Working at Sam.AI has been an incredible journey so far. The technology we're building is truly cutting-edge, and being a part of a team that's revolutionizing how people achieve their goals is immensely fulfilling.  Working at Sam.AI has been an incredible journey so far. The technology we're building is truly cutting-edge, and being a part of a team that's revolutionizing how people achieve their goals is immensely fulfilling. ",
-  },
-];
+import SingleVariant from "@/app/components/SingleVariant";
+import dynamic from "next/dynamic";
+const ReviewsSection = dynamic(() => import("../../../../components/ReviewsSection"), {
+  ssr: false,
+});
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const { product } = await Server({
     resourceName: "getProduct",
     id,
     body: { with: "tags,upSells,crossSells" },
   });
-
   return {
     title: `${product.title} | PUTTY (ACRYLIC 1000) 233 WALL PAINTS | Your Store Name`,
     description: product.description,
@@ -64,10 +46,10 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
     openGraph: {
       title: product.title,
       description: product.description,
-      url: product.main_cover[0].thumbnail,
+      url: product.main_cover[0]?.thumbnail,
       images: [
         {
-          url: product.main_cover[0].thumbnail,
+          url: product.main_cover[0]?.thumbnail,
           alt: product.title,
         },
       ],
@@ -78,7 +60,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
       description: product.description,
       images: [
         {
-          url: product.main_cover[0].thumbnail,
+          url: product.main_cover?.[0]?.thumbnail,
           alt: product.title,
         },
       ],
@@ -87,7 +69,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
 };
 
 const page = async ({ params: { id }, searchParams }: { params: { id: string }; searchParams: any }) => {
-  const { color, volume } = searchParams;
+  const { color, volume, child } = searchParams;
 
   const queryParams = new URLSearchParams();
   const array = color
@@ -96,25 +78,23 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
     .filter((f: any) => f !== undefined);
   if (array) {
     array.forEach((element: any) => {
-      console.log(array);
       const [key, value] = element?.split(":");
       queryParams.append(`options[${key}]`, value);
     });
   }
-  const { product, attributes, reviews } = await Server({
+  const { product, attributes, reviews_counts, variations } = await Server({
     resourceName: "getProduct",
     id,
     queryParams,
     body: { with: "tags,upSells,crossSells" },
   });
   if (!product) return <NotFound />;
-  console.log(product, reviews);
-
+  const ischild = child === "true";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.title,
-    image: product.main_cover[0].thumbnail,
+    image: product.main_cover?.[0]?.thumbnail,
     description: product.description,
     offers: {
       "@type": "Offer",
@@ -125,9 +105,13 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
     },
   };
   const ims = product.main_cover
+    .map((img: any) => ({ src: img.file }))
+    .concat(product.images.map((img: any) => ({ src: img.file })));
+  const paginationImgs = product.main_cover
     .map((img: any) => ({ src: img.thumbnail }))
-    .concat(product.images.map((img: any) => ({ src: img.sizes.large })));
+    .concat(product.images.map((img: any) => ({ src: img.thumbnail })));
   const t = await getTranslations();
+  console.log(product);
   return (
     <RightClickProvider>
       <section className=" h-full relative">
@@ -142,6 +126,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
             <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
               <div className="aspect-square  w-full h-full ">
                 <SwiperCards
+                  paginationImgs={paginationImgs}
                   zoom={true}
                   rounded
                   spaceBetween={50}
@@ -155,7 +140,13 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
             </div>
             <div className=" fixed z-50  bottom-0 left-0 p-4 w-full flex items-center bg-white/90 justify-center  lg:hidden gap-3 mt-3">
               <AddToCart max={product.quantity} id={product.id} />
-              <CustomButton className=" w-full px-8 py-5" reverse icon={<TbShoppingCartPlus />} text={t("buyNow")} />
+              <CustomButton
+                link="/checkout"
+                className=" w-full px-8 py-5"
+                reverse
+                icon={<TbShoppingCartPlus />}
+                text={t("buyNow")}
+              />
             </div>
 
             <Section
@@ -165,18 +156,31 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               className=" col-span-3 flex-grow text-wrap  mt-12"
             >
               <div className=" pb-5">
-                <Stars rating={product?.review_rate || 5} />
+                <Stars count={product.review_count} rating={product?.review_rate || 5} />
                 <PriceWithSale
                   price={product.sell_price || product.regular_price}
                   discount={product.sell_price ? product.regular_price : null}
                 />
+                {product.stock_status === "out" && (
+                  <p className="text-red-500 mt-2 font-semibold text-sm">{t("outOfStock")}</p>
+                )}
               </div>
               <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 px-5">
-                <div className="lg:hidden border-b border-input gap-3 flex flex-col items-start max-w-md ">
-                  <div className=" lg:hidden flex flex-col  gap-3 items-start ">
-                    {attributes.length > 0 &&
-                      attributes?.map((attribute: any) => (
-                        <Box
+                <div className="lg:hidden border-b border-input gap-3 flex flex-col items-start  w-full ">
+                  <div className=" lg:hidden flex w-full flex-col  gap-3 items-start ">
+                    {variations && variations.length > 0 && (
+                      <SingleVariant
+                        parentId={product.parent_id}
+                        childId={ischild ? product.id : ""}
+                        ischild={ischild}
+                        variations={variations}
+                        options={attributes.filter((item: any) => item.slug === "volume")}
+                        colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                      />
+                    )}
+                  </div>
+                </div>
+                {/* <Box
                           single
                           id={attribute.id}
                           key={attribute.slug}
@@ -184,35 +188,33 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           color={attribute.slug === "color"}
                           text={attribute.title}
                           options={attribute.options}
-                        />
-                      ))}
-                  </div>
-                </div>
-
-                <div className="flex  my-5  sticky top-0 z-20 flex-nowrap lg:flex-wrap w-full lg:flex-row flex-col items-center gap-2">
+                        /> */}
+                <div
+                  className="flex  text-sm  my-5  sticky top-0 z-20 xl:flex-nowrap 
+                flex-wrap  w-full lg:flex-row flex-col items-center gap-2"
+                >
                   <Calculate
                     btn={
-                      <Button className=" hover:bg-white gap-2 lg:w-fit w-full hover:text-main2 border border-main2 text-xs font-medium rounded-full flex  items-center  px-6  bg-main2">
+                      <Button className=" capitalize  hover:bg-white gap-2 lg:w-fit w-full hover:text-main2 border border-main2  font-medium rounded-full flex  items-center  px-6  bg-main2">
                         <CiCalculator2 className=" w-5 h-5" />
                         {t("calculateQuantity")}
                       </Button>
                     }
                   />
                   <div className="flex lg:w-auto w-full   items-center gap-2">
-                    <Button
-                      className="flex-1 md:flex-auto text-[10px] rounded-full gap-2 py-4 border-black"
-                      variant="outline"
-                    >
+                    <Button className="flex-1 md:flex-auto   rounded-full gap-2 py-4 border-black" variant="outline">
                       <DownloadIcon className="w-4 h-4" />
                       {t("downloadProduct")}
                     </Button>
-                    <Button
-                      className="flex-1 md:flex-auto text-xs rounded-full gap-2 py-4 border-black"
-                      variant="outline"
-                    >
-                      <TbView360Arrow className="w-5 h-5" />
-                      360
-                    </Button>
+                    {product.image_360_panorama.length > 0 && (
+                      <Button
+                        className="flex-1 md:flex-auto text-xs rounded-full gap-2 py-4 border-black"
+                        variant="outline"
+                      >
+                        <TbView360Arrow className="w-5 h-5" />
+                        360
+                      </Button>
+                    )}
                   </div>
                   <div className=" grid text-nowrap grid-cols-3  mt-3 items-center gap-4 lg:hidden">
                     <div className="text-xs flex flex-col text-center  items-center gap-3">
@@ -239,7 +241,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   </div>
                 </div>
               </div>
-              <Paragraph className=" my-2" description={product.description || "No Description"} />
+              <Paragraph className=" my-2" description={product.description || ""} />
             </Section>
 
             <MaxWidthWrapper className=" col-span-7 mt-4 lg:mt-8 " noPaddingX={true}>
@@ -290,7 +292,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 </div>
                 <section className="  w-full mt-8">
                   <h1 className=" text-xl font-semibold">{t("description")}</h1>
-                  <Paragraph description={product.description || "No Description"} />
+                  <Paragraph description={product.description || ""} />
                   <br />
 
                   <Feature />
@@ -313,21 +315,21 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     </div>
                   }
                 />
-                <Reviews />
-                <div>
-                  {reviews.map((comment) => (
-                    <Comment date={comment.created_at} id={product.id} {...comment} key={comment.date} />
-                  ))}
-                </div>
-                <AddComment id={product.id} />
-              </Section>{" "}
+                <Reviews
+                  reviews_counts={reviews_counts}
+                  review_count={product.review_count}
+                  review_rate={product.review_rate}
+                />
+                <ReviewsSection id={product.parent_id} />
+                <AddComment id={product.parent_id} />
+              </Section>
             </MaxWidthWrapper>
           </div>
 
           {/* sidebar */}
           <div className=" hidden lg:block lg:col-span-3 mt-8">
             <Container className=" py-12">
-              <div className=" flex flex-col items-start gap-2 pb-4 border-b  border-input">
+              <div className=" flex flex-col items-start gap-2  border-b  border-input">
                 <SwiperCards
                   zoom={true}
                   autoplay
@@ -370,60 +372,81 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   ]}
                 />
               </div>
-              <div className=" pb-5">
-                {attributes.length > 0 &&
-                  attributes?.map((attribute: any) => (
-                    <Box
-                      single
-                      id={attribute.id}
-                      key={attribute.slug}
-                      filter={attribute.slug}
-                      color={attribute.slug === "color"}
-                      text={attribute.title}
-                      options={attribute.options}
-                    />
-                  ))}
+              <div className=" w-full pb-5">
+                {variations && variations.length > 0 && (
+                  <SingleVariant
+                    parentId={product.parent_id}
+                    childId={ischild ? product.id : ""}
+                    ischild={ischild}
+                    variations={variations}
+                    options={attributes.filter((item: any) => item.slug === "volume")}
+                    colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                  />
+                )}
                 <div className=" pb-5 border-b border-input">
-                  <p className=" text-center text-muted-foreground">
-                    {product.quantity} {t("left")}
-                  </p>
-                  <div className=" flex items-start justify-center mt-5 self-center mx-auto gap-2">
-                    <h2>PRICES :</h2>
-                    <div className=" flex flex-col">
-                      <p className=" text-xl text-main2 font-[700]">{formatPrice(442.12)}</p>
-                      <p className=" text-sm text-muted-foreground line-through mt-2">{`( ${formatPrice(500)})`}</p>
+                  <div className=" flex flex-col items-center justify-center  gap-2">
+                    <div className=" flex items-center gap-2">
+                      <h2>PRICE :</h2>
+                      <PriceWithSale
+                        size="sm"
+                        price={product.sell_price || product.regular_price}
+                        discount={product.sell_price ? product.regular_price : null}
+                      />
                     </div>
+                    {product.stock_status === "out" && (
+                      <p className="text-red-500 mt-2 font-semibold text-sm">{t("outOfStock")}</p>
+                    )}
                   </div>
                 </div>
                 <div className=" flex  flex-col gap-3 mt-3">
-                  <AddToCart max={product.quantity} id={product.id} />
-                  <CustomButton className=" px-8 py-4" reverse icon={<TbShoppingCartPlus />} text={t("buyNow")} />
+                  <AddToCart cartId={product.in_cart_item_id} inCart={product.in_cart} cartCount={product.in_cart_count} max={product.quantity} id={product.id} />
+                  <CustomButton
+                    link="/checkout"
+                    className=" px-8 py-4"
+                    reverse
+                    icon={<TbShoppingCartPlus />}
+                    text={t("buyNow")}
+                  />
                 </div>
-                <AddToWishlist className=" my-3" />
+                <AddToWishlist id={product.id} className=" my-3" />
               </div>
             </Container>
           </div>
         </MaxWidthWrapper>
         <MaxWidthWrapper>
-          <Section link="#" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
+          <Section link="/shop" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
             <MotionContainer className=" hidden lg:grid  lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
-              <Card price="putty (acrylic 1000) 233" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (2).jpg" />
-              <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (3).jpg" />
+              {product.upSells?.map((item: any, i: number) => (
+                <Card
+                  key={item.id}
+                  img={item.main_cover[0].thumbnail}
+                  text={item.title}
+                  price={item.sell_price}
+                  id={item.id}
+                />
+              ))}
             </MotionContainer>
-            <div className=" mt-4 flex lg:hidden">
-              <SwiperCards
-                slidesPerView={2}
-                className=" w-full h-full"
-                items={[
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                  { card: <Card price="442.12 EGP" text={`putty (acrylic 1000) 233`} img="/Product (1).jpg" /> },
-                ]}
-              />
-            </div>
+            {product.upSells.length > 0 && (
+              <div className=" mt-4 flex lg:hidden">
+                <SwiperCards
+                  slidesPerView={2}
+                  className=" w-full h-full"
+                  items={product.upSells?.map((item: any, i: number) => {
+                    return {
+                      card: (
+                        <Card
+                          key={item.id}
+                          img={item.main_cover[0].thumbnail}
+                          text={item.title}
+                          price={item.sell_price}
+                          id={item.id}
+                        />
+                      ),
+                    };
+                  })}
+                />
+              </div>
+            )}
           </Section>
         </MaxWidthWrapper>
       </section>
