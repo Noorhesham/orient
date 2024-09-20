@@ -38,7 +38,7 @@ export default async function Home() {
         <ImageSlider covers={page.cover} />
       </section>
       <MaxWidthWrapper className="my-2 ">
-        <Section link="#" className="  min-h-[30vh]" heading={page.products_sction_title} linkText={t("browse")}>
+        <Section link="/shop" className="  min-h-[30vh]" heading={page.products_sction_title} linkText={t("browse all products")}>
           <MobileWrapper
             desktop={
               <MotionContainer className="lg:grid justify-items-center   hidden   lg:grid-cols-4 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
