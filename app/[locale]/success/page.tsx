@@ -1,17 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Heading from "@/app/components/Heading";
 import Paragraph from "@/app/components/Paragraph";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import CustomButton from "@/app/components/CustomButton";
-const page = () => {
+import { unstable_setRequestLocale } from "next-intl/server";
+const page = ({ locale }: { locale: string }) => {
+  unstable_setRequestLocale(locale);
+
   return (
     <MaxWidthWrapper>
       <Dialog open={true}>
