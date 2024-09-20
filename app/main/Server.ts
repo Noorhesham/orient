@@ -56,7 +56,9 @@ export type ResourceNameProps =
   | "states"
   | "home"
   | "getWishlist"
-  | "addWishlist";
+  | "addWishlist"
+  | "colortrend"
+  | "branches";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -159,6 +161,10 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/ec-products/entities-operations/bookmarks/list`, method: "GET" };
     case "addWishlist":
       return { url: `${url}/ec-products/entities-operations/${id}/bookmarks`, method: "POST" };
+    case "colortrend":
+      return { url: `${url}/rm_page/${VERSION}/show?with=blogs&slug=color-trend` };
+    case "branches":
+      return { url: `${url}/rm_ecommarce/v1/stores` };
     default:
       return { url, method: "GET" as MethodProps };
   }

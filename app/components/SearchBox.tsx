@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { SearchIcon } from "./Icons";
-import { redirect, usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useGetEntity } from "@/lib/queries";
@@ -10,6 +10,7 @@ import CartItem from "./CartItem";
 import Image from "next/image";
 import Link from "next/link";
 import MotionItem from "./MotionItem";
+import PriceWithSale from "./PriceWithSale";
 
 const SearchBox = ({
   bg,
@@ -68,8 +69,11 @@ const SearchBox = ({
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVal(event.target.value);
+    if (!nonactive && (event.target.value.includes("%") || event.target.value.length < 4))
+      return setResultActive(false);
+    setResultActive(true);
     onSearch && onSearch(event.target.value);
-    search(event.target.value);
+    if (!nonactive) search(event.target.value);
   };
 
   // Handle clicks outside the search box to close it
@@ -96,7 +100,13 @@ const SearchBox = ({
     }
   }, [active]);
   const locale = pathname?.split("/")[1];
+  const router = useRouter();
   const [resultActive, setResultActive] = useState(true);
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && data) {
+      data.products.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
+    }
+  };
   return (
     <div
       ref={containerRef}
@@ -134,7 +144,14 @@ const SearchBox = ({
                   <div className=" overflow-hidden rounded-md w-10 h-10 relative">
                     <Image src={item.main_cover[0].sizes.thumbnail} fill alt="product" className=" object-contain" />
                   </div>
-                  <h2 className=" text-black text-xs line-clamp-1 font-medium rounded-xl">{item.title}</h2>
+                  <div className=" flex flex-col">
+                    <h2 className=" text-black text-xs line-clamp-1 font-medium rounded-xl">{item.title}</h2>
+                    <PriceWithSale
+                      price={item.sell_price || item.regular_price}
+                      discount={item.sell_price ? item.regular_price : null}
+                      size="xs"
+                    />
+                  </div>
                 </Link>
               ))
             ) : (
@@ -151,7 +168,7 @@ const SearchBox = ({
       </AnimatePresence>
       {nonactive ? (
         <input
-          onSubmit={redirect("/shop")}
+          onKeyDown={handleKeyDown}
           value={val}
           onChange={handleSearchChange}
           placeholder={t("search")}
@@ -161,6 +178,7 @@ const SearchBox = ({
         <input
           value={val}
           ref={inputRef}
+          onKeyDown={handleKeyDown}
           onChange={handleSearchChange}
           className={` bg-transparent  duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
           placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
@@ -171,6 +189,7 @@ const SearchBox = ({
 
       {active && (
         <motion.input
+          onKeyDown={handleKeyDown}
           value={val}
           ref={inputRef}
           initial={{ width: 0 }}
@@ -189,10 +208,11 @@ const SearchBox = ({
         />
       )}
       <div
-        onClick={() => {
+        onClick={(event) => {
           if (setIsActive) {
             setResultActive(!resultActive);
             setIsActive(!active);
+            data && data?.products.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
           }
         }}
         className={`${icon === "white" ? " rounded-full bg-main2" : ""} ${

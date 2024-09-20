@@ -12,17 +12,17 @@ import { getTranslations } from "next-intl/server";
 const Page = async () => {
   const local = cookies().get("NEXT_LOCALE")?.value;
   const t = await getTranslations();
-  const data = await Server({ resourceName: "about-us", cache: 0 });
+  const data = await Server({ resourceName: "about-us", cache: Infinity });
   const { page } = data;
   console.log(page);
-  const {certificates} = page;
+  const { certificates } = page;
   return (
     <>
       <section className=" relative min-h-screen 2xl:min-h-[80vh]">
         <div
           style={{
             backgroundSize: "cover",
-            backgroundImage: `url('/about.png')`,
+            backgroundImage: `url(${page.cover_for_pc[0].file})`,
             backgroundPosition: "center",
             zIndex: 1,
           }}
@@ -33,7 +33,7 @@ const Page = async () => {
         <section className="">
           <div className=" flex lg:flex-row flex-col items-start lg:items-center">
             <div className="flex max-w-2xl flex-col gap-4">
-              <h1 className=" text-main uppercase text-2xl lg:text-4xl font-bold">{t("aboutusPage.history")}</h1>
+              <h1 className=" text-main uppercase text-2xl lg:text-4xl font-bold">{page.mission_title}</h1>
               <Paragraph
                 className={` ${local === "ar" ? "lg:ml-[6.3rem]" : "lg:mr-[6.3rem]"}`}
                 description={t("aboutusPage.desc1")}
@@ -52,7 +52,7 @@ const Page = async () => {
                 height={297}
                 className={` ${
                   local === "ar" ? "right-10 " : "left-10 lg:left-[-13%]"
-                } absolute  w-[80%]  md:w-[45%]   lg:w-[60%]  top-[65%] md:top-[47%]  lg:top-[40%]`}
+                } absolute  w-[60%]   top-[50%]  md:top-[40%]`}
               />
             </div>
           </div>
@@ -65,7 +65,13 @@ const Page = async () => {
             <div className=" cursor-pointer hover:opacity-90 duration-150 absolute  bottom-10 left-40 -translate-x-1/2 -translate-y-1/2 z-10">
               <PlayIcon />
             </div>
-            <Image src="/about3.png" alt="about" className=" object-contain" fill />
+            <Image src={page.video_image_for_pc[0].file} alt="about" className=" sm:block hidden object-contain" fill />
+            <Image
+              src={page.video_image_for_mob[0].file}
+              alt="about"
+              className=" sm:hidden block object-contain"
+              fill
+            />
           </div>
         }
         content={
@@ -84,31 +90,21 @@ const Page = async () => {
       <MaxWidthWrapper className="">
         <div className="flex md:flex-row gap-4 flex-col items-center">
           <div className=" w-full lg:min-w-[576px] flex-grow h-[200px] relative">
-            <Image src="/About Oud 2.jpg" alt="about" className=" object-cover" fill />
+            <Image src={page.vision_image[0].file} alt="about" className=" object-cover" fill />
           </div>
           <div className=" flex-shrink flex flex-col gap-2">
-            <h1 className=" text-3xl font-bold text-main">{t("aboutusPage.vision")}</h1>
-            <Paragraph
-              full
-              description=" Donec mattis porta eros, aliquet finibus ri sus interdum at. Nulla vivethe as it was Donec mattis porta
-              eros, aliquet finibus risus interdum at. Nulla vivethe as it wasDonec mattis porta eros, aliquet finibus
-              risus interdum at. Nulla vivethe as it was"
-            />
+            <h1 className=" text-3xl font-bold text-main">{page.vision_title}</h1>
+            <Paragraph full description={page.vision_content} />
           </div>
         </div>
 
         <div className="flex md:flex-row flex-col mt-10 gap-4 items-center">
           <div className=" flex-shrink flex flex-col gap-2">
-            <h1 className=" text-3xl font-bold text-main">{t("aboutusPage.vision")}</h1>
-            <Paragraph
-              full
-              description=" Donec mattis porta eros, aliquet finibus ri sus interdum at. Nulla vivethe as it was Donec mattis porta
-              eros, aliquet finibus risus interdum at. Nulla vivethe as it wasDonec mattis porta eros, aliquet finibus
-              risus interdum at. Nulla vivethe as it was"
-            />
+            <h1 className=" text-3xl font-bold text-main">{page.mission_title}</h1>
+            <Paragraph full description={page.mission_content} />
           </div>
           <div className=" w-full lg:min-w-[576px] lg:mt-0 mt-10 flex-grow h-[200px] relative">
-            <Image src="/About Oud 2.jpg" alt="about" className=" object-cover" fill />
+            <Image src={page.mission_image[0].file} alt="about" className=" object-cover" fill />
           </div>
         </div>
 
@@ -118,15 +114,10 @@ const Page = async () => {
             <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.certificate")}</h1>
           </div>
 
-          <Paragraph
-            full
-            description=" Donec mattis porta eros, aliquet finibus ri sus interdum at. Nulla vivethe as it was Donec mattis porta
-              eros, aliquet finibus risus interdum at. Nulla vivethe as it wasDonec mattis porta eros, aliquet finibus
-              risus interdum at. Nulla vivethe as it was"
-          />
+          <Paragraph full description={page.certificates_content} />
         </div>
 
-        <div className=" block">
+        <div className="h-52  block">
           <SwiperCards
             btns={true}
             logo={true}
@@ -134,14 +125,9 @@ const Page = async () => {
             contain
             slidesPerView={5}
             className=" w-full  h-32 "
-            items={[
-              { src: "/Vector Smart Object 1.png" },
-              { src: "/klml 1.png" },
-              { src: "/t 1.png" },
-              { src: "/12 1.png" },
-              { src: "/2 5001.png" },
-              { src: "/eos_logo 1.png" },
-            ]}
+            items={page.certificates.map((item: any, index: number) => {
+              return { src: item.file };
+            })}
           />
         </div>
         <div className="">
@@ -150,15 +136,10 @@ const Page = async () => {
               <h1 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.parteners")}</h1>
             </div>
 
-            <Paragraph
-              full
-              description=" Donec mattis porta eros, aliquet finibus ri sus interdum at. Nulla vivethe as it was Donec mattis porta
-              eros, aliquet finibus risus interdum at. Nulla vivethe as it wasDonec mattis porta eros, aliquet finibus
-              risus interdum at. Nulla vivethe as it was"
-            />
+            <Paragraph full description={page.partners_content} />
           </div>
 
-          <div className=" justify-center  lg:mt-8  flex items-center">
+          <div className=" justify-center  h-52 lg:mt-8  flex items-center">
             <SwiperCards
               btns={true}
               logo={true}
@@ -166,14 +147,9 @@ const Page = async () => {
               slidesPerView={5}
               contain
               className=" w-full  object-contain  h-32 "
-              items={[
-                { src: "/Artboard-1@300x-1.png" },
-                { src: "/Artboard-1@300x-1 (1).png" },
-                { src: "/Artboard-1@300x-1 (2).png" },
-                { src: "/Artboard-1@300x-1 (3).png" },
-                { src: "/Artboard-1@300x-1 (4).png" },
-                { src: "/Frame 1321317235.png" },
-              ]}
+              items={page.partners.map((item: any, index: number) => {
+                return { src: item.file };
+              })}
             />
           </div>
         </div>

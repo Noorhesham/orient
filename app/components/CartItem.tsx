@@ -90,7 +90,6 @@ const CartItem = ({
             onClick={() => {
               mutate({ product_id: productId, qty: 1 });
               router.refresh();
-              queryClient.invalidateQueries({ queryKey: ["user2_settings"] });
               if (!isPending) remove(id);
             }}
             variant={"default"}

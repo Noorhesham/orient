@@ -11,49 +11,29 @@ import Paragraph from "@/app/components/Paragraph";
 import MotionContainer from "@/app/components/MotionContainer";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import SwiperCards from "@/app/components/SwiperCards";
-const items = [
-  {
-    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
-    main_gallery: [
-      {
-        sizes: {
-          large: "/unsplash_FWoq_ldWlNQ.png",
-        },
-      },
-    ],
-    content:
-      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
-  },
-  {
-    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
-    main_gallery: [
-      {
-        sizes: {
-          large: "/unsplash_FWoq_ldWlNQ.png",
-        },
-      },
-    ],
-    content:
-      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
-  },
-  {
-    title: " Curabitur pulvinar aliquam lectus, non blandit erat mattis vitae.",
-    main_gallery: [
-      {
-        sizes: {
-          large: "/unsplash_FWoq_ldWlNQ.png",
-        },
-      },
-    ],
-    content:
-      "Mauris scelerisque odio id rutrum volutpat. Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.",
-  },
-];
+import { Server } from "@/app/main/Server";
+import { convertToHTML } from "@/lib/utils";
+const getGalleryClasses = (index) => {
+  switch (index) {
+    case 0:
+      return "col-span-6 lg:col-span-3 aspect-square order-1";
+    case 1:
+      return "col-span-6 lg:col-span-3 aspect-square order-3 lg:order-2";
+    case 2:
+      return "col-span-3 row-span-2 order-2 lg:order-3";
+    case 3:
+      return "col-span-full lg:col-span-6 order-last";
+    default:
+      return "col-span-3";
+  }
+};
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   // const t = useTranslations();
-  const t = await getTranslations({ locale});
-
+  const t = await getTranslations({ locale });
+  const { page } = await Server({ resourceName: "colortrend", cache: Infinity });
+  console.log(page);
+  const contentHTML = convertToHTML(page.content);
   return (
     <main className=" pt-40 min-h-screen  ">
       <BreadCrumb />
@@ -61,7 +41,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         <div
           style={{
             backgroundSize: "cover",
-            backgroundImage: `url('/trend.png')`,
+            backgroundImage: `url(${page.cover_for_web[0].file})`,
             backgroundPosition: "center",
             zIndex: 1,
           }}
@@ -73,76 +53,53 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         <div className=" flex flex-col md:flex-row gap-5   justify-between items-start  ">
           <div className=" flex text-amber-700 flex-col items-start">
             <p className=" text-xs font-medium">ABOUT COLOR</p>
-            <h1 className=" text-3xl font-[600] uppercase max-w-[20rem] ">burgundy color is a color of life</h1>
+            <h1 className=" text-3xl font-[600] uppercase max-w-[20rem] ">{page.title}</h1>
           </div>
-          <Paragraph
-            description="UC developments is an investment entity that was established through an alliance and merger of a number of
-            real estate expertise working in the field of real estate investment, engineering, architectural, marketing
-            consulting, and project management in the Egyptian market spanning more than 20 years and owns more than 70
-            real estate projects in many areas such as Heliopolis, New Cairo and 6th of October. UC developments is an
-            investment entity that was established through an alliance and merger of a number of real estate expertise
-            working in the field of real estate investment, engineering, architectural, marketing consulting, and
-            project management in the Egyptian market spanning more than 20 years and owns more than 70 real estate
-            projects in many areas such as Heliopolis, New Cairo and 6th of October."
+          <div
+            dangerouslySetInnerHTML={{ __html: contentHTML }}
+            className={`lg:max-w-2xl text-black text-sm  font-medium my-2 leading-[1.7] `}
           />
         </div>
         <div className=" mt-5   h-[80vh] gap-6 grid grid-rows-3 lg:grid-rows-2 relative grid-cols-9">
-          <ZoomImage
-            src="/brown4.png"
-            btn={
-              <div className="aspect-square order-1 relative rounded-lg w-full h-full col-span-6 lg:col-span-3">
-                <Image className=" rounded-lg w-full h-full absolute object-cover" fill src="/brown4.png" alt="" />
-              </div>
-            }
-          />
-          <ZoomImage
-            src="/brown.png"
-            btn={
-              <div className=" w-full order-3 lg:order-2 aspect-square rounded-lg h-full relative col-span-6 lg:col-span-3">
-                <Image className=" rounded-lg w-full h-full absolute object-cover" fill src="/brown (2).png" alt="" />
-              </div>
-            }
-          />
-          <ZoomImage
-            src="/brown.png"
-            btn={
-              <div className=" order-2 lg:order-3 col-span-3 row-span-2  relative ">
-                <Image
-                  className=" rounded-lg w-full h-full absolute object-left object-cover"
-                  fill
-                  src="/brown.png"
-                  alt=""
-                />
-              </div>
-            }
-          />
-          <ZoomImage
-            src="/brown.png"
-            btn={
-              <div className=" order-last w-full rounded-lg h-full relative col-span-full lg:col-span-6 ">
-                <Image
-                  className=" mb-auto rounded-lg w-full h-full absolute  object-top object-cover"
-                  fill
-                  src="/brown3.png"
-                  alt=""
-                />
-              </div>
-            }
-          />
+          {page.gallery.map((image, index) => (
+            <ZoomImage
+              key={image.id}
+              src={image.file}
+              btn={
+                <div className={`relative rounded-lg w-full h-full ${getGalleryClasses(index)}`}>
+                  <Image
+                    className="rounded-lg w-full h-full absolute object-cover"
+                    fill
+                    src={image.file}
+                    alt={image.alt}
+                  />
+                </div>
+              }
+            />
+          ))}
         </div>
       </MaxWidthWrapper>
       <div className="flex items-center">
         <div className="  flex-1 lg:flex hidden lg:basis-[45%]   h-[435px] relative">
           <Image src={"/chair.png"} alt="" fill className=" object-cover" />
         </div>
-        <MaxWidthWrapper  className=" lg:basis-full   flex-1  ">
+        <MaxWidthWrapper className=" lg:basis-full   flex-1  ">
           <div className=" flex items-center  gap-4  md:flex-row flex-col  ">
             <Section link="#" className="mt-5 w-full " heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
-              <div className="  lg:grid flex flex-col   justify-center lg:grid-cols-3 items-center gap-2 mt-5">
-                <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
-                <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
-                <Card price="442" img="/Product (3).jpg" text={`putty (acrylic 1000) 233`} />
-              </div>
+              <MaxWidthWrapper className=" grid grid-cols-3 gap-4 ">
+                {page.products.slice(0, 3).map((product, i) => {
+                  return (
+                    <Card
+                      key={product.id}
+                      id={product.id || ""}
+                      text={product.title}
+                      sell={product.sell_price ? product.regular_price : null}
+                      img={product.main_cover[0].sizes.medium || "/default-thumbnail.jpg"}
+                      price={product.price.toString()}
+                    />
+                  );
+                })}
+              </MaxWidthWrapper>
             </Section>
           </div>
         </MaxWidthWrapper>
@@ -155,18 +112,13 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         voluptatum unde magni pariatur expedita ullam reprehenderit corporis! Alias beatae quasi dolore nulla officiis
         rerum."
         />
-        <MotionContainer className=" hidden xl:grid justify-items-center w-full xl:grid-cols-3 mx-auto gap-3 items-center ">
-          {items.map((item, i) => (
-            <CardHuge item={item} key={i} />
-          ))}
-        </MotionContainer>
-        <div className=" mt-4 w-full  h-full xl:hidden">
+        <div className=" mt-4 w-full  h-full ">
           <SwiperCards
             className=" w-full h-full"
-            slidesPerView={2.3}
+            slidesPerView={3}
             md={2}
             mobile={1}
-            items={items.map((item, i) => {
+            items={page.blogs.map((item, i) => {
               return { card: <CardHuge item={item} key={i} /> };
             })}
           />

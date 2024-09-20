@@ -10,7 +10,7 @@ const PriceWithSale = ({
 }: {
   price: number;
   discount?: number | null;
-  size?: "lg" | "sm";
+  size?: "lg" | "sm"|"xs";
 }) => {
   const { generalSettings, loading } = useAuth();
   if (loading) return <Skeleton />;
@@ -20,12 +20,12 @@ const PriceWithSale = ({
     <div>
       <div className="  flex items-center">
         <bdi
-          className={`${size === "sm" ? "text-base text-black" : "text-3xl md:text-2xl text-main2 font-semibold"}   `}
+          className={`${size === "sm" ? "text-base text-black":size==='xs'?"text-xs text-black" : "text-3xl md:text-2xl text-main2 font-semibold"}   `}
         >
           {price} {default_currency?.code}
         </bdi>
         {discount && (
-          <del className=" mt-5 mx-3  md:text-base font-medium text-muted-foreground ">
+          <del className={` mt-5 mx-3  ${size==='xs'?"text-xs":"text-sm md:text-base"}  font-medium text-muted-foreground `}>
             {discount} {default_currency?.code}
           </del>
         )}{" "}
