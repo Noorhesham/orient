@@ -8,7 +8,7 @@ import Paragraph from "@/app/components/Paragraph";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import CustomButton from "@/app/components/CustomButton";
 import { unstable_setRequestLocale } from "next-intl/server";
-const page = ({ locale }: { locale: string }) => {
+const page = ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
   unstable_setRequestLocale(locale);
 
   return (
