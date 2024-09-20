@@ -85,7 +85,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         </div>
         <MaxWidthWrapper className=" lg:basis-full   flex-1  ">
           <div className=" flex items-center  gap-4  md:flex-row flex-col  ">
-            <Section link="#" className="mt-5 w-full " heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
+            <Section link="/shop" className="mt-5 w-full " heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
               <MaxWidthWrapper className=" grid grid-cols-3 gap-4 ">
                 {page.products.slice(0, 3).map((product, i) => {
                   return (
