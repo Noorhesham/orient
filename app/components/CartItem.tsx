@@ -15,6 +15,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { TrashIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PriceWithSale from "./PriceWithSale";
+import AddToWishlist from "./AddToWishlist";
 
 const CartItem = ({
   ...props
@@ -67,20 +68,15 @@ const CartItem = ({
             {text}
           </Link>
           <div className={cn({ "flex items-center gap-1 mt-2 text-xs md:text-sm": size && size === "sm" })}>
-            <p className=" text-gray-800"> {<PriceWithSale price={price} size="sm" />}</p>
-            <p className=" line-through text-gray-500 text-xs md:text-sm">
+            <div className=" text-gray-800"> {<PriceWithSale price={price} size="sm" />}</div>
+            <div className=" line-through text-gray-500 text-xs md:text-sm">
               {<PriceWithSale price={discount} size="sm" />}
-            </p>
+            </div>
           </div>
         </div>
         {size !== "sm" && (
           <div className=" flex flex-col items-end gap-2 ml-auto">
-            {wishlist && (
-              <div className=" flex items-center gap-1">
-                <IoIosHeart fill="#E6007E" />{" "}
-                <p className=" cursor-pointer text-xs text-muted-foreground">Remove from Wishlist</p>
-              </div>
-            )}
+            {wishlist && <AddToWishlist wishlistStatus={true} noshare id={id} />}
             {!nocheck && <Counter handleAdd={handleAdd} value={id} defaultcount={quantity} />}
           </div>
         )}

@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import MotionItem from "./MotionItem";
 import { convertToHTML } from "@/lib/utils";
+import Paragraph from "./Paragraph";
+import { format } from "date-fns";
 
 export interface BlogProps {
   id: number;
@@ -25,15 +27,17 @@ export interface BlogProps {
 }
 
 const CardHuge = ({ h1, h2, href, item }: { h1?: string; h2?: string; href?: string; item: BlogProps }) => {
-  const { title, main_gallery, content } = item;
-  const contentHTML = convertToHTML(content);
+  const { title, main_gallery, content, main_thumbnail, short_description } = item;
 
   return (
-    <MotionItem nohover className="  w-full h-full   xl:max-w-full  px-5 shadow-md pb-5 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between">
+    <MotionItem
+      nohover
+      className="  w-full h-full   xl:max-w-full  px-5 shadow-md pb-5 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between"
+    >
       <div className="self-center rounded-2xl w-full mt-10 relative h-[248px]">
         <Link href={item.id ? `/blog/${item.id}` : "#"} className="  w-full  h-full  ">
           <Image
-            src={main_gallery[0].sizes.large}
+            src={main_thumbnail[0].sizes.medium}
             fill
             className="rounded-2xl object-cover"
             alt={main_gallery[0].alt || "post"}
@@ -42,23 +46,26 @@ const CardHuge = ({ h1, h2, href, item }: { h1?: string; h2?: string; href?: str
       </div>
       <div className="mt-[14px] flex-1 py-3">
         <div className="flex gap-2">
-          <div className="flex items-center gap-2">
-            <Calender />
-            <p className="text-xs sm:text-sm font-medium text-[#475156]">1 FEB, 2025</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <DashBoard />
-            <p className="text-xs sm:text-sm font-medium text-[#475156]">Blog</p>
-          </div>
+          {item.created_at && (
+            <div className="flex items-center gap-2">
+              <Calender />
+              <p className="text-xs sm:text-sm font-medium text-[#475156]">
+                {format(new Date(item.created_at), "dd MMM, yyyy")}
+              </p>
+            </div>
+          )}
+          {item.category.title && (
+            <div className="flex items-center gap-2">
+              <DashBoard />
+              <p className="text-xs sm:text-sm font-medium text-[#475156]">{item.category.title}</p>
+            </div>
+          )}
         </div>
         <Link href={item.id ? `/blog/${item.id}` : "#"} className="  w-full  h-full  ">
           <h1 className="mt-2 text-base font-semibold text-[#0D3B6F]">{title}</h1>
         </Link>
         {/* Render HTML content */}
-        <div
-          className="text-[#77878F] line-clamp-4 font-[300] text-base"
-          dangerouslySetInnerHTML={{ __html: contentHTML }}
-        />
+        <Paragraph description={short_description} />
       </div>
     </MotionItem>
   );

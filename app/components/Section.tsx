@@ -14,7 +14,7 @@ const Section = ({
   headingColor,
   paragraph,
   CustomePadding,
-  id,
+  id, headingclass
 }: {
   heading?: string;
   link?: string;
@@ -24,7 +24,7 @@ const Section = ({
   headingColor?: string;
   paragraph?: string;
   CustomePadding?: string;
-  id?: string;
+  id?: string; headingclass?:string
 }) => {
   const locale = cookies.get("NEXT_LOCALE");
   console.log(locale?.trim() === "ar");
@@ -35,7 +35,7 @@ const Section = ({
           {heading && (
             <MotionItem
               nohover
-              className={` text-lg sm:text-2xlt  lg:mx-0  md:text-3xl  ${
+              className={` text-lg sm:text-2xl  ${headingclass||""}    lg:mx-0  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
             >

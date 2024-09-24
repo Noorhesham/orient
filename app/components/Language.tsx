@@ -28,6 +28,9 @@ const Language = () => {
       const newPathName = pathName.replace(`/${currentLocale}`, `/${value}`);
       router.push(newPathName);
       cookies.set("NEXT_LOCALE", value);
+      await fetch("/api/revalidate-all", {
+        method: "POST",
+      });
       const res = await Server({
         resourceName: "languageUpdate",
         body: {

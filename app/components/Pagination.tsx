@@ -9,7 +9,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useLocale } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -30,9 +32,10 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
     replace(url.toString(), { scroll: false });
     setCurrentPage(page);
   };
+  const locale = useLocale();
   return (
     <Pagination className=" mt-10 col-span-full">
-      <PaginationContent>
+      <PaginationContent className={cn(locale === "ar" ? "flex-row-reverse" : " flex-row")}>
         <PaginationItem className=" w-fit">
           <Button
             size={"sm"}

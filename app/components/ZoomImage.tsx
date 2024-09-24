@@ -19,20 +19,19 @@ const ZoomImage = ({
       <DialogTrigger asChild>{btn}</DialogTrigger>
       {/*@ts-ignore*/}
       <DialogContent
-        className={` ${src ? "" : "max-h-[80vh]"} w-full ${
-          className || " bg-transparent sm:max-w-7xl"
-        } outline-none border-none h-full  `}
+        src="."
+        className={` ${src ? "" : " "} w-full ${className || " bg-transparent "} outline-none border-none h-full  `}
       >
-        <div className="select-none relative h-full w-full">
+        <div className="select-none   relative h-full w-full">
           {content ? (
             content
           ) : (
             <Image
               fill
-              loading="eager"
+              loading="lazy"
               src={src || ""}
               alt="product image"
-              className="h-full w-full object-cover object-center"
+              className="h-full lg:scale-125 xl:scale-150 absolute inset-0 object-contain w-full "
             />
           )}
         </div>

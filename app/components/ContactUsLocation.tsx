@@ -11,6 +11,7 @@ const MapComponent = dynamic(() => import("@/app/components/Map"), {
 import { useAuth } from "../context/AuthContext";
 import Spinner from "./Spinner";
 import dynamic from "next/dynamic";
+import { useLocale } from "next-intl";
 interface BranchProps {
   is_main_branch: boolean;
   co_info_email: string;
@@ -29,6 +30,7 @@ const ContactUsLocation = () => {
   useEffect(() => {
     setMount(true);
   }, []);
+  const locale = useLocale();
   const { generalSettings, loading } = useAuth();
   if (loading) return <Spinner />;
   const { company_contacts } = generalSettings;
@@ -38,8 +40,9 @@ const ContactUsLocation = () => {
       lat: branch.lat,
       lng: branch.lng,
     },
-    title: branch.co_info_location,
+    title: branch.title[locale],
   }));
+
   return (
     <div className=" w-full h-[500px]">
       {mount && <MapComponent defaultLocation={markers[0].position} markers={markers} />}

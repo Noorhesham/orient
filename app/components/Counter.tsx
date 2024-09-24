@@ -4,6 +4,7 @@ import { useCreateEntity } from "@/lib/queries";
 import React from "react";
 import debounce from "lodash.debounce";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const Counter = ({
   value,
@@ -16,14 +17,18 @@ const Counter = ({
   defaultcount?: number;
   handleAdd?: any;
 }) => {
-  const queryClient = useQueryClient();
+  const router = useRouter();
   const [count, setCount] = React.useState(defaultcount || 1);
-  const { mutate, isPending } = useCreateEntity("addToCartQuantity", "cart");
+  const { mutate, isPending, data } = useCreateEntity("addToCartQuantity", "cart");
+  console.log(data);
   const debouncedMutate = React.useCallback(
     debounce((newCount) => {
       mutate({ item_id: value, qty: newCount });
       if (newCount === 0) {
-        handleAdd&& handleAdd(value);
+        router.refresh();
+      }
+      if (newCount === 0) {
+        handleAdd && handleAdd(value);
       }
     }, 300),
     [mutate, value]

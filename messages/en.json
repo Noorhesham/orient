@@ -29,8 +29,12 @@
     "home": "home",
     "products": "Products",
     "getinspired": "Get Inspired",
-    "whoAre": "Who are we?"
+    "whoAre": "Who are we?",
+    "blog": "BLOG"
   },
+  "discover": "Discover THE MOST IMPORTANT",
+  "discover2": "ARTICLES ABOUT PAINTS",
+  "discoverdesc": "Explore a world of innovation in paints and coatings. From the latest trends in color technology to sustainable practices shaping the industry, discover insights and expert advice on how to make your next project stand out. Whether you're a professional or DIY enthusiast, these articles provide everything you need to transform your space with creativity and precision.",
   "inspiredLinks": {
     "all": "All",
     "livingroom": "Living Room",
@@ -48,7 +52,8 @@
     "interior": "Interior",
     "exterior": "Exterior",
     "metal": "Metal",
-    "wood": "Wood"
+    "wood": "Wood",
+    "specialized": "Specialized"
   },
   "address": {
     "title": "Address",

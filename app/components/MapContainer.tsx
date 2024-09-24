@@ -26,8 +26,7 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
   const filteredContainers = stores.filter(
     (container) =>
       container.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      container.locations_address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      container.phone?.toLowerCase().includes(searchQuery.toLowerCase())
+      container.locations_address.toLowerCase().includes(searchQuery.toLowerCase())
   );
   return (
     <>
@@ -38,12 +37,31 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
             <Container
               key={container.id}
               onClick={() => handleClick({ lat: container.lat, lng: container.lng })}
-              CustomePadding="px-4 py-5"
-              className=" flex flex-col gap-3 px-4"
+              className=" flex flex-wrap gap-3 px-4"
             >
               <Head1 text={container.name} />
+              <div className=" flex flex-col items-start w-full gap-2 ">
+                <h3
+                  className="hover:bg-gray-100 rounded-full  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClick({ lat: container.city.latitude, lng: container.cit.longitude });
+                  }}
+                >
+                  city : {container.city.title}
+                </h3>
+                <h3
+                  className=" hover:bg-gray-100 rounded-full  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClick({ lat: container.state.latitude, lng: container.state.longitude });
+                  }}
+                >
+                  state : {container.state.title}
+                </h3>
+              </div>
               <IconWidget paragraph={container.locations_address} header="Address" icon={<Location />} />
-              <IconWidget paragraph={container?.phone} header="Phone" icon={<Phone />} />
+              <IconWidget paragraph={container?.phone_number} header="Phone" icon={<Phone />} />
             </Container>
           ))}
         </div>

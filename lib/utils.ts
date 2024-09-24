@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-export function convertToHTML(input:string) {
+export function convertToHTML(input: string) {
   let html = input;
 
   // Convert <strong> and <em> tags
@@ -27,3 +27,17 @@ export function convertToHTML(input:string) {
 
   return html;
 }
+
+export const processYoutubeUrl = (url: string) => {
+  const regex = /(?:youtube\.com\/(?:[^\/]+\/[^\/]+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+  const matches = url.match(regex);
+  const videoId = matches ? matches[1] : null;
+
+  if (videoId) {
+    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return { videoId, thumbnailUrl, embedUrl };
+  }
+
+  return { videoId: null, thumbnailUrl: "", embedUrl: "" };
+};

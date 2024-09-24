@@ -28,13 +28,15 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         area: field.type === "textarea" ? true : false,
         phone: field.type === "phoneNumber" ? true : false,
         select: false,
+        required: field.validate?.required || false,
       };
     })
     .filter((field: any) => field !== undefined);
+  console.log(forms[0].fields);
   return (
     <main className=" pt-40">
       <BreadCrumb />
-      <section className=" relative min-h-[60vh]">
+      <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">
         <div
           style={{
             backgroundSize: "cover",
@@ -47,14 +49,14 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         />
       </section>
       <MaxWidthWrapper>
-        <div className=" flex flex-col  gap-2 md:grid items-stetch  md:grid-cols-4">
+        <div className=" flex flex-col  gap-4 lg:gap-2 md:grid items-center lg:items-start  md:grid-cols-4">
           <Section
             CustomePadding="px-0  lg:px-0"
-            className="  w-full col-span-2 flex flex-col gap-4"
+            className="  w-full col-span-2 flex flex-col gap-2 lg:gap-4"
             heading={t("contact.title")}
           >
             <Paragraph description={t("contact.description")} />
-            <Address />
+            <Address className="mt-2" />
             {/* <IconWidget paragraph="From 09 am To 6 pm " header="All Week (off Line)" icon={<Calender />} /> */}
             <div className=" text-xs font-semibold py-3  flex items-center">
               <BookAIcon />
@@ -66,13 +68,13 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
                 </Link>
               </p>
             </div>
-            <div className=" mt-2">
+            <div className=" mt-2 ">
               <h1 className="  font-semibold text-main">{t("contact.contact")}</h1>
               <Paragraph description={t("contact.contactDescription")} />
               <SocialMedia />
             </div>
           </Section>
-          <div className=" lg:mt-0 mt-2 w-full flex flex-col items-start col-span-2">
+          <div className="w-full flex flex-col items-start col-span-2">
             <Head1 text={t("contact.question")} />
             <FormContainer server submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
           </div>

@@ -6,6 +6,8 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Spinner from "./Spinner";
+import { FaSpinner } from "react-icons/fa";
 
 export default function ComboboxForm({
   options,
@@ -13,17 +15,20 @@ export default function ComboboxForm({
   label,
   placeholder,
   onChange,
+  disabled,
 }: {
   options: any;
   name: string;
   label?: string;
   placeholder: any;
   onChange?: any;
+  disabled?: boolean;
 }) {
   const form = useFormContext();
   return (
     <>
       <FormField
+        disabled={disabled}
         control={form.control}
         name={name}
         render={({ field }) => (
@@ -39,7 +44,7 @@ export default function ComboboxForm({
                     className={cn("w-full  px-4  justify-between", !field.value && "text-muted-foreground")}
                   >
                     {field.value
-                      ? options.find((language: any) => language.value === field.value)?.label
+                      ? options?.find((language: any) => language.value === field.value)?.label
                       : placeholder || ""}
                     <CaretSortIcon className=" h-4 w-4 shrink-0 opacity-50" />
                   </Button>
@@ -49,29 +54,36 @@ export default function ComboboxForm({
                 <Command>
                   <CommandInput placeholder=" ابحث ..." className="h-9 " />
                   <CommandList>
-                    <CommandEmpty>لم يتم ايجاد نتائج</CommandEmpty>
-                    <CommandGroup>
-                      {options?.map((option: any) => (
-                        <CommandItem
-                          className=" justify-between"
-                          value={option.label}
-                          key={option.value}
-                          onSelect={() => {
-                            form.setValue(name, option.value);
-                            form.trigger(name);
-                            if (onChange) onChange(option.value);
-                          }}
-                        >
-                          {option.label}
-                          <CheckIcon
-                            className={cn(
-                              "mr-auto h-4 w-4",
-                              option.value === field.value ? "opacity-100" : "opacity-0"
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
+                    {disabled ? (
+                      <FaSpinner className="h-4 w-4 mx-auto animate-spin text-main" />
+                    ) : (
+                      <>
+                        <CommandEmpty>لم يتم ايجاد نتائج</CommandEmpty>
+
+                        <CommandGroup>
+                          {options?.map((option: any) => (
+                            <CommandItem
+                              className=" justify-between"
+                              value={option.label}
+                              key={option.value}
+                              onSelect={() => {
+                                form.setValue(name, option.value);
+                                form.trigger(name);
+                                if (onChange) onChange(option.value);
+                              }}
+                            >
+                              {option.label}
+                              <CheckIcon
+                                className={cn(
+                                  "mr-auto h-4 w-4",
+                                  option.value === field.value ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </>
+                    )}
                   </CommandList>
                 </Command>
               </PopoverContent>

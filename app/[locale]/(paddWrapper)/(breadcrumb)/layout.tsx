@@ -1,6 +1,4 @@
 import BreadCrumb from "@/app/components/BreadCrumb";
-import Footer from "@/app/components/Footer";
-import NavBar from "@/app/components/NavBar";
 import { unstable_setRequestLocale } from "next-intl/server";
 const locales = ["en", "ar"];
 export function generateStaticParams() {
@@ -15,10 +13,9 @@ export default async function RootLayout({
 }>) {
   unstable_setRequestLocale(locale);
   return (
-    <main>
-      <NavBar />
-      <section className=" pt-40"> {children}</section>
-      <Footer />
-    </main>
+    <section>
+      <BreadCrumb />
+      {children}
+    </section>
   );
 }

@@ -8,7 +8,7 @@ const PriceWithSale = ({
   discount,
   size = "lg",
 }: {
-  price: number;
+  price: number|string;
   discount?: number | null;
   size?: "lg" | "sm"|"xs";
 }) => {

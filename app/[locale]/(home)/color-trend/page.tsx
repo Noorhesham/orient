@@ -13,7 +13,8 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import SwiperCards from "@/app/components/SwiperCards";
 import { Server } from "@/app/main/Server";
 import { convertToHTML } from "@/lib/utils";
-const getGalleryClasses = (index) => {
+import MobileWrapper from "@/app/components/MobileWrapper";
+const getGalleryClasses = (index: number) => {
   switch (index) {
     case 0:
       return "col-span-6 lg:col-span-3 aspect-square order-1";
@@ -32,12 +33,12 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   // const t = useTranslations();
   const t = await getTranslations({ locale });
   const { page } = await Server({ resourceName: "colortrend", cache: Infinity });
-  console.log(page);
+  console.log(page.products);
   const contentHTML = convertToHTML(page.content);
   return (
     <main className=" pt-40 min-h-screen  ">
       <BreadCrumb />
-      <section className=" relative min-h-[70vh]">
+      <section className=" relative min-h-[47vh] lg:min-h-[70vh]">
         <div
           style={{
             backgroundSize: "cover",
@@ -51,7 +52,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
 
       <MaxWidthWrapper>
         <div className=" flex flex-col md:flex-row gap-5   justify-between items-start  ">
-          <div className=" flex text-amber-700 flex-col items-start">
+          <div style={{ color: page.page_color }} className=" flex  flex-col items-start">
             <p className=" text-xs font-medium">ABOUT COLOR</p>
             <h1 className=" text-3xl font-[600] uppercase max-w-[20rem] ">{page.title}</h1>
           </div>
@@ -68,7 +69,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
               btn={
                 <div className={`relative rounded-lg w-full h-full ${getGalleryClasses(index)}`}>
                   <Image
-                    className="rounded-lg w-full h-full absolute object-cover"
+                    className="rounded-lg cursor-pointer w-full h-full absolute object-cover"
                     fill
                     src={image.file}
                     alt={image.alt}
@@ -79,39 +80,56 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           ))}
         </div>
       </MaxWidthWrapper>
-      <div className="flex items-center">
-        <div className="  flex-1 lg:flex hidden lg:basis-[45%]   h-[435px] relative">
+      <div className="flex lg:max-w-[97%] xl:max-w-[91.5%] gap-4 items-center">
+        <div className="   flex-1 lg:flex hidden lg:basis-[40%]   h-[435px] relative">
           <Image src={"/chair.png"} alt="" fill className=" object-cover" />
         </div>
-        <MaxWidthWrapper className=" lg:basis-full   flex-1  ">
-          <div className=" flex items-center  gap-4  md:flex-row flex-col  ">
-            <Section link="/shop" className="mt-5 w-full " heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
-              <MaxWidthWrapper className=" grid grid-cols-3 gap-4 ">
-                {page.products.slice(0, 3).map((product, i) => {
-                  return (
-                    <Card
-                      key={product.id}
-                      id={product.id || ""}
-                      text={product.title}
-                      sell={product.sell_price ? product.regular_price : null}
-                      img={product.main_cover[0].sizes.medium || "/default-thumbnail.jpg"}
-                      price={product.price.toString()}
-                    />
-                  );
+        <MaxWidthWrapper className=" lg:max-w-full px-4 md:px-10 lg:px-0 max-w-[1330px] lg:basis-[60%]   flex-1  ">
+          <Section
+            link="/shop"
+            className="mt-5   flex items-center  gap-4  md:flex-row flex-col w-full "
+            heading="BEST SELLERS"
+            linkText="BROWSE ALL PRODUCTS"
+          >
+            <div noPadding className=" mt-2 hidden lg:grid grid-cols-3 gap-4 ">
+              {page.products.slice(0, 3).map((product, i) => {
+                return (
+                  <Card
+                    key={product.id}
+                    id={product.id || ""}
+                    text={product.title}
+                    sell={product.sell_price ? product.regular_price : null}
+                    img={product.main_cover[0].sizes.medium || "/default-thumbnail.jpg"}
+                    price={product.price.toString()}
+                  />
+                );
+              })}
+            </div>
+            <div className="   mt-4 lg:hidden">
+              <SwiperCards
+                autoplay
+                slidesPerView={2}
+                items={page.products.map((product: Product, index: number) => {
+                  return {
+                    card: (
+                      <Card
+                        key={product.id}
+                        id={product.id || ""}
+                        text={product.title}
+                        sell={product.sell_price ? product.regular_price : null}
+                        img={product.main_cover[0].sizes.medium || "/default-thumbnail.jpg"}
+                        price={product.price.toString()}
+                      />
+                    ),
+                  };
                 })}
-              </MaxWidthWrapper>
-            </Section>
-          </div>
+              />
+            </div>
+          </Section>
         </MaxWidthWrapper>
       </div>
       <MaxWidthWrapper className="  flex  gap-4  flex-col items-center justify-center">
-        <Heading
-          mainText="DISCOVER THE MOST IMPORTANT"
-          subText="ARTICLES ABOUT PAINTS"
-          paragraph=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit odio, similique adipisci iure tempora harum
-        voluptatum unde magni pariatur expedita ullam reprehenderit corporis! Alias beatae quasi dolore nulla officiis
-        rerum."
-        />
+        <Heading mainText={t("discover")} subText={t("discover2")} paragraph={""} />
         <div className=" mt-4 w-full  h-full ">
           <SwiperCards
             className=" w-full h-full"

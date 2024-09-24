@@ -64,21 +64,32 @@ const SingleVariant = ({
       };
     });
   };
-  const updateURL = () => {
-    syncUrls({ setVolumes, setColors, variations, filters });
-    const params = new URLSearchParams(window.location.search);
-    // Update the params with the current filters state
-    Object.entries(filters).forEach(([key, values]) => {
-      if (values.length > 0) {
-        params.set(key, values.join(",")); // Set the new values for each filter
-      } else {
-        params.delete(key); // Remove the filter if no values are selected
+  useEffect(() => {
+    if (ischild) {
+      syncUrls({ setVolumes, setColors, variations, filters });
+    }
+  }, [ischild, filters, variations]);
+  useEffect(() => {
+    const updateURL = () => {
+      const params = new URLSearchParams(window.location.search);
+      Object.entries(filters).forEach(([key, values]) => {
+        if (values.length > 0) {
+          params.set(key, values.join(","));
+        } else {
+          params.delete(key);
+        }
+        params.delete("child");
+      });
+
+      if (ischild) {
+        router.push(`/product/${parentId}?${params.toString()}`, { scroll: false });
+      } else if (filters["color"] && filters["volume"]) {
+        router.push(`?${params.toString()}`, { scroll: false });
       }
-      params.delete("child");
-    });
-    if (ischild) router.push(`/product/${parentId}?${params.toString()}`, { scroll: false });
-    if (filters["color"] && filters["volume"] && !ischild) router.push(`?${params.toString()}`, { scroll: false });
-  };
+    };
+
+    updateURL();
+  }, [filters, router, ischild, parentId]);
   const handleReset = (name: string) => {
     const params = new URLSearchParams(window.location.search);
 
@@ -101,14 +112,12 @@ const SingleVariant = ({
     if (ischild) return;
     if (params.get("color") && params.get("volume") && !ischild) setFilters(newFilters);
   }, []);
-  useEffect(() => {
-    if (ischild) return;
-    else updateURL();
-  }, [filters]);
+
   useEffect(() => {
     if (!ischild) return;
     syncUrls({ setVolumes, setColors, variations, filters });
   }, []);
+  console.log(filters);
   return (
     <div className="flex w-full px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
       <ul className="pb-3 w-full flex flex-col gap-2 border-b border-b-gray-400">
@@ -116,22 +125,20 @@ const SingleVariant = ({
           <div className="flex w-full items-center gap-2">
             {" "}
             <h2 className="text-base  mb-2">Colors</h2>
-            <div className=" grid grid-cols-5 items-center  w-full gap-2">
+            <div className=" grid grid-cols-5 items-center  w-full lg:gap-2">
               {colorOptions[0].options?.map((option: any, i: number) => (
                 <button
                   disabled={!colors.includes(option.id)}
                   key={i}
                   style={{ backgroundColor: `#${option.data}` }}
                   onClick={() => {
-                    if (!colors.includes(option.id)) return;
                     handleFilter(`${colorOptions[0].id}:${option.id}`, "color");
-                    if (ischild) updateURL();
                   }}
                   className={`cursor-pointer disabled:cursor-not-allowed disabled:opacity-50  border-2 border-input p-1 hover:opacity-90 duration-100 ${
                     filters?.["color"]?.includes(`${colorOptions[0].id}:${option.id}`)
                       ? "outline-2  outline outline-main"
                       : ""
-                  } shadow-sm w-3 h-3 aspect-square rounded-md lg:w-full lg:h-full`}
+                  } shadow-sm  aspect-square rounded-md max-h-7 max-w-7 w-full h-full`}
                 ></button>
               ))}
             </div>
@@ -145,7 +152,6 @@ const SingleVariant = ({
                 disabled={!volumes.includes(option.id)}
                 onClick={() => {
                   handleFilter(`${options[0].id}:${option.id}`, "volume");
-                  if (ischild) updateURL();
                 }}
                 key={i}
                 className={`w-8 disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${

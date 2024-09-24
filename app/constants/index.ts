@@ -1,35 +1,32 @@
 export const INSPIRED_LINKS = [
   {
-    text: "all",
-    href: "/get-inspired?category=all",
-  },
-  {
     text: "living room",
-    href: "/get-inspired?category=living-room",
+    href: "/get-inspired?category=3",
   },
   {
     text: "bedroom",
-    href: "/get-inspired?category=bedroom",
+    href: "/get-inspired?category=4",
   },
-  { text: "kitchen", href: "/get-inspired?category=kitchen" },
-  { text: "kids room", href: "/get-inspired?category=kids-room" },
+  { text: "kitchen", href: "/get-inspired?category=1" },
+  { text: "kids room", href: "/get-inspired?category=2" },
 ];
 export const PARTENER_LINKS = [
-  { text: "projectsproducts", href: "/become-parteners?category=all" },
-  { text: "export", href: "/become-parteners?category=projects" },
-  { text: "color center", href: "/become-parteners?category=color_center" },
-  { text: "local distributor", href: "/become-parteners?category=local_distributor" },
+  { text: "projectsproducts", href: "/become-parteners?category=project-quotations" },
+  { text: "export", href: "/become-parteners?category=export-projects" },
+  { text: "color center", href: "/become-parteners?category=coloring-centers" },
+  { text: "local distributor", href: "/become-parteners?category=local-distributors" },
 ];
 export const PRODUCTS_LINKS = [
   {
     text: "Interior",
-    href: "",
+    href: "/shop?category_id=4",
   },
   {
     text: "Exterior",
-    href: "",
+    href: "/shop?category_id=3",
   },
-  { text: "metal", href: "" },
-  { text: "wood", href: "" },
+  { text: "metal", href: "/shop?category_id=2" },
+  { text: "wood", href: "/shop?category_id=5" },
+  { text: "specialized", href: "/shop?category_id=6" },
 ];
 export const BASE_URL = "https://lab.r-m.dev/api";

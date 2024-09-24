@@ -11,7 +11,7 @@ const Download = () => {
   const { store_url } = generalSettings;
 
   return (
-    <div className="flex sm:flex-row flex-col lg:justify-normal justify-center items-center gap-3 mt-5">
+    <div className="flex  mt-2 lg:mt-10 sm:flex-row flex-col lg:justify-normal justify-center items-center gap-3">
       <Link target="_blank" href={`${store_url.play_store}`}>
         <Google />
       </Link>

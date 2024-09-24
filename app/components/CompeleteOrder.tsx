@@ -18,6 +18,9 @@ const CompeleteOrder = () => {
       try {
         const res = await Server({
           resourceName: "completeOrder",
+          body: {
+            callback: "http://localhost:3000/en/success",
+          },
         });
         if (res.status) {
           toast.success(res.message);

@@ -9,11 +9,23 @@ import ModalCustom from "./ModalCustom";
 import Link from "next/link";
 import { useCreateEntity } from "@/lib/queries";
 import { useAuth } from "../context/AuthContext";
+import { useRouter } from "next/navigation";
 
-const AddToWishlist = ({ className,id }: { className: string,id: string }) => {
+const AddToWishlist = ({
+  className,
+  id,
+  wishlistStatus,
+  noshare,
+}: {
+  className?: string;
+  id: any;
+  wishlistStatus: boolean;
+  noshare?: boolean;
+}) => {
   const { userSettings } = useAuth();
+  const router = useRouter();
   const [currentUrl, setCurrentUrl] = useState<string | null>(null);
-  const { mutate, isPending } = useCreateEntity("addWishlist", "wishlist",id);
+  const { mutate, isPending } = useCreateEntity("addWishlist", "wishlist", id);
   // Set the current URL only on the client side
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -47,11 +59,15 @@ const AddToWishlist = ({ className,id }: { className: string,id: string }) => {
       {userSettings ? (
         <Button
           disabled={isPending}
-          onClick={() => mutate({ action: "add" })}
+          onClick={() => {
+            wishlistStatus ? mutate({ action: "remove" }) : mutate({ action: "add" });
+            router.refresh();
+          }}
           variant={"link"}
           className="flex items-center gap-1"
         >
-          <Heart /> ADD TO WISHLIST
+          {!wishlistStatus ? <Heart /> : <Heart className="fill-red-500" />}
+          {!wishlistStatus ? "ADD TO WISHLIST" : "Remove from wishlist"}
         </Button>
       ) : (
         <ModalCustom
@@ -70,27 +86,29 @@ const AddToWishlist = ({ className,id }: { className: string,id: string }) => {
           }
         />
       )}
-      <div className="flex items-center gap-1 text-sm">
-        <p>SHARE PRODUCT :</p>
-        <FiCopy onClick={handleShare} className="cursor-pointer hover:text-blue-500" />
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaFacebook className="hover:text-blue-600" />
-        </a>
-        <a href={`https://twitter.com/intent/tweet?url=${currentUrl}`} target="_blank" rel="noopener noreferrer">
-          <FaXTwitter className="hover:text-blue-400" />
-        </a>
-        <a
-          href={`https://pinterest.com/pin/create/button/?url=${currentUrl}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaPinterest className="hover:text-red-500" />
-        </a>
-      </div>
+      {!noshare && (
+        <div className="flex items-center gap-1 text-sm">
+          <p>SHARE PRODUCT :</p>
+          <FiCopy onClick={handleShare} className="cursor-pointer hover:text-blue-500" />
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebook className="hover:text-blue-600" />
+          </a>
+          <a href={`https://twitter.com/intent/tweet?url=${currentUrl}`} target="_blank" rel="noopener noreferrer">
+            <FaXTwitter className="hover:text-blue-400" />
+          </a>
+          <a
+            href={`https://pinterest.com/pin/create/button/?url=${currentUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaPinterest className="hover:text-red-500" />
+          </a>
+        </div>
+      )}
     </div>
   );
 };

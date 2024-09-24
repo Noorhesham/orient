@@ -24,10 +24,22 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     body: { slugs: [category || "coloring-centers"] },
     cache: Infinity,
   });
-  console.log(forms[0].fields);
+  let countryAdded = false;
   const fields = forms[0].fields
     .map((field: any) => {
       if (field.type === "button") return;
+      if (field.key === "country_id" || field.key === "city_id") {
+        if (!countryAdded) {
+          countryAdded = true;
+          return {
+            country: true,
+            countryName: "country_id",
+            stateName: "state_id",
+          };
+        }
+        return;
+      }
+
       return {
         name: field.key,
         label: field.label,
@@ -39,9 +51,11 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       };
     })
     .filter((field: any) => field !== undefined);
+
+    console.log(fields,forms[0].fields)
   return (
     <main className="">
-      <section className=" relative min-h-[60vh]">
+      <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">
         <div
           style={{
             backgroundImage: `url('/partner.png')`,

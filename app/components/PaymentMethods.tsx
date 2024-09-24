@@ -13,7 +13,7 @@ const PaymentMethods = ({ methods }: any) => {
           id={item.id}
           key={item.id}
           logo={item.logo}
-          name={item.name}
+          name={item.title}
         />
       ))}
     </div>

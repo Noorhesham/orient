@@ -78,7 +78,7 @@ const CustomForm = ({
       <form className="flex w-full items-stretch gap-2" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-1 flex-col">
           {title && <Head1 className=" text-lg text-center" text={title} />}
-          <div className="flex pt-4 flex-col gap-2">
+          <div className="flex pt-4 flex-col gap-4">
             {inputs.map((input) =>
               input?.select ? (
                 <FormSelect placeholder={input.placeholder} key={input.name} {...input} />

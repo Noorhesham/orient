@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { FaHome } from "react-icons/fa";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-const BreadCrumb = () => {
+const BreadCrumb = ({ linksCustom }: { linksCustom: { href: string; text: string }[] }) => {
   const router = useRouter();
   const pathName = usePathname();
-  const links: any = pathName.split("/").filter((link) => !["ar", "en"].includes(link));
+  const links: any = linksCustom || pathName.split("/").filter((link) => !["ar", "en"].includes(link));
   console.log(links);
   return (
     <Breadcrumb className=" py-3  bg-gradient-to-r from-[#ff007b2f] via-white to-[#00a2ff3f]">
@@ -34,7 +34,7 @@ const BreadCrumb = () => {
                       } flex uppercase items-center gap-2`}
                       href={`/${link.href || link}`}
                     >
-                      {i === 0 && <FaHome />} {link === "" ? "Home" : link.replace("-", " ") || ""}
+                      {i === 0 && <FaHome />} {link.text?link.text : link === "" ? "Home" : link.replace("-", " ") || ""}
                     </BreadcrumbLink>
                   }
                 </BreadcrumbItem>

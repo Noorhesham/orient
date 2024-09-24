@@ -64,13 +64,8 @@ const productsData = [
 
 const page = async () => {
   const { orders } = await Server({ resourceName: "my_orders" });
-  const orderDetailed = await Promise.all(
-    orders.map(async (order: any) => {
-      const order_details = await Server({ resourceName: "my_order", id: order.id });
-      return order_details;
-    })
-  );
-  console.log(orderDetailed);
+
+  console.log(orders);
   return (
     <div>
       <Head1 text="MY ORDERS" className=" text-4xl font-bold" />

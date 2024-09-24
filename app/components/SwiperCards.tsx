@@ -13,6 +13,7 @@ import { Autoplay } from "swiper/modules"; // Correct import for Autoplay
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import ZoomImage from "./ZoomImage";
 import { IoOpenOutline } from "react-icons/io5";
+import Link from "next/link";
 
 const SwiperCards = ({
   items,
@@ -76,7 +77,7 @@ const SwiperCards = ({
           },
           580: { slidesPerView: md || mobile || slidesPerView || 2 },
           768: { slidesPerView: md || 2 },
-          900: { slidesPerView: slidesPerView || 3 },
+          900: { slidesPerView: md || slidesPerView || 3 },
           1280: { slidesPerView: slidesPerView || 3.4 },
         }}
         modules={[Autoplay]}
@@ -89,87 +90,94 @@ const SwiperCards = ({
         slidesPerView={slidesPerView || 3.4}
         className={`w-full h-full ${className || "h-96"} `}
       >
-        {items?.map(({ src, text, card }: { src: string; text: string; card: ReactNode }, i: number) => (
-          <SwiperSlide className={`w-full  ${rounded ? "rounded-2xl" : ""}`} key={i}>
-            {card ? (
-              card
-            ) : (
-              <>
-                {zoom ? (
-                  <ZoomImage
-                    className=" overflow-hidden lg:max-w-4xl"
-                    btn={
-                      <div className="cursor-pointer hover:opacity-90 duration-150">
-                        {" "}
-                        <Image
-                          fill
-                          loading="eager"
-                          src={src}
-                          alt="product image"
-                          className={` object-center h-full w-full  ${
-                            rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
-                          } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
-                        />
-                        <IoOpenOutline className=" w-6 h-6  absolute top-0 left-4" />
-                      </div>
-                    }
-                    content={
-                      <div className=" absolute left-1/2 w-[60%] -translate-x-1/2 inset-0">
-                        <TransformWrapper
-                          panning={{ disabled: false }} // Enables drag control
-                          zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
-                          doubleClick={{ disabled: false }}
-                          smooth
-                          initialScale={1}
-                          initialPositionX={0}
-                          initialPositionY={-70}
-                        >
-                          {({ zoomIn, zoomOut, ...rest }) => (
-                            <>
-                              <div className=" mt-14  mb-3">
-                                <Button variant="outline" size={"sm"} className=" mr-2" onClick={() => zoomIn()}>
-                                  <ZoomInIcon />
-                                </Button>
-                                <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
-                                  <ZoomOutIcon />
-                                </Button>
-                              </div>
-                              <TransformComponent
-                                contentStyle={{ width: "100%", height: "100%" }}
-                                wrapperStyle={{ width: "100%", height: "100%" }}
-                              >
-                                <img className=" object-contain" src={src} style={{ width: "100%" }} />
-                              </TransformComponent>
-                            </>
-                          )}
-                        </TransformWrapper>
-                      </div>
-                    }
-                  />
-                ) : (
-                  <Image
-                    fill
-                    loading="eager"
-                    src={src}
-                    alt="product image"
-                    className={` object-center h-full w-full  ${
-                      rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
-                    } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
-                  />
-                )}
+        {items?.map(
+          ({ src, text, card, link }: { src: string; text: string; card: ReactNode; link?: string }, i: number) => (
+            <SwiperSlide className={`w-full  ${rounded ? "rounded-2xl" : ""}`} key={i}>
+              {card ? (
+                card
+              ) : (
+                <>
+                  {zoom ? (
+                    <ZoomImage
+                      className=" overflow-hidden lg:max-w-4xl"
+                      btn={
+                        <div className="cursor-pointer hover:opacity-90 duration-150">
+                          {" "}
+                          <Image
+                            fill
+                            loading="eager"
+                            src={src}
+                            alt="product image"
+                            className={` object-center h-full w-full  ${
+                              rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
+                            } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
+                          />
+                          <IoOpenOutline className=" w-6 h-6  absolute top-0 left-4" />
+                        </div>
+                      }
+                      content={
+                        <div className=" absolute left-1/2 w-[60%] -translate-x-1/2 inset-0">
+                          <TransformWrapper
+                            panning={{ disabled: false }} // Enables drag control
+                            zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
+                            doubleClick={{ disabled: false }}
+                            smooth
+                            initialScale={1}
+                            initialPositionX={0}
+                            initialPositionY={-70}
+                          >
+                            {({ zoomIn, zoomOut, ...rest }) => (
+                              <>
+                                <div className=" mt-14  mb-3">
+                                  <Button variant="outline" size={"sm"} className=" mr-2" onClick={() => zoomIn()}>
+                                    <ZoomInIcon />
+                                  </Button>
+                                  <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
+                                    <ZoomOutIcon />
+                                  </Button>
+                                </div>
+                                <TransformComponent
+                                  contentStyle={{ width: "100%", height: "100%" }}
+                                  wrapperStyle={{ width: "100%", height: "100%" }}
+                                >
+                                  <img className=" object-contain" src={src} style={{ width: "100%" }} />
+                                </TransformComponent>
+                              </>
+                            )}
+                          </TransformWrapper>
+                        </div>
+                      }
+                    />
+                  ) : (
+                    <Image
+                      fill
+                      loading="eager"
+                      src={src}
+                      alt="product image"
+                      className={` object-center h-full w-full  ${
+                        rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
+                      } ${contain ? " object-contain" : "object-cover"}`}
+                    />
+                  )}
 
-                {text && (
-                  <h1 className="text-white text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
-                    {text}
-                  </h1>
-                )}
-                {text && (
-                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[95%] h-[97%] border-2 border-white"></div>
-                )}
-              </>
-            )}
-          </SwiperSlide>
-        ))}
+                  {text && (
+                    <h1 className="text-white uppercase text-4xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
+                      {text}
+                    </h1>
+                  )}
+                  {link ? (
+                    <Link
+                      href={link}
+                      className="absolute top-2 left-1/2 transform  block -translate-x-1/2 w-[95%] h-[97%] border-2 border-white"
+                    ></Link>
+                  ) : text ? (
+                    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[95%] h-[97%] border-2 border-white"></div>
+                  ) : null}
+                </>
+              )}
+            </SwiperSlide>
+          )
+        )}
       </Swiper>
       {btns && (
         <div

@@ -8,15 +8,13 @@ import PriceWithSale from "@/app/components/PriceWithSale";
 import Section from "@/app/components/Section";
 import Stars from "@/app/components/Stars";
 import SwiperCards from "@/app/components/SwiperCards";
-import { formatPrice } from "@/app/helpers/utils";
 import { Button } from "@/components/ui/button";
 import { BoxIcon, CreditCard, CreditCardIcon, DownloadIcon, Headphones } from "lucide-react";
-import React from "react";
+import React, { Suspense } from "react";
 import { CiCalculator2 } from "react-icons/ci";
 import { TbShoppingCartPlus, TbView360Arrow } from "react-icons/tb";
 import YoutubeThumbnail from "@/app/components/YoutubeThumbnail";
 import Reviews from "@/app/components/Reviews";
-import Comment from "@/app/components/Comment";
 import Feature from "@/app/components/Feature";
 import MotionContainer from "@/app/components/MotionContainer";
 import AddComment from "@/app/components/AddComment";
@@ -28,15 +26,15 @@ import { getTranslations } from "next-intl/server";
 import RightClickProvider from "@/app/context/RightClickDisable";
 import NotFound from "@/app/components/NotFound";
 import SingleVariant from "@/app/components/SingleVariant";
-import dynamic from "next/dynamic";
-const ReviewsSection = dynamic(() => import("../../../../components/ReviewsSection"), {
-  ssr: false,
-});
+import ReviewsSection from "@/app/components/ReviewsSection";
+import { processYoutubeUrl } from "@/lib/utils";
+import BreadCrumb from "@/app/components/BreadCrumb";
+
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const { product } = await Server({
     resourceName: "getProduct",
     id,
-    body: { with: "tags,upSells,crossSells" },
+    body: { with: "tags,upSells,crossSells,category_id" },
   });
   return {
     title: `${product.title} | PUTTY (ACRYLIC 1000) 233 WALL PAINTS | Your Store Name`,
@@ -86,10 +84,10 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
     resourceName: "getProduct",
     id,
     queryParams,
-    body: { with: "tags,upSells,crossSells" },
+    body: { with: "tags,upSells,crossSells,category_id" },
   });
   if (!product) return <NotFound />;
-  const ischild = child === "true";
+  const ischild = child === "true" || product.type === "variation";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -111,9 +109,28 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
     .map((img: any) => ({ src: img.thumbnail }))
     .concat(product.images.map((img: any) => ({ src: img.thumbnail })));
   const t = await getTranslations();
-  console.log(product);
+  queryParams.append("ids[]", product.id);
+  const { products: cartStatus } = await Server({ resourceName: "check", queryParams });
+  const upSells = product.upSells.length <= 0 ? product.crossSells : product.upSells;
+  console.log(cartStatus);
   return (
     <RightClickProvider>
+      <BreadCrumb
+        linksCustom={[
+          {
+            href: "",
+            text: "HOME",
+          },
+          {
+            href: "shop",
+            text: "SHOP",
+          },
+          {
+            href: `product/${product.id}`,
+            text: product.title,
+          },
+        ]}
+      />
       <section className=" h-full relative">
         <script
           type="application/ld+json"
@@ -139,7 +156,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               </div>
             </div>
             <div className=" fixed z-50  bottom-0 left-0 p-4 w-full flex items-center bg-white/90 justify-center  lg:hidden gap-3 mt-3">
-              <AddToCart max={product.quantity} id={product.id} />
+              <AddToCart cartStatus={cartStatus[`${product.id}`]} max={product.quantity} id={product.id} />
               <CustomButton
                 link="/checkout"
                 className=" w-full px-8 py-5"
@@ -168,32 +185,28 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 px-5">
                 <div className="lg:hidden border-b border-input gap-3 flex flex-col items-start  w-full ">
                   <div className=" lg:hidden flex w-full flex-col  gap-3 items-start ">
-                    {variations && variations.length > 0 && (
-                      <SingleVariant
-                        parentId={product.parent_id}
-                        childId={ischild ? product.id : ""}
-                        ischild={ischild}
-                        variations={variations}
-                        options={attributes.filter((item: any) => item.slug === "volume")}
-                        colorOptions={attributes.filter((item: any) => item.slug === "color")}
-                      />
-                    )}
+                    <Suspense>
+                      {" "}
+                      {variations && attributes.length > 0 && variations.length > 0 && (
+                        <SingleVariant
+                          parentId={product.parent_id}
+                          childId={ischild ? product.id : ""}
+                          ischild={ischild}
+                          variations={variations}
+                          options={attributes.filter((item: any) => item.slug === "volume")}
+                          colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                        />
+                      )}
+                    </Suspense>
                   </div>
                 </div>
-                {/* <Box
-                          single
-                          id={attribute.id}
-                          key={attribute.slug}
-                          filter={attribute.slug}
-                          color={attribute.slug === "color"}
-                          text={attribute.title}
-                          options={attribute.options}
-                        /> */}
+
                 <div
                   className="flex  text-sm  my-5  sticky top-0 z-20 xl:flex-nowrap 
                 flex-wrap  w-full lg:flex-row flex-col items-center gap-2"
                 >
                   <Calculate
+                    id={product.category_id}
                     btn={
                       <Button className=" capitalize  hover:bg-white gap-2 lg:w-fit w-full hover:text-main2 border border-main2  font-medium rounded-full flex  items-center  px-6  bg-main2">
                         <CiCalculator2 className=" w-5 h-5" />
@@ -202,10 +215,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     }
                   />
                   <div className="flex lg:w-auto w-full   items-center gap-2">
-                    <Button className="flex-1 md:flex-auto   rounded-full gap-2 py-4 border-black" variant="outline">
-                      <DownloadIcon className="w-4 h-4" />
-                      {t("downloadProduct")}
-                    </Button>
+                    {product.pdf && product.pdf.length > 0 && (
+                      <Button className="flex-1 md:flex-auto   rounded-full gap-2 py-4 border-black" variant="outline">
+                        <DownloadIcon className="w-4 h-4" />
+                        {t("downloadProduct")}
+                      </Button>
+                    )}
                     {product.image_360_panorama.length > 0 && (
                       <Button
                         className="flex-1 md:flex-auto text-xs rounded-full gap-2 py-4 border-black"
@@ -242,6 +257,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 </div>
               </div>
               <Paragraph className=" my-2" description={product.description || ""} />
+              <div className=" flex uppercase  text-sm  items-center gap-2">
+                <h3 className="text-main2 font-semibold">{t("category")} :</h3>
+                <h2 className=" py-2 px-4 rounded-full bg-white border border-input  font-semibold">
+                  {product.category.title}
+                </h2>
+              </div>
             </Section>
 
             <MaxWidthWrapper className=" col-span-7 mt-4 lg:mt-8 " noPaddingX={true}>
@@ -297,24 +318,26 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
 
                   <Feature />
                 </section>
-                <VideoZoom
-                  btn={
-                    <div>
-                      <YoutubeThumbnail url="https://youtu.be/QczGoCmX-pI?si=T_IxM6ylmXUq5kZf" />
-                    </div>
-                  }
-                  content={
-                    <div className="relative w-full h-auto overflow-hidden" style={{ paddingBottom: "56.25%" }}>
-                      <iframe
-                        className="absolute top-0 left-0 w-full h-full"
-                        src="https://www.youtube.com/embed/QczGoCmX-pI?si=agurhHubDIgVjErj"
-                        title="YouTube video player"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        frameBorder="0"
-                      ></iframe>
-                    </div>
-                  }
-                />
+                {product.videos && (
+                  <VideoZoom
+                    btn={
+                      <div>
+                        <YoutubeThumbnail url={product.videos} />
+                      </div>
+                    }
+                    content={
+                      <div className="relative w-full h-auto overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+                        <iframe
+                          className="absolute top-0 left-0 w-full h-full"
+                          src={processYoutubeUrl(product.videos).embedUrl}
+                          title="YouTube video player"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          frameBorder="0"
+                        ></iframe>
+                      </div>
+                    }
+                  />
+                )}
                 <Reviews
                   reviews_counts={reviews_counts}
                   review_count={product.review_count}
@@ -329,7 +352,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
           {/* sidebar */}
           <div className=" hidden lg:block lg:col-span-3 mt-8">
             <Container className=" py-12">
-              <div className=" flex flex-col items-start gap-2  border-b  border-input">
+              <div className=" flex flex-col items-start gap-2  pb-4 border-b  border-input">
                 <SwiperCards
                   zoom={true}
                   autoplay
@@ -373,16 +396,19 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 />
               </div>
               <div className=" w-full pb-5">
-                {variations && variations.length > 0 && (
-                  <SingleVariant
-                    parentId={product.parent_id}
-                    childId={ischild ? product.id : ""}
-                    ischild={ischild}
-                    variations={variations}
-                    options={attributes.filter((item: any) => item.slug === "volume")}
-                    colorOptions={attributes.filter((item: any) => item.slug === "color")}
-                  />
-                )}
+                <Suspense>
+                  {" "}
+                  {variations && attributes.length > 0 && variations.length > 0 && (
+                    <SingleVariant
+                      parentId={product.parent_id}
+                      childId={ischild ? product.id : ""}
+                      ischild={ischild}
+                      variations={variations}
+                      options={attributes.filter((item: any) => item.slug === "volume")}
+                      colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                    />
+                  )}
+                </Suspense>
                 <div className=" pb-5 border-b border-input">
                   <div className=" flex flex-col items-center justify-center  gap-2">
                     <div className=" flex items-center gap-2">
@@ -399,7 +425,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   </div>
                 </div>
                 <div className=" flex  flex-col gap-3 mt-3">
-                  <AddToCart cartId={product.in_cart_item_id} inCart={product.in_cart} cartCount={product.in_cart_count} max={product.quantity} id={product.id} />
+                  <AddToCart cartStatus={cartStatus[`${product.id}`]} max={product.quantity} id={product.id} />
+
                   <CustomButton
                     link="/checkout"
                     className=" px-8 py-4"
@@ -408,7 +435,11 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     text={t("buyNow")}
                   />
                 </div>
-                <AddToWishlist id={product.id} className=" my-3" />
+                <AddToWishlist
+                  wishlistStatus={cartStatus[`${product.id}`].favorite}
+                  id={product.id}
+                  className=" my-3"
+                />
               </div>
             </Container>
           </div>
@@ -416,7 +447,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
         <MaxWidthWrapper>
           <Section link="/shop" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
             <MotionContainer className=" hidden lg:grid  lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
-              {product.upSells?.map((item: any, i: number) => (
+              {upSells?.map((item: any, i: number) => (
                 <Card
                   key={item.id}
                   img={item.main_cover[0].thumbnail}
@@ -426,12 +457,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 />
               ))}
             </MotionContainer>
-            {product.upSells.length > 0 && (
+            {
               <div className=" mt-4 flex lg:hidden">
                 <SwiperCards
                   slidesPerView={2}
                   className=" w-full h-full"
-                  items={product.upSells?.map((item: any, i: number) => {
+                  items={upSells?.map((item: any, i: number) => {
                     return {
                       card: (
                         <Card
@@ -446,7 +477,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   })}
                 />
               </div>
-            )}
+            }
           </Section>
         </MaxWidthWrapper>
       </section>

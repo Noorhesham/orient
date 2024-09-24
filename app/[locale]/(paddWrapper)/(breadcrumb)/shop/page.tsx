@@ -27,9 +27,6 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     .concat(volume?.split(","))
     .filter((f: any) => f !== undefined);
   if (array) {
-    // Split the string by commas to get each key-value pair
-
-    // Construct attributes params for the query string
     array.forEach((element: any) => {
       console.log(array);
       const [key, value] = element?.split(":");
@@ -44,7 +41,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   });
 
   const { products, categories, attributes, tags, count } = data;
-  console.log(data);
+
   return (
     <MaxWidthWrapper className=" bg-gray-50">
       <section className=" min-h-screen  ">
@@ -70,7 +67,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                       )}
                     </p>
                   </div>
-                  <div className="flex items-center ml-auto ">
+                  <div className="flex items-center gap-4 ml-auto ">
                     <Sort
                       options={[
                         { label: "Price: Low to High", value: "price_lth" },

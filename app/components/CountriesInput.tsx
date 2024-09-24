@@ -5,6 +5,7 @@ import { Server } from "../main/Server";
 import FormSelect from "./FormSelect";
 import ComboboxForm from "./ComboboxForm";
 import { useFormContext } from "react-hook-form";
+import Spinner from "./Spinner";
 const useGetEntities = ({
   key,
   resourceName,
@@ -19,7 +20,7 @@ const useGetEntities = ({
   id?: string;
 }) => {
   const { data, isLoading } = useQuery({
-    queryKey: [key, queryParams],
+    queryKey: [key, queryParams, id],
     queryFn: async () => await Server({ resourceName: resourceName, id, cache: Infinity }),
     enabled: enable,
   });
@@ -45,15 +46,16 @@ const CountriesInput = ({ countryName, stateName }: { countryName: string; state
       {!isLoading && (
         <ComboboxForm
           name={countryName}
-          label=""
+          label="Country"
           placeholder="Select Country"
           options={countries?.data.map((country: any) => ({ label: country.title, value: country.id }))}
         />
       )}
       {selectedCountryCode && (
         <ComboboxForm
+          disabled={statesLoading}
           name={stateName}
-          label=""
+          label="State"
           placeholder="Select State"
           options={states?.data.map((country: any) => ({ label: country.title, value: country.id }))}
         />

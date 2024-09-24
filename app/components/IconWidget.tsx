@@ -1,14 +1,31 @@
 import React, { ReactNode } from "react";
 import Paragraph from "./Paragraph";
+import Link from "next/link";
 
-const IconWidget = ({ icon, header, paragraph }: { icon: ReactNode; header?: string; paragraph: string }) => {
+const IconWidget = ({
+  icon,
+  header,
+  paragraph,
+  link,
+}: {
+  icon: ReactNode;
+  header?: string;
+  paragraph: string;
+  link?: string;
+}) => {
   return (
-    <div  className=" flex my-2 gap-2 items-start">
+    <div className=" flex  gap-2 items-start">
       {icon}
       <div className=" max-w-[15rem] flex flex-col ">
         {header && <h2 className=" text-main2 font-semibold">{header}</h2>}
 
-        <Paragraph size="sm" description={paragraph} />
+        {link ? (
+          <Link className={` text-black text-sm lg:max-w-2xl font-medium my-2 leading-[1.7] `} href={link}>
+            {paragraph}
+          </Link>
+        ) : (
+          <Paragraph size="sm" description={paragraph} />
+        )}
       </div>
     </div>
   );

@@ -58,7 +58,10 @@ export type ResourceNameProps =
   | "getWishlist"
   | "addWishlist"
   | "colortrend"
-  | "branches";
+  | "branches"
+  | "check"
+  | "wishlist"
+  | "calculate"|'getinspired';
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -123,6 +126,8 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/rm_ecommarce/${VERSION}/products?${queryParams}`, method: "GET" };
     case "getSingleEntity":
       return { url: `${url}/${entityName}/entities-operations/${id}`, method: "GET" };
+    case "getinspired":
+      return { url: `${url}/${entityName}/entities-operations?${queryParams}`, method: "GET" };
     case "addToCart":
       return { url: `${url}/rm_ecommarce/${VERSION}/cart/add_to_cart`, method: "POST" };
     case "getActiveCart":
@@ -165,6 +170,12 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/rm_page/${VERSION}/show?with=blogs&slug=color-trend` };
     case "branches":
       return { url: `${url}/rm_ecommarce/v1/stores` };
+    case "check":
+      return { url: `${url}/rm_ecommarce/${VERSION}/products/check?${queryParams}`, method: "GET" };
+    case "wishlist":
+      return { url: `${url}/ec-products/entities-operations/bookmarks/list` };
+    case "calculate":
+      return { url: `${url}/rm_ecommarce/${VERSION}/product-calculator` };
     default:
       return { url, method: "GET" as MethodProps };
   }
@@ -224,10 +235,13 @@ export async function Server({
       method: method || resolvedMethod,
       headers: combinedHeaders,
       body: requestBody,
-      next: { revalidate: cache ? cache : 0 },
+      next: {
+        revalidate: cache ? cache : 0,
+        tags: cache ? [`${resourceName}`] : [],
+      },
     });
     if (!response.ok) throw new Error(`Error: ${response.status}`);
-
+    console.log(requestBody);
     const data = await response.json();
     // console.log(data);
 

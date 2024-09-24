@@ -36,9 +36,9 @@ const SearchBox = ({
   const searchParams = new URLSearchParams();
   const { data, isLoading } = useGetEntity(
     "getProducts",
-    query ? `search=${query}` : "",
+    `search=${query}`,
     "",
-    { enabled: !!query },
+    { enabled: query.length > 4 },
     `search=${query}`
   );
   console.log(data);
@@ -101,12 +101,13 @@ const SearchBox = ({
   }, [active]);
   const locale = pathname?.split("/")[1];
   const router = useRouter();
-  const [resultActive, setResultActive] = useState(true);
+  const [resultActive, setResultActive] = useState(false);
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && data) {
       data.products.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
     }
   };
+  console.log(data, query);
   return (
     <div
       ref={containerRef}
@@ -134,8 +135,8 @@ const SearchBox = ({
             exit={{ opacity: 0, height: 0 }}
             className=" flex items-start w-[340px] xl:w-full bg-white absolute gap-2 top-full py-4 px-2 rounded-md  max-h-[14rem] overflow-y-scroll flex-col left-0"
           >
-            {data.products.length > 1 ? (
-              data.products.map((item: any) => (
+            {(data && data.products?.length > 0) || query.length > 4 ? (
+              data?.products.map((item: any) => (
                 <Link
                   key={item.id}
                   href={`/product/${item.id}`}
@@ -159,9 +160,9 @@ const SearchBox = ({
             )}
             <Link
               className=" text-main duration-150 hover:underline"
-              href={data.products.length > 1 ? `/shop?search=${query}` : "/shop"}
+              href={data.products?.length > 1 ? `/shop?search=${query}` : "/shop"}
             >
-              {`${data.products.length > 1 ? `Browse All Products For ${query}` : "View All Products"}`}
+              {`${data.products?.length > 1 ? `Browse All Products For ${query}` : "View All Products"}`}
             </Link>
           </MotionItem>
         )}
@@ -172,7 +173,7 @@ const SearchBox = ({
           value={val}
           onChange={handleSearchChange}
           placeholder={t("search")}
-          className="bg-transparent  outline-none placeholder:text-black  py-3 px-6  w-full"
+          className="bg-transparent  border-2 rounded-full border-input outline-none placeholder:text-black  py-3 px-6  w-full"
         />
       ) : (
         <input
@@ -212,7 +213,7 @@ const SearchBox = ({
           if (setIsActive) {
             setResultActive(!resultActive);
             setIsActive(!active);
-            data && data?.products.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
+            data && data?.products?.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
           }
         }}
         className={`${icon === "white" ? " rounded-full bg-main2" : ""} ${

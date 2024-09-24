@@ -43,24 +43,25 @@ const useGetEntity = (
 const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string, id?: string) => {
   const router = useRouter();
   const QueryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, data } = useMutation({
     mutationKey: [resourceName],
     mutationFn: async (body: any) => {
-      return await Server({
+      const res = await Server({
         resourceName: resourceName,
         body: body,
         id,
       });
+      console.log(res);
+      return res;
     },
     onSuccess: (data) => {
-      console.log("success", data);
       router.refresh();
       QueryClient.invalidateQueries({ queryKey: [queryKey] });
       if (data.status) toast.success(data.message);
     },
   });
 
-  return { mutate, isPending };
+  return { mutate, isPending, data };
 };
 
 export { useGetGeneralSettings, useGetEntity, useCreateEntity };

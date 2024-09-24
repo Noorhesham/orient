@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { CreditCard } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import NotFound from "../../not-found";
+import NotFound from "../../../not-found";
 import CoponApply from "@/app/components/CoponApply";
 import CartItems from "@/app/components/CartItems";
 

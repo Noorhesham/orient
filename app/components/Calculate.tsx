@@ -5,8 +5,29 @@ import Image from "next/image";
 import React from "react";
 import { CiCalculator2 } from "react-icons/ci";
 import ModalCustom from "./ModalCustom";
+import { useGetEntity } from "@/lib/queries";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectLabel,
+  SelectGroup,
+} from "@/components/ui/select";
+import Spinner from "./Spinner";
+import { useLocale } from "next-intl";
 
-const Calculate = ({ btn }: { btn?: React.ReactNode }) => {
+const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
+  const { data, isLoading } = useGetEntity("calculate");
+  const locale = useLocale();
+  const [input, setInput] = React.useState(0);
+  const [result, setResult] = React.useState(0);
+  const [selected, setSelected] = React.useState<any>(id || null);
+  if (isLoading) return <Spinner />;
+  const categories = data?.data.map((d: any) => d.category);
+  const selectedUnit = data?.data.find((item: any) => item.category.id === selected);
+  console.log(selectedUnit);
   return (
     <ModalCustom
       title="CALCULATE THE QUANTITY"
@@ -24,19 +45,43 @@ const Calculate = ({ btn }: { btn?: React.ReactNode }) => {
           </div>
         )
       }
-      desc="THE NUMBER OF PAINT SHEET USERD IS"
-      span={"15 SHEETS"}
+      desc={result ? `THE NUMBER OF PAINT ${selectedUnit.unit[locale]} USERD IS` : ""}
+      span={result ? `${result} ${selectedUnit.unit[locale]}` : ""}
       functionalbtn={
-        <Button className=" hover:bg-white hover:text-main2 border border-main2 text-xs font-medium rounded-full flex  items-center gap-2 px-6  bg-main2">
+        <Button
+          onClick={() => setResult(input / selectedUnit.space)}
+          disabled={!selectedUnit}
+          className=" hover:bg-white hover:text-main2 border border-main2 text-xs font-medium rounded-full flex  items-center gap-2 px-6  bg-main2"
+        >
           <CiCalculator2 />
           CALCULATE
         </Button>
       }
       content={
         <div>
-          <div className=" flex-col flex py-5 px-20  mt-5">
-          <Input placeholder="NUMBER OF METERS" className=" outline-gray-900 placeholder:text-gray-900" />
-        </div>
+          <div className=" flex-col gap-4 flex lg:py-5 px-5  lg:px-20  mt-5">
+            <Input
+              value={input}
+              onChange={(e: any) => setInput(e.target.value)}
+              placeholder="NUMBER OF METERS"
+              className=" outline-gray-900 placeholder:text-gray-900"
+            />
+            <Select value={selected} onValueChange={(val: any) => setSelected(val)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Category</SelectLabel>
+                  {categories?.map((c: any, i: number) => (
+                    <SelectItem key={i} value={c.id}>
+                      {c.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       }
     />

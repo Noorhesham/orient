@@ -7,11 +7,16 @@ import "swiper/css";
 interface TabingProps {
   defaultValue: string;
   options: { label: string; content: ReactNode; href: string }[];
+  categories: any[];
 }
 import type SwiperType from "swiper";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useLocale } from "next-intl";
+import { cn } from "@/lib/utils";
+import ImageGrid from "./ImageGrid";
+import { Autoplay } from "swiper/modules";
 
-const Tabing = ({ defaultValue, options }: TabingProps) => {
+const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
   const searchParams = useSearchParams();
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -21,30 +26,43 @@ const Tabing = ({ defaultValue, options }: TabingProps) => {
   const [currentPath, setCurrentPath] = useState("");
   useEffect(() => {
     if (category && window.location.search.includes(category)) setCurrentPath(category);
-    else setCurrentPath(defaultValue);
+    else {
+      setCurrentPath(defaultValue);
+      router.push(`${window.location.pathname}?category=${defaultValue}`, { scroll: false });
+    }
   }, [category, defaultValue]);
   const handleClick = (href: string) => {
     console.log(href, currentPath);
     router.push(`${window.location.pathname}?category=${href}`, { scroll: false });
     setCurrentPath(href);
   };
-  console.log(activeIndex);
+  const locale = useLocale();
+  const isSlide = categories.length > 5;
   return (
-    <div className="w-full mt-10">
-      <div className="flex   items-center gap-3">
-        <button
-          disabled={activeIndex === 0}
-          className={` ${
-            activeIndex === 0 && " opacity-50"
-          } p-1 rounded-full bg-gray-200  text-xs hover:bg-gray-300  duration-150`}
-          onClick={() => swiper?.slidePrev()}
-        >
-          <ArrowLeft />
-        </button>
+    <div className="w-full ">
+      <div
+        className={cn(
+          "flex items-center gap-2 justify-between w-full",
+          locale === "ar" ? "flex-row-reverse" : "flex-row"
+        )}
+      >
+        {isSlide && (
+          <button
+            disabled={activeIndex === 0}
+            className={` ${
+              activeIndex === 0 && " opacity-50"
+            } p-1 rounded-full bg-gray-200  text-xs hover:bg-gray-300  duration-150`}
+            onClick={() => swiper?.slidePrev()}
+          >
+            <ArrowLeft />
+          </button>
+        )}
         <Swiper
+          modules={[Autoplay]}
+          autoplay={{ delay: 2000 }}
           breakpoints={{
-            0: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
+            0: { slidesPerView: 1.3 },
+            768: { slidesPerView: 3 },
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 5 },
             1536: { slidesPerView: 5 },
@@ -55,29 +73,31 @@ const Tabing = ({ defaultValue, options }: TabingProps) => {
           slidesPerView={5}
           className=" w-full flex items-center"
         >
-          {options.map((option, i) => (
+          {categories.map((option, i) => (
             <SwiperSlide key={i}>
               <Button
-                onClick={() => handleClick(option.href)}
+                onClick={() => handleClick(option.id)}
                 className={` ${
-                  currentPath === option.href ? " text-white bg-main" : "bg-gray-200 text-gray-900"
+                  currentPath === option.id.toString() ? " text-white bg-main" : "bg-gray-200 text-gray-900"
                 } rounded-full h-[40px] py-4 px-12 w-[200px] hover:bg-main hover:text-white  capitalize `}
               >
-                <div>{option.label}</div>
+                <div>{option.title}</div>
               </Button>
             </SwiperSlide>
           ))}
         </Swiper>
-        <button
-          disabled={activeIndex === options.length - 1}
-          className=" p-1 rounded-full bg-gray-200  text-xs hover:bg-gray-300  duration-150"
-          onClick={() => swiper?.slideNext()}
-        >
-          <ArrowRight />
-        </button>
+        {isSlide && (
+          <button
+            disabled={activeIndex === options.length - 1}
+            className=" p-1 rounded-full bg-gray-200  text-xs hover:bg-gray-300  duration-150"
+            onClick={() => swiper?.slideNext()}
+          >
+            <ArrowRight />
+          </button>
+        )}
       </div>
 
-      {options.find((option) => option.href === currentPath)?.content}
+      <ImageGrid images={options} />
     </div>
   );
 };

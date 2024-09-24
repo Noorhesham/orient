@@ -7,19 +7,18 @@ import SearchBox from "./SearchBox";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { INSPIRED_LINKS, PARTENER_LINKS, PRODUCTS_LINKS } from "../constants";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import BurgerMenu from "./BurgerMenu";
 import Link from "next/link";
 import { LogOutIcon } from "lucide-react";
 import { Server } from "../main/Server";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
-import ModalCustom from "./ModalCustom";
 import AppDownload from "./AppDownload";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Language from "./Language";
 import PhoneNav from "./PhoneNav";
 import { useTranslations } from "next-intl";
 import { Skeleton } from "@/components/ui/skeleton";
+import CartCount from "./CartCount";
 
 const NavBar = () => {
   const t = useTranslations();
@@ -66,7 +65,7 @@ const NavBar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isTopPage, setIsTopPage] = useState(true);
   const pathName = usePathname();
-  const { userSettings, handleLogout, user2Settings, loading } = useAuth();
+  const { userSettings, handleLogout, loading } = useAuth();
   const user = userSettings;
 
   useEffect(() => {
@@ -138,14 +137,7 @@ const NavBar = () => {
                     </Link>
                   )}
                   <Link className=" relative" href={"/cart"}>
-                    {user2Settings?.cart_count > 0 && (
-                      <span
-                        className=" text-[10px] w-3 flex items-center justify-center h-3 rounded-full bg-main text-white
-                     absolute top-0 -right-1  "
-                      >
-                        {user2Settings?.cart_count > 0 ? <span>{user2Settings.cart_count}</span> : null}
-                      </span>
-                    )}
+                    <CartCount />
                     <PersonIcon home={isHome} />
                   </Link>
                   <div className=" h-full w-full lg:hidden block">
@@ -159,7 +151,7 @@ const NavBar = () => {
                         <LogOutIcon
                           onClick={async () => {
                             const res = await Server({ resourceName: "logout" });
-                            if (res.status) {
+                            if (res?.status) {
                               toast.success(res.message);
                               handleLogout();
                               router.refresh();
