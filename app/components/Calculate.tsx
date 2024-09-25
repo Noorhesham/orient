@@ -25,8 +25,8 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   const [result, setResult] = React.useState(0);
   const [selected, setSelected] = React.useState<any>(id || null);
   if (isLoading) return <Spinner />;
-  const categories = data?.data.map((d: any) => d.category);
-  const selectedUnit = data?.data.find((item: any) => item.category.id === selected);
+  const categories = data?.data?.map((d: any) => d.category);
+  const selectedUnit = data?.data?.find((item: any) => item.category.id === selected);
   console.log(selectedUnit);
   return (
     <ModalCustom

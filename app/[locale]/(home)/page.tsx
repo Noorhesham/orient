@@ -90,7 +90,7 @@ export default async function Home() {
         <SwiperCards
           mobile={1.3}
           className="aspect-square "
-          items={products_categories.map((item: any, index: number) => {
+          items={products_categories?.map((item: any, index: number) => {
             return {
               src: item.image?.[0]?.file,
               text: item.title,

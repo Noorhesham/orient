@@ -61,7 +61,7 @@ const Devices = () => {
                           {val.device_type === "mobile" && <Laptop className=" text-main w-8 h-8" />}
                           <h1 className=" font-semibold text-sm text-gray-900">{val?.device_type}</h1>
                           {val.unique_id === deviceInfo.device_unique_id && (
-                            <p className=" rounded-2xl text-[10px] p-1 uppercase border border-gray-100 font-semibold">
+                            <p className=" rounded-2xl text-[10px]  py-2 px-4 uppercase border border-gray-100 font-semibold">
                               This device
                             </p>
                           )}
@@ -69,7 +69,7 @@ const Devices = () => {
                         <div className=" flex sm:flex-row flex-col items-start gap-2">
                           {val && (
                             <span className="  text-xs text-muted-foreground">
-                              Logged At {format(val?.created_at, "dd/MM/yyyy")}
+                              Logged At {val.created_at && format(new Date(val.created_at), "dd MMM yyyy")}
                             </span>
                           )}
 
