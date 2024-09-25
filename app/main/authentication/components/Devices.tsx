@@ -67,9 +67,11 @@ const Devices = () => {
                           )}
                         </div>
                         <div className=" flex sm:flex-row flex-col items-start gap-2">
-                          <span className="  text-xs text-muted-foreground">
-                            Logged At {format(val?.created_at, "dd/MM/yyyy")}
-                          </span>
+                          {val && (
+                            <span className="  text-xs text-muted-foreground">
+                              Logged At {format(val?.created_at, "dd/MM/yyyy")}
+                            </span>
+                          )}
 
                           <div className=" text-xs text-muted-foreground max-w-sm flex  items-center gap-2">
                             <p>{val.os}</p> <p>{val.version}</p>
