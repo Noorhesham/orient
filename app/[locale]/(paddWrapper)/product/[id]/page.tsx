@@ -29,6 +29,7 @@ import SingleVariant from "@/app/components/SingleVariant";
 import ReviewsSection from "@/app/components/ReviewsSection";
 import { processYoutubeUrl } from "@/lib/utils";
 import BreadCrumb from "@/app/components/BreadCrumb";
+import Link from "next/link";
 
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const { product } = await Server({
@@ -259,9 +260,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <Paragraph className=" my-2" description={product.description || ""} />
               <div className=" flex uppercase  text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">{t("category")} :</h3>
-                <h2 className=" py-2 px-4 rounded-full bg-white border border-input  font-semibold">
+                <Link
+                  href={`/shop/category_id=${product.category_id}`}
+                  className=" py-2 px-4 rounded-full bg-white border border-input  font-semibold"
+                >
                   {product.category.title}
-                </h2>
+                </Link>
               </div>
             </Section>
 
