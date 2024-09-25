@@ -1,4 +1,5 @@
 import Head1 from "@/app/components/Head1";
+import NotFound from "@/app/components/NotFound";
 import Paragraph from "@/app/components/Paragraph";
 import { TableDemo } from "@/app/components/TableComponent";
 import { Server } from "@/app/main/Server";
@@ -70,11 +71,12 @@ const page = async () => {
     <div>
       <Head1 text="MY ORDERS" className=" text-4xl font-bold" />
 
-      <Paragraph
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, molestiae officia et numquam amet odit nemo
-        in sunt quisquam molestias eos pariatur aut magnam atque cum magni fugiat vitae architecto."
-      />
-      <TableDemo data={orders} />
+      <Paragraph description="Here You Can See All Your Orders." />
+      {orders.length === 0 ? (
+        <NotFound message={"You have not made any orders yet !"} link="/shop" linkText="Go Shop Now" />
+      ) : (
+        <TableDemo data={orders} />
+      )}
     </div>
   );
 };

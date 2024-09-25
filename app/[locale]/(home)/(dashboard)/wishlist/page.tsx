@@ -1,11 +1,14 @@
 import CartItem from "@/app/components/CartItem";
 import Head1 from "@/app/components/Head1";
+import NotFound from "@/app/components/NotFound";
 import { Server } from "@/app/main/Server";
+import { getTranslations } from "next-intl/server";
 import React from "react";
 
 const page = async () => {
   const { data } = await Server({ resourceName: "wishlist" });
   console.log(data[0]);
+  const t = await getTranslations();
   return (
     <div>
       <Head1 text="MY WISHLIST" className=" text-4xl font-bold" />
@@ -14,6 +17,7 @@ const page = async () => {
         in sunt quisquam molestias eos pariatur aut magnam atque cum magni fugiat vitae architecto.
       </p> */}
       <div className="flex flex-col gap-8 mt-10">
+        {data.length === 0 && <NotFound message={'Your wishlist is empty'} />}
         {data.map((item: any) => (
           <CartItem
             wishlist

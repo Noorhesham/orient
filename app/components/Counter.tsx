@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { useCreateEntity } from "@/lib/queries";
 import React from "react";
 import debounce from "lodash.debounce";
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 const Counter = ({
   value,

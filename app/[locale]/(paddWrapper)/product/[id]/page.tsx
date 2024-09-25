@@ -265,7 +265,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               </div>
             </Section>
 
-            <MaxWidthWrapper className=" col-span-7 mt-4 lg:mt-8 " noPaddingX={true}>
+            <MaxWidthWrapper className=" col-span-7  " noPadding noPaddingX={true}>
               <Section
                 CustomePadding=" px-0 py-5"
                 heading={t("similarProducts")}
@@ -275,11 +275,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               >
                 {product.crossSells?.length > 0 && (
                   <>
-                    <div className=" mt-4 flex lg:hidden">
+                    <div className=" mt-4 flex ">
                       {" "}
                       <SwiperCards
+                        autoplay
                         zoom={true}
-                        slidesPerView={2}
+                        slidesPerView={3}
                         className=" w-full h-full"
                         items={product.crossSells?.map((item: any) => ({
                           card: (
@@ -294,17 +295,6 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                         }))}
                       />
                     </div>
-                    <MotionContainer className="lg:grid justify-items-center   hidden  lg:grid-cols-3 items-center gap-5 lg:gap-8 mt-5 lg:mt-10 justify-center">
-                      {product.crossSells?.map((item: any) => (
-                        <Card
-                          key={item.id}
-                          img={item.main_cover[0].thumbnail}
-                          text={item.title}
-                          price={item.sell_price}
-                          id={item.id}
-                        />
-                      ))}
-                    </MotionContainer>
                   </>
                 )}
                 <div className="flex  my-3 lg:my-10 z-[50] w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
@@ -460,6 +450,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
             {
               <div className=" mt-4 flex lg:hidden">
                 <SwiperCards
+                  autoplay
                   slidesPerView={2}
                   className=" w-full h-full"
                   items={upSells?.map((item: any, i: number) => {

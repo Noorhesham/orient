@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import Spinner from "./Spinner";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 const CompeleteOrder = () => {
   const [isPending, startTransition] = useTransition();
+  const { generalSettings, setCartCount } = useAuth();
   const [success, setSuccess] = useState(false);
   const router = useRouter();
   const completeOrder = () => {
@@ -24,6 +26,7 @@ const CompeleteOrder = () => {
         });
         if (res.status) {
           toast.success(res.message);
+          setCartCount(0);
           router.push("/success");
         } else {
           toast.error(res.message);
@@ -37,7 +40,7 @@ const CompeleteOrder = () => {
     <div className="flex w-fit pt-5  mx-auto mt-3 flex-col">
       <Button
         onClick={completeOrder}
-        className="flex rounded-full min-w-[150px] py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2"
+        className="flex rounded-full min-w-[150px] py-6 px-10 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2"
       >
         {isPending ? (
           <Spinner />

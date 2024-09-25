@@ -14,6 +14,7 @@ import React from "react";
 import NotFound from "../../../not-found";
 import CoponApply from "@/app/components/CoponApply";
 import CartItems from "@/app/components/CartItems";
+import Proceed from "@/app/components/Proceed";
 
 const page = async () => {
   const queryParams = new URLSearchParams();
@@ -80,12 +81,7 @@ const page = async () => {
                     <p>{totalPrice}</p>
                   </div>
                   <div className="flex w-fit pt-5 mx-auto mt-3 flex-col">
-                    <Button className="lg:flex hidden rounded-full py-6 px-2 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
-                      <Link href="/checkout" className="flex gap-2 items-center">
-                        <CreditCard />
-                        PROCEED TO CHECKOUT
-                      </Link>
-                    </Button>
+                  <Proceed/>
                   </div>
                 </div>
               </Container>

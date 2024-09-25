@@ -36,12 +36,13 @@ const page = async () => {
             <Container className=" py-8 flex flex-col gap-5">
               {cart.items.map((item: any) => (
                 <CartItem
+                  productId={item.id}
                   nocheck
                   key={item.id}
                   img={item.image[0].sizes.large}
                   price={item.price_after_discount}
                   discount={item.price}
-                  name={item.name}
+                  text={item.title}
                   quantity={item.quantity}
                 />
               ))}
@@ -65,7 +66,7 @@ const page = async () => {
                   <h2 className="text-main2 font-medium ">TOTAL PRICE</h2>
                   <PriceWithSale size="sm" price={cart.total} />
                 </div>
-               <CompeleteOrder/>
+                <CompeleteOrder />
               </div>
             </Container>
           </div>

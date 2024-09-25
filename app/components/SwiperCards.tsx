@@ -98,8 +98,8 @@ const SwiperCards = ({
               ) : (
                 <>
                   {zoom ? (
-                    <ZoomImage
-                      className=" overflow-hidden lg:max-w-4xl"
+                    <ZoomImage src=""
+                      className=" overflow-hidden max-h-[50rem] lg:max-w-4xl"
                       btn={
                         <div className="cursor-pointer hover:opacity-90 duration-150">
                           {" "}
@@ -116,7 +116,7 @@ const SwiperCards = ({
                         </div>
                       }
                       content={
-                        <div className=" absolute left-1/2 w-[60%] -translate-x-1/2 inset-0">
+                        <div className=" absolute left-1/2 w-full lg:w-[60%] -translate-x-1/2 inset-0">
                           <TransformWrapper
                             panning={{ disabled: false }} // Enables drag control
                             zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls

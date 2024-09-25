@@ -1,3 +1,4 @@
+import { useAuth } from "@/app/context/AuthContext";
 import { ResourceNameProps, Server } from "@/app/main/Server";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import cookies from "js-cookie";
@@ -42,6 +43,7 @@ const useGetEntity = (
 };
 const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string, id?: string) => {
   const router = useRouter();
+  const { setCartCount } = useAuth();
   const QueryClient = useQueryClient();
   const { mutate, isPending, data } = useMutation({
     mutationKey: [resourceName],
@@ -58,6 +60,9 @@ const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string, id?:
       router.refresh();
       QueryClient.invalidateQueries({ queryKey: [queryKey] });
       if (data.status) toast.success(data.message);
+      if (data?.cartCount) setCartCount(data.cartCount);
+
+      return data;
     },
   });
 

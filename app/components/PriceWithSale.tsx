@@ -18,14 +18,14 @@ const PriceWithSale = ({
   console.log(default_currency);
   return (
     <div>
-      <div className="  flex items-center">
+      <div className="  flex flex-wrap gap-3 items-center">
         <bdi
           className={`${size === "sm" ? "text-base text-black":size==='xs'?"text-xs text-black" : "text-3xl md:text-2xl text-main2 font-semibold"}   `}
         >
           {price} {default_currency?.code}
         </bdi>
         {discount && (
-          <del className={` mt-5 mx-3  ${size==='xs'?"text-xs":"text-sm md:text-base"}  font-medium text-muted-foreground `}>
+          <del className={`  ${size==='xs'?"text-xs":"text-sm md:text-base"}  font-medium text-muted-foreground `}>
             {discount} {default_currency?.code}
           </del>
         )}{" "}

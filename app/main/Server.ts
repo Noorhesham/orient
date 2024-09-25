@@ -243,7 +243,7 @@ export async function Server({
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     console.log(requestBody);
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
 
     if (data.message === "Device token mismatch" || data.message === "Login again please") {
       redirect("/login?error=true");

@@ -33,7 +33,7 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   const isAuthRoute = authRoutes.includes(url);
 
   if (token === "undefined") cookies().delete("jwt");
-
+  console.log("token", cookies().get("jwt")?.value);
   // Redirect to login if token is missing for protected routes
   if ((!token || token === "undefined") && isProtectedRoute) {
     const redirectPath = req.nextUrl.pathname.replace(`/${lang}`, "");

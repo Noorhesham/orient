@@ -2,19 +2,16 @@
 import React from "react";
 import CustomButton from "./CustomButton";
 import { BsHandbag } from "react-icons/bs";
-import { useCreateEntity, useGetEntity } from "@/lib/queries";
+import { useCreateEntity } from "@/lib/queries";
 import Counter from "./Counter";
-import Spinner from "./Spinner";
 import { useTranslations } from "next-intl";
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 const AddToCart = ({
   id,
   max,
-  cartCount,
-  inCart,
-  cartId,
+
   cartStatus,
 }: {
   id: number;
@@ -24,10 +21,11 @@ const AddToCart = ({
   cartId?: any;
   cartStatus?: any;
 }) => {
-  const { mutate, isPending } = useCreateEntity("addToCart", "cart");
+  const { mutate, isPending, data } = useCreateEntity("addToCart", "cart");
+  const { cartCount, setCartCount } = useAuth();
   const t = useTranslations();
   const router = useRouter();
-  return cartStatus?.in_cart&&cartStatus?.in_cart_count!==0 ? (
+  return cartStatus?.in_cart && cartStatus?.in_cart_count !== 0 ? (
     <div className=" flex items-center ">
       <div className=" flex self-center mx-auto  items-center gap-2">
         <h2 className=" text-sm text-black font-medium">{t("amount")}</h2>

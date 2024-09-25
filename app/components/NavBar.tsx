@@ -65,7 +65,7 @@ const NavBar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isTopPage, setIsTopPage] = useState(true);
   const pathName = usePathname();
-  const { userSettings, handleLogout, loading } = useAuth();
+  const { userSettings, handleLogout, loading, cartCount } = useAuth();
   const user = userSettings;
 
   useEffect(() => {
@@ -137,7 +137,12 @@ const NavBar = () => {
                     </Link>
                   )}
                   <Link className=" relative" href={"/cart"}>
-                    <CartCount />
+                    {!loading && cartCount > 0 && (
+                      <div className="text-[10px] w-3 flex items-center justify-center h-3 rounded-full bg-main text-white absolute top-0 -right-1">
+                        {cartCount}
+                      </div>
+                    )}
+
                     <PersonIcon home={isHome} />
                   </Link>
                   <div className=" h-full w-full lg:hidden block">

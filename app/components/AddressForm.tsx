@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import CustomForm from "./CustomForm";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -11,18 +11,18 @@ import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 const schema = z.object({
-  name: z.string(),
-  phone: z.union([z.string(), z.number()]),
-  country_id: z.union([z.string(), z.number()]),
-  state_id: z.union([z.string(), z.number()]),
-  address: z.string(),
+  // name: z.string(),
+  phone: z.union([z.string().min(1, { message: "Phone is required" }), z.number()]),
+  country_id: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
+  state_id: z.union([z.string().min(1, { message: "State is required" }), z.number()]),
+  address: z.string().min(1, { message: "Address is required" }),
 });
 const AddressForm = ({ item }: { item?: any }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     mode: "onChange",
     defaultValues: {
-      name: item?.name || "",
+      // name: item?.name || "",
       phone: item?.phone || "",
       address: item?.address || "",
       country_id: item?.country_id || "",
@@ -31,36 +31,40 @@ const AddressForm = ({ item }: { item?: any }) => {
   });
   const [open, setIsOpen] = useState(false);
   const { userSettings, loading } = useAuth();
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
-      //@ts-ignore
-      const country_key = data.phone.toString().slice(0, 2);
-      const res = item
-        ? await Server({
-            resourceName: "updateEntity",
-            entityName: "shipping-addresses",
-            body: { ...data, country_key, user_id: userSettings?.user_id },
-            id: item.id,
-          })
-        : await Server({
-            resourceName: "createShipping",
-            entityName: "shipping-addresses",
-            body: { ...data, country_key, user_id: userSettings?.user_id },
-          });
-      console.log(res);
-      router.refresh();
-      if (res.status) toast.success(res.message);
+      startTransition(async () => {
+        //@ts-ignore
+        const country_key = data.phone.toString().slice(0, 2);
+        const res = item
+          ? await Server({
+              resourceName: "updateEntity",
+              entityName: "shipping-addresses",
+              body: { ...data, country_key, user_id: userSettings?.user_id },
+              id: item.id,
+            })
+          : await Server({
+              resourceName: "createShipping",
+              entityName: "shipping-addresses",
+              body: { ...data, country_key, user_id: userSettings?.user_id },
+            });
+        console.log(res);
+        router.refresh();
+        if (res.status) toast.success(res.message);
+        if (!res.status) toast.error(res.message);
+      });
     } catch (error: any) {
       console.log(error);
       toast.error(error.message);
     }
   };
   const shippingArray = [
-    {
-      name: "name",
-      placeholder: "YOUR NAME",
-    },
+    // {
+    //   name: "name",
+    //   placeholder: "YOUR NAME",
+    // },
     { name: "phone", phone: true, placholder: "COUNTRY KEY", type: "text" },
     { country: true, countryName: "country_id", stateName: "state_id" },
 
@@ -79,6 +83,8 @@ const AddressForm = ({ item }: { item?: any }) => {
       content={
         <div className=" px-20">
           <CustomForm
+            isPending={isPending}
+            disabled={loading || isPending}
             btnStyles="my-2"
             cancel={() => setIsOpen(false)}
             form={form}

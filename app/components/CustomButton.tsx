@@ -31,7 +31,7 @@ const CustomButton = ({
           ? `${
               reverse
                 ? " bg-white border-main2 border hover:bg-main2 hover:text-white text-main2"
-                : " bg-main2 hover:bg-white hover:border-main2 border hover:text-main2 text-white"
+                : " bg-main2 hover:bg-white  hover:border-main2 border hover:text-main2 text-white"
             }`
           : `${reverse ? " bg-white border-main border text-main" : " bg-main hover:bg-main/50"}`
       } ${className || "w-fit"} min-w-[130px] text-sm rounded-full px-6 flex items-center gap-2 duration-150`}

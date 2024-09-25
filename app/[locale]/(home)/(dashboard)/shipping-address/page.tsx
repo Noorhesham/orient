@@ -13,7 +13,11 @@ import { getTranslations } from "next-intl/server";
 import React from "react";
 
 const page = async () => {
-  const { data } = await Server({ resourceName: "getEntity", entityName: "shipping-addresses" });
+  const { data } = await Server({
+    resourceName: "getEntity",
+    entityName: "shipping-addresses",
+    queryParams: new URLSearchParams({ with: "country_id,state_id" }),
+  });
   const t = await getTranslations();
   console.log(data);
   return (
@@ -24,9 +28,13 @@ const page = async () => {
         data.map((item: any) => (
           <div
             key={item.id}
-            className=" flex  flex-col  sm:flex-row w-full lg:w-[80%]  gap-2 lg:gap-5 items-start lg:items-center"
+            className=" flex  flex-col mt-4  sm:flex-row w-full lg:w-[80%]  gap-2 lg:gap-5 items-start lg:items-center"
           >
-            <IconWidget paragraph={item.address} header="HOME" icon={<Location />} />
+            <IconWidget
+              paragraph={`${item.state.title} ${item.address}`}
+              header={item.country.title}
+              icon={<Location />}
+            />
             <div className=" ml-auto flex flex-wrap flex-row  items-center gap-3">
               <AddressForm item={item} />
               <Delete key="" entityName="shipping-addresses" id={item.id} />
