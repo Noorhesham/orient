@@ -118,7 +118,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
       <BreadCrumb
         linksCustom={[
           {
-            href: "",
+            href: "/",
             text: "HOME",
           },
           {

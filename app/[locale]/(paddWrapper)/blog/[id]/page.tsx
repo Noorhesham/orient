@@ -25,7 +25,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
         <BreadCrumb
           linksCustom={[
             {
-              href: "",
+              href: "/",
               text: "HOME",
             },
             {
