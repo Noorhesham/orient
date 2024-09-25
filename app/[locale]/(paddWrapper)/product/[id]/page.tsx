@@ -261,7 +261,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <div className=" flex uppercase  text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">{t("category")} :</h3>
                 <Link
-                  href={`/shop/category_id=${product.category_id}`}
+                  href={`/shop?category_id=${product.category_id}`}
                   className=" py-2 px-4 rounded-full bg-white border border-input  font-semibold"
                 >
                   {product.category.title}
