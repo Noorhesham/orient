@@ -46,7 +46,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
         )
       }
       desc={result ? `THE NUMBER OF PAINT ${selectedUnit.unit[locale]} USERD IS` : ""}
-      span={result ? `${result} ${selectedUnit.unit[locale]}` : ""}
+      span={result ? `${result.toFixed(2)} ${selectedUnit.unit[locale]}` : ""}
       functionalbtn={
         <Button
           onClick={() => setResult(input / selectedUnit.space)}
