@@ -40,22 +40,31 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
               className=" flex flex-wrap gap-3 px-4"
             >
               <Head1 text={container.name} />
-              <div className=" flex flex-col items-start w-full gap-2 ">
+              <div className=" flex flex-wrap items-start w-full gap-2 ">
                 <h3
                   className="hover:bg-gray-100 rounded-full  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleClick({ lat: container.city.latitude, lng: container.cit.longitude });
-                  }}
+                  // onClick={(e) => {
+                  //   e.stopPropagation();
+                  //   handleClick({ lat: container.country.latitude, lng: container.country.longitude });
+                  // }}
+                >
+                  country : {container.country.title}
+                </h3>
+                <h3
+                  className="hover:bg-gray-100 rounded-full  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
+                  // onClick={(e) => {
+                  //   e.stopPropagation();
+                  //   handleClick({ lat: container.city.latitude, lng: container.city.longitude });
+                  // }}
                 >
                   city : {container.city.title}
                 </h3>
                 <h3
                   className=" hover:bg-gray-100 rounded-full  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleClick({ lat: container.state.latitude, lng: container.state.longitude });
-                  }}
+                  // onClick={(e) => {
+                  //   e.stopPropagation();
+                  //   handleClick({ lat: container.state.latitude, lng: container.state.longitude });
+                  // }}
                 >
                   state : {container.state.title}
                 </h3>

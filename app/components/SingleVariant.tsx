@@ -166,7 +166,7 @@ const SingleVariant = ({
           </div>
         )}
       </ul>
-      <Button
+      {/* <Button
         variant={"ghost"}
         onClick={() => {
           handleReset("color");
@@ -174,7 +174,7 @@ const SingleVariant = ({
         }}
       >
         RESET
-      </Button>
+      </Button> */}
     </div>
   );
 };

@@ -42,6 +42,7 @@ const Language = () => {
         },
       });
       router.refresh();
+      // window.location.reload();
     });
   };
 

@@ -173,7 +173,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               heading={product.title}
               className=" col-span-3 flex-grow text-wrap  mt-12"
             >
-              <div className=" pb-5">
+              <div className="flex flex-col gap-3 pb-5">
                 <Stars count={product.review_count} rating={product?.review_rate || 5} />
                 <PriceWithSale
                   price={product.sell_price || product.regular_price}
@@ -312,7 +312,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
 
                   <Feature />
                 </section>
-                {product.videos && (
+                {product.videos.includes("youtube") && (
                   <VideoZoom
                     btn={
                       <div>

@@ -15,6 +15,9 @@ import NotFound from "../../../not-found";
 import CoponApply from "@/app/components/CoponApply";
 import CartItems from "@/app/components/CartItems";
 import Proceed from "@/app/components/Proceed";
+import Image from "next/image";
+import Heading from "@/app/components/Heading";
+import Paragraph from "@/app/components/Paragraph";
 
 const page = async () => {
   const queryParams = new URLSearchParams();
@@ -48,6 +51,24 @@ const page = async () => {
           <div className="col-span-7  gap-7 flex flex-col">
             <Container>
               <h1 className=" font-[600] mt-4 ml-2  uppercase text-2xl  text-main2 mb-3">The Cart {cartCount} Items</h1>
+              {cart.items.length === 0 && (
+                <div className="flex flex-col items-center">
+                  <div className=" w-32 h-32 relative">
+                    <Image src="/complete.svg" alt="success" fill />
+                  </div>{" "}
+                  <h2 className=" text-main uppercase my-2 text-xl lg:text-2xl font-semibold">Your cart is empty</h2>
+                  <Paragraph
+                    className=" text-center"
+                    description="Browse our wide variety of products and add them to your cart. 
+                    You can also check out with a coupon code."
+                  />
+                  <div className=" flex items-center gap-2">
+                    <Link href={"/orders"}>
+                      <Button className=" rounded-full">GO TO SHOP</Button>
+                    </Link>
+                  </div>
+                </div>
+              )}
               {/* <div className="sm:flex-row text-xs md:text-base  font-semibold capitalize mt-3 flex items-center ">
                 <span className=" mr-4 flex  items-center gap-2">
                   <CheckIcon className=" h-4 w-4 md:h-8 md:w-8" /> Select all products
@@ -81,7 +102,7 @@ const page = async () => {
                     <p>{totalPrice}</p>
                   </div>
                   <div className="flex w-fit pt-5 mx-auto mt-3 flex-col">
-                  <Proceed/>
+                    <Proceed />
                   </div>
                 </div>
               </Container>
@@ -100,7 +121,7 @@ const page = async () => {
             link="/shop"
             CustomePadding=" px-0"
             className=" md:px-0 min-h-[30vh]"
-            heading="SIMILAR PRODUCTS"
+            heading={cart.items.length===0 ? "SOME OF OUR" : `SIMILAR PRODUCTS`}
             linkText="BROWSE ALL PRODUCTS"
           >
             <MotionContainer className="lg:grid hidden  lg:grid-cols-4 items-center gap-5 mt-[62px] justify-center">

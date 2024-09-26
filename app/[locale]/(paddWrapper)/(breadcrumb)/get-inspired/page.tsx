@@ -6,7 +6,10 @@ import { PaginationDemo } from "@/app/components/Pagination";
 import { Server } from "@/app/main/Server";
 
 const page = async ({ searchParams }: { searchParams: any }) => {
-  const { data: categories } = await Server({ resourceName: "getEntity", entityName: "inspired-categories" });
+  const { data: categories } = await Server({
+    resourceName: "getEntity",
+    entityName: "inspired-categories",
+  });
   console.log(categories);
 
   const { data } = await Server({
@@ -15,7 +18,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
     queryParams: new URLSearchParams({
       inspired_categories: searchParams?.category,
       page: searchParams?.page,
-      itemsCount:'12'
+      itemsCount: "12",
     }),
   });
   searchParams?.category;

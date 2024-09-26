@@ -20,21 +20,18 @@ const ZoomImage = ({
       {/*@ts-ignore*/}
       <DialogContent
         src="."
-        className={` ${src ? "" : " "} w-full ${className || " bg-transparent "} outline-none border-none h-full  `}
+        className={` ${src ? "" : " "} w-full ${className || " bg-transparent "} outline-none border-none h-auto  `}
       >
-        <div className="select-none   relative h-full w-full">
-          {content ? (
-            content
-          ) : (
-            <Image
-              fill
-              loading="lazy"
-              src={src || ""}
-              alt="product image"
-              className="h-full lg:scale-125 xl:scale-150 absolute inset-0 object-contain w-full "
-            />
-          )}
-        </div>
+        {content ? (
+          content
+        ) : (
+          <img
+            loading="lazy"
+            src={src || ""}
+            alt="product image"
+            className="h-auto lg:scale-125 xl:scale-150 absolute  top-1/2  left-1/2 -translate-x-1/2  -translate-y-1/2 object-contain w-full "
+          />
+        )}
       </DialogContent>
     </Dialog>
   );

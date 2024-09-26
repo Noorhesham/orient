@@ -4,10 +4,14 @@ import CompeleteOrder from "@/app/components/CompeleteOrder";
 import Container from "@/app/components/Container";
 import Head1 from "@/app/components/Head1";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
+import Paragraph from "@/app/components/Paragraph";
 import PaymentMethods from "@/app/components/PaymentMethods";
 import PriceWithSale from "@/app/components/PriceWithSale";
 import ShippingList from "@/app/components/ShippingList";
 import { Server } from "@/app/main/Server";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const page = async () => {
@@ -24,7 +28,7 @@ const page = async () => {
               <Container CustomePadding=" py-8 px-8" className=" w-full flex flex-col gap-3 px-4">
                 <Head1 className=" text-xl font-bold" text={"SHIPPING ADDRESS  "} />
                 <AddressForm />
-                <ShippingList user_addresses={user_addresses} user_address={data.user_address} />
+                {<ShippingList user_addresses={user_addresses} user_address={data.user_address.id} />}
               </Container>
             </div>
 
@@ -34,6 +38,24 @@ const page = async () => {
               <PaymentMethods methods={payment_methods} />
             </Container>
             <Container className=" py-8 flex flex-col gap-5">
+              {cart.items.length === 0 && (
+                <div className="flex flex-col items-center">
+                  <div className=" w-32 h-32 relative">
+                    <Image src="/complete.svg" alt="success" fill />
+                  </div>{" "}
+                  <h2 className=" text-main uppercase my-2 text-xl lg:text-2xl font-semibold">Your cart is empty</h2>
+                  <Paragraph
+                    className=" text-center"
+                    description="Browse our wide variety of products and add them to your cart. 
+                    You can also check out with a coupon code."
+                  />
+                  <div className=" flex items-center gap-2">
+                    <Link href={"/orders"}>
+                      <Button className=" rounded-full">GO TO SHOP</Button>
+                    </Link>
+                  </div>
+                </div>
+              )}
               {cart.items.map((item: any) => (
                 <CartItem
                   productId={item.id}

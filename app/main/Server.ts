@@ -61,7 +61,8 @@ export type ResourceNameProps =
   | "branches"
   | "check"
   | "wishlist"
-  | "calculate"|'getinspired';
+  | "calculate"
+  | "getinspired";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -125,7 +126,7 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
     case "getProducts":
       return { url: `${url}/rm_ecommarce/${VERSION}/products?${queryParams}`, method: "GET" };
     case "getSingleEntity":
-      return { url: `${url}/${entityName}/entities-operations/${id}`, method: "GET" };
+      return { url: `${url}/${entityName}/entities-operations/${id}?${queryParams}`, method: "GET" };
     case "getinspired":
       return { url: `${url}/${entityName}/entities-operations?${queryParams}`, method: "GET" };
     case "addToCart":
@@ -169,7 +170,7 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
     case "colortrend":
       return { url: `${url}/rm_page/${VERSION}/show?with=blogs&slug=color-trend` };
     case "branches":
-      return { url: `${url}/rm_ecommarce/v1/stores` };
+      return { url: `${url}/stores/entities-operations?with=state_id,country_id,city_id` };
     case "check":
       return { url: `${url}/rm_ecommarce/${VERSION}/products/check?${queryParams}`, method: "GET" };
     case "wishlist":

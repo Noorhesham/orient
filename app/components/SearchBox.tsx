@@ -213,7 +213,9 @@ const SearchBox = ({
           if (setIsActive) {
             setResultActive(!resultActive);
             setIsActive(!active);
-            data && data?.products?.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
+            if (data?.products.length > 0) {
+              router.push(`/shop?search=${query}`);
+            }
           }
         }}
         className={`${icon === "white" ? " rounded-full bg-main2" : ""} ${

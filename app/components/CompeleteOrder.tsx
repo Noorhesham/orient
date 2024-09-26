@@ -21,13 +21,15 @@ const CompeleteOrder = () => {
         const res = await Server({
           resourceName: "completeOrder",
           body: {
-            callback: "http://localhost:3000/en/success",
+            callback: "http://localhost:3000/success",
           },
         });
+        console.log(res);
         if (res.status) {
           toast.success(res.message);
           setCartCount(0);
-          router.push("/success");
+          if (res.url) router.push(res.url);
+          else router.push("/success");
         } else {
           toast.error(res.message);
         }

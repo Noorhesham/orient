@@ -52,7 +52,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
             {item.category && (
               <div className=" flex items-center gap-2">
                 <DashBoard />
-                <p className=" text-xs font-medium text-[#475156]">{item.category}</p>
+                <p className=" text-xs font-medium text-[#475156]">{item.category.title}</p>
               </div>
             )}
           </div>

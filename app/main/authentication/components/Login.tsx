@@ -150,7 +150,6 @@ const Login = () => {
                 <p className="text-main2 font-medium text-sm">{t("loginWithEmail")}</p>
               </div>
               <CustomForm
-                serverError={serverError}
                 link="/forgot-password?level=prepare"
                 linkText={t("forgotPassword")}
                 btnText="LOGIN"

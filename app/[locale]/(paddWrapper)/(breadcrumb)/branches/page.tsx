@@ -5,7 +5,7 @@ import MapContainer from "@/app/components/MapContainer";
 import { Server } from "@/app/main/Server";
 
 const page = async () => {
-  const {stores} = await Server({ resourceName: "branches" });
+  const { data: stores } = await Server({ resourceName: "branches" });
   console.log(stores);
   return (
     <section>
