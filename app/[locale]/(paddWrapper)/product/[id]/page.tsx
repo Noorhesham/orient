@@ -157,7 +157,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               </div>
             </div>
             <div className=" fixed z-50  bottom-0 left-0 p-4 w-full flex items-center bg-white/90 justify-center  lg:hidden gap-3 mt-3">
-              <AddToCart cartStatus={cartStatus[`${product.id}`]} max={product.quantity} id={product.id} />
+              <AddToCart
+                disabled={product.quantity === 0 || product.stock_status === "out"}
+                cartStatus={cartStatus[`${product.id}`]}
+                max={product.quantity}
+                id={product.id}
+              />
               <CustomButton
                 link="/checkout"
                 className=" w-full px-8 py-5"
@@ -312,7 +317,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
 
                   <Feature />
                 </section>
-                {product?.videos.includes("youtube") && (
+                {product?.videos?.includes("youtube") && (
                   <VideoZoom
                     btn={
                       <div>
@@ -419,7 +424,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   </div>
                 </div>
                 <div className=" flex  flex-col gap-3 mt-3">
-                  <AddToCart cartStatus={cartStatus[`${product.id}`]} max={product.quantity} id={product.id} />
+                  <AddToCart
+                    disabled={product.quantity === 0 || product.stock_status === "out"}
+                    cartStatus={cartStatus[`${product.id}`]}
+                    max={product.quantity}
+                    id={product.id}
+                  />
 
                   <CustomButton
                     link="/checkout"

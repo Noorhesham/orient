@@ -13,6 +13,7 @@ const CustomButton = ({
   reverse,
   link,
   isPending,
+  disabled,
 }: {
   text: string;
   icon?: ReactNode;
@@ -22,9 +23,11 @@ const CustomButton = ({
   reverse?: boolean;
   link?: string;
   isPending?: boolean;
+  disabled?: boolean;
 }) => {
   return (
     <Button
+      disabled={disabled}
       onClick={onClick}
       className={`${
         backgroundColor === "dark"

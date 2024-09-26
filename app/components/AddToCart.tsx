@@ -11,7 +11,7 @@ import { useAuth } from "../context/AuthContext";
 const AddToCart = ({
   id,
   max,
-
+  disabled,
   cartStatus,
 }: {
   id: number;
@@ -20,6 +20,7 @@ const AddToCart = ({
   inCart?: boolean;
   cartId?: any;
   cartStatus?: any;
+  disabled?: boolean;
 }) => {
   const { mutate, isPending, data } = useCreateEntity("addToCart", "cart");
   const { cartCount, setCartCount } = useAuth();
@@ -34,6 +35,7 @@ const AddToCart = ({
     </div>
   ) : (
     <CustomButton
+      disabled={disabled}
       isPending={isPending}
       onClick={() => {
         mutate({ product_id: id, qty: 1 });
@@ -41,7 +43,7 @@ const AddToCart = ({
       }}
       className=" px-8 py-4"
       icon={<BsHandbag />}
-      text="ADD TO CART"
+      text={disabled ? "OUT OF STOCK" : "ADD TO CART"}
     />
   );
 };

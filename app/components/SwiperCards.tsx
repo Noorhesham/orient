@@ -14,6 +14,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import ZoomImage from "./ZoomImage";
 import { IoOpenOutline } from "react-icons/io5";
 import Link from "next/link";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const SwiperCards = ({
   items,
@@ -97,26 +98,29 @@ const SwiperCards = ({
                 card
               ) : (
                 <>
-                  {zoom ? (
-                    <ZoomImage src=""
-                      className=" overflow-hidden max-h-[50rem] lg:max-w-4xl"
-                      btn={
-                        <div className="cursor-pointer hover:opacity-90 duration-150">
-                          {" "}
-                          <Image
-                            fill
-                            loading="eager"
-                            src={src}
-                            alt="product image"
-                            className={` object-center h-full w-full  ${
-                              rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
-                            } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
-                          />
-                          <IoOpenOutline className=" w-6 h-6  absolute top-0 left-4" />
-                        </div>
-                      }
-                      content={
-                        <div className=" absolute left-1/2 w-full lg:w-[60%] -translate-x-1/2 inset-0">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="cursor-pointer hover:opacity-90 duration-150">
+                        <Image
+                          fill
+                          loading="eager"
+                          src={src}
+                          alt="product image"
+                          className={` object-center h-full w-full  ${
+                            rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
+                          } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
+                        />
+                        <IoOpenOutline className=" w-6 h-6  absolute top-0 left-4" />
+                      </div>
+                    </DialogTrigger>
+                    {/*@ts-ignore*/}
+                    <DialogContent
+                      className={` ${src ? "" : " "} w-full ${
+                        className || " bg-transparent "
+                      } outline-none border-none h-full max-h-[80vh]  `}
+                    >
+                      <div className="select-none   relative h-full w-full">
+                        <div className=" absolute left-1/2 w-full lg:w-[80%] -translate-x-1/2 inset-0">
                           <TransformWrapper
                             panning={{ disabled: false }} // Enables drag control
                             zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
@@ -146,19 +150,9 @@ const SwiperCards = ({
                             )}
                           </TransformWrapper>
                         </div>
-                      }
-                    />
-                  ) : (
-                    <Image
-                      fill
-                      loading="eager"
-                      src={src}
-                      alt="product image"
-                      className={` object-center h-full w-full  ${
-                        rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
-                      } ${contain ? " object-contain" : "object-cover"}`}
-                    />
-                  )}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
 
                   {text && (
                     <h1 className="text-white uppercase text-4xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
