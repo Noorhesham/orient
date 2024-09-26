@@ -312,7 +312,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
 
                   <Feature />
                 </section>
-                {product.videos.includes("youtube") && (
+                {product?.videos.includes("youtube") && (
                   <VideoZoom
                     btn={
                       <div>
