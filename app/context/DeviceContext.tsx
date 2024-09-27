@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const DeviceContext = createContext<
@@ -39,7 +39,9 @@ const DeviceProvider = ({ children }: { children: React.ReactNode }) => {
     true
   );
   console.log(deviceInfo);
-  if (!deviceInfo) window.location.reload();
+  useEffect(() => {
+    if (!deviceInfo) window.location.reload();
+  });
   return <DeviceContext.Provider value={{ deviceInfo, setDeviceUniqueId }}>{children}</DeviceContext.Provider>;
 };
 const useDevice = () => {
