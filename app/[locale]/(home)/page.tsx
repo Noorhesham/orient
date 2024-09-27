@@ -147,8 +147,8 @@ export default async function Home() {
       </Dialog>
       <MaxWidthWrapper>
         <Section headingColor="#E6007E" headingclass="mx-auto" heading={page.section_name} className=" relative">
-          <div className="  lg:mt-5">
-            <div
+          {/* <div className="  lg:mt-5"> */}
+          {/* <div
               dangerouslySetInnerHTML={{ __html: page?.section_content }}
               className={` ${
                 local == "ar" ? "" : "xl:translate-x-[24rem]"
@@ -161,7 +161,7 @@ export default async function Home() {
             >
               <Image src={page.image[0].file} fill className=" object-cover " alt="brown" />
             </div>
-          </div>
+          </div> */}
         </Section>
       </MaxWidthWrapper>
       <div className=" px-3">
