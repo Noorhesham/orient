@@ -38,6 +38,7 @@ const DeviceProvider = ({ children }: { children: React.ReactNode }) => {
     "deviceInfo",
     true
   );
+  console.log(deviceInfo)
   return <DeviceContext.Provider value={{ deviceInfo, setDeviceUniqueId }}>{children}</DeviceContext.Provider>;
 };
 const useDevice = () => {
