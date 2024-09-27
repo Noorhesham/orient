@@ -1,7 +1,11 @@
 "use client";
 import cookies from "js-cookie";
 import { useState, useEffect } from "react";
-export function useLocalStorageState(initialState: any, key: string, cookie = false) {
+export function useLocalStorageState<T>(
+  initialState: T,
+  key: string,
+  cookie = false
+): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [value, setValue] = useState(function () {
     const storedValue = global?.window?.localStorage?.getItem(key);
     if (cookie) {

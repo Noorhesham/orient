@@ -41,7 +41,7 @@ const DeviceProvider = ({ children }: { children: React.ReactNode }) => {
   console.log(deviceInfo);
   useEffect(() => {
     if (!deviceInfo) window.location.reload();
-  });
+  }, [deviceInfo]);
   return <DeviceContext.Provider value={{ deviceInfo, setDeviceUniqueId }}>{children}</DeviceContext.Provider>;
 };
 const useDevice = () => {
