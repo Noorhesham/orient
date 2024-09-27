@@ -29,12 +29,17 @@ export default async function Home() {
     cache: 0,
     queryParams: new URLSearchParams({ with: "tags,category_id" }),
   });
+
+  if (!page) {
+    throw new Error("Page data is undefined. Please check the Server response.");
+  }
+
   const {
     products_list,
     blogs,
     products_categories,
   }: { products_list: Product[]; blogs: any[]; products_categories: any } = page;
-  console.log(page);
+
   return (
     <main style={{ padding: "0px 0px !important" }} className="">
       <section className="relative h-full min-h-[47vh] sm:min-h-[80vh] md:min-h-[100vh] 2xl:min-h-[100vh] lg:min-h-[110vh] w-full">
