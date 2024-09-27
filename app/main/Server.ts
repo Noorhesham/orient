@@ -213,7 +213,6 @@ export async function Server({
 
   // Set up headers
   const combinedHeaders: { [key: string]: string } = {
-    "Content-Type": img ? "multipart/form-data" : "application/json",
     ...headers,
   };
 

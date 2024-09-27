@@ -1,10 +1,23 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import cookies from "js-cookie";
-const SideNav = ({ icon, text, link }: { icon: React.ReactNode; text: string; link: string }) => {
+import { useAuth } from "../context/AuthContext";
+import { Button } from "@/components/ui/button";
+const SideNav = ({
+  icon,
+  text,
+  link,
+  logout,
+}: {
+  icon: React.ReactNode;
+  text: string;
+  link: string;
+  logout?: boolean;
+}) => {
   const [mounted, setMounted] = useState(false);
+  const { handleLogout } = useAuth();
   const pathName = usePathname();
   const lang = cookies.get("NEXT_LOCALE");
   const isActive = pathName.replace(`/${lang}`, "") === `${link}`;
@@ -12,7 +25,19 @@ const SideNav = ({ icon, text, link }: { icon: React.ReactNode; text: string; li
     setMounted(true);
   }, []);
   return (
-    mounted && (
+    mounted &&
+    (logout ? (
+      <div
+        onClick={() => {
+          handleLogout();
+          redirect("/");
+        }}
+        className={`flex hover:bg-gray-100 hover:text-gray-800 duration-150 cursor-pointer w-fit md:w-full rounded-lg  p-1  lg:py-2 lg:px-4 items-center gap-2 self-start 
+        ${isActive ? "bg-gray-100" : ""}`}
+      >
+        {icon} {text}
+      </div>
+    ) : (
       <Link
         href={link}
         className={`flex hover:bg-gray-100 hover:text-gray-800 duration-150 cursor-pointer w-fit md:w-full rounded-lg  p-1  lg:py-2 lg:px-4 items-center gap-2 self-start 
@@ -21,7 +46,7 @@ const SideNav = ({ icon, text, link }: { icon: React.ReactNode; text: string; li
         {icon}
         <p className=" font-semibold ">{text}</p>
       </Link>
-    )
+    ))
   );
 };
 

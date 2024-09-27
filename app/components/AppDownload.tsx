@@ -34,7 +34,7 @@ const AppDownload = () => {
           <Link target="_blank" href={`${store_url.app_store}`}>
             <Image
               alt=" download from apple store"
-              src={"/apple.png"}
+              src={"/Apple.png"}
               width={200}
               height={200}
               className="cursor-pointer object-cover"

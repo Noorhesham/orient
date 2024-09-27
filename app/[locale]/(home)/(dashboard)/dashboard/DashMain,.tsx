@@ -10,7 +10,7 @@ const DashMain = () => {
   const { userSettings, loading } = useAuth();
   return (
     <div className="">
-      <Head1 className="text-3xl" text={t("hello")} text2={`${!loading ? userSettings?.name : ""}`} />
+      <Head1 className="text-3xl" text={t("hello")} text2={` ${!loading ? userSettings?.name : ""}`} />
       <div className="font-medium  min-h-[50vh] max-w-[38rem] text-muted-foreground text-sm mt-2 mb-5">
         {t("accountDashboard")}{" "}
         <Link href={"/orders"} className="text-main">

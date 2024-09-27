@@ -20,7 +20,7 @@ const SideBar = () => {
         <SideNav link="/shipping-address" text={t("shippingAddress")}icon={<Location color="black" />} />
         <SideNav link="/wishlist" text={t('wishlist')} icon={<Heart />} />
         <SideNav link="/settings" text={t("settings")} icon={<Settings />} />
-        <SideNav link="" text={t("logout")} icon={<LogOutIcon />} />
+        <SideNav logout link="" text={t("logout")} icon={<LogOutIcon />} />
       </ul>
     </Container>
   );

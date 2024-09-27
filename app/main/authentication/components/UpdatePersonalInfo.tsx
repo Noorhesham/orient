@@ -40,7 +40,7 @@ const UpdatePersonalInfo = () => {
         formData.append(key, data[key]);
       }
     });
-
+    console.log(data)
     const res = await Server({ resourceName: "update_profile", body: formData, formData: true });
     // const res = await updatePhone(formData)
     console.log(res);
@@ -105,7 +105,6 @@ const UpdatePersonalInfo = () => {
                 defaultValues={user}
                 btnStyles={"w-full"}
                 btnText={t("confirm")}
-
                 formArray={email}
                 title={t("updateEmail")}
               />

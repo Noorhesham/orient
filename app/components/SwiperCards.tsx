@@ -93,10 +93,10 @@ const SwiperCards = ({
       >
         {items?.map(
           ({ src, text, card, link }: { src: string; text: string; card: ReactNode; link?: string }, i: number) => (
-            <SwiperSlide className={`w-full  ${rounded ? "rounded-2xl" : ""}`} key={i}>
+            <SwiperSlide className={`w-full ${rounded ? "rounded-2xl" : ""}`} key={i}>
               {card ? (
                 card
-              ) : (
+              ) : zoom ? (
                 <>
                   <Dialog>
                     <DialogTrigger asChild>
@@ -106,21 +106,21 @@ const SwiperCards = ({
                           loading="eager"
                           src={src}
                           alt="product image"
-                          className={` object-center h-full w-full  ${
+                          className={`object-center h-full w-full ${
                             rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
-                          } ${contain ? " object-contain" : "object-contain  2xl:object-cover"}`}
+                          } ${contain ? "object-contain" : "object-contain  2xl:object-cover"}`}
                         />
-                        <IoOpenOutline className=" w-6 h-6  absolute top-0 left-4" />
+                        <IoOpenOutline className="w-6 h-6 absolute top-0 left-4" />
                       </div>
                     </DialogTrigger>
-                    {/*@ts-ignore*/}
+                    {/* @ts-ignore */}
                     <DialogContent
-                      className={` ${src ? "" : " "} w-full ${
+                      className={`${src ? "" : " "} w-full ${
                         className || " bg-transparent "
-                      } outline-none border-none h-full max-h-[80vh]  `}
+                      } outline-none border-none overflow-hidden h-full max-h-[80vh]`}
                     >
-                      <div className="select-none   relative h-full w-full">
-                        <div className=" absolute left-1/2 w-full lg:w-[80%] -translate-x-1/2 inset-0">
+                      <div className="select-none relative h-full w-full">
+                        <div className="absolute left-1/2 w-full lg:w-[80%] -translate-x-1/2 inset-0">
                           <TransformWrapper
                             panning={{ disabled: false }} // Enables drag control
                             zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
@@ -130,13 +130,13 @@ const SwiperCards = ({
                             initialPositionX={0}
                             initialPositionY={-70}
                           >
-                            {({ zoomIn, zoomOut, ...rest }) => (
+                            {({ zoomIn, zoomOut }) => (
                               <>
-                                <div className=" mt-14  mb-3">
-                                  <Button variant="outline" size={"sm"} className=" mr-2" onClick={() => zoomIn()}>
+                                <div className="mt-14 mb-3">
+                                  <Button variant="outline" size={"sm"} className="mr-2" onClick={zoomIn}>
                                     <ZoomInIcon />
                                   </Button>
-                                  <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
+                                  <Button variant="outline" size={"sm"} onClick={zoomOut}>
                                     <ZoomOutIcon />
                                   </Button>
                                 </div>
@@ -144,7 +144,7 @@ const SwiperCards = ({
                                   contentStyle={{ width: "100%", height: "100%" }}
                                   wrapperStyle={{ width: "100%", height: "100%" }}
                                 >
-                                  <img className=" object-contain" src={src} style={{ width: "100%" }} />
+                                  <img className="object-contain" src={src} style={{ width: "100%" }} />
                                 </TransformComponent>
                               </>
                             )}
@@ -153,22 +153,33 @@ const SwiperCards = ({
                       </div>
                     </DialogContent>
                   </Dialog>
-
-                  {text && (
-                    <h1 className="text-white uppercase text-4xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
-                      {text}
-                    </h1>
-                  )}
-                  {link ? (
-                    <Link
-                      href={link}
-                      className="absolute top-2 left-1/2 transform  block -translate-x-1/2 w-[95%] h-[97%] border-2 border-white"
-                    ></Link>
-                  ) : text ? (
-                    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[95%] h-[97%] border-2 border-white"></div>
-                  ) : null}
                 </>
+              ) : (
+                <Image
+                  fill
+                  loading="eager"
+                  src={src}
+                  alt="product image"
+                  className={`object-center h-full w-full ${
+                    rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
+                  } ${contain ? "object-contain" : "object-contain  2xl:object-cover"}`}
+                />
               )}
+
+              {text && (
+                <h1 className="text-white uppercase text-4xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
+                  {text}
+                </h1>
+              )}
+
+              {link ? (
+                <Link
+                  href={link}
+                  className="absolute top-2 left-1/2 transform block -translate-x-1/2 w-[95%] h-[97%] border-2 border-white"
+                />
+              ) : text ? (
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[95%] h-[97%] border-2 border-white" />
+              ) : null}
             </SwiperSlide>
           )
         )}

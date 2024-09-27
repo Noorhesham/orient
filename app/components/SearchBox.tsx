@@ -38,7 +38,7 @@ const SearchBox = ({
     "getProducts",
     `search=${query}`,
     "",
-    { enabled: query.length > 4 },
+    { enabled: query.length > 3 },
     `search=${query}`
   );
   console.log(data);
@@ -69,7 +69,7 @@ const SearchBox = ({
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVal(event.target.value);
-    if (!nonactive && (event.target.value.includes("%") || event.target.value.length < 4))
+    if (!nonactive && (event.target.value.includes("%") || event.target.value.length < 3))
       return setResultActive(false);
     setResultActive(true);
     onSearch && onSearch(event.target.value);

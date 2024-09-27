@@ -15,7 +15,7 @@ const UserPhoto = () => {
       ) : (
         <div className=" bg-gray-100    relative h-20 w-20 rounded-full">
           <Image
-            src="/9723582.jpg"
+            src={userSettings?.photo || "/9723582.jpg"}
             alt="avatar"
             fill
             className=" ml-2  rounded-full w-full h-full object-center object-cover"

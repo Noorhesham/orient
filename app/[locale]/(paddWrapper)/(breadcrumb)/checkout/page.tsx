@@ -28,7 +28,7 @@ const page = async () => {
               <Container CustomePadding=" py-8 px-8" className=" w-full flex flex-col gap-3 px-4">
                 <Head1 className=" text-xl font-bold" text={"SHIPPING ADDRESS  "} />
                 <AddressForm />
-                {<ShippingList user_addresses={user_addresses} user_address={data.user_address.id} />}
+                {<ShippingList user_addresses={user_addresses} user_address={data?.user_address?.id} />}
               </Container>
             </div>
 

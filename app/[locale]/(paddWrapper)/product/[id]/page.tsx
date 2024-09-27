@@ -278,7 +278,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <Section
                 CustomePadding=" px-0 py-5"
                 heading={t("similarProducts")}
-                link="/store"
+                link="/shop"
                 id="desc"
                 linkText={t("browseAllProducts")}
               >

@@ -26,8 +26,9 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
               </div>
               <Heading subText="" mainText={"Order Completed"} />
               <Paragraph
+                size="sm"
                 description="Your order will be delivered soon.
-Thank you for choosing our app! Your order will be delivered soon. Thank you for choosing our app!"
+Thank you for choosing our app!"
               />
               <div className=" flex items-center gap-2">
                 <Link href={"/shop"}>
@@ -46,7 +47,10 @@ Thank you for choosing our app! Your order will be delivered soon. Thank you for
                 {/* <Link href={"/shop"}>
                   <CustomButton text={"Return to Homepage"} />
                 </Link> */}
-                <Link className=" flex items-center gap-2 hover:underline duration-150 hover:text-main" href={"/checkout"}>
+                <Link
+                  className=" flex items-center gap-2 hover:underline duration-150 hover:text-main"
+                  href={"/checkout"}
+                >
                   Return to Checkout
                   <ArrowRight />
                 </Link>

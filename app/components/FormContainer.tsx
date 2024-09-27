@@ -22,29 +22,35 @@ const generateSchemaFromFields = (fields: any[]): ZodObject<any> => {
 
     let fieldSchema: ZodTypeAny;
 
-    switch (field.type) {
-      case "text":
-      case "textarea":
+    switch (field) {
+      case field.date === true:
+        fieldSchema = z.date();
+        break;
+      case field.photo === true:
+        fieldSchema = z.any();
+        break;
+      case field.type === "text":
+      case field.type === "textarea":
         fieldSchema = z.string();
         break;
-      case "email":
+      case field.type === "email":
         fieldSchema = z.string().email(`${field.label} must be a valid email`);
         break;
-      case "phoneNumber":
+      case field.type === "phoneNumber":
         fieldSchema = z.string().min(10, `${field.label} must be a valid phone number`);
         break;
-      case "number":
+      case field.type === "number":
         fieldSchema = z.number().min(0, `${field.label} must be a valid number`);
         break;
       // Add more cases for different field types as needed
       default:
-        fieldSchema = z.string(); // Default to string for unknown types
+        fieldSchema = z.any(); // Default to string for unknown types
         break;
     }
 
     // Add required validation if field is required
     if (field.required) {
-      schemaShape[field.name] = fieldSchema.min(1, `${field.label} is required`);
+      schemaShape[field.name] = z.string().min(1, `${field.label} is required`);
     } else {
       schemaShape[field.name] = fieldSchema.optional(); // Make it optional
     }
@@ -102,7 +108,7 @@ const FormContainer: React.FC<Formcontainer> = ({
 
           if (res.status) {
             toast.success(res.message);
-            form.reset();
+            form.reset(defaultValues);
           }
           if (!res.status) setServerError(res.errors);
         } catch (error) {

@@ -37,23 +37,25 @@ const ShippingList = ({ user_addresses, user_address }: { user_addresses: any; u
   return (
     <div className="flex flex-col items-start">
       {/* Default Address */}
-      <label
-        htmlFor="default"
-        onClick={() => {
-          setSelected(user_address.id);
-        }}
-        className="flex items-center gap-2"
-      >
-        <input
-          disabled={isPending}
-          value={user_address?.id}
-          checked={selected === user_address?.id}
-          name="shipping-address"
-          type="radio"
-          id={"default"}
-        />
-        <IconWidget paragraph={user_address?.address} header="DEFAULT" icon={<Location />} />
-      </label>
+      {user_address && (
+        <label
+          htmlFor="default"
+          onClick={() => {
+            setSelected(user_address.id);
+          }}
+          className="flex items-center gap-2"
+        >
+          <input
+            disabled={isPending}
+            value={user_address?.id}
+            checked={selected === user_address?.id}
+            name="shipping-address"
+            type="radio"
+            id={"default"}
+          />
+          <IconWidget paragraph={user_address?.address} header="DEFAULT" icon={<Location />} />
+        </label>
+      )}
 
       {/* Other Addresses */}
       {user_addresses.map((item: any) => (

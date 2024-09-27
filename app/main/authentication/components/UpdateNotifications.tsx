@@ -1,11 +1,29 @@
+"use client";
 import FormContainer from "@/app/components/FormContainer";
 import { Notifications } from "@/app/components/Icons";
 import ModalCustom from "@/app/components/ModalCustom";
 import UpdateCard from "@/app/components/UpdateCard";
+import { useDevice } from "@/app/context/DeviceContext";
 import React from "react";
+import { Server } from "../../Server";
+import { toast } from "react-toastify";
 const notifications = [{ name: "active", label: "DEACTIVATE", label2: "ACTIVATE", switchToggle: true }];
 
 const UpdateNotifications = () => {
+  const { deviceInfo } = useDevice();
+  const UpdateNotificationsSubmit = async (val: any) => {
+    const res = await Server({
+      resourceName: "languageUpdate",
+      body: {
+        action: "set",
+        key: "notification_token_status",
+        value: val.active,
+        deviceInfo,
+      },
+    });
+    if (res.status) toast.success(res.message);
+    else toast.error(res.message);
+  };
   return (
     <ModalCustom
       btn={
@@ -23,7 +41,7 @@ const UpdateNotifications = () => {
             cancel={true}
             btnStyles={"w-full"}
             btnText="SAVE CHANGES"
-            schema="notifictations"
+            submit={UpdateNotificationsSubmit}
             formArray={notifications}
             title="CUSTOMIZE  NOTIFICATIONS"
           />
