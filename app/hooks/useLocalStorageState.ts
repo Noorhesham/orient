@@ -17,7 +17,8 @@ export function useLocalStorageState<T>(
 
   useEffect(
     function () {
-      if (!localStorage.getItem(key)) global?.window?.localStorage.location.reload(), localStorage.setItem(key, JSON.stringify(value));
+      if (!global?.window?.localStorage.getItem(key))
+        global?.window?.localStorage.location.reload(), localStorage.setItem(key, JSON.stringify(value));
     },
     [value, key]
   );
