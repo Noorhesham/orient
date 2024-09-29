@@ -11,16 +11,12 @@ export function useLocalStorageState<T>(
     if (cookie) {
       cookies.set(key, storedValue || JSON.stringify(initialState));
     }
-    if (!storedValue) global?.window?.localStorage.setItem(key, JSON.stringify(initialState));
     return storedValue && storedValue !== "undefined" ? JSON.parse(storedValue) : initialState;
   });
 
   useEffect(
     function () {
-      if (!global?.window?.localStorage.getItem(key)) {
-        global?.window?.localStorage.location.reload();
-        global?.window?.localStorage.setItem(key, JSON.stringify(value));
-      }
+      localStorage.setItem(key, JSON.stringify(value));
     },
     [value, key]
   );

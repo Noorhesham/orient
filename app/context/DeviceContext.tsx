@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const DeviceContext = createContext<
@@ -14,10 +14,12 @@ const DeviceContext = createContext<
     }
   | undefined
 >(undefined);
+
 const generateUniqueId = (os: string, version: string) => {
   const randomComponent = Date.now().toString(36) + Math.random().toString(36).substr(2);
   return `${version}${randomComponent}`;
 };
+
 const getDeviceType = () => {
   const ua = global?.window?.navigator.userAgent;
   if (/mobile/i.test(ua)) return "Mobile";
@@ -28,6 +30,7 @@ const getDeviceType = () => {
 const DeviceProvider = ({ children }: { children: React.ReactNode }) => {
   const operating_system = global?.window?.navigator.appVersion || "";
   const operating_system_version = operating_system?.split(" ")[0];
+
   const [deviceInfo, setDeviceUniqueId] = useLocalStorageState(
     {
       device_unique_id: generateUniqueId(operating_system, operating_system_version),
@@ -38,10 +41,20 @@ const DeviceProvider = ({ children }: { children: React.ReactNode }) => {
     "deviceInfo",
     true
   );
-  console.log(deviceInfo);
+
+  useEffect(() => {
+    if (!deviceInfo) {
+      // Check if the reload has already happened in this session
+      if (!sessionStorage.getItem("hasReloaded")) {
+        sessionStorage.setItem("hasReloaded", "true");
+        global.window.location.reload();
+      }
+    }
+  }, [deviceInfo]);
 
   return <DeviceContext.Provider value={{ deviceInfo, setDeviceUniqueId }}>{children}</DeviceContext.Provider>;
 };
+
 const useDevice = () => {
   const context = useContext(DeviceContext);
   if (!context) {

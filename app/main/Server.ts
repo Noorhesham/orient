@@ -212,7 +212,7 @@ export async function Server({
   formData?: boolean;
 }) {
   const jwt = cookies().get("jwt")?.value;
-  const deviceId = cookies().get("deviceInfo")?.value;
+  const deviceId = cookies().get("deviceInfo")?.value||"{}";
 
   // Set up headers
   const combinedHeaders: { [key: string]: string } = {

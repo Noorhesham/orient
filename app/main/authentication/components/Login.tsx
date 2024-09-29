@@ -181,7 +181,7 @@ const Login = () => {
               </Link>
             </div>
 
-            <Link href="/signup" className="hover:underline duration-150 mt-2 text-main  font-semibold">
+            <Link href="/" className="hover:underline duration-150 mt-2 text-main  font-semibold">
               {" "}
               {t("backtowebsite")}{" "}
             </Link>
@@ -194,14 +194,15 @@ const Login = () => {
           {isCode !== "" && activate && (
             <>
               {" "}
-              <InputOTPPattern isPending2={isPending}
+              <InputOTPPattern
+                isPending2={isPending}
                 forgot={false}
                 tfa={Boolean(searchParams.get("tfa") === "true")}
                 setServerError={setServerError}
                 sendType={isCode}
                 handleSend={handleSend}
               />{" "}
-              <Link href="/signup" className="hover:underline duration-150 mt-2 text-main  font-semibold">
+              <Link href="/" className="hover:underline duration-150 mt-2 text-main  font-semibold">
                 {" "}
                 {t("backtowebsite")}{" "}
               </Link>

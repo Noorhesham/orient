@@ -30,10 +30,6 @@ export default async function Home() {
     queryParams: new URLSearchParams({ with: "tags,category_id" }),
   });
 
-  if (!page) {
-    throw new Error("Page data is undefined. Please check the Server response.");
-  }
-
   const {
     products_list,
     blogs,
@@ -111,7 +107,9 @@ export default async function Home() {
               <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                 <Image src={"/Ellipse 860.svg"} fill className="rounded-full object-cover" alt="color-trend" />
               </div>
-              <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">{t('breadcrumb.color trend')}</h1>
+              <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
+                {t("breadcrumb.color trend")}
+              </h1>
             </div>
           </Link>
 
@@ -120,7 +118,9 @@ export default async function Home() {
               <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                 <Image src={"/Rectangle 156397.png"} fill className="rounded-full object-cover" alt="color-trend" />
               </div>
-              <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">{t('breadcrumb.get inspired')}</h1>
+              <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
+                {t("breadcrumb.get inspired")}
+              </h1>
             </div>
           </Link>
           <Calculate />
