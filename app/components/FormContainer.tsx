@@ -11,49 +11,63 @@ import { toast } from "react-toastify";
 const generateSchemaFromFields = (fields: any[]): ZodObject<any> => {
   const schemaShape: Record<string, ZodTypeAny> = {};
   console.log(fields);
-
   fields.forEach((field) => {
     if (!field) return;
 
+    // Country and state handling
     if (field.country) {
       schemaShape[field.countryName] = z.union([z.string(), z.number()]);
-      schemaShape[field.stateName] = z.union([z.string(), z.number()]);
+      schemaShape[field.stateName] = z.union([z.string(), z.number()]).optional();
+      schemaShape[field.cityName] = z.union([z.string(), z.number()]).optional();
+      return; // Skip country/state handling from further processing
     }
 
     let fieldSchema: ZodTypeAny;
 
-    switch (field) {
-      case field.date === true:
-        fieldSchema = z.date();
-        break;
-      case field.photo === true:
-        fieldSchema = z.any();
-        break;
-      case field.type === "text":
-      case field.type === "textarea":
+    // Determine the schema type based on field properties
+    switch (field.type) {
+      case "text":
+      case "textarea":
         fieldSchema = z.string();
         break;
-      case field.type === "email":
+      case "email":
         fieldSchema = z.string().email(`${field.label} must be a valid email`);
         break;
-      case field.type === "phoneNumber":
-        fieldSchema = z.string().min(10, `${field.label} must be a valid phone number`);
+      case "phoneNumber":
+        if (field.returnFullPhone)
+          fieldSchema = z.string().min(10, `${field.label || "Phone"} must be a valid phone number`);
+        else
+          fieldSchema = z.object({
+            phone: z.string().min(1, { message: "Phone is required" }),
+            country_key: z.string().min(1, { message: "Country is required" }),
+          });
         break;
-      case field.type === "number":
+      case "number":
         fieldSchema = z.number().min(0, `${field.label} must be a valid number`);
         break;
-      // Add more cases for different field types as needed
       default:
-        fieldSchema = z.any(); // Default to string for unknown types
+        fieldSchema = z.any(); // Default to any for unknown types
         break;
     }
 
-    // Add required validation if field is required
+    // Apply required validation if the field is required
     if (field.required) {
-      schemaShape[field.name] = z.string().min(1, `${field.label} is required`);
+      if (fieldSchema instanceof z.ZodString) {
+        // Apply min length for required string-based fields
+        fieldSchema = fieldSchema.min(1, `${field.label || field.name} is required`);
+      } else if (fieldSchema instanceof z.ZodNumber) {
+        // For numbers, refine to ensure it's not null or undefined
+        fieldSchema = fieldSchema.refine((val) => val !== null && val !== undefined, {
+          message: `${field.label || field.name} is required`,
+        });
+      }
     } else {
-      schemaShape[field.name] = fieldSchema.optional(); // Make it optional
+      // Make the field optional if it's not required
+      fieldSchema = fieldSchema.optional();
     }
+
+    // Add the field schema to the schemaShape object
+    schemaShape[field.name] = fieldSchema;
   });
 
   return z.object(schemaShape);
@@ -91,7 +105,10 @@ const FormContainer: React.FC<Formcontainer> = ({
       {
         ...defaultValues,
         birth_day: defaultValues?.birthday || "",
-        phone: ` ${defaultValues?.country_key}${defaultValues?.phone}` || "",
+        phone: {
+          phone: `${defaultValues?.phone}` || "",
+          country_key: defaultValues?.country_key || "",
+        },
         avatar: defaultValues?.photo || "",
       } || {},
   });
@@ -99,6 +116,7 @@ const FormContainer: React.FC<Formcontainer> = ({
   const [serverError, setServerError] = useState<string[] | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  console.log(form.getValues("phone"));
   const onSubmit = async (data: z.infer<typeof dynamicSchema>) => {
     startTransition(async () => {
       console.log(data);

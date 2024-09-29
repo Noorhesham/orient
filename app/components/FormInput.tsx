@@ -17,6 +17,7 @@ interface FormInputProps {
   control?: any;
   name: string;
   label?: string;
+  FormInputProps?: boolean;
   type?: string;
   phone?: boolean;
   className?: string;
@@ -40,6 +41,7 @@ interface FormInputProps {
 }
 export interface PhoneProps {
   onChange: any;
+  name?: string;
 }
 export interface CalendarProps {
   control: any;
@@ -66,6 +68,7 @@ const FormInput = ({
   rate = false,
   photo = false,
   area = false,
+  returnFullPhone = true,
 }: FormInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [PhoneSearchComponent, setPhoneSearchComponent] = useState<PhoneSearchComponentType>();
@@ -128,7 +131,7 @@ const FormInput = ({
               <FormControl className={`  ${switchToggle ? "" : "  py-1 duration-200"} `}>
                 {phone && PhoneSearchComponent ? (
                   <Suspense fallback={<Spinner />}>
-                    <PhoneSearchComponent onChange={field.onChange} />
+                    <PhoneSearchComponent returnFullPhone={returnFullPhone} name={name} onChange={field.onChange} />
                   </Suspense>
                 ) : area ? (
                   <Textarea placeholder={t("forms.message")} className="resize-none" {...field} />

@@ -55,6 +55,7 @@
     "react-phone-input-2": "^2.15.1",
     "react-toastify": "^10.0.5",
     "react-zoom-pan-pinch": "^3.6.1",
+    "sass": "^1.79.4",
     "scroll-lock": "^2.1.5",
     "sonner": "^1.5.0",
     "swiper": "^11.1.9",

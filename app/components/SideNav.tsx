@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import cookies from "js-cookie";
 import { useAuth } from "../context/AuthContext";
@@ -18,6 +18,7 @@ const SideNav = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const { handleLogout } = useAuth();
+  const router = useRouter();
   const pathName = usePathname();
   const lang = cookies.get("NEXT_LOCALE");
   const isActive = pathName.replace(`/${lang}`, "") === `${link}`;
@@ -30,7 +31,7 @@ const SideNav = ({
       <div
         onClick={() => {
           handleLogout();
-          redirect("/");
+          router.push("/");
         }}
         className={`flex hover:bg-gray-100 hover:text-gray-800 duration-150 cursor-pointer w-fit md:w-full rounded-lg  p-1  lg:py-2 lg:px-4 items-center gap-2 self-start 
         ${isActive ? "bg-gray-100" : ""}`}

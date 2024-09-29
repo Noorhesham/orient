@@ -96,30 +96,34 @@ const Login = () => {
       }
     });
   };
-  const handleSend = async (sendType?: string) => {
-    const res = await Server({
-      resourceName: searchParams.get("tfa") === "true" ? "tfaSend" : "verify",
-      id: param,
-      body: {
-        send_by: sendType,
-      },
+  const handleSend = (sendType?: string) => {
+    startTransition(async () => {
+      const res = await Server({
+        resourceName: searchParams.get("tfa") === "true" ? "tfaSend" : "verify",
+        id: param,
+        body: {
+          send_by: sendType,
+        },
+      });
+      console.log(res);
+      if (!res.status)
+        setServerError(
+          Array.isArray(res.errors) && res.errors.length > 0 ? res.errors : res.errors.send_by || res.message
+        );
+      if (res.status) {
+        setServerError(null);
+        toast.success(res.message);
+        setIsCode(sendType || "");
+      }
     });
-    console.log(res);
-    if (!res.status)
-      setServerError(
-        Array.isArray(res.errors) && res.errors.length > 0 ? res.errors : res.errors.send_by || res.message
-      );
-    if (res.status) {
-      setServerError(null);
-      toast.success(res.message);
-      setIsCode(sendType || "");
-    }
   };
   const loginArray = [
     {
       name: "username",
       placeholder: useEmail ? t("email") : t("phone"),
       phone: !useEmail,
+      type: "text",
+      returnFullPhone: true,
     },
     {
       name: "password",
@@ -188,13 +192,20 @@ const Login = () => {
             <Methods tfa={searchParams.get("tfa") || ""} handleSend={handleSend} message={message} methods={methods} />
           )}
           {isCode !== "" && activate && (
-            <InputOTPPattern
-              forgot={false}
-              tfa={Boolean(searchParams.get("tfa") === "true")}
-              setServerError={setServerError}
-              sendType={isCode}
-              handleSend={handleSend}
-            />
+            <>
+              {" "}
+              <InputOTPPattern isPending2={isPending}
+                forgot={false}
+                tfa={Boolean(searchParams.get("tfa") === "true")}
+                setServerError={setServerError}
+                sendType={isCode}
+                handleSend={handleSend}
+              />{" "}
+              <Link href="/signup" className="hover:underline duration-150 mt-2 text-main  font-semibold">
+                {" "}
+                {t("backtowebsite")}{" "}
+              </Link>
+            </>
           )}
         </Suspense>
         {serverError && <p className="text-red-500 text-center mt-3 text-sm font-semibold">{serverError}</p>}

@@ -1,4 +1,3 @@
-import BreadCrumb from "@/app/components/BreadCrumb";
 import Footer from "@/app/components/Footer";
 import NavBar from "@/app/components/NavBar";
 import { unstable_setRequestLocale } from "next-intl/server";

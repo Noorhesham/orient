@@ -53,7 +53,7 @@ export default function ComboboxForm({
               <PopoverContent className=" w-full min-w-[200px] ">
                 <Command>
                   <CommandInput placeholder=" ابحث ..." className="h-9 " />
-                  <CommandList>
+                  <CommandList className=" overflow-y-scroll">
                     {disabled ? (
                       <FaSpinner className="h-4 w-4 mx-auto animate-spin text-main" />
                     ) : (

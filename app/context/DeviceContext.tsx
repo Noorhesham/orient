@@ -26,7 +26,7 @@ const getDeviceType = () => {
 };
 
 const DeviceProvider = ({ children }: { children: React.ReactNode }) => {
-  const operating_system = global?.window?.navigator.appVersion;
+  const operating_system = global?.window?.navigator.appVersion || "";
   const operating_system_version = operating_system?.split(" ")[0];
   const [deviceInfo, setDeviceUniqueId] = useLocalStorageState(
     {

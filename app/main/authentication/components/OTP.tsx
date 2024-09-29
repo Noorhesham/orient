@@ -31,6 +31,7 @@ export function InputOTPPattern({
   revalidate,
   phone,
   country_key,
+  isPending2,
 }: {
   handleSend: any;
   sendType: string;
@@ -42,6 +43,7 @@ export function InputOTPPattern({
   revalidate?: any;
   phone?: boolean;
   country_key?: string;
+  isPending2?: boolean;
 }) {
   const { setLogin } = useAuth();
   const [timer, setTimer] = useState(true);
@@ -61,6 +63,7 @@ export function InputOTPPattern({
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const { deviceInfo } = useDevice();
+  const [error, setError] = useState(false);
   const t = useTranslations();
   const onSubmit = async (data: z.infer<typeof otpSchema>) => {
     startTransition(async () => {
@@ -95,20 +98,21 @@ export function InputOTPPattern({
         },
       });
       console.log(res);
+      const redirect = searchParams.get("redirect");
+
       if (!res.status) setServerError(res.message);
       if (res.status) {
         if (res.token) cookies.set("jwt", res.token);
-        setLogin(true);
         toast.success(res.message);
         const updatedParams = new URLSearchParams(searchParams.toString());
-        ["username", "uuid", "level", "email"].forEach((p) => updatedParams.delete(p));
+        ["username", "uuid", "level", "email", "phone"].forEach((p) => updatedParams.delete(p));
         if (activate) return;
         if (email || phone) {
-          setLogin((l: boolean) => !l);
           return router.push(`?${updatedParams.toString()}`, { scroll: false });
         }
-        forgot ? router.push("/login") : router.push("/");
+        forgot ? router.push("/login") : router.push(redirect ? redirect : "/");
       }
+      setLogin((l: boolean) => !l);
     });
   };
   return (
@@ -142,7 +146,7 @@ export function InputOTPPattern({
             {forgot && <FormInput name="password" control={form.control} placeholder={t("password")} password />}
             <div className="mt-4 flex items-center gap-2">
               {!activate && (
-                <CustomButton
+                <CustomButton isPending={isPending2}
                   text={t("resend_code")}
                   onClick={(e: any) => {
                     handleSend(sendType);

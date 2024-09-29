@@ -2,6 +2,7 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatPriceWithCommas } from "@/lib/utils";
 
 const PriceWithSale = ({
   price,
@@ -22,11 +23,11 @@ const PriceWithSale = ({
         <bdi
           className={`${size === "sm" ? "text-base text-black":size==='xs'?"text-xs text-black" : "text-3xl md:text-2xl text-main2 font-semibold"}   `}
         >
-          {price} {default_currency?.code}
+          {formatPriceWithCommas(price)} {default_currency?.code}
         </bdi>
         {discount && (
           <del className={`  ${size==='xs'?"text-xs":"text-sm md:text-base"}  font-medium text-muted-foreground `}>
-            {discount} {default_currency?.code}
+            {formatPriceWithCommas(discount)} {default_currency?.code}
           </del>
         )}{" "}
       </div>

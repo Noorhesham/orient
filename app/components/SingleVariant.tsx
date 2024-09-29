@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 const syncUrls = ({ setVolumes, setColors, variations, filters }: any) => {
@@ -117,6 +118,7 @@ const SingleVariant = ({
     if (!ischild) return;
     syncUrls({ setVolumes, setColors, variations, filters });
   }, []);
+  const t = useTranslations();
   console.log(filters);
   return (
     <div className="flex w-full px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
@@ -124,7 +126,7 @@ const SingleVariant = ({
         {colorOptions?.[0] && (
           <div className="flex w-full items-center gap-2">
             {" "}
-            <h2 className="text-base  mb-2">Colors</h2>
+            <h2 className="text-base  mb-2">{t('colors')}</h2>
             <div className=" grid grid-cols-5 items-center  w-full lg:gap-2">
               {colorOptions[0].options?.map((option: any, i: number) => (
                 <button
@@ -146,7 +148,7 @@ const SingleVariant = ({
         )}
         {options?.[0] && (
           <div className="flex items-center gap-2">
-            <h2 className="text-base  mb-2">Volume</h2>
+            <h2 className="text-base  mb-2">{t("volume")}</h2>
             {options[0].options?.map((option: any, i: number) => (
               <button
                 disabled={!volumes.includes(option.id)}

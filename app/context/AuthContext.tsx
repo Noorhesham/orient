@@ -41,10 +41,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const updateFn = ({ checker, setState, key, dateKey, setDates, queryClient, status, setCartCount }: UpdateFnParams) => {
   if (checker || (!queryClient.getQueryData([key]) && status !== false)) {
     setState(checker);
-    if (key === "user2_settings" && queryClient.getQueryData(["user2_settings"]) !== undefined && setCartCount) {
-      if (!checker?.cart_count) return;
-      setCartCount(checker?.cart_count);
-    }
+
     queryClient.setQueryData([key], checker);
     setDates((prevDates: any) => ({
       ...prevDates,
@@ -75,6 +72,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartCount, setCartCount] = useLocalStorageState(0, "cartCount");
   const [loading, setLoading] = useState(true);
   console.log("auth context", generalSettings, userSettings, user2Settings, "cartcount", cartCount);
+  useEffect(() => {
+    if (user2Settings) setCartCount(user2Settings?.cart_count);
+  }, [user2Settings]);
   useEffect(() => {
     const fetchData = async () => {
       try {

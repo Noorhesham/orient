@@ -49,11 +49,12 @@ export interface InputProps {
   label2?: string;
   date?: boolean;
   password?: boolean;
+  cityName?: string;
   children?: ReactNode;
   noProgress?: boolean;
   area?: boolean;
   country?: boolean;
-
+  returnFullPhone?: boolean;
   countryName?: string | any;
   stateName?: string | any;
 }
@@ -83,9 +84,10 @@ const CustomForm = ({
               input?.select ? (
                 <FormSelect placeholder={input.placeholder} key={input.name} {...input} />
               ) : input.country ? (
-                <CountriesInput countryName={input.countryName} stateName={input.stateName} />
+                <CountriesInput cityName={input.cityName} countryName={input.countryName} stateName={input.stateName} />
               ) : (
                 <FormInput
+                  returnFullPhone={input?.returnFullPhone}
                   disabled={disabled}
                   label2={input?.label2 || ""}
                   switchToggle={input?.switchToggle}

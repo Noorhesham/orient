@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import cookies from "js-cookie";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Autoplay } from "swiper/modules"; // Correct import for Autoplay
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import ZoomImage from "./ZoomImage";
@@ -64,7 +64,7 @@ const SwiperCards = ({
       });
     });
   }, [swiper, items]);
-  const local = cookies.get("NEXT_LOCALE")?.trim();
+  const local = useLocale();
 
   const t = useTranslations();
   const pagination = paginationImgs?.length > 0 ? paginationImgs : items;
@@ -120,7 +120,11 @@ const SwiperCards = ({
                       } outline-none border-none overflow-hidden h-full max-h-[80vh]`}
                     >
                       <div className="select-none relative h-full w-full">
-                        <div className="absolute left-1/2 w-full lg:w-[80%] -translate-x-1/2 inset-0">
+                        <div
+                          className={`absolute ${
+                            local !== "ar" ? "left-1/2 -translate-x-1/2" : "right-10"
+                          } w-full lg:w-[80%]  inset-0`}
+                        >
                           <TransformWrapper
                             panning={{ disabled: false }} // Enables drag control
                             zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls

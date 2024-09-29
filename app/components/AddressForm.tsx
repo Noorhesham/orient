@@ -10,20 +10,28 @@ import { Server } from "../main/Server";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 const schema = z.object({
   // name: z.string(),
-  phone: z.union([z.string().min(1, { message: "Phone is required" }), z.number()]),
+  phone: z.object({
+    phone: z.string().min(1, { message: "Phone is required" }),
+    country_key: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
+  }),
   country_id: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
-  state_id: z.union([z.string().min(1, { message: "State is required" }), z.number()]),
+  state_id: z.union([z.string(), z.number()]).optional(),
   address: z.string().min(1, { message: "Address is required" }),
 });
-const AddressForm = ({ item }: { item?: any }) => {
+
+const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipping?: any }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     mode: "onChange",
     defaultValues: {
       // name: item?.name || "",
-      phone: item?.phone || "",
+      phone: {
+        phone: `${item?.phone}` || "",
+        country_key: item?.country_key || "",
+      },
       address: item?.address || "",
       country_id: item?.country_id || "",
       state_id: item?.state_id || "",
@@ -33,26 +41,33 @@ const AddressForm = ({ item }: { item?: any }) => {
   const { userSettings, loading } = useAuth();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const queryClient = useQueryClient();
+  console.log(form.formState.errors);
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
       startTransition(async () => {
         //@ts-ignore
-        const country_key = data.phone.toString().slice(0, 2);
+        const country_key = data.phone.country_key;
+        const phone = data.phone.phone;
         const res = item
           ? await Server({
               resourceName: "updateEntity",
               entityName: "shipping-addresses",
-              body: { ...data, country_key, user_id: userSettings?.user_id },
+              body: { ...data, country_key, user_id: userSettings?.user_id, phone },
               id: item.id,
             })
           : await Server({
               resourceName: "createShipping",
               entityName: "shipping-addresses",
-              body: { ...data, country_key, user_id: userSettings?.user_id },
+              body: { ...data, country_key, phone, user_id: userSettings?.user_id },
             });
         console.log(res);
         router.refresh();
-        if (res.status) toast.success(res.message);
+        if (res.status) {
+          toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["checkout"] });
+          setDefaultShipping && setDefaultShipping(res.id);
+        }
         if (!res.status) toast.error(res.message);
       });
     } catch (error: any) {
@@ -65,7 +80,7 @@ const AddressForm = ({ item }: { item?: any }) => {
     //   name: "name",
     //   placeholder: "YOUR NAME",
     // },
-    { name: "phone", phone: true, placholder: "COUNTRY KEY", type: "text" },
+    { name: "phone", phone: true, placholder: "COUNTRY KEY", type: "text", required: true, returnFullPhone: false },
     { country: true, countryName: "country_id", stateName: "state_id" },
 
     { name: "address", placeholder: "YOUR ADDRESS" },

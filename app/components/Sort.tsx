@@ -8,26 +8,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 const Sort = ({ options }: { options: any[] }) => {
   const [selected, setSelected] = useState();
   const router = useRouter();
+  const t = useTranslations();
   const searchParams = useSearchParams();
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
     const sort = params.get("sort");
     if (sort) {
       // @ts-ignore
-      setSelected((s) =>
-        sort === "price_lth" ? "Price: Low to High" : sort === "price_htl" ? "Price: High to Low" : "BY LATEST"
-      );
+      setSelected((s) => (sort === "price_lth" ? "Price: Low to High" : sort === "price_htl" ? t("htl") : t("lth")));
     }
   }, [searchParams]);
   return (
-    <div className="   mt-4 flex items-center justify-between gap-4">
-      <h2 className=" text-gray-500 text-sm">Sort By:</h2>
+    <div className="    flex items-center justify-between gap-4">
+      <h2 className=" text-gray-500 text-sm">{t("sort")}</h2>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger className=" bg-white min-w-[150px] py-1.5 px-3 rounded-xl text-sm  flex items-center gap-1">
-          {selected || "BY LATEST"}
+          {selected || t("latest")}
           <ChevronDown className=" ml-auto text-gray-500" />
         </DropdownMenuTrigger>
         <DropdownMenuContent className=" w-full rounded-sm">

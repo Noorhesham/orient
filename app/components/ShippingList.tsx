@@ -5,12 +5,23 @@ import React, { useEffect, useState, useTransition } from "react";
 import { Server } from "../main/Server";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
-const ShippingList = ({ user_addresses, user_address }: { user_addresses: any; user_address: any }) => {
+const ShippingList = ({
+  user_addresses,
+  user_address,
+  setSelected,
+  selected,
+}: {
+  user_addresses: any;
+  user_address: any;
+  defaultShipping?: any;
+  setSelected: any;
+  selected: any;
+}) => {
   const [isPending, startTransition] = useTransition();
-  const [selected, setSelected] = useState(user_address || ""); // Ensure initial value is set
   const router = useRouter();
-
+  const queryClient = useQueryClient();
   const update = async (selected: string) => {
     startTransition(async () => {
       try {
@@ -27,35 +38,17 @@ const ShippingList = ({ user_addresses, user_address }: { user_addresses: any; u
       } catch (error: any) {
         toast.error(error.message);
       }
+      queryClient.invalidateQueries({ queryKey: ["checkout"] });
     });
   };
 
   useEffect(() => {
     if (selected) update(selected);
   }, [selected]);
-
+  console.log(selected);
   return (
     <div className="flex flex-col items-start">
       {/* Default Address */}
-      {user_address && (
-        <label
-          htmlFor="default"
-          onClick={() => {
-            setSelected(user_address.id);
-          }}
-          className="flex items-center gap-2"
-        >
-          <input
-            disabled={isPending}
-            value={user_address?.id}
-            checked={selected === user_address?.id}
-            name="shipping-address"
-            type="radio"
-            id={"default"}
-          />
-          <IconWidget paragraph={user_address?.address} header="DEFAULT" icon={<Location />} />
-        </label>
-      )}
 
       {/* Other Addresses */}
       {user_addresses.map((item: any) => (

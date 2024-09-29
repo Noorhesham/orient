@@ -55,6 +55,8 @@ export async function middleware(req: NextRequest, res: NextResponse) {
         headers: { "Set-Cookie": "jwt=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT" },
       });
     }
+    req.nextUrl.pathname = '/';
+    return NextResponse.redirect(req.nextUrl);
   }
   // Apply next-intl middleware for locale handling
   return localeMiddleware(req);

@@ -50,7 +50,7 @@ const Devices = () => {
                 ?.flat()
                 ?.reverse()
                 .map((val, i) => (
-                  <div className=" flex  w-full justify-between">
+                  <div key={i} className=" flex  w-full justify-between">
                     <div className="flex flex-col ">
                       <div className="flex flex-col items-start gap-1" key={i}>
                         <div className=" flex items-start gap-2">

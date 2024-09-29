@@ -7,13 +7,10 @@ import Heading from "../../../components/Heading";
 import LinkButton from "../../../components/LinkButton";
 import ZoomImage from "../../../components/ZoomImage";
 import BreadCrumb from "@/app/components/BreadCrumb";
-import Paragraph from "@/app/components/Paragraph";
-import MotionContainer from "@/app/components/MotionContainer";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import SwiperCards from "@/app/components/SwiperCards";
 import { Server } from "@/app/main/Server";
 import { convertToHTML } from "@/lib/utils";
-import MobileWrapper from "@/app/components/MobileWrapper";
 const getGalleryClasses = (index: number) => {
   switch (index) {
     case 0:
@@ -88,10 +85,10 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           <Section
             link="/shop"
             className="mt-5   flex items-center  gap-4  md:flex-row flex-col w-full "
-            heading="BEST SELLERS"
-            linkText="BROWSE ALL PRODUCTS"
+            heading={t("similarProducts")}
+            linkText={t("browse all products")}
           >
-            <div noPadding className=" mt-2 hidden lg:grid grid-cols-3 gap-4 ">
+            <div className=" mt-2 hidden lg:grid grid-cols-3 gap-4 ">
               {page.products.slice(0, 3).map((product, i) => {
                 return (
                   <Card

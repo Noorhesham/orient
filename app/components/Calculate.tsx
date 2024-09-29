@@ -16,10 +16,11 @@ import {
   SelectGroup,
 } from "@/components/ui/select";
 import Spinner from "./Spinner";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   const { data, isLoading } = useGetEntity("calculate");
+  const t = useTranslations();
   const locale = useLocale();
   const [input, setInput] = React.useState(0);
   const [result, setResult] = React.useState(0);
@@ -30,7 +31,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   console.log(selectedUnit);
   return (
     <ModalCustom
-      title="CALCULATE THE QUANTITY"
+      title={t("calc")}
       btn={
         btn || (
           <div>
@@ -39,7 +40,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
                 <div className=" rounded-full md:w-44 sm:w-28 sm:h-28 w-24 h-24    md:h-44 relative">
                   <Image src={"/Ellipse 860.png"} fill className="rounded-full object-cover" alt="" />
                 </div>
-                <h1 className=" text-center  sm:text-sm md:text-2xl text-main2 font-[500] mt-4 ">PAINT CALCULATOR</h1>
+                <h1 className=" text-center  sm:text-sm md:text-2xl text-main2 font-[500] mt-4 ">{t("calcpaint")}</h1>
               </div>
             </div>
           </div>

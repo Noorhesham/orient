@@ -164,6 +164,7 @@
   "moneySafe": "YOUR MONEY IS SAFE",
   "amount": "AMOUNT",
   "prices": "PRICES",
+  "price": "PRICE",
   "similarProducts": "SIMILAR PRODUCTS",
   "browseAllProducts": "BROWSE ALL PRODUCTS",
   "description": "DESCRIPTION",
@@ -172,5 +173,86 @@
   "quotations": "Getting quotations for Projects",
   "miss-shipping": "Missing Shipping address Details,start adding now ! ",
   "download": " Founded in 1946, Orient is built on a legacy of integrity, quality assurance, and innovative technology",
-  "outOfStock": "OUT OF STOCK"
+  "outOfStock": "OUT OF STOCK",
+  "browse all products": "BROWSE ALL PRODUCTS",
+  "downloadApp": "Download App",
+  "filters": {
+    "allPrice": "All Price",
+    "under100": "Under 100EGP",
+    "100to200": "100EGP to 200EGP",
+    "200to300": "200EGP to 300EGP",
+    "300to500": "300EGP to 500EGP",
+    "500to1000": "500EGP to 1000EGP",
+    "moreThan1000": "More than 1000EGP",
+    "custom": "Custom",
+    "category": "Category",
+    "tags": "POPULAR TAGS",
+    "range": "PRICE RANGE"
+  },
+  "reset": "RESET",
+  "sort": "SORT BY :",
+  "htl": "Price: High to Low",
+  "lth": "Price: Low to High",
+  "latest": "BY LATEST",
+  "SAVE CHANGES": "SAVE CHANGES",
+  "stars": {
+    "star": "star",
+    "userFeedback": "User feedback",
+    "noFeedback": "No User feedback Yet",
+    "reviews": "REVIEWS",
+    "review": "REVIEW"
+  },
+  "volume": "VOLUME",
+  "colors": "COLORS",
+  "calc": "CALCULATE THE QUANTITY",
+  "calcpaint": "PAINT CALCULATOR",
+  "addComment": {
+    "title": "Add a comment",
+    "loginPrompt": "Login First to add product to Review this product ...!",
+    "heading": "Write a review for this product",
+    "description": "Share your opinions with others",
+    "buttonText": "Add Comment",
+    "commentPlaceholder": "Comment",
+    "ratePlaceholder": "Rate"
+  },
+  "feature": {
+    "title": "Feature",
+    "warranty": "FREE 1 YEAR WARRANTY",
+    "shipping": "Free Shipping & Fast Delivery",
+    "moneyBack": "100% Money-back guarantee",
+    "support": "24/7 Customer support",
+    "securePayment": "Secure payment method"
+  },
+  "wishlistContent": {
+    "add": "ADD TO WISHLIST",
+    "remove": "Remove from wishlist",
+    "loginPrompt": "Login First to add product to wishlist .... !",
+    "share": "SHARE PRODUCT :",
+    "checkOut": "Check out this product!"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "products": "Products",
+    "about us": "About Us",
+    "contact us": "Contact",
+    "become parteners": "BECOME PARTENERS",
+    "get inspired": "GET INSPIRED",
+    "color trend": "COLOR TREND"
+  },
+  "orderdesc": "Here You Can See All Your Orders.",
+  "noorders": "You have not made any orders yet !",
+  "table": {
+    "orderSerial": "Order Serial",
+    "status": "Status",
+    "date": "Date",
+    "total": "Total",
+    "action": "Action",
+    "viewDetails": "View Details",
+    "totalLabel": "Total"
+  },"orderDetails": {
+    "orderNumber": "ORDER N{uuid}",
+    "shippingAddress": "SHIPPING ADDRESS:",
+    "orderInformation": "ORDER INFORMATION",
+    "date":"Date"
+  }
 }

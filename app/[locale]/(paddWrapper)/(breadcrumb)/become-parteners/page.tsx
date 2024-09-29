@@ -48,11 +48,12 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
         area: field.type === "textarea" ? true : false,
         phone: field.type === "phoneNumber" ? true : false,
         select: false,
+        returnFullPhone: false,
       };
     })
     .filter((field: any) => field !== undefined);
 
-    console.log(fields,forms[0].fields)
+  console.log(fields, forms[0].fields);
   return (
     <main className="">
       <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">

@@ -6,38 +6,41 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { FaHome } from "react-icons/fa";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-const BreadCrumb = ({ linksCustom }: { linksCustom: { href: string; text: string }[] }) => {
+import { useTranslations } from "next-intl"; // Import useTranslations
+
+const BreadCrumb = ({ linksCustom }: { linksCustom?: { href: string; text: string }[] }) => {
   const router = useRouter();
   const pathName = usePathname();
+  const t = useTranslations("breadcrumb"); // Translation hook
+
+  // Get the links from props or generate from pathname
   const links: any = linksCustom || pathName.split("/").filter((link) => !["ar", "en"].includes(link));
-  console.log(links);
+  console.log(links)
   return (
-    <Breadcrumb className=" py-3  bg-gradient-to-r from-[#ff007b2f] via-white to-[#00a2ff3f]">
+    <Breadcrumb className=" py-3 bg-gradient-to-r from-[#ff007b2f] via-white to-[#00a2ff3f]">
       <MaxWidthWrapper noPadding>
-        <BreadcrumbList className=" ">
+        <BreadcrumbList>
           {links.map((link: any, i: number) => {
             const isLast = i === links.length - 1;
             return (
               <div className="flex items-center" key={i}>
                 <BreadcrumbItem>
-                  {
-                    <BreadcrumbLink
-                      className={`${
-                        global?.window?.location.pathname === `/${link}`
-                          ? " text-main  hover:text-pink-400 duration-150"
-                          : " text-[#191c1f86]"
-                      } flex uppercase items-center gap-2`}
-                      href={`/${link.href === "" ? "" : link.href || link}`}
-                    >
-                      {i === 0 && <FaHome />}{" "}
-                      {link.text ? link.text : link === "" ? "Home" : link.replace("-", " ") || ""}
-                    </BreadcrumbLink>
-                  }
+                  <BreadcrumbLink
+                    className={`${
+                      global?.window?.location.pathname === `/${link}`
+                        ? " text-main  hover:text-pink-400 duration-150"
+                        : " text-[#191c1f86]"
+                    } flex uppercase items-center gap-2`}
+                    href={`/${link.href === "" ? "/" : link.href || link}`}
+                  >
+                    {i === 0 && <FaHome />}
+                    {/* Translate breadcrumb text */}
+                    {link.text ? link.text : link === "" ? t("home") : t(link.replace("-", " ").toLowerCase())}
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 {!isLast && <BreadcrumbSeparator />}
               </div>

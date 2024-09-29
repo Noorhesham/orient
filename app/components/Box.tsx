@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -24,7 +25,7 @@ const Box = ({
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-
+  const t = useTranslations();
   const [filters, setFilters] = useState<Filters>({});
 
   // Parse the existing filters from the URL when the component mounts
@@ -176,7 +177,7 @@ const Box = ({
       </ul>
       {!single && (
         <Button variant={"outline"} className="w-full mt-4" onClick={() => handleReset(filter)}>
-          RESET
+          {t("reset")}
         </Button>
       )}
     </div>

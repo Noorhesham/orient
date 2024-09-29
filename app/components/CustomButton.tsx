@@ -28,7 +28,10 @@ const CustomButton = ({
   return (
     <Button
       disabled={disabled}
-      onClick={onClick}
+      onClick={(e) => {
+        onClick && onClick();
+      }}
+      type="button"
       className={`${
         backgroundColor === "dark"
           ? `${

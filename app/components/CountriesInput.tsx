@@ -14,7 +14,7 @@ const useGetEntities = ({
   id,
 }: {
   key: string;
-  resourceName: "countries" | "states";
+  resourceName: "countries" | "states" | "cities";
   queryParams?: URLSearchParams;
   enable?: boolean;
   id?: string;
@@ -26,7 +26,15 @@ const useGetEntities = ({
   });
   return { data, isLoading };
 };
-const CountriesInput = ({ countryName, stateName }: { countryName: string; stateName: string }) => {
+const CountriesInput = ({
+  countryName,
+  stateName,
+  cityName,
+}: {
+  countryName: string;
+  stateName: string;
+  cityName?: string;
+}) => {
   const form = useFormContext();
   const { data: countries, isLoading } = useGetEntities({
     resourceName: "countries",
@@ -39,8 +47,14 @@ const CountriesInput = ({ countryName, stateName }: { countryName: string; state
     key: "states",
     enable: !!selectedCountryCode,
   });
+  const selectedStateCode = form.getValues(stateName);
+  const { data: cities, isLoading: citiesLoading } = useGetEntities({
+    resourceName: "cities",
+    id: selectedStateCode,
+    key: "cities",
+    enable: !!selectedStateCode && cityName !== "",
+  });
 
-  console.log(states, selectedCountryCode);
   return (
     <div className=" flex flex-col gap-4">
       {!isLoading && (
@@ -58,6 +72,15 @@ const CountriesInput = ({ countryName, stateName }: { countryName: string; state
           label="State"
           placeholder="Select State"
           options={states?.data.map((country: any) => ({ label: country.title, value: country.id }))}
+        />
+      )}
+      {selectedStateCode && cityName && (
+        <ComboboxForm
+          disabled={citiesLoading}
+          name={cityName}
+          label="City"
+          placeholder="Select City"
+          options={cities?.data.map((country: any) => ({ label: country.title, value: country.id }))}
         />
       )}
     </div>

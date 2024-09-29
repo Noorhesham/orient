@@ -62,7 +62,8 @@ export type ResourceNameProps =
   | "check"
   | "wishlist"
   | "calculate"
-  | "getinspired";
+  | "getinspired"
+  | "cities";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -110,6 +111,8 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/${entityName}/entities-operations?${queryParams}`, method: "GET" };
     case "countries":
       return { url: `${url}/countries/entities-operations?itemsCount=200&${queryParams}`, method: "GET" };
+    case "cities":
+      return { url: `${url}/info-cities/entities-operations?state_id=${id}`, method: "GET" };
     case "states":
       return {
         url: `${url}/states/entities-operations?itemsCount=200&country_id=${id}`,
@@ -240,8 +243,9 @@ export async function Server({
         tags: cache ? [`${resourceName}`] : [],
       },
     });
-    if (!response.ok) throw new Error(`Error: ${response.status}`);
+
     console.log(requestBody);
+    if (!response.ok) throw new Error(`Error: ${response.status}`);
     const data = await response.json();
     console.log(data);
 

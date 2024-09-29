@@ -1,9 +1,11 @@
+"use client";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import MotionItem from "./MotionItem";
 import MotionContainer from "./MotionContainer";
 import cookies from "js-cookie";
+import { useLocale } from "next-intl";
 
 const Section = ({
   heading,
@@ -14,7 +16,8 @@ const Section = ({
   headingColor,
   paragraph,
   CustomePadding,
-  id, headingclass
+  id,
+  headingclass,
 }: {
   heading?: string;
   link?: string;
@@ -24,10 +27,10 @@ const Section = ({
   headingColor?: string;
   paragraph?: string;
   CustomePadding?: string;
-  id?: string; headingclass?:string
+  id?: string;
+  headingclass?: string;
 }) => {
-  const locale = cookies.get("NEXT_LOCALE");
-  console.log(locale?.trim() === "ar");
+  const locale = useLocale();
   return (
     <section id={id} className={`${className || ""}  `}>
       <div className=" flex flex-col items-stretch  w-full ">
@@ -35,7 +38,7 @@ const Section = ({
           {heading && (
             <MotionItem
               nohover
-              className={` text-lg sm:text-2xl  ${headingclass||""}    lg:mx-0  md:text-3xl  ${
+              className={` text-lg sm:text-2xl  ${headingclass || ""}    lg:mx-0  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
               }   font-[700]`}
             >
@@ -51,7 +54,7 @@ const Section = ({
             <Link
               href={`${link}`}
               className={`text-[#E6007E] text-xs md:text-sm font-semibold flex flex-row items-center gap-1 md:gap-2 ${
-                locale?.trim() === "ar" ? "flex-row-reverse" : " "
+                locale === "ar" ? "flex-row-reverse" : " "
               }`}
             >
               {linkText} <ArrowRight className=" md:w-5 md:h-5 w-3 h-3" />

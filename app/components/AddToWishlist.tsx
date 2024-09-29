@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useCreateEntity } from "@/lib/queries";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 const AddToWishlist = ({
   className,
@@ -26,7 +27,8 @@ const AddToWishlist = ({
   const router = useRouter();
   const [currentUrl, setCurrentUrl] = useState<string | null>(null);
   const { mutate, isPending } = useCreateEntity("addWishlist", "wishlist", id);
-  // Set the current URL only on the client side
+  const t = useTranslations("wishlistContent"); // Hook for translation
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setCurrentUrl(window.location.href);
@@ -38,12 +40,11 @@ const AddToWishlist = ({
       if (global?.navigator.share) {
         global?.navigator
           .share({
-            title: "Check out this product!",
+            title: t("checkOut"), // Use translation here
             url: currentUrl,
           })
           .catch((error) => console.error("Error sharing", error));
       } else {
-        // Fallback for desktop or browsers that don't support the Web Share API
         global?.navigator.clipboard.writeText(currentUrl);
         alert("Link copied to clipboard!");
       }
@@ -51,7 +52,7 @@ const AddToWishlist = ({
   };
 
   if (!currentUrl) {
-    return null; // Return nothing while waiting for the client-side URL
+    return null;
   }
 
   return (
@@ -67,28 +68,28 @@ const AddToWishlist = ({
           className="flex items-center gap-1"
         >
           {!wishlistStatus ? <Heart /> : <Heart className="fill-red-500" />}
-          {!wishlistStatus ? "ADD TO WISHLIST" : "Remove from wishlist"}
+          {!wishlistStatus ? t("add") : t("remove")} {/* Use translation */}
         </Button>
       ) : (
         <ModalCustom
           btn={
             <Button variant={"link"} className="flex items-center gap-1">
-              <Heart /> ADD TO WISHLIST
+              <Heart /> {t("add")} {/* Use translation */}
             </Button>
           }
           content={
             <Link
               href={"/login"}
-              className=" text-2xl hover:underline duration-150 py-10 text-main uppercase font-semibold text-center "
+              className="text-2xl hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
             >
-              Login First to add product to wishlist .... !
+              {t("loginPrompt")} {/* Use translation */}
             </Link>
           }
         />
       )}
       {!noshare && (
         <div className="flex items-center gap-1 text-sm">
-          <p>SHARE PRODUCT :</p>
+          <p>{t("share")}</p> {/* Use translation */}
           <FiCopy onClick={handleShare} className="cursor-pointer hover:text-blue-500" />
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}

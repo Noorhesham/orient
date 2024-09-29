@@ -22,7 +22,7 @@ const Comment = ({
     <div className=" border-b border-input py-4   flex flex-col">
       <div className="flex my-2 items-start flex-col">
         <span className=" text-gray-400 font-semibold text-xs">{format(date, "dd/MM/yyyy")}</span>
-        <Starrating MaxRating={5} size={20} defaultRating={rating} />
+        <Starrating change={false} MaxRating={5} size={20} defaultRating={rating} />
       </div>
       <User user_did_buy={user_did_buy} user={user} />
       <Paragraph full description={content} />

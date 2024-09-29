@@ -2,22 +2,28 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import Spinner from "./Spinner";
 import { CheckCircleIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const SubmitButton = ({ text, isPending, btnStyles }: { text: string; isPending?: boolean; btnStyles?: String }) => {
+  const t = useTranslations();
   return (
-    <Button
-      type="submit"
-      className={`  rounded-full hover:bg-main2/60 duration-150 bg-main2  text-center text-gray-50 py-2 px-8 ${btnStyles}`}
-    >
+    <div className="button-container-2  relative rounded-full">
       {isPending ? (
-        <Spinner />
+        <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {" "}
+          <Spinner />
+        </div>
       ) : (
-        <p className="flex items-center gap-2">
-          {text=='SAVE CHANGES'&&<CheckCircleIcon />}
+        <span className="mas flex items-center gap-2">
+          {text == t("SAVE CHANGES") && <CheckCircleIcon />}
           {text}
-        </p>
+        </span>
       )}
-    </Button>
+      <button type="submit" className={` px-8 flex items-center gap-2 rounded-full `}>
+        {text == t("SAVE CHANGES") && <CheckCircleIcon />}
+        {text}
+      </button>
+    </div>
   );
 };
 

@@ -1,8 +1,8 @@
 import React from "react";
-import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
+import MaxWidthWrapper from "../../../../components/MaxWidthWrapper";
 import Image from "next/image";
-import { PlayIcon } from "../../../components/Icons";
-import SwiperCards from "../../../components/SwiperCards";
+import { PlayIcon } from "../../../../components/Icons";
+import SwiperCards from "../../../../components/SwiperCards";
 import ZoomImage from "@/app/components/ZoomImage";
 import Paragraph from "@/app/components/Paragraph";
 import { cookies } from "next/headers";

@@ -264,7 +264,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               </div>
               <Paragraph className=" my-2" description={product.description || ""} />
               <div className=" flex uppercase  text-sm  items-center gap-2">
-                <h3 className="text-main2 font-semibold">{t("category")} :</h3>
+                <h3 className="text-main2 font-semibold">{t("filters.category")} :</h3>
                 <Link
                   href={`/shop?category_id=${product.category_id}`}
                   className=" py-2 px-4 rounded-full bg-white border border-input  font-semibold"
@@ -280,7 +280,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 heading={t("similarProducts")}
                 link="/shop"
                 id="desc"
-                linkText={t("browseAllProducts")}
+                linkText={t("browse all products")}
               >
                 {product.crossSells?.length > 0 && (
                   <>
@@ -411,7 +411,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 <div className=" pb-5 border-b border-input">
                   <div className=" flex flex-col items-center justify-center  gap-2">
                     <div className=" flex items-center gap-2">
-                      <h2>PRICE :</h2>
+                      <h2>{t("price")} :</h2>
                       <PriceWithSale
                         size="sm"
                         price={product.sell_price || product.regular_price}
@@ -449,7 +449,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
           </div>
         </MaxWidthWrapper>
         <MaxWidthWrapper>
-          <Section link="/shop" heading="BEST SELLERS" linkText="BROWSE ALL PRODUCTS">
+          <Section link="/shop" heading={t("similarProducts")} linkText={t("browse all products")}>
             <MotionContainer className=" hidden lg:grid  lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
               {upSells?.map((item: any, i: number) => (
                 <Card

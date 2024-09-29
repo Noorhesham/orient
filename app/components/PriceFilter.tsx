@@ -3,21 +3,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-const PRICE_FILTERS = [
-  { value: [0, 10000], label: "All Price", isCustom: false },
-  { value: [1, 200], label: "Under 200EGP", isCustom: false },
-  { value: [25, 100], label: "25EGP to 100EGP", isCustom: false },
-  { value: [100, 300], label: "100EGP to 300EGP", isCustom: false },
-  { value: [300, 500], label: "300EGP to 500EGP", isCustom: false },
-  { value: [500, 1000], label: "500EGP to 1000EGP", isCustom: false },
-  { value: [1000, 2000], label: "1000EGP to 2000EGP", isCustom: false },
-  { isCustom: true, value: [0, 100000] },
-];
-const DEFAULT_RANGE = [0, 10000];
 
 const PriceFilter = () => {
+  const t = useTranslations("filters");
+  const PRICE_FILTERS = [
+    { value: [0, 10000], label: t("allPrice"), isCustom: false },
+    { value: [1, 100], label: t("under100"), isCustom: false },
+    { value: [100, 200], label: t("100to200"), isCustom: false },
+    { value: [200, 300], label: t("200to300"), isCustom: false },
+    { value: [300, 500], label: t("300to500"), isCustom: false },
+    { value: [500, 1000], label: t("500to1000"), isCustom: false },
+    { value: [1000, 9999999], label: t("moreThan1000"), isCustom: false },
+    { isCustom: true, value: [0, 100000], label: t("custom") },
+  ];
+  const DEFAULT_RANGE = [0, 10000];
   const [priceFilter, setPriceFilter] = useState({
     range: DEFAULT_RANGE,
     isCustom: false,
@@ -49,12 +51,12 @@ const PriceFilter = () => {
   return (
     <ul className="space-y-1 filter border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
       <li className="flex items-center  flex-row flex-wrap  lg:flex-col gap-4">
-        <div className="self-start flex items-center gap-2 mr-auto">
+        <div className="self-start flex items-center gap-2 ">
           <label
             htmlFor={"price-custom"}
-            className="text-lg  mr-auto font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-lg   font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Price Range
+            {t("range")}
           </label>
         </div>
 

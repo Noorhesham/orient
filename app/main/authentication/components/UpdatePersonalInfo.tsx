@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 import { format } from "date-fns";
 import FormContainer from "@/app/components/FormContainer";
 import ModalCustom from "@/app/components/ModalCustom";
+import { useState } from "react";
 const UpdatePersonalInfo = () => {
   const t = useTranslations();
   const router = useRouter();
@@ -22,9 +23,10 @@ const UpdatePersonalInfo = () => {
     { name: "avatar", placeholder: t("avatar"), photo: true },
   ];
   const email = [{ name: "email", placeholder: t("email") }];
-  const phone = [{ name: "phone", placeholder: t("phone"), phone: true }];
+  const phone = [{ name: "phone", placeholder: t("phone"), phone: true, returnFullPhone: false }];
   const searchParams = useSearchParams();
   const { setLogin, userSettings: user, loading } = useAuth();
+  const [OtpError, setOtpError] = useState<string | null>(null);
   const updatePersonalInfro = async (data: any, setError: any) => {
     const formData = new FormData();
     // Correctly append all fields to FormData
@@ -40,7 +42,7 @@ const UpdatePersonalInfo = () => {
         formData.append(key, data[key]);
       }
     });
-    console.log(data)
+    console.log(data);
     const res = await Server({ resourceName: "update_profile", body: formData, formData: true });
     // const res = await updatePhone(formData)
     console.log(res);
@@ -55,33 +57,50 @@ const UpdatePersonalInfo = () => {
   };
 
   const updateEmailInfo = async (data: any, setError: any) => {
-    const phone = data?.phone?.slice(user.country_key.toString().split("").length);
+    const phone = data?.phone?.phone.slice(user.country_key.toString().split("").length);
     const updatedData = {
       ...data,
       country_key: data.phone && user.country_key,
       phone: phone || null,
     };
-
+    console.log(updatedData);
     const res = await Server({
       resourceName: "update_profile",
       body: updatedData,
     });
     if (!res.status) {
       setError(res.errors?.length > 0 ? res.errors.join(", ") : res.errors?.email || res.message);
+
       return;
     }
     if (res.status) {
       toast.success(res.message);
       setLogin((l: any) => !l);
-
+      setError(null);
       const updatedParams = new URLSearchParams(searchParams);
       data.phone ? updatedParams.set("phone", phone) : updatedParams.set("email", data.email);
       data.phone ? updatedParams.set("uuid", res.phone_code_uuid) : updatedParams.set("uuid", res.email_code_uuid);
-      setError(null);
+
       router.push(`?${updatedParams.toString()}`, { scroll: false });
+      setLogin((l: any) => !l);
     }
   };
-
+  const handleSend = async (sendType?: string) => {
+    const res = await Server({
+      resourceName: "verify",
+      id: searchParams.get("uuid"),
+      body: {
+        send_by: sendType,
+      },
+    });
+    console.log(res);
+    if (!res.status)
+      setOtpError(Array.isArray(res.errors) && res.errors.length > 0 ? res.errors : res.errors.send_by || res.message);
+    if (res.status) {
+      setOtpError(null);
+      toast.success(res.message);
+    }
+  };
   return (
     <>
       <ModalCustom
@@ -108,7 +127,10 @@ const UpdatePersonalInfo = () => {
                 formArray={email}
                 title={t("updateEmail")}
               />
-              {searchParams.get("uuid") && <InputOTPPattern email sendType="email" handleSend={updateEmailInfo} />}
+              {searchParams.get("uuid") && (
+                <InputOTPPattern setServerError={setOtpError} email sendType="email" handleSend={() => handleSend("email")} />
+              )}
+              {OtpError && <p className="text-red-500 text-sm">{OtpError}</p>}
             </div>
           )
         }
@@ -138,8 +160,15 @@ const UpdatePersonalInfo = () => {
                 title={t("updatePhone")}
               />
               {searchParams.get("uuid") && (
-                <InputOTPPattern sendType="" phone country_key={user.country_key} handleSend={updateEmailInfo} />
+                <InputOTPPattern
+                  setServerError={setOtpError}
+                  sendType=""
+                  phone
+                  country_key={user.country_key}
+                  handleSend={() => handleSend("sms")}
+                />
               )}
+              {OtpError && <p className="text-red-500">{OtpError}</p>}
             </div>
           )
         }

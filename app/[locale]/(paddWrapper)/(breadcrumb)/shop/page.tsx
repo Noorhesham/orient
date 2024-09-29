@@ -70,9 +70,9 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                   <div className="flex items-center gap-4 ml-auto ">
                     <Sort
                       options={[
-                        { label: "Price: Low to High", value: "price_lth" },
+                        { label: t("lth"), value: "price_lth" },
                         {
-                          label: "Price: High to Low",
+                          label: t("htl"),
                           value: "price_htl",
                         },
                       ]}

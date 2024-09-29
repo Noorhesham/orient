@@ -29,6 +29,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         phone: field.type === "phoneNumber" ? true : false,
         select: false,
         required: field.validate?.required || false,
+        returnFullPhone: false,
       };
     })
     .filter((field: any) => field !== undefined);
