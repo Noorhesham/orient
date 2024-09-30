@@ -90,6 +90,7 @@ interface Formcontainer {
   submit?: any;
   server?: boolean;
   children?: React.ReactNode;
+  id?:string
 }
 
 const FormContainer: React.FC<Formcontainer> = ({
@@ -102,6 +103,7 @@ const FormContainer: React.FC<Formcontainer> = ({
   children,
   submit,
   server,
+  id,
 }) => {
   const t = useTranslations("form");
 
@@ -129,13 +131,14 @@ const FormContainer: React.FC<Formcontainer> = ({
     startTransition(async () => {
       if (server) {
         try {
-          const res = await Server({ resourceName: "submitForm", body: data, id: "contact-us" });
+          console.log(data);
+          const res = await Server({ resourceName: "submitForm", body: data, id:id|| "contact-us" });
 
           if (res.status) {
             toast.success(res.message);
             form.reset(defaultValues);
           }
-          if (!res.status) setServerError(res.errors);
+          if (!res.status) setServerError(res.message);
         } catch (error) {
           console.log(error);
         }

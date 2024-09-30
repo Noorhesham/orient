@@ -35,6 +35,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
             country: true,
             countryName: "country_id",
             stateName: "state_id",
+            cityName: "city_id",
           };
         }
         return;
@@ -48,12 +49,13 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
         area: field.type === "textarea" ? true : false,
         phone: field.type === "phoneNumber" ? true : false,
         select: false,
-        returnFullPhone: false,
+        required: field.validate?.required || false,
+        returnFullPhone: true,
       };
     })
     .filter((field: any) => field !== undefined);
+  console.log(forms[0].fields);
 
-  console.log(fields, forms[0].fields);
   return (
     <main className="">
       <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">
@@ -76,7 +78,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
           </Suspense>
           <div className=" col-span-full w-full lg:col-span-2">
             <Head1 text={t("contact.question")} />
-            <FormContainer server submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
+            <FormContainer server id={category} submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
           </div>
         </div>
       </MaxWidthWrapper>

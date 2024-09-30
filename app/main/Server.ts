@@ -244,7 +244,7 @@ export async function Server({
       },
     });
 
-    console.log(requestBody, response, deviceId);
+    console.log(requestBody);
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     const data = await response.json();
     console.log(data);

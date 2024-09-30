@@ -5,7 +5,7 @@ import { PhoneProps } from "./FormInput";
 import cookies from "js-cookie";
 import ar from "react-phone-input-2/lang/ar.json";
 import { useFormContext } from "react-hook-form";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface ExtendedPhoneProps extends PhoneProps {
   returnFullPhone?: boolean; // Boolean to control return format
@@ -13,7 +13,7 @@ interface ExtendedPhoneProps extends PhoneProps {
 }
 
 const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: ExtendedPhoneProps) => {
-  const lang = cookies.get("NEXT_LOCALE");
+  const lang = useLocale();
   const form = useFormContext();
   const t = useTranslations();
 
@@ -23,7 +23,7 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
   const dialCodeValue = currentValue.country_key || ""; // For object case
 
   // Combine dial code and phone number for the PhoneInput value
-  const fullPhoneValue = dialCodeValue ? `${dialCodeValue}${phoneValue}` : defaultValue ? currentValue : ""; // Constructed full phone value, ensuring it's a string
+  const fullPhoneValue = dialCodeValue ? `${dialCodeValue}${phoneValue}` : defaultValue ? currentValue : ""; 
   console.log(currentValue, dialCodeValue);
   return (
     <PhoneInput
@@ -32,7 +32,7 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
       excludeCountries={["il"]}
       searchStyle={{ width: "80%" }}
       country="eg" // Default country
-      value={fullPhoneValue} // Ensure value is a string (full phone value)
+      value={returnFullPhone?`${dialCodeValue}${phoneValue}`:fullPhoneValue} // Ensure value is a string (full phone value)
       onChange={(value, country) => {
         let phoneData;
 
@@ -42,7 +42,7 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
             country_key: country?.dialCode || "", // Country dial code
           };
         } else {
-          phoneData = value; // Full phone number with country code as a string
+          phoneData = `${value}`; // Full phone number with country code as a string
         }
 
         console.log(phoneData);
