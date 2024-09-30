@@ -34,8 +34,8 @@ const UpdateNotifications = () => {
       btn={
         <div>
           <UpdateCard
-            text={t("customizeNotifications")} // Translated text
-            desc={t("configureCustomSettings")} // Translated description
+            text={t("customizeNotifications")}
+            desc={t("configureCustomSettings")}
             icon={<Notifications color="#E6007E" />}
           />
         </div>
@@ -45,14 +45,14 @@ const UpdateNotifications = () => {
           <FormContainer
             cancel={true}
             btnStyles={"w-full"}
-            btnText={t("saveChanges")} // Translated button text
+            btnText={t("saveChanges")}
             submit={UpdateNotificationsSubmit}
             formArray={notifications.map((notification) => ({
               ...notification,
-              label: t(notification.label.toLowerCase()), // Translated label
-              label2: t(notification.label2.toLowerCase()), // Translated alternative label
+              label: t(notification.label.toLowerCase()),
+              label2: t(notification.label2.toLowerCase()),
             }))}
-            title={t("customizeNotifications")} // Translated title
+            title={t("customizeNotifications")}
           />
         </div>
       }

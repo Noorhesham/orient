@@ -43,7 +43,7 @@ const Devices = () => {
         ) : (
           <div className=" flex  lg:flex-row flex-col items-center gap-5  lg:gap-20 lg:items-start px-5 lg:px-20 py-5">
             <div className=" lg:w-[10rem]">
-              <p className=" text-sm text-nowrap font-semibold lg:text-base">ACTIVE DEVICES</p>
+              <p className=" text-sm text-nowrap font-semibold lg:text-base">{t("activedevices")}</p>
             </div>
             <div className=" flex flex-col gap-4  items-start">
               {filteredResult
@@ -62,14 +62,14 @@ const Devices = () => {
                           <h1 className=" font-semibold text-sm text-gray-900">{val?.device_type}</h1>
                           {val.unique_id === deviceInfo.device_unique_id && (
                             <p className=" rounded-2xl text-[10px]  py-2 px-4 uppercase border border-gray-100 font-semibold">
-                              This device
+                              {t("thisdevice")}
                             </p>
                           )}
                         </div>
                         <div className=" flex sm:flex-row flex-col items-start gap-2">
                           {val && (
                             <span className="  text-xs text-muted-foreground">
-                              Logged At {val.created_at && format(new Date(val.created_at), "dd MMM yyyy")}
+                              {t("logged")} {val.created_at && format(new Date(val.created_at), "dd MMM yyyy")}
                             </span>
                           )}
 

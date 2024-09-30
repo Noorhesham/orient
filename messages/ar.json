@@ -361,5 +361,12 @@
   "configureCustomSettings": "تكوين الإعدادات المخصصة",
   "saveChanges": "حفظ التغييرات",
   "deactivate": "إلغاء التنشيط",
-  "activate": "تفعيل"
+  "activate": "تفعيل",
+  "pick_a_date": "اختر تاريخًا",
+  "birth_day_description": "تاريخ ميلادك يُستخدم لحساب عمرك.",
+  "activedevices": "الأجهزة المتاحة",
+  "thisdevice": "هذا الجهاز",
+  "logged": " تم التسجيل في",
+  "image_preview": "معاينة الصورة",
+  "upload_image": "تحميل صورة"
 }

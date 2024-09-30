@@ -363,5 +363,12 @@
   "configureCustomSettings": "CONFIGURE CUSTOM SETTINGS",
   "saveChanges": "SAVE CHANGES",
   "deactivate": "DEACTIVATE",
-  "activate": "ACTIVATE"
+  "activate": "ACTIVATE",
+  "pick_a_date": "Pick a date",
+  "birth_day_description": "Your date of birth is used to calculate your age.",
+  "activedevices": "ACTIVE DEVICES",
+  "thisdevice": "This device",
+  "logged": "Logged At",
+  "image_preview": "Image Preview",
+  "upload_image": "Upload an image"
 }

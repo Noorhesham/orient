@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useAuth } from "@/app/context/AuthContext";
 import UpdateCard from "@/app/components/UpdateCard";
 import { GoPeople } from "react-icons/go";
-
 import { MailIcon, PhoneIcon } from "lucide-react";
 import Spinner from "@/app/components/Spinner";
 import { InputOTPPattern } from "./OTP";
@@ -15,6 +14,7 @@ import FormContainer from "@/app/components/FormContainer";
 import ModalCustom from "@/app/components/ModalCustom";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+
 const UpdatePersonalInfo = () => {
   const t = useTranslations();
   const router = useRouter();
@@ -28,9 +28,9 @@ const UpdatePersonalInfo = () => {
   const searchParams = useSearchParams();
   const { setLogin, userSettings: user, loading } = useAuth();
   const [OtpError, setOtpError] = useState<string | null>(null);
+
   const updatePersonalInfro = async (data: any, setError: any) => {
     const formData = new FormData();
-    // Correctly append all fields to FormData
     Object.keys(data).forEach((key) => {
       if (key === "birth_day" && data[key] instanceof Date) {
         const formattedDate = format(data[key], "yyyy-MM-dd");
@@ -43,10 +43,8 @@ const UpdatePersonalInfo = () => {
         formData.append(key, data[key]);
       }
     });
-    console.log(data);
+
     const res = await Server({ resourceName: "update_profile", body: formData, formData: true });
-    // const res = await updatePhone(formData)
-    console.log(res);
 
     if (!res.status) {
       setError(Array.isArray(res.errors) ? res.errors : res.message);
@@ -64,16 +62,14 @@ const UpdatePersonalInfo = () => {
       country_key: data.phone && user.country_key,
       phone: phone || null,
     };
-    console.log(updatedData);
-    const res = await Server({
-      resourceName: "update_profile",
-      body: updatedData,
-    });
+
+    const res = await Server({ resourceName: "update_profile", body: updatedData });
+
     if (!res.status) {
       setError(res.errors?.length > 0 ? res.errors.join(", ") : res.errors?.email || res.message);
-
       return;
     }
+
     if (res.status) {
       toast.success(res.message);
       setLogin((l: any) => !l);
@@ -171,7 +167,7 @@ const UpdatePersonalInfo = () => {
                 cancel={true}
                 defaultValues={user}
                 btnStyles={"w-full"}
-                btnText="SAVE CHANGES"
+                btnText={t("saveChanges")}
                 formArray={personal}
                 title={t("updatePersonalInfo")}
               />
