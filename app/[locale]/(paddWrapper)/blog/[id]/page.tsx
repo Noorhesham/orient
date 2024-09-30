@@ -11,7 +11,7 @@ import Image from "next/image";
 import React from "react";
 
 const page = async ({ params }: { params: { locale: string; id: string } }) => {
-  unstable_setRequestLocale(locale);
+  unstable_setRequestLocale(params.locale);
   const data = await Server({
     resourceName: "getSingleEntity",
     id: params.id,
