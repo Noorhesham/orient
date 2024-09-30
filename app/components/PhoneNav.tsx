@@ -67,16 +67,16 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
              backdrop-blur-lg bottom-0 right-0 z-[999] bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}
             onClick={handleClickOutside}
           >
-            <MaxWidthWrapper className="relative z-[999] mt-20 my-auto h-full w-full flex flex-col items-center justify-start mx-auto lg:flex-row">
+            <MaxWidthWrapper className="relative z-[9999] mt-32 my-auto h-full w-full flex flex-col gap-4 items-center justify-start mx-auto lg:flex-row">
               {navigation.map((link: any, i: number) =>
                 link.subLinks ? (
                   <Accordion key={i} className={`text-gray-50 z-[999] w-full ml-3`} type="single" collapsible>
                     <AccordionItem className="w-full" value={`item-${i}`}>
-                      <AccordionTrigger>{t(`navbar.${link.text.toLowerCase()}`)}</AccordionTrigger>
+                      <AccordionTrigger>{t(`${link.text.toLowerCase()}`)}</AccordionTrigger>
                       <AccordionContent className="flex z-50 flex-col gap-2">
                         {link.subLinks.map((subLink: any, i: number) => (
                           <Link key={i} className="ml-3 py-2 px-3 text-nowrap" href={subLink.href || ""}>
-                            {t(`navbar.${subLink.text.toLowerCase()}`)}
+                            {t(`${subLink.text.toLowerCase()}`)}
                           </Link>
                         ))}
                       </AccordionContent>
@@ -94,7 +94,7 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
                         enablePageScroll();
                       }}
                     >
-                      {t(`navbar.${link.text.toLowerCase()}`)}
+                      {t(`${link.text.toLowerCase()}`)}
                     </Link>
                   </motion.div>
                 )
@@ -106,11 +106,7 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
       <button
         className={cn(
           " z-[999999] relative",
-          openNavigation && locale === "en"
-            ? " fixed right-2"
-            : openNavigation && locale !== "ar"
-            ? "fixed left-0"
-            : ""
+          openNavigation && locale === "en" ? " fixed right-2" : openNavigation && locale !== "ar" ? "fixed left-0" : ""
         )}
         onClick={toggleNavigation}
       >
