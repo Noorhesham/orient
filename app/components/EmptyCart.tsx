@@ -20,7 +20,7 @@ const EmptyCart = () => {
       />
       <Paragraph description={t("cart_empty_desc")} />
       <div className="flex items-center gap-2">
-        <Link href="/orders">
+        <Link href="/shop">
           <Button className="rounded-full">{t("go_to_shop")}</Button>
         </Link>
       </div>
