@@ -6,11 +6,12 @@ import RightClickProvider from "@/app/context/RightClickDisable";
 import { Server } from "@/app/main/Server";
 import { convertToHTML } from "@/lib/utils";
 import { format } from "date-fns";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import React from "react";
 
 const page = async ({ params }: { params: { locale: string; id: string } }) => {
+  unstable_setRequestLocale(locale);
   const data = await Server({
     resourceName: "getSingleEntity",
     id: params.id,
@@ -22,6 +23,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
   const contentHTML = convertToHTML(content);
   console.log(item);
   const t = await getTranslations();
+
   return (
     <RightClickProvider>
       <section className=" min-h-screen  ">

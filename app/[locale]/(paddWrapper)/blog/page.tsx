@@ -5,15 +5,16 @@ import CardHuge, { BlogProps } from "../../../components/CardHuge";
 import MotionContainer from "@/app/components/MotionContainer";
 import { Server } from "@/app/main/Server";
 import BreadCrumb from "@/app/components/BreadCrumb";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-const page = async () => {
+const page = async ({ params: { locale } }: { params: { locale: string } }) => {
   const t = await getTranslations();
   const data = await Server({
     resourceName: "getEntity",
     entityName: "blogs",
     queryParams: new URLSearchParams({ with: "tags,category_id" }),
   });
+  unstable_setRequestLocale(locale);
 
   return (
     <section className=" min-h-screen  ">
