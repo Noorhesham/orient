@@ -358,5 +358,10 @@
     "inputPlaceholder": "NUMBER OF METERS",
     "selectCategory": "Select Category",
     "categoryLabel": "Category"
-  }
+  },
+  "customizeNotifications": "CUSTOMIZE NOTIFICATIONS",
+  "configureCustomSettings": "CONFIGURE CUSTOM SETTINGS",
+  "saveChanges": "SAVE CHANGES",
+  "deactivate": "DEACTIVATE",
+  "activate": "ACTIVATE"
 }

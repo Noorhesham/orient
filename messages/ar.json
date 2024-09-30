@@ -356,5 +356,10 @@
     "inputPlaceholder": "عدد الأمتار",
     "selectCategory": "اختر الفئة",
     "categoryLabel": "الفئة"
-  }
+  },
+  "customizeNotifications": "تخصيص الإشعارات",
+  "configureCustomSettings": "تكوين الإعدادات المخصصة",
+  "saveChanges": "حفظ التغييرات",
+  "deactivate": "إلغاء التنشيط",
+  "activate": "تفعيل"
 }
