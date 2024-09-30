@@ -5,6 +5,8 @@ import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import RightClickProvider from "@/app/context/RightClickDisable";
 import { Server } from "@/app/main/Server";
 import { convertToHTML } from "@/lib/utils";
+import { format } from "date-fns";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import React from "react";
 
@@ -19,6 +21,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
   const { main_gallery, title, content } = item;
   const contentHTML = convertToHTML(content);
   console.log(item);
+  const t = await getTranslations();
   return (
     <RightClickProvider>
       <section className=" min-h-screen  ">
@@ -26,11 +29,11 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
           linksCustom={[
             {
               href: "",
-              text: "HOME",
+              text: t("home"),
             },
             {
               href: "blog",
-              text: "BLOG",
+              text: t("breadcrumb.blog"),
             },
             {
               href: `blog/${item.id}`,
@@ -46,7 +49,9 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
             {item.created_at && (
               <div className=" flex items-center gap-2">
                 <Calender />
-                <p className=" text-xs font-medium text-[#475156]">1 FEB,2025</p>
+                <p className=" text-xs font-medium text-[#475156]">
+                  {format(new Date(item.created_at), "dd MMM yyyy")}
+                </p>
               </div>
             )}
             {item.category && (
@@ -56,7 +61,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
               </div>
             )}
           </div>
-          <h1 className=" capitalize mb-4 text-4xl text-main2 text-left font-semibold max-w-5xl">{title}</h1>
+          <h1 className=" capitalize mb-4 text-4xl text-main2  font-semibold max-w-5xl">{title}</h1>
           <div className=" font-[300] leading-[1.8rem] text-base" dangerouslySetInnerHTML={{ __html: contentHTML }} />
         </MaxWidthWrapper>
       </section>

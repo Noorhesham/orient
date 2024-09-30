@@ -5,8 +5,10 @@ import CardHuge, { BlogProps } from "../../../components/CardHuge";
 import MotionContainer from "@/app/components/MotionContainer";
 import { Server } from "@/app/main/Server";
 import BreadCrumb from "@/app/components/BreadCrumb";
+import { getTranslations } from "next-intl/server";
 
 const page = async () => {
+  const t = await getTranslations();
   const data = await Server({
     resourceName: "getEntity",
     entityName: "blogs",
@@ -22,7 +24,7 @@ const page = async () => {
         ]}
       />
       <MaxWidthWrapper className="flex flex-col items-center   justify-center">
-        <Heading mainText="discover the most important" subText="articles about paints" paragraph="" />
+        <Heading mainText={t("discover the most important")} subText={t("articles about paints")} paragraph="" />
         <MotionContainer className=" mt-5 lg:mt-10 gap-4 grid grid-cols-1 md:grid-cols-2  items-stretch  lg:grid-cols-3">
           {data.data.map((item: BlogProps) => (
             <CardHuge item={item} href={`/blog/${item.id}`} key={item.id} />

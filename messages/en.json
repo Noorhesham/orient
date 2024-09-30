@@ -240,7 +240,8 @@
     "get inspired": "GET INSPIRED",
     "color trend": "COLOR TREND",
     "cart": "CART",
-    "checkout": "CHECK OUT"
+    "checkout": "CHECK OUT",
+    "blog": "BLOG"
   },
   "orderdesc": "Here You Can See All Your Orders.",
   "noorders": "You have not made any orders yet !",
@@ -370,5 +371,7 @@
   "thisdevice": "This device",
   "logged": "Logged At",
   "image_preview": "Image Preview",
-  "upload_image": "Upload an image"
+  "upload_image": "Upload an image",
+  "discover the most important": "DISCOVER THE MOST IMPORTANT",
+  "articles about paints": "ARTICLES ABOUT PAINTS"
 }

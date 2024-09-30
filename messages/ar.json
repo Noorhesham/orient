@@ -239,7 +239,8 @@
     "get inspired": " احصل علي الالهام",
     "color trend": " الالوان الرائجة",
     "cart": "سلة التسوق",
-    "checkout": "الدفع"
+    "checkout": "الدفع",
+    "blog": "المقالات"
   },
   "orderdesc": "هنا يمكنك تصفح جميع طلباتك",
   "noorders": "لا يوجد طلبات",
@@ -368,5 +369,7 @@
   "thisdevice": "هذا الجهاز",
   "logged": " تم التسجيل في",
   "image_preview": "معاينة الصورة",
-  "upload_image": "تحميل صورة"
+  "upload_image": "تحميل صورة",
+  "discover the most important": "قم باستكشاف افضل المقالات ",
+  "articles about paints": "  عن الدهانات"
 }
