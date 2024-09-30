@@ -16,8 +16,8 @@ import { useTranslations } from "next-intl";
 import { useAuth } from "@/app/context/AuthContext";
 import { SkeletonCard } from "@/app/components/SkeletonCard";
 const Activate2fa = () => {
-  const [serial, setSerial] = useLocalStorageState("serial", "");
-  const [qrCode, setQrCode] = useLocalStorageState("qrCode", "");
+  const [serial, setSerial] = useLocalStorageState("", "serial");
+  const [qrCode, setQrCode] = useLocalStorageState("", "qrCode");
   const { userSettings, loading, setLogin } = useAuth();
   const t = useTranslations();
   const [qr, setQr] = useState<string>("");
@@ -41,7 +41,8 @@ const Activate2fa = () => {
     }
   };
   if (loading) return <SkeletonCard className="w-full" />;
-  const secret = serial?.match(/secret=([^&]+)/)?.[1];
+  console.log(serial)
+  const secret = serial ? serial?.match(/secret=([^&]+)/)?.[1] : "";
 
   return (
     <ModalCustom
@@ -65,7 +66,7 @@ const Activate2fa = () => {
             {serial && isActivated && (
               <div className=" text-2xl items-center flex flex-col mt-5">
                 <Head1 text="YOUR SERIAL" />
-                <p className=" text-black text-lg">{secret||serial}</p>
+                <p className=" text-black text-lg">{secret || serial}</p>
                 <Image alt="" src={`${qr}`} width={200} height={200} />
                 <InputOTPPattern setServerError={setErr} sendType="" activate={true} handleSend={handleCheckTfa} />
               </div>
