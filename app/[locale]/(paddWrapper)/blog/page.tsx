@@ -14,13 +14,13 @@ const page = async () => {
     entityName: "blogs",
     queryParams: new URLSearchParams({ with: "tags,category_id" }),
   });
-  console.log(data);
+
   return (
     <section className=" min-h-screen  ">
       <BreadCrumb
         linksCustom={[
-          { href: "/", text: "HOME" },
-          { href: "blog", text: "BLOG" },
+          { href: "/", text: t("home") },
+          { href: "blog", text: t("breadcrumb.blog") },
         ]}
       />
       <MaxWidthWrapper className="flex flex-col items-center   justify-center">
