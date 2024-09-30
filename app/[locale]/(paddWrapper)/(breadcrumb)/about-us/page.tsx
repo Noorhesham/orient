@@ -64,15 +64,15 @@ const Page = async () => {
         {" "}
         <VideoZoom
           btn={
-            <div className=" cursor-pointer h-[400px] xl:h-[571px] w-full relative">
+            <div className=" cursor-pointer h-[350px] lg:h-[400px] xl:h-[571px] w-full relative">
               <div className=" cursor-pointer hover:opacity-90 duration-150 absolute -bottom-10  lg:bottom-10 left-20 lg:left-40 -translate-x-1/2 -translate-y-1/2 z-10">
                 <PlayIcon />
               </div>
-              <Image src={page.video_image_for_pc[0].file} alt="about" className=" sm:block hidden object-cover" fill />
+              <Image src={page.video_image_for_pc[0].file} alt="about" className=" md:block hidden object-cover" fill />
               <Image
                 src={page.video_image_for_mob[0].file}
                 alt="about"
-                className=" sm:hidden block object-cover"
+                className=" md:hidden block object-cover"
                 fill
               />
             </div>

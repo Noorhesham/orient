@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { SearchIcon } from "./Icons";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useGetEntity } from "@/lib/queries";
 import debounce from "lodash.debounce";
 import CartItem from "./CartItem";
@@ -99,7 +99,7 @@ const SearchBox = ({
       inputRef.current?.focus();
     }
   }, [active]);
-  const locale = pathname?.split("/")[1];
+  const locale = useLocale();
   const router = useRouter();
   const [resultActive, setResultActive] = useState(false);
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -133,7 +133,9 @@ const SearchBox = ({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className=" flex items-start w-[340px] xl:w-full bg-white absolute gap-2 top-full py-4 px-2 rounded-md  max-h-[14rem] overflow-y-scroll flex-col left-0"
+            className={`${
+              locale === "ar" ? "right-0" : "left-0"
+            } flex items-start w-[340px] xl:w-full bg-white absolute gap-2 top-full py-4 px-2 rounded-md  max-h-[14rem] overflow-y-scroll flex-col `}
           >
             {(data && data.products?.length > 0) || query.length > 4 ? (
               data?.products.map((item: any) => (
