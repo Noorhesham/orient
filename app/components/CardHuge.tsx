@@ -54,10 +54,10 @@ const CardHuge = ({ h1, h2, href, item }: { h1?: string; h2?: string; href?: str
               </p>
             </div>
           )}
-          {item.category.title && (
+          {item.category?.title && (
             <div className="flex items-center gap-2">
               <DashBoard />
-              <p className="text-xs sm:text-sm font-medium text-[#475156]">{item.category.title}</p>
+              <p className="text-xs sm:text-sm font-medium text-[#475156]">{item.category?.title}</p>
             </div>
           )}
         </div>

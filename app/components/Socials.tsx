@@ -1,8 +1,26 @@
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
+import { useDevice } from "../context/DeviceContext";
+import { useAuth } from "../context/AuthContext";
+import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Socials = () => {
   const t = useTranslations();
+  const router = useRouter();
+  const { generalSettings, loading } = useAuth();
+  const { deviceInfo } = useDevice();
+  if (loading)
+    return (
+      <MaxWidthWrapper className=" grid grid-cols-3">
+        <Skeleton className=" rounded-full w-10 h-10 aspect-square" />
+        <Skeleton className=" rounded-full w-10 h-10 aspect-square" />
+        <Skeleton className=" rounded-full w-10 h-10 aspect-square" />
+      </MaxWidthWrapper>
+    );
+  const { login_types } = generalSettings;
   return (
     <div className=" flex flex-col mt-10">
       <div className="relative">
@@ -13,16 +31,39 @@ const Socials = () => {
           <p className=" text-xs  text-main2 bg-gray-50 font-[400] mx-auto text-center">{t("orSign")}</p>
         </div>
       </div>
-      <div className="flex text-gray-50 self-center mt-3 items-center gap-5">
-        <span className="  p-1.5 rounded-full  text-lg bg-main2">
-          <FaGoogle />
-        </span>
-        <span className="  p-1.5 rounded-full  text-lg bg-main2">
-          <FaFacebook />
-        </span>
-        <span className="  p-1.5 rounded-full  text-lg bg-main2">
-          <FaLinkedin />
-        </span>
+      <div className="flex cursor-pointer text-gray-50 self-center mt-3 items-center gap-5">
+        {login_types.includes("social_google") && (
+          <Link
+            href={`https://lab.r-m.dev/auth/google/?redirect_url=http://localhost:3001/login&device_unique_id=${deviceInfo.device_unique_id}`}
+            className="  p-1.5 rounded-full  text-lg bg-main2"
+          >
+            <FaGoogle />
+          </Link>
+        )}
+        {login_types.includes("social_facebook") && (
+          <span
+            onClick={() =>
+              router.push(
+                `https://lab.r-m.dev/auth/facebook/?redirect_url=http://localhost:3001/login?device_unique_id=${deviceInfo.device_unique_id}`
+              )
+            }
+            className="  p-1.5 rounded-full  text-lg bg-main2"
+          >
+            <FaFacebook />
+          </span>
+        )}
+        {login_types.includes("social_linkedin") && (
+          <span
+            onClick={() =>
+              router.push(
+                `https://lab.r-m.dev/auth/linkedin/?redirect_url=http://localhost:3001/login?device_unique_id=${deviceInfo.device_unique_id}`
+              )
+            }
+            className="  p-1.5 rounded-full  text-lg bg-main2"
+          >
+            <FaLinkedin />
+          </span>
+        )}
       </div>
     </div>
   );

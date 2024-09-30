@@ -12,19 +12,21 @@ import Spinner from "./Spinner";
 import Head1 from "./Head1";
 import Paragraph from "./Paragraph";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const Delete = ({ entityName, id, key }: { entityName: string; id: string; key: string }) => {
   const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const t = useTranslations();
   return (
     <div>
       <ModalCustom
-        btn={<CustomButton backgroundColor="dark" text="DELETE" reverse />}
+        btn={<CustomButton backgroundColor="dark" text={t("delete")} reverse />}
         content={
           <div className=" flex gap-5 flex-col items-center">
-            <Head1 text="Are you sure you want to delete this?" text2="" />
-            <Paragraph description="This action cannot be undone" />
+            <Head1 text={t("deletedesc")} text2="" />
+            <Paragraph description={t("deletedesc2")} />
             <div className=" flex items-center gap-2">
               <Button
                 onClick={async () => {
@@ -38,10 +40,10 @@ const Delete = ({ entityName, id, key }: { entityName: string; id: string; key: 
                   });
                 }}
               >
-                {isPending ? <Spinner /> : "DELETE"}
+                {isPending ? <Spinner /> : t("delete")}
               </Button>
               <DialogClose>
-                <Button>CANCEL</Button>
+                <Button>{t('cancel')}</Button>
               </DialogClose>
             </div>
           </div>

@@ -212,7 +212,7 @@ export async function Server({
   formData?: boolean;
 }) {
   const jwt = cookies().get("jwt")?.value;
-  const deviceId = cookies().get("deviceInfo")?.value||"{}";
+  const deviceId = cookies().get("deviceInfo")?.value || "{}";
 
   // Set up headers
   const combinedHeaders: { [key: string]: string } = {
@@ -244,7 +244,7 @@ export async function Server({
       },
     });
 
-    console.log(requestBody);
+    console.log(requestBody, response, deviceId);
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     const data = await response.json();
     console.log(data);

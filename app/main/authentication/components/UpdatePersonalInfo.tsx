@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import FormContainer from "@/app/components/FormContainer";
 import ModalCustom from "@/app/components/ModalCustom";
 import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 const UpdatePersonalInfo = () => {
   const t = useTranslations();
   const router = useRouter();
@@ -57,7 +58,7 @@ const UpdatePersonalInfo = () => {
   };
 
   const updateEmailInfo = async (data: any, setError: any) => {
-    const phone = data?.phone?.phone.slice(user.country_key.toString().split("").length);
+    const phone = data?.phone?.phone;
     const updatedData = {
       ...data,
       country_key: data.phone && user.country_key,
@@ -85,22 +86,7 @@ const UpdatePersonalInfo = () => {
       setLogin((l: any) => !l);
     }
   };
-  const handleSend = async (sendType?: string) => {
-    const res = await Server({
-      resourceName: "verify",
-      id: searchParams.get("uuid"),
-      body: {
-        send_by: sendType,
-      },
-    });
-    console.log(res);
-    if (!res.status)
-      setOtpError(Array.isArray(res.errors) && res.errors.length > 0 ? res.errors : res.errors.send_by || res.message);
-    if (res.status) {
-      setOtpError(null);
-      toast.success(res.message);
-    }
-  };
+
   return (
     <>
       <ModalCustom
@@ -115,7 +101,7 @@ const UpdatePersonalInfo = () => {
         }
         content={
           loading ? (
-            <Spinner />
+            <Skeleton />
           ) : (
             <div className=" px-5 lg:px-20 py-5">
               <FormContainer
@@ -127,9 +113,7 @@ const UpdatePersonalInfo = () => {
                 formArray={email}
                 title={t("updateEmail")}
               />
-              {searchParams.get("uuid") && (
-                <InputOTPPattern setServerError={setOtpError} email sendType="email" handleSend={() => handleSend("email")} />
-              )}
+              {searchParams.get("uuid") && <InputOTPPattern setServerError={setOtpError} email sendType="email" />}
               {OtpError && <p className="text-red-500 text-sm">{OtpError}</p>}
             </div>
           )
@@ -147,7 +131,7 @@ const UpdatePersonalInfo = () => {
         }
         content={
           loading ? (
-            <Spinner />
+            <Skeleton />
           ) : (
             <div className=" px-5 lg:px-20 py-5">
               <FormContainer
@@ -160,13 +144,7 @@ const UpdatePersonalInfo = () => {
                 title={t("updatePhone")}
               />
               {searchParams.get("uuid") && (
-                <InputOTPPattern
-                  setServerError={setOtpError}
-                  sendType=""
-                  phone
-                  country_key={user.country_key}
-                  handleSend={() => handleSend("sms")}
-                />
+                <InputOTPPattern setServerError={setOtpError} sendType="" phone country_key={user.country_key} />
               )}
               {OtpError && <p className="text-red-500">{OtpError}</p>}
             </div>
@@ -185,7 +163,7 @@ const UpdatePersonalInfo = () => {
         }
         content={
           loading ? (
-            <Spinner />
+            <Skeleton />
           ) : (
             <div className=" px-5 lg:px-20 py-5">
               <FormContainer

@@ -10,11 +10,13 @@ import CustomButton from "@/app/components/CustomButton";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { BsExclamationCircle, BsExclamationCircleFill } from "react-icons/bs";
 import { ArrowRight } from "@/app/components/Icons";
+
 const page = async ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
   unstable_setRequestLocale(locale);
   const t = await getTranslations();
   const { status, message, response, error, explanation } = searchParams;
   console.log(error);
+
   return (
     <MaxWidthWrapper>
       <Dialog open={true}>
@@ -22,20 +24,21 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
           {status === "success" ? (
             <>
               <div className=" w-32 h-32 relative">
-                <Image src="/complete.svg" alt="success" fill />
+                <Image src="/complete.svg" alt={t("success")} fill />
               </div>
-              <Heading subText="" mainText={"Order Completed"} />
+              <Heading subText="" mainText={t("orderCompleted")} />
               <Paragraph
                 size="sm"
-                description="Your order will be delivered soon.
-Thank you for choosing our app!"
+                description={t("orderDescription", {
+                  defaultMessage: "Your order will be delivered soon. Thank you for choosing our app!",
+                })}
               />
               <div className=" flex items-center gap-2">
                 <Link href={"/shop"}>
-                  <CustomButton text={"Continue Shopping"} />
+                  <CustomButton text={t("continueShopping")} />
                 </Link>
                 <Link href={"/orders"}>
-                  <Button className=" rounded-full">View Orders</Button>
+                  <Button className=" rounded-full">{t("viewOrders")}</Button>
                 </Link>
               </div>
             </>
@@ -44,14 +47,11 @@ Thank you for choosing our app!"
               <BsExclamationCircleFill className=" text-red-400 w-32 h-32 relative" />
               <Paragraph className=" uppercase font-semibold text-3xl" size="lg" description={message} />
               <div className=" flex items-center gap-2">
-                {/* <Link href={"/shop"}>
-                  <CustomButton text={"Return to Homepage"} />
-                </Link> */}
                 <Link
                   className=" flex items-center gap-2 hover:underline duration-150 hover:text-main"
                   href={"/checkout"}
                 >
-                  Return to Checkout
+                  {t("returnToCheckout")}
                   <ArrowRight />
                 </Link>
               </div>

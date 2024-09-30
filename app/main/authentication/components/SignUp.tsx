@@ -14,44 +14,13 @@ import Logo from "@/app/components/Logo";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
 import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
-const signupArray = [
-  {
-    name: "phone",
-    placeholder: "Add Your Phone...",
-    phone: true,
-  },
-  {
-    name: "sms",
-    label: "ACTIVE BY SMS",
-    label2: "ACTIVE BY WHATSAPP",
-    switchToggle: true,
-  },
-  {
-    name: "password",
-    type: "password",
-    password: true,
-    placeholder: "Add Your Password...",
-  },
-  {
-    name: "name",
-    placeholder: "Add Your Name...",
-  },
-  {
-    name: "email",
-    placeholder: "Add Your Email...",
-    optional: true,
-  },
-
-  {
-    name: "referealCode",
-    optional: true,
-    placeholder: "REFERRAL CODE ...",
-  },
-];
+import { useTranslations } from "next-intl";
 
 const Signup = () => {
+  const t = useTranslations();
+  const singup = signupSchema(t);
   const form = useForm({
-    resolver: zodResolver(signupSchema),
+    resolver: zodResolver(singup),
     defaultValues: {
       useEmail: true,
       email: "",
@@ -67,8 +36,42 @@ const Signup = () => {
   const { deviceInfo } = useDevice();
   const [isPending, startTransition] = useTransition();
   const [methods, setMethods] = useLocalStorageState([], "methods");
-  console.log(deviceInfo);
-  const onSubmit = async (data: z.infer<typeof signupSchema>) => {
+
+  const signupArray = [
+    {
+      name: "phone",
+      placeholder: t("ADD_YOUR_PHONE"),
+      phone: true,
+    },
+    {
+      name: "sms",
+      label: t("ACTIVE_BY_SMS"),
+      label2: t("ACTIVE_BY_WHATSAPP"),
+      switchToggle: true,
+    },
+    {
+      name: "password",
+      type: "password",
+      password: true,
+      placeholder: t("ADD_YOUR_PASSWORD"),
+    },
+    {
+      name: "name",
+      placeholder: t("ADD_YOUR_NAME"),
+    },
+    {
+      name: "email",
+      placeholder: t("ADD_YOUR_EMAIL"),
+      optional: true,
+    },
+    {
+      name: "referealCode",
+      optional: true,
+      placeholder: t("REFERRAL_CODE"),
+    },
+  ];
+
+  const onSubmit = async (data: z.infer<typeof singup>) => {
     startTransition(async () => {
       const res = await Server({
         resourceName: "signup",
@@ -79,7 +82,6 @@ const Signup = () => {
       });
       if (!res.status) setServerError(res.errors);
       if (res.status) {
-        console.log(deviceInfo, data.phone, data.email, data.password);
         setServerError(null);
         const res = await Server({
           resourceName: "login",
@@ -94,7 +96,6 @@ const Signup = () => {
           },
         });
         if (res.activation_methods) {
-          console.log(res);
           setMethods(res.activation_methods);
           toast.success(`${res.message} ...`);
           redirect(`/login?uuid=${res.activation_uuid}`);
@@ -102,25 +103,26 @@ const Signup = () => {
       }
     });
   };
+
   return (
-    <Section CustomePadding="px-5 py-10 " className=" bg-gray-50 flex flex-1 justify-center  flex-col items-center">
-      <div className=" mx-auto flex flex-col items-center justify-center  w-full  ">
+    <Section CustomePadding="px-5 py-10" className=" bg-gray-50 flex flex-1 justify-center flex-col items-center">
+      <div className=" mx-auto flex flex-col items-center justify-center w-full ">
         <Logo size={{ width: 863, height: 338 }} type="blue" />
-        <h1 className=" text-center text-2xl  mt-5 font-bold text-main2">CREATE NEW ACCOUNT</h1>
-        <div className=" w-full  px-5 md:px-14 flex flex-col ">
+        <h1 className="text-center text-2xl mt-5 font-bold text-main2">{t("CREATE_NEW_ACCOUNT")}</h1>
+        <div className="w-full px-5 md:px-14 flex flex-col">
           <CustomForm
-            btnStyles=" w-full"
+            btnStyles="w-full"
             isPending={isPending}
             serverError={serverError}
-            btnText="CREATE"
+            btnText={t("CREATE")}
             form={form}
             inputs={signupArray}
             onSubmit={onSubmit}
           />
-          <div className="  mt-4 text-sm flex items-center">
-            <span className=" font-[400] text-main2 ">ALREADY ON ORIENT ?</span>
-            <Link href={"/login"} className=" hover:underline duration-150 ml-1 text-main font-[700]">
-              LOGIN
+          <div className="mt-4 text-sm flex items-center">
+            <span className="font-[400] text-main2">{t("ALREADY_ON_ORIENT")}</span>
+            <Link href={"/login"} className="hover:underline duration-150 ml-1 text-main font-[700]">
+              {t("LOGIN")}
             </Link>
           </div>
         </div>

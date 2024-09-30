@@ -7,66 +7,77 @@ import { Button } from "@/components/ui/button";
 import Spinner from "./Spinner";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
-
 import FormContainer from "./FormContainer";
-const shippingArray = [
-  {
-    name: "name",
-    placeholder: "YOUR NAME",
-    type: "text",
-    required: true,
-  },
-  {
-    email: true,
-    name: "email",
-    placeholder: "YOUR EMAIL",
-    type: "email",
-    required: true,
-  },
-  {
-    name: "phone",
-    phone: true,
-    placeholder: "COUNTRY KEY",
-    required: true,
-    type: "phoneNumber",
-    label: "Your Phone",
-    returnFullPhone: false,
-  },
-  { country: true, countryName: "country_id", stateName: "state_id", cityName: "city_id" },
+import { useTranslations } from "next-intl";
 
-  { name: "address", placeholder: "YOUR ADDRESS", type: "text", required: true },
-];
 const CompeleteOrder = () => {
   const [isPending, startTransition] = useTransition();
-  const { userSettings, setCartCount } = useAuth();
+  const { userSettings, setCartCount, loading } = useAuth();
   const router = useRouter();
-  const completeOrder = async (data?: any) => {
-    console.log(data);
-
+  const t = useTranslations("form");
+  const shippingArray = [
+    {
+      name: "name",
+      placeholder: t("name"),
+      type: "text",
+      required: true,
+    },
+    {
+      email: true,
+      name: "email",
+      placeholder: t("email"),
+      type: "email",
+      required: true,
+    },
+    {
+      name: "phone",
+      phone: true,
+      placeholder: t("phone"),
+      required: true,
+      type: "phoneNumber",
+      label: t("phoneLabel"),
+      returnFullPhone: false,
+    },
+    { country: true, countryName: "country_id", stateName: "state_id", cityName: "city_id" },
+    {
+      name: "address",
+      placeholder: t("address"),
+      type: "text",
+      required: true,
+    },
+  ];
+  
+  const completeOrder = async (data?: any, setError?: any) => {
     const dataBody = {
       ...data,
-      country_key: data.phone?.country_key,
-      phone: data.phone?.phone,
-      callback: "http://localhost:3001/success",
+      country_key: parseInt(data.phone?.country_key, 10),
+      phone: parseInt(data.phone?.phone, 10),
+      callback: "http://localhost:3001/success", // Adjust the callback URL to match the one that works
     };
-    const res = await Server({
-      resourceName: "completeOrder",
-      body: dataBody,
-    });
 
-    if (res.status) {
-      toast.success(res.message);
-      setCartCount(0);
-      if (res.url) router.push(res.url);
-      else router.push("/success");
-    } else {
-      toast.error(res.message);
+    try {
+      const res = await Server({
+        resourceName: "completeOrder",
+        body: dataBody,
+      });
+      console.log(res);
+
+      if (res.status === true) {
+        toast.success(res.message);
+        setError(null);
+        if (res.url) router.push(res.url);
+      } else {
+        setError(res.message || res.errors);
+      }
+    } catch (error: any) {
+      console.log("Error Response:", error?.response?.data);
+      toast.error(error);
     }
   };
-
+  if (loading) return <Spinner />;
   return (
-    <div className="flex w-fit pt-5  mx-auto mt-3 flex-col">
-      {userSettings ? (
+    <div className="flex w-full pt-5  mx-auto flex-col">
+      {userSettings && !loading ? (
         <Button
           onClick={() => {
             startTransition(async () => {
@@ -93,12 +104,12 @@ const CompeleteOrder = () => {
           ) : (
             <>
               <CreditCard />
-              COMPLETE ORDER
+              {t("complete")}
             </>
           )}
         </Button>
       ) : (
-        <FormContainer submit={completeOrder} formArray={shippingArray} />
+        <FormContainer server={false} submit={completeOrder} formArray={shippingArray} />
       )}
     </div>
   );

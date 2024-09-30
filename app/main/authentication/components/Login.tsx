@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useLayoutEffect, useState, useTransition } from "react";
+import React, { Suspense, useEffect, useLayoutEffect, useState, useTransition } from "react";
 import Section from "@/app/components/Section";
 import { Switch } from "@/components/ui/switch";
 import { Controller, useForm } from "react-hook-form";
@@ -21,16 +21,16 @@ import Methods from "./Methods";
 import { InputOTPPattern } from "./OTP";
 import { useAuth } from "@/app/context/AuthContext";
 import { useTranslations } from "next-intl";
-
 const Login = () => {
   const t = useTranslations();
+  const loginSchemaa = loginSchema(t);
   const [useEmail, setUseEmail] = useState(false);
   const [activate, setActivate] = useState(false);
   const [methods, setMethods] = useLocalStorageState([], "methods");
   const [message, setMessage] = useLocalStorageState("", "message");
   const [isCode, setIsCode] = useState("");
   const form = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginSchemaa),
     defaultValues: {
       useEmail: false,
       username: "",
@@ -54,7 +54,7 @@ const Login = () => {
     }
     if (param !== "") setActivate(true);
   }, [param]);
-  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+  const onSubmit = async (data: z.infer<typeof loginSchemaa>) => {
     startTransition(async () => {
       try {
         const res = await Server({
@@ -117,6 +117,17 @@ const Login = () => {
       }
     });
   };
+  useEffect(() => {
+    if (searchParams.get("status") === "true") {
+      if (searchParams.get("token")) {
+        toast.success(searchParams.get("message"));
+        cookies.set("jwt", searchParams.get("token"));
+        setLogin(true);
+        router.push(redirect || "/");
+      }
+    }
+    if (searchParams.get("status") === "false") setServerError(searchParams.get("message"));
+  }, []);
   const loginArray = [
     {
       name: "username",
@@ -156,7 +167,7 @@ const Login = () => {
               <CustomForm
                 link="/forgot-password?level=prepare"
                 linkText={t("forgotPassword")}
-                btnText="LOGIN"
+                btnText={t("login")}
                 isPending={isPending}
                 form={form}
                 inputs={loginArray}
@@ -170,6 +181,7 @@ const Login = () => {
                   render={({ field }) => <input type="hidden" {...field} value={useEmail} />}
                 />
               </CustomForm>
+              {serverError && <p className="text-red-500 text-center mt-3 text-sm font-semibold">{serverError}</p>}
 
               <Socials />
             </div>
@@ -209,7 +221,6 @@ const Login = () => {
             </>
           )}
         </Suspense>
-        {serverError && <p className="text-red-500 text-center mt-3 text-sm font-semibold">{serverError}</p>}
       </div>
     </Section>
   );

@@ -74,6 +74,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   console.log("auth context", generalSettings, userSettings, user2Settings, "cartcount", cartCount);
   useEffect(() => {
     if (user2Settings) setCartCount(user2Settings?.cart_count);
+    if (userSettings?.active === false) handleLogout();
   }, [user2Settings]);
   useEffect(() => {
     const fetchData = async () => {

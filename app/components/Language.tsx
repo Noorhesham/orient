@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 import { MdOutlineLanguage } from "react-icons/md";
 import cookies from "js-cookie";
 import { Server } from "../main/Server";
@@ -22,6 +22,7 @@ const Language = () => {
   const currentLocale = useLocale();
   const pathName = usePathname();
   const t = useTranslations();
+
   const handleSelect = (value: string) => {
     if (value === currentLocale) return;
     startTransition(async () => {
@@ -45,7 +46,9 @@ const Language = () => {
       // window.location.reload();
     });
   };
-
+  useEffect(() => {
+    handleSelect(currentLocale);
+  }, []);
   return (
     <Select disabled={isPending} defaultValue={currentLocale} onValueChange={handleSelect}>
       <SelectTrigger className=" max-w-[140px] flex gap-2 items-center lg:ml-5 text-sm bg-transparent  border-none outline-none">

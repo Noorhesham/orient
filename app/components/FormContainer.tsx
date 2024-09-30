@@ -1,4 +1,3 @@
-"use client";
 import { z, ZodObject, ZodTypeAny } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,65 +7,72 @@ import { useTranslations } from "next-intl";
 import { Server } from "../main/Server";
 import { toast } from "react-toastify";
 
-const generateSchemaFromFields = (fields: any[]): ZodObject<any> => {
+const generateSchemaFromFields = (fields: any[], t: any): ZodObject<any> => {
   const schemaShape: Record<string, ZodTypeAny> = {};
-  console.log(fields);
   fields.forEach((field) => {
     if (!field) return;
 
-    // Country and state handling
     if (field.country) {
       schemaShape[field.countryName] = z.union([z.string(), z.number()]);
-      schemaShape[field.stateName] = z.union([z.string(), z.number()]).optional();
-      schemaShape[field.cityName] = z.union([z.string(), z.number()]).optional();
-      return; // Skip country/state handling from further processing
+      schemaShape[field.stateName] = z.union([z.string(), z.number()]);
+      if (field.cityName) schemaShape[field.cityName] = z.union([z.string(), z.number()]);
+      return;
     }
 
     let fieldSchema: ZodTypeAny;
 
-    // Determine the schema type based on field properties
     switch (field.type) {
       case "text":
       case "textarea":
-        fieldSchema = z.string();
+        fieldSchema = z.string().min(field.required ? 1 : 0, { message: t("is required") });
         break;
       case "email":
-        fieldSchema = z.string().email(`${field.label} must be a valid email`);
+        if (field.required)
+          fieldSchema = z
+            .string()
+            .min(1, { message: t("is required") })
+            .email(`${t("must be a valid email")}`);
+        else fieldSchema = z.string().email(`${t("must be a valid email")}`);
         break;
       case "phoneNumber":
-        if (field.returnFullPhone)
-          fieldSchema = z.string().min(10, `${field.label || "Phone"} must be a valid phone number`);
+        if (field.returnFullPhone) fieldSchema = z.string().min(10, `${t("must be a valid phone number")}`);
         else
-          fieldSchema = z.object({
-            phone: z.string().min(1, { message: "Phone is required" }),
-            country_key: z.string().min(1, { message: "Country is required" }),
-          });
+          fieldSchema = z
+            .object({
+              phone: z.string(),
+              country_key: z.string(),
+            })
+            .refine(
+              (data) => {
+                return data.phone.length >= 10 && data.country_key.length > 0;
+              },
+              {
+                message: t("must be a valid phone number"),
+                path: [],
+              }
+            );
         break;
       case "number":
-        fieldSchema = z.number().min(0, `${field.label} must be a valid number`);
+        if (field.required) fieldSchema = z.number().min(0, `${t("must be a valid number")}`);
+        else fieldSchema = z.number().min(0, `${t("must be a valid number")}`);
         break;
       default:
-        fieldSchema = z.any(); // Default to any for unknown types
+        fieldSchema = z.any();
         break;
     }
 
-    // Apply required validation if the field is required
     if (field.required) {
       if (fieldSchema instanceof z.ZodString) {
-        // Apply min length for required string-based fields
-        fieldSchema = fieldSchema.min(1, `${field.label || field.name} is required`);
+        fieldSchema = fieldSchema.min(1, { message: `${t("is required")}` }); // Apply "required" for strings
       } else if (fieldSchema instanceof z.ZodNumber) {
-        // For numbers, refine to ensure it's not null or undefined
         fieldSchema = fieldSchema.refine((val) => val !== null && val !== undefined, {
-          message: `${field.label || field.name} is required`,
+          message: `${t("is required")}`, // Apply "required" for numbers
         });
       }
     } else {
-      // Make the field optional if it's not required
       fieldSchema = fieldSchema.optional();
     }
 
-    // Add the field schema to the schemaShape object
     schemaShape[field.name] = fieldSchema;
   });
 
@@ -84,6 +90,7 @@ interface Formcontainer {
   server?: boolean;
   children?: React.ReactNode;
 }
+
 const FormContainer: React.FC<Formcontainer> = ({
   formArray,
   title,
@@ -95,9 +102,10 @@ const FormContainer: React.FC<Formcontainer> = ({
   submit,
   server,
 }) => {
-  // Generate the schema dynamically
-  const dynamicSchema = generateSchemaFromFields(formArray);
-  const t = useTranslations();
+  const t = useTranslations("form");
+
+  const dynamicSchema = generateSchemaFromFields(formArray, t);
+
   const form = useForm({
     resolver: zodResolver(dynamicSchema),
     mode: "onChange",
@@ -112,14 +120,12 @@ const FormContainer: React.FC<Formcontainer> = ({
         avatar: defaultValues?.photo || "",
       } || {},
   });
-
+  console.log(form.formState.errors);
   const [serverError, setServerError] = useState<string[] | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  console.log(form.getValues("phone"));
   const onSubmit = async (data: z.infer<typeof dynamicSchema>) => {
     startTransition(async () => {
-      console.log(data);
       if (server) {
         try {
           const res = await Server({ resourceName: "submitForm", body: data, id: "contact-us" });
@@ -154,4 +160,5 @@ const FormContainer: React.FC<Formcontainer> = ({
     </CustomForm>
   );
 };
+
 export default FormContainer;

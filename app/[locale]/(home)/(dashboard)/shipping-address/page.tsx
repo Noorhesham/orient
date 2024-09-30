@@ -22,7 +22,7 @@ const page = async () => {
   console.log(data);
   return (
     <Container CustomePadding=" py-8 px-8" className=" w-full flex flex-col gap-3 px-4">
-      <Head1 className=" text-xl font-bold" text={"SHIPPING ADDRESS  "} />
+      <Head1 className=" text-xl font-bold" text={t("shippingAddress")} />
       <AddressForm />
       {data.length > 0 ? (
         data.map((item: any) => (
@@ -35,14 +35,14 @@ const page = async () => {
               header={item.country.title}
               icon={<Location />}
             />
-            <div className=" ml-auto flex flex-wrap flex-row  items-center gap-3">
+            <div className=" w-full  justify-end flex flex-wrap flex-row  items-center gap-3">
               <AddressForm item={item} />
               <Delete key="" entityName="shipping-addresses" id={item.id} />
             </div>
           </div>
         ))
       ) : (
-        <NotFound message={t("miss-shipping")} />
+        <NotFound message={t("missShipping")} />
       )}
     </Container>
   );

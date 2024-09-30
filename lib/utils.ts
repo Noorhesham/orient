@@ -43,7 +43,7 @@ export const processYoutubeUrl = (url: string) => {
 };
 export const formatPriceWithCommas = (price: number) => {
   // Ensure the price is a string and split integer and decimal parts
-  const [integerPart, decimalPart] = price.toString().split(".");
+  const [integerPart, decimalPart] = price?.toString().split(".");
   // Add commas to the integer part
   const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   // Rejoin the decimal part if present

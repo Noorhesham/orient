@@ -16,7 +16,7 @@ const page = async () => {
 
       <Paragraph description={t('orderdesc')} />
       {orders.length === 0 ? (
-        <NotFound message={t("noorders")} link="/shop" linkText="Go Shop Now" />
+        <NotFound message={t("noorders")} link="/shop" linkText={t('go_to_shop')} />
       ) : (
         <TableDemo data={orders} />
       )}

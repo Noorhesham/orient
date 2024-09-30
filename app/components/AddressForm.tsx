@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 const schema = z.object({
   // name: z.string(),
   phone: z.object({
@@ -18,11 +19,13 @@ const schema = z.object({
     country_key: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
   }),
   country_id: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
-  state_id: z.union([z.string(), z.number()]).optional(),
+  state_id: z.union([z.string(), z.number()]),
+  city_id: z.union([z.string(), z.number()]),
   address: z.string().min(1, { message: "Address is required" }),
 });
 
 const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipping?: any }) => {
+  const t = useTranslations();
   const form = useForm({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -81,10 +84,11 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
     //   placeholder: "YOUR NAME",
     // },
     { name: "phone", phone: true, placholder: "COUNTRY KEY", type: "text", required: true, returnFullPhone: false },
-    { country: true, countryName: "country_id", stateName: "state_id" },
+    { country: true, countryName: "country_id", stateName: "state_id", cityName: "city_id" },
 
-    { name: "address", placeholder: "YOUR ADDRESS" },
+    { name: "address", placeholder: t("address.title"), label: t("address.title") },
   ];
+
   return (
     <ModalCustom
       cancelBtn={false}
@@ -92,7 +96,7 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
         <Button
           className={`min-w-[130px] w-fit  bg-main2 hover:bg-white hover:border-main2 border hover:text-main2 text-white text-sm  rounded-full  px-6   flex items-center gap-2 duration-150`}
         >
-          {item ? "EDIT" : "ADD SHIPPING ADDRESS"}
+          {item ? t("update") : t("addshipping")}
         </Button>
       }
       content={

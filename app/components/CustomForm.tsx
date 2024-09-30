@@ -100,12 +100,14 @@ const CustomForm = ({
           </div>
           {children}
           <div className={cn("flex gap-2 mt-5 items-center", { "self-center w-[60%]": cancel })}>
-            <div className={`${btnStyles} ${!cancel ? "flex-1" : "flex-grow"} flex items-center flex-col`}>
+            <div className={`${btnStyles} flex-1 flex items-center flex-col`}>
               {link && linkText && <MyLink link={link} text={linkText} />}
-              <SubmitButton btnStyles={btnStyles} text={btnText || "Submit"} isPending={isPending || disabled} />
+              <div className=" w-full">
+                <SubmitButton btnStyles={btnStyles} text={btnText || t("Submit")} isPending={isPending || disabled} />
+              </div>
             </div>
             {cancel && (
-              <DialogClose className=" mx-auto flex-grow w-full flex  items-center gap-5  ">
+              <DialogClose className=" mx-auto flex-1 w-full flex  items-center gap-5  ">
                 {
                   <Button
                     type="button"

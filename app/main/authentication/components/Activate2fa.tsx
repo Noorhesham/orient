@@ -24,7 +24,7 @@ const Activate2fa = () => {
   const [err, setErr] = useState<string>("");
   const isActivated = userSettings?.tfa;
   useEffect(() => {
-    QRCode.toDataURL(qrCode).then(setQr);
+    QRCode?.toDataURL(qrCode).then(setQr);
   }, [qrCode]);
   const handleCheckTfa = async () => {
     const res = await Server({

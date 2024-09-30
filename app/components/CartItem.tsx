@@ -16,6 +16,7 @@ import { TrashIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PriceWithSale from "./PriceWithSale";
 import AddToWishlist from "./AddToWishlist";
+import { useTranslations } from "next-intl";
 
 const CartItem = ({
   ...props
@@ -38,7 +39,7 @@ const CartItem = ({
     props;
   const { mutate, isPending } = useCreateEntity("addToCart", "cart");
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const t = useTranslations();
   return (
     <div>
       <div className=" flex   items-center">
@@ -68,10 +69,10 @@ const CartItem = ({
             {text}
           </Link>
           <div className={cn({ "flex items-center gap-1 mt-2 text-xs md:text-sm": size && size === "sm" })}>
-            <div className=" text-gray-800"> {<PriceWithSale price={price} size="sm" />}</div>
-            <div className=" line-through text-gray-500 text-xs md:text-sm">
+            {price && <div className=" text-gray-800"> {<PriceWithSale price={price} size="sm" />}</div>}
+          {discount&&  <div className=" line-through text-gray-500 text-xs md:text-sm">
               {<PriceWithSale price={discount} size="sm" />}
-            </div>
+            </div>}
           </div>
         </div>
         {size !== "sm" && (
@@ -91,7 +92,7 @@ const CartItem = ({
             variant={"default"}
             size={"sm"}
           >
-            RETRIVE
+            {t("RETRIVE")}
           </Button>
         )}
       </div>

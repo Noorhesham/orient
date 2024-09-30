@@ -20,60 +20,62 @@ import { useLocale, useTranslations } from "next-intl";
 
 const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   const { data, isLoading } = useGetEntity("calculate");
-  const t = useTranslations();
+  const t = useTranslations("Calculate"); // Get translations for this component
   const locale = useLocale();
   const [input, setInput] = React.useState(0);
   const [result, setResult] = React.useState(0);
   const [selected, setSelected] = React.useState<any>(id || null);
+
   if (isLoading) return <Spinner />;
+
   const categories = data?.data?.map((d: any) => d.category);
   const selectedUnit = data?.data?.find((item: any) => item.category.id === selected);
-  console.log(selectedUnit);
+
   return (
     <ModalCustom
       title={t("calc")}
       btn={
         btn || (
           <div>
-            <div className=" cursor-pointer flex gap-3 ">
-              <div className=" flex flex-col  items-center gap-2">
-                <div className=" rounded-full md:w-44 sm:w-28 sm:h-28 w-24 h-24    md:h-44 relative">
+            <div className="cursor-pointer flex gap-3">
+              <div className="flex flex-col items-center gap-2">
+                <div className="rounded-full md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                   <Image src={"/Ellipse 860.png"} fill className="rounded-full object-cover" alt="" />
                 </div>
-                <h1 className=" text-center  sm:text-sm md:text-2xl text-main2 font-[500] mt-4 ">{t("calcpaint")}</h1>
+                <h1 className="text-center sm:text-sm md:text-2xl text-main2 font-[500] mt-4">{t("calcpaint")}</h1>
               </div>
             </div>
           </div>
         )
       }
-      desc={result ? `THE NUMBER OF PAINT ${selectedUnit.unit[locale]} USERD IS` : ""}
+      desc={result ? `${t("paintUsed")} ${selectedUnit.unit[locale]} ${t("is")}` : ""}
       span={result ? `${result.toFixed(2)} ${selectedUnit.unit[locale]}` : ""}
       functionalbtn={
         <Button
           onClick={() => setResult(input / selectedUnit.space)}
           disabled={!selectedUnit}
-          className=" hover:bg-white hover:text-main2 border border-main2 text-xs font-medium rounded-full flex  items-center gap-2 px-6  bg-main2"
+          className="hover:bg-white hover:text-main2 border border-main2 text-xs font-medium rounded-full flex items-center gap-2 px-6 bg-main2"
         >
           <CiCalculator2 />
-          CALCULATE
+          {t("calculate")}
         </Button>
       }
       content={
         <div>
-          <div className=" flex-col gap-4 flex lg:py-5 px-5  lg:px-20  mt-5">
+          <div className="flex-col gap-4 flex lg:py-5 px-5 lg:px-20 mt-5">
             <Input
               value={input}
               onChange={(e: any) => setInput(e.target.value)}
-              placeholder="NUMBER OF METERS"
-              className=" outline-gray-900 placeholder:text-gray-900"
+              placeholder={t("inputPlaceholder")} // Use translation for placeholder
+              className="outline-gray-900 placeholder:text-gray-900"
             />
             <Select value={selected} onValueChange={(val: any) => setSelected(val)}>
               <SelectTrigger>
-                <SelectValue placeholder="Select Category" />
+                <SelectValue placeholder={t("selectCategory")} /> {/* Use translation for placeholder */}
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Category</SelectLabel>
+                  <SelectLabel>{t("categoryLabel")}</SelectLabel> {/* Use translation for label */}
                   {categories?.map((c: any, i: number) => (
                     <SelectItem key={i} value={c.id}>
                       {c.title}

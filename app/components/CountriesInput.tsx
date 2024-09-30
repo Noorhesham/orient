@@ -1,11 +1,11 @@
-" use client";
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Server } from "../main/Server";
-import FormSelect from "./FormSelect";
 import ComboboxForm from "./ComboboxForm";
 import { useFormContext } from "react-hook-form";
-import Spinner from "./Spinner";
+import { useTranslations } from "next-intl";
+
 const useGetEntities = ({
   key,
   resourceName,
@@ -26,6 +26,7 @@ const useGetEntities = ({
   });
   return { data, isLoading };
 };
+
 const CountriesInput = ({
   countryName,
   stateName,
@@ -36,6 +37,7 @@ const CountriesInput = ({
   cityName?: string;
 }) => {
   const form = useFormContext();
+  const t = useTranslations("CountriesInput"); // Get translations for this component
   const { data: countries, isLoading } = useGetEntities({
     resourceName: "countries",
     key: "countries",
@@ -56,12 +58,12 @@ const CountriesInput = ({
   });
 
   return (
-    <div className=" flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       {!isLoading && (
         <ComboboxForm
           name={countryName}
-          label="Country"
-          placeholder="Select Country"
+          label={t("countryLabel")} // Use translation for label
+          placeholder={t("selectCountry")} // Use translation for placeholder
           options={countries?.data.map((country: any) => ({ label: country.title, value: country.id }))}
         />
       )}
@@ -69,8 +71,8 @@ const CountriesInput = ({
         <ComboboxForm
           disabled={statesLoading}
           name={stateName}
-          label="State"
-          placeholder="Select State"
+          label={t("stateLabel")} // Use translation for label
+          placeholder={t("selectState")} // Use translation for placeholder
           options={states?.data.map((country: any) => ({ label: country.title, value: country.id }))}
         />
       )}
@@ -78,8 +80,8 @@ const CountriesInput = ({
         <ComboboxForm
           disabled={citiesLoading}
           name={cityName}
-          label="City"
-          placeholder="Select City"
+          label={t("cityLabel")} // Use translation for label
+          placeholder={t("selectCity")} // Use translation for placeholder
           options={cities?.data.map((country: any) => ({ label: country.title, value: country.id }))}
         />
       )}

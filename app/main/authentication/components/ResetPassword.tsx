@@ -13,14 +13,17 @@ import Methods from "./Methods";
 import { InputOTPPattern } from "./OTP";
 import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
 import Spinner from "@/app/components/Spinner";
+import { useLocale, useTranslations } from "next-intl";
 
 const ResetPassword = () => {
+  const t = useTranslations(); // For translations
   const [param, handleParam, deleteParam] = useParams("level", "prepare");
   const searchParams = useSearchParams();
   const [methods, setMethods] = useLocalStorageState("methods", ""); //local or not
   const [message, setMessage] = useState<string | null>(null);
   const [server, setServerError] = useState<string | null>(null);
   const [type, setType] = useState<string | null>("");
+  const locale = useLocale();
   useEffect(() => {
     if (!methods) {
       deleteParam("uuid");
@@ -28,6 +31,7 @@ const ResetPassword = () => {
       handleParam("prepare");
     }
   }, [methods]);
+
   const handleSend = async (sendType?: string) => {
     startTransition(async () => {
       const res = await Server({
@@ -46,15 +50,15 @@ const ResetPassword = () => {
       if (res.status) toast.success(res.message);
     });
   };
+
   return (
     <Suspense fallback={<Spinner />}>
-      <Section CustomePadding="px-5 py-40" className=" bg-gray-50 justify-center flex flex-1  flex-col items-center">
-        <div className=" mx-auto flex flex-col items-center justify-center  w-full  ">
+      <Section CustomePadding="px-5 py-40" className=" bg-gray-50 justify-center flex flex-1 flex-col items-center">
+        <div className=" mx-auto flex flex-col items-center justify-center w-full">
           <Logo size={{ width: 863, height: 338 }} type="blue" />
-          <h1 className=" text-center text-2xl mt-8 font-bold text-main2">FORGOT PASSWORD</h1>
+          <h1 className=" text-center text-2xl mt-8 font-bold text-main2">{t("forgotPasswordContent.title")}</h1>
           {param === "prepare" && <Prepare setMessage={setMessage} handleParam={handleParam} setMethods={setMethods} />}
           {param === "forgot" && <Methods message={message || ""} handleSend={handleSend} methods={methods} />}
-          {server && <p className="text-red-500  mx-auto text-center mt-5 text-sm font-semibold">{server}</p>}
           {param === "code" && (
             <InputOTPPattern
               forgot={true}
@@ -63,12 +67,15 @@ const ResetPassword = () => {
               setServerError={setServerError}
             />
           )}
-          <div className="  mt-8 text-sm flex items-center">
+          {server && <p className="text-red-500 mx-auto text-center mt-5 text-sm font-semibold">{server}</p>}
+          <div className="mt-8 text-sm flex items-center">
             <Link
               href={"/login"}
-              className="flex items-center gap-2 hover:underline duration-150 ml-1 text-main font-[700]"
+              className={`${
+                locale === "ar" && "flex-row-reverse "
+              }flex items-center gap-2 hover:underline duration-150 ml-1 text-main font-[700]`}
             >
-              BACK TO LOGIN <ArrowRight />
+              {t("forgotPasswordContent.backToLogin")} <ArrowRight />
             </Link>
           </div>
         </div>

@@ -29,7 +29,7 @@ const CustomButton = ({
     <Button
       disabled={disabled}
       onClick={(e) => {
-        onClick && onClick();
+        if (onClick) onClick(e);
       }}
       type="button"
       className={`${
