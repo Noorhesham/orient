@@ -8,11 +8,12 @@ import CartItem from "./CartItem";
 import Paragraph from "./Paragraph";
 import { useTranslations } from "next-intl"; // Import useTranslations
 import { format } from "date-fns";
+import { SkeletonCard } from "./SkeletonCard";
 
 const OrderDetails = ({ id }: { id: string }) => {
   const { data, isLoading } = useGetEntity("my_order", "order", id);
   const t = useTranslations("orderDetails"); // Translation hook
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <SkeletonCard />;
   const { order } = data;
 
   return (
