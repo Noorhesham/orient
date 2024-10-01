@@ -49,14 +49,14 @@ const AddComment = ({ id }: { id?: string }) => {
             {t("loginPrompt")}
           </Link>
         ) : (
-          <div className="flex flex-col items-start px-20">
+          <div className="flex flex-col items-start lg:px-10">
             <Paragraph description={t("description")} />
             <FormContainer submit={addComment} formArray={commentForm} />
           </div>
         )
       }
       btn={
-        <div className="uppercase mt-5 flex-col flex gap-2">
+        <div className="uppercase lg:mt-5 flex-col flex gap-2">
           <h2 className="text-2xl font-medium my-2">{t("heading")}</h2>
           <Paragraph description={t("description")} />
           <CustomButton text={t("buttonText")} icon={<IoMdChatbubbles />} />

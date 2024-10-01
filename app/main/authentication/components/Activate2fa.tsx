@@ -24,6 +24,7 @@ const Activate2fa = () => {
   const [err, setErr] = useState<string>("");
   const isActivated = userSettings?.tfa;
   useEffect(() => {
+    if(!qrCode) return;
     QRCode?.toDataURL(qrCode).then(setQr);
   }, [qrCode]);
   const handleCheckTfa = async () => {
@@ -53,7 +54,7 @@ const Activate2fa = () => {
       }
       content={
         <section className=" flex flex-col items-center">
-          <div className="flex mt-5 items-center space-x-2">
+          <div className="flex mt-5 items-center  gap-4">
             <Checkbox defaultChecked={userSettings?.tfa} onCheckedChange={() => handleCheckTfa()} id="terms" />
             <label
               htmlFor="terms"

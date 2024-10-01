@@ -371,5 +371,10 @@
   "image_preview": "معاينة الصورة",
   "upload_image": "تحميل صورة",
   "discover the most important": "قم باستكشاف افضل المقالات ",
-  "articles about paints": "  عن الدهانات"
+  "articles about paints": "  عن الدهانات",
+  "ADD TO CART": "اضف للسلة",
+  "OUT OF STOCK": "غير متوفر",
+  "resetmessage": "اختر وسيلة لاعادة تعيين كلمة المرور",
+  "2famessage": "اختر وسيلة للاثبات ملكية الحساب",
+  "logoutfromall": "سجل الخروج من كل الاجهزة"
 }

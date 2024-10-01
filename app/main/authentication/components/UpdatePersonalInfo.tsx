@@ -8,7 +8,7 @@ import { GoPeople } from "react-icons/go";
 import { MailIcon, PhoneIcon } from "lucide-react";
 import Spinner from "@/app/components/Spinner";
 import { InputOTPPattern } from "./OTP";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { format } from "date-fns";
 import FormContainer from "@/app/components/FormContainer";
 import ModalCustom from "@/app/components/ModalCustom";
@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const UpdatePersonalInfo = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const router = useRouter();
   const personal = [
     { name: "name", placeholder: t("name") },
@@ -120,7 +121,13 @@ const UpdatePersonalInfo = () => {
           <div>
             <UpdateCard
               text={t("updatePhone")}
-              desc={loading ? "" : `+${user?.country_key} ${user?.phone}`}
+              desc={
+                loading
+                  ? ""
+                  : locale === "ar"
+                  ? `${user?.phone}+${user?.country_key} `
+                  : `+${user?.country_key} ${user?.phone}`
+              }
               icon={<PhoneIcon className=" text-main w-10 h-10" />}
             />
           </div>

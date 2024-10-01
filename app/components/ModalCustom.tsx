@@ -50,7 +50,7 @@ const ModalCustom = ({
       <DialogContent className="max-w-4xl py-10 overflow-y-auto max-h-[80vh] sm:rounded-[1.8rem]">
         <DialogHeader className="">
           {title ? (
-            <DialogTitle className="text-xl mt-20 text-center text-main2">{title}</DialogTitle>
+            <DialogTitle className="text-xl mt-10 lg:mt-14 text-center text-main2">{title}</DialogTitle>
           ) : (
             <VisuallyHidden>
               <DialogTitle>Untitled</DialogTitle> {/* Hidden but accessible title */}

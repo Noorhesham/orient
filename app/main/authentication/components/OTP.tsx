@@ -138,7 +138,7 @@ export function InputOTPPattern({
       if (res.status) {
         if (res.token) cookies.set("jwt", res.token);
         toast.success(res.message);
-        setLogin((l: boolean) => !l);
+        if (!forgot) setLogin((l: boolean) => !l);
         setServerError(null);
         const updatedParams = new URLSearchParams(searchParams.toString());
         ["username", "uuid", "level", "email", "phone"].forEach((p) => updatedParams.delete(p));

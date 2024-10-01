@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { FaFacebook, FaPinterest } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FiCopy } from "react-icons/fi";
@@ -11,6 +11,8 @@ import { useCreateEntity } from "@/lib/queries";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl"; // Import useTranslations
+import { Server } from "../main/Server";
+import { toast } from "react-toastify";
 
 const AddToWishlist = ({
   className,
@@ -25,10 +27,29 @@ const AddToWishlist = ({
 }) => {
   const { userSettings } = useAuth();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [currentUrl, setCurrentUrl] = useState<string | null>(null);
-  const { mutate, isPending } = useCreateEntity("addWishlist", "wishlist", id);
-  const t = useTranslations("wishlistContent"); // Hook for translation
 
+  const t = useTranslations("wishlistContent");
+  const mutateWishlist = (action: string) => {
+    try {
+      startTransition(async () => {
+        const res = await Server({
+          resourceName: "addWishlist",
+          body: {
+            action,
+          },
+          id,
+        });
+        if (res.status) {
+          toast.success(res.message);
+         
+        } else toast.error(res.message);
+      });
+    } catch (error: any) {
+      toast.error(error);
+    }
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       setCurrentUrl(window.location.href);
@@ -61,8 +82,7 @@ const AddToWishlist = ({
         <Button
           disabled={isPending}
           onClick={() => {
-            wishlistStatus ? mutate({ action: "remove" }) : mutate({ action: "add" });
-            router.refresh();
+            wishlistStatus ? mutateWishlist("remove") : mutateWishlist("add");
           }}
           variant={"link"}
           className="flex items-center gap-1"

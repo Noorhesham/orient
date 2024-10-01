@@ -241,7 +241,8 @@
     "color trend": "COLOR TREND",
     "cart": "CART",
     "checkout": "CHECK OUT",
-    "blog": "BLOG"
+    "blog": "BLOG",
+    "shop": "SHOP"
   },
   "orderdesc": "Here You Can See All Your Orders.",
   "noorders": "You have not made any orders yet !",
@@ -373,5 +374,10 @@
   "image_preview": "Image Preview",
   "upload_image": "Upload an image",
   "discover the most important": "DISCOVER THE MOST IMPORTANT",
-  "articles about paints": "ARTICLES ABOUT PAINTS"
+  "articles about paints": "ARTICLES ABOUT PAINTS",
+  "OUT OF STOCK": "OUT OF STOCK",
+  "ADD TO CART": "ADD TO CART",
+  "tfamessage": "CHOOSE A METHOD FOR TWO FACTOR AUTHENTICATION",
+  "resetmessage": "CHOOSE A METHOD TO RESET YOUR PASSWORD",
+  "logoutfromall": "Log out from all devices"
 }

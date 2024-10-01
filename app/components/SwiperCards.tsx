@@ -71,6 +71,7 @@ const SwiperCards = ({
   return (
     <div className="relative h-full gap-3 w-full flex flex-col">
       <Swiper
+        touchStartPreventDefault={false}
         breakpoints={{
           0: {
             slidesPerView: mobile ? mobile : logo ? 2 : samePhone ? slidesPerView : 1,
@@ -137,10 +138,10 @@ const SwiperCards = ({
                             {({ zoomIn, zoomOut }) => (
                               <>
                                 <div className="mt-14 mb-3">
-                                  <Button variant="outline" size={"sm"} className="mr-2" onClick={zoomIn}>
+                                  <Button variant="outline" size={"sm"} className="mr-2" onClick={() => zoomIn()}>
                                     <ZoomInIcon />
                                   </Button>
-                                  <Button variant="outline" size={"sm"} onClick={zoomOut}>
+                                  <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
                                     <ZoomOutIcon />
                                   </Button>
                                 </div>

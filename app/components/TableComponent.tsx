@@ -20,21 +20,21 @@ export function TableDemo({ data }: { data: any }) {
   return (
     <div className=" max-w-full overflow-x-auto">
       <Table>
-        <TableHeader className="lg:w-[90%] w-0">
+        <TableHeader className="lg:w-full lg:table-row-group hidden w-0">
           <TableRow className="w-full">
-            <TableHead className="px-3 py-1.5 w-fit h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
+            <TableHead className="px-3 py-1.5  w-full h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
               {t("orderSerial")}
             </TableHead>
-            <TableHead className="w-fit px-3 py-1.5 h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
+            <TableHead className=" w-full px-3 py-1.5 h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
               {t("status")}
             </TableHead>
-            <TableHead className="w-fit px-3 py-1.5 h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
+            <TableHead className=" w-full px-3 py-1.5 h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
               {t("date")}
             </TableHead>
-            <TableHead className="px-3 py-1.5 w-fit h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
+            <TableHead className="px-3 py-1.5  w-full h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
               {t("total")}
             </TableHead>
-            <TableHead className="px-3 py-1.5 w-fit h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
+            <TableHead className="px-3 py-1.5  w-full h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
               {t("action")}
             </TableHead>
           </TableRow>

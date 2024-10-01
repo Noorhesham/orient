@@ -15,7 +15,7 @@ const SubmitButton = ({ text, isPending, btnStyles }: { text: string; isPending?
           <Spinner />
         </div>
       ) : (
-        <span style={locale === "ar" ? { right: "20px" }:{}} className="mas flex items-center gap-2">
+        <span style={locale === "ar" ? { right: "20px" }:{}} className="mas  text-nowrap flex items-center gap-2">
           {text == t("SAVE CHANGES") && <CheckCircleIcon />}
           {text}
         </span>
@@ -27,10 +27,10 @@ const SubmitButton = ({ text, isPending, btnStyles }: { text: string; isPending?
             <Spinner />
           </div>
         ) : (
-          <>
+          <div className=" flex items-center gap-2 text-nowrap">
             {text == t("SAVE CHANGES") && <CheckCircleIcon />}
             {text}
-          </>
+          </div>
         )}
       </button>
     </div>

@@ -21,7 +21,7 @@ const PriceWithSale = ({
     <div>
       <div className="  flex flex-wrap gap-3 items-center">
         <bdi
-          className={`${size === "sm" ? "text-base text-black":size==='xs'?"text-xs text-black" : "text-3xl md:text-2xl text-main2 font-semibold"}   `}
+          className={`${size === "sm" ? "text-base text-black":size==='xs'?"text-xs text-black" : "text-3xl md:text-2xl text-main2 font-semibold"}  text-nowrap  `}
         >
           {formatPriceWithCommas(price)} {default_currency?.code}
         </bdi>

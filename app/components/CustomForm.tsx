@@ -79,7 +79,7 @@ const CustomForm = ({
       <form className="flex w-full items-stretch gap-2" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-1 flex-col">
           {title && <Head1 className=" text-lg text-center" text={title} />}
-          <div className="flex pt-4 flex-col gap-4">
+          <div className="flex lg:pt-4 flex-col gap-4">
             {inputs.map((input) =>
               input?.select ? (
                 <FormSelect placeholder={input.placeholder} key={input.name} {...input} />
@@ -99,7 +99,7 @@ const CustomForm = ({
             )}
           </div>
           {children}
-          <div className={cn("flex gap-2 mt-5 items-center", { "self-center w-[60%]": cancel })}>
+          <div className={cn("flex gap-2 mt-5 items-center", { "self-center w-full lg:w-[60%]": cancel })}>
             <div className={`${btnStyles} flex-1 flex items-center flex-col`}>
               {link && linkText && <MyLink link={link} text={linkText} />}
               <div className=" w-full">

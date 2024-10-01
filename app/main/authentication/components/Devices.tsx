@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import ModalCustom from "@/app/components/ModalCustom";
 
 const Devices = () => {
-  const { data, isLoading } = useGetEntity("getDevices");
+  const { data, isLoading } = useGetEntity("getDevices", "devices");
   const queryClient = useQueryClient();
   const { deviceInfo } = useDevice();
   const [isPending, startTransition] = useTransition();
@@ -25,7 +25,7 @@ const Devices = () => {
   const filteredResult = Object.keys(data || {})
     .filter((key) => typeof data[key] === "object")
     .map((key) => data[key]);
-  console.log(data, filteredResult);
+
   return (
     <ModalCustom
       btn={
@@ -88,7 +88,7 @@ const Devices = () => {
                             console.log(res);
                             if (res.status) {
                               toast.success(res.message);
-                              queryClient.invalidateQueries({ queryKey: ["getDevices"] });
+                              queryClient.invalidateQueries({ queryKey: ["devices"] });
                             }
                           });
                         }}
@@ -107,7 +107,7 @@ const Devices = () => {
                     console.log(res);
                     if (res.status) {
                       toast.success(res.message);
-                      queryClient.invalidateQueries({ queryKey: ["getDevices"] });
+                      queryClient.invalidateQueries({ queryKey: ["devices"] });
                     }
                   });
                 }}

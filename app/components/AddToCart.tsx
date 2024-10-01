@@ -43,7 +43,7 @@ const AddToCart = ({
       }}
       className=" px-8 py-4"
       icon={<BsHandbag />}
-      text={disabled ? "OUT OF STOCK" : "ADD TO CART"}
+      text={disabled ? t("OUT OF STOCK") : t("ADD TO CART")}
     />
   );
 };

@@ -13,7 +13,7 @@ const UpdatePassword = () => {
     const res = await Server({ resourceName: "update_password", body: data });
     console.log(res);
     if (!res.status) setError(res.errors.password || res.message);
-    if (res) {
+    if (res.status) {
       toast.success(res.message);
       setError(null);
     }

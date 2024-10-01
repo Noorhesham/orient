@@ -14,6 +14,7 @@ const CustomButton = ({
   link,
   isPending,
   disabled,
+  stopPropagation,
 }: {
   text: string;
   icon?: ReactNode;
@@ -24,11 +25,13 @@ const CustomButton = ({
   link?: string;
   isPending?: boolean;
   disabled?: boolean;
+  stopPropagation?: boolean;
 }) => {
   return (
     <Button
       disabled={disabled}
       onClick={(e) => {
+        if (stopPropagation) e.stopPropagation();
         if (onClick) onClick(e);
       }}
       type="button"

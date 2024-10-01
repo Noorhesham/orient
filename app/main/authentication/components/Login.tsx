@@ -27,7 +27,7 @@ const Login = () => {
   const [useEmail, setUseEmail] = useState(false);
   const [activate, setActivate] = useState(false);
   const [methods, setMethods] = useLocalStorageState([], "methods");
-  const [message, setMessage] = useLocalStorageState("", "message");
+  const [message, setMessage] = useState("");
   const [isCode, setIsCode] = useState("");
   const form = useForm({
     resolver: zodResolver(loginSchemaa),

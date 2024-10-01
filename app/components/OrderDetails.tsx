@@ -16,14 +16,14 @@ const OrderDetails = ({ id }: { id: string }) => {
   const { order } = data;
 
   return (
-    <div className="px-10">
+    <div className="lg:px-10">
       <MiniHeader
         heading={t("orderNumber", { uuid: order.uuid })} // Use translation with variable
         date={format(new Date(order.date), "dd/MM/yyyy")}
         status={order.status}
       />
       <div className="grid items-center py-3 gap-8 grid-cols-1 lg:grid-cols-2">
-        <Container CustomePadding="py-10 px-10" className="flex gap-5 mt-4 flex-col">
+        <Container CustomePadding="lg:py-10 lg:px-10" className="flex gap-5 mt-4 flex-col">
           {order.items.map((item: any) => (
             <CartItem
               nocheck

@@ -259,7 +259,12 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                         <p className=" text-[9px]  text-muted-foreground">{t("moneySafe")}</p>
                       </div>
                     </div>
-                  </div>
+                  </div>{" "}
+                  <AddToWishlist
+                    wishlistStatus={cartStatus[`${product.id}`].favorite}
+                    id={product.id}
+                    className=" lg:hidden my-3"
+                  />
                 </div>
               </div>
               <Paragraph className=" my-2" description={product.description || ""} />

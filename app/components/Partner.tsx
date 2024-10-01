@@ -3,12 +3,12 @@ import React from "react";
 import CustomButton from "./CustomButton";
 import { useParams } from "../hooks/useParams";
 import SwiperCards from "./SwiperCards";
-import cookies from "js-cookie";
+import { useLocale } from "next-intl";
 
 const Partner = ({ tabs }: { tabs: any[] }) => {
   const [param, handleParam, deleteParam] = useParams("category", "coloring-centers");
   console.log(param);
-  const local = cookies.get("NEXT_LOCALE") || "en";
+  const local = useLocale();
   return (
     <>
       <div
@@ -36,6 +36,7 @@ const Partner = ({ tabs }: { tabs: any[] }) => {
             items={tabs.map(({ link, text }, i) => ({
               card: (
                 <CustomButton
+                stopPropagation
                   onClick={() => handleParam(link)}
                   reverse={param === link}
                   backgroundColor="dark"

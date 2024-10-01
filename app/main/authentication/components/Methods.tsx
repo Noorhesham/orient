@@ -19,7 +19,9 @@ const Methods = ({
 
   return (
     <Suspense>
-      <h1 className=" text-center text-xl md:text-2xl mt-8 font-bold text-main2">{message}</h1>
+      <h1 className=" text-center text-xl md:text-2xl mt-8 font-bold text-main2">
+        {tfa ? t("2famessage") : t("resetmessage")}
+      </h1>
       <div>
         {methods.email && (
           <div

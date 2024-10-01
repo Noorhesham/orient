@@ -1,13 +1,11 @@
 import NotFound from "@/app/[locale]/not-found";
 import AddressForm from "@/app/components/AddressForm";
 import Container from "@/app/components/Container";
-import CustomButton from "@/app/components/CustomButton";
 import Delete from "@/app/components/Delete";
 import Head1 from "@/app/components/Head1";
 import { Location } from "@/app/components/Icons";
 import IconWidget from "@/app/components/IconWidget";
-import ModalCustom from "@/app/components/ModalCustom";
-import Paragraph from "@/app/components/Paragraph";
+
 import { Server } from "@/app/main/Server";
 import { getTranslations } from "next-intl/server";
 import React from "react";
