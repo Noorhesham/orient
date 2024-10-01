@@ -43,7 +43,7 @@ const AddToWishlist = ({
         });
         if (res.status) {
           toast.success(res.message);
-         
+          router.refresh();
         } else toast.error(res.message);
       });
     } catch (error: any) {
