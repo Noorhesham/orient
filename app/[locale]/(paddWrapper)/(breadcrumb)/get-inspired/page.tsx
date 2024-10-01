@@ -4,6 +4,7 @@ import ImageGrid from "../../../../components/ImageGrid";
 import Tabing from "../../../../components/Tabing";
 import { PaginationDemo } from "@/app/components/Pagination";
 import { Server } from "@/app/main/Server";
+import { SkeletonCard } from "@/app/components/SkeletonCard";
 
 const page = async ({ searchParams }: { searchParams: any }) => {
   const { data: categories } = await Server({
@@ -31,7 +32,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
         standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
         a type specimen book.Lorem Ipsum{" "}
       </p> */}
-      <Suspense>
+      <Suspense fallback={<SkeletonCard />}>
         <Tabing categories={categories} defaultValue="1" options={images.map((img: any) => img.file)} />
         <PaginationDemo totalPages={Math.ceil(data.length / 12) || 1} />
       </Suspense>
