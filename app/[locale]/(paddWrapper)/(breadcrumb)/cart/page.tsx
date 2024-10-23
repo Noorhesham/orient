@@ -130,7 +130,7 @@ const page = async () => {
                   card: (
                     <Card
                       key={item.id}
-                      img={item.main_cover?.[0].sizes.large}
+                      img={item?.main_cover[0]?.[0].sizes.large}
                       price={item.price_after_discount}
                       sell={item.price}
                       text={item.title}

@@ -24,7 +24,7 @@ const page = async () => {
             nocheck={true}
             id={item.id}
             key={item.id}
-            img={item.main_cover[0].sizes.medium}
+            img={item?.main_cover[0]?.sizes.medium}
             price={item.sell_price || item.regular_price}
             discount={item.sell_price ? item.regular_price : null}
             text={item.title}
