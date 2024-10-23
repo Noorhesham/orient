@@ -72,7 +72,7 @@ const Page = () => {
                   productId={item.id}
                   nocheck
                   key={item.id}
-                  img={item.image[0].sizes.large}
+                  img={item?.image[0]?.sizes?.large}
                   price={item.price_after_discount}
                   discount={item.price}
                   text={item.title}
