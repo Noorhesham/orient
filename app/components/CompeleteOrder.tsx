@@ -52,7 +52,7 @@ const CompeleteOrder = () => {
       ...data,
       country_key: parseInt(data.phone?.country_key, 10),
       phone: parseInt(data.phone?.phone, 10),
-      callback: "http://localhost:3001/success", // Adjust the callback URL to match the one that works
+      callback: "https://orient-nine.vercel.app/success", // Adjust the callback URL to match the one that works
     };
 
     try {
