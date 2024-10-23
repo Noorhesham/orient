@@ -304,7 +304,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           card: (
                             <Card
                               key={item.id}
-                              img={item.main_cover[0].thumbnail}
+                              img={item?.main_cover[0]?.thumbnail}
                               text={item.title}
                               price={item.sell_price}
                               id={item.id}
@@ -463,7 +463,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               {upSells?.map((item: any, i: number) => (
                 <Card
                   key={item.id}
-                  img={item.main_cover[0].thumbnail}
+                  img={item?.main_cover[0]?.thumbnail}
                   text={item.title}
                   price={item.sell_price}
                   id={item.id}
@@ -481,7 +481,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                       card: (
                         <Card
                           key={item.id}
-                          img={item.main_cover[0].thumbnail}
+                          img={item?.main_cover[0]?.thumbnail}
                           text={item.title}
                           price={item.sell_price}
                           id={item.id}
