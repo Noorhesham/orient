@@ -159,7 +159,7 @@ export default async function Home() {
                 local == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
               }  aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-80 bottom-0  top-[105%] sm:top-[90%] md:top-[82%] xl:top-[5.5rem]  absolute`}
             >
-              <Image src={page.image[0].file} fill className=" object-cover " alt="brown" />
+              <Image src={page.image[0]?.file} fill className=" object-cover " alt="brown" />
             </div>
           </div>
         </Section>

@@ -94,7 +94,7 @@ const Page = async () => {
       <MaxWidthWrapper className=" flex flex-col gap-5 lg:gap-10">
         <div className="flex lg:flex-row gap-4 flex-col items-center">
           <div className=" w-full lg:min-w-[576px] flex-grow h-[200px] relative">
-            <Image src={page.vision_image[0].file} alt="about" className=" object-cover" fill />
+            <Image src={page.vision_image[0]?.file} alt="about" className=" object-cover" fill />
           </div>
           <div className=" flex-shrink flex flex-col gap-2">
             <h1 className=" text-3xl font-bold text-main">{page.vision_title}</h1>
@@ -108,7 +108,7 @@ const Page = async () => {
             <Paragraph danger full description={page.mission_content} />
           </div>
           <div className=" w-full lg:min-w-[576px] lg:mt-0  flex-grow h-[200px] relative">
-            <Image src={page.mission_image[0].file} alt="about" className=" object-cover" fill />
+            <Image src={page?.mission_image[0]?.file} alt="about" className=" object-cover" fill />
           </div>
         </div>
 

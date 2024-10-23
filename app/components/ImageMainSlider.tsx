@@ -20,7 +20,7 @@ const ImageSlider = ({ covers }: { covers: any[] }) => {
         <Link
           href={covers[currentImage].link}
           style={{
-            backgroundImage: `url('${covers[currentImage].image[0].file}')`,
+            backgroundImage: `url('${covers[currentImage]?.image[0]?.file}')`,
             backgroundPosition: "center",
             // backgroundAttachment: "fixed",
             zIndex: 1,
