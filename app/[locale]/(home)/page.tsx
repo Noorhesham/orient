@@ -57,7 +57,7 @@ export default async function Home() {
                     id={item.id}
                     price={item.price}
                     text={item.title}
-                    img={item.main_cover[0].sizes.medium}
+                    img={item?.main_cover[0]?.sizes?.medium}
                   />
                 ))}
               </MotionContainer>
@@ -76,7 +76,7 @@ export default async function Home() {
                           id={item.id}
                           price={item.price}
                           text={item.title}
-                          img={item.main_cover[0].sizes.medium}
+                          img={item?.main_cover[0]?.sizes?.medium}
                         />
                       ),
                     };
