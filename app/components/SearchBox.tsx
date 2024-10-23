@@ -145,7 +145,7 @@ const SearchBox = ({
                   className=" hover:bg-gray-100 duration-150 w-full flex items-center gap-2"
                 >
                   <div className=" overflow-hidden rounded-md w-10 h-10 relative">
-                    <Image src={item.main_cover[0].sizes.thumbnail} fill alt="product" className=" object-contain" />
+                    <Image src={item?.main_cover[0]?.sizes?.thumbnail} fill alt="product" className=" object-contain" />
                   </div>
                   <div className=" flex flex-col">
                     <h2 className=" text-black text-xs line-clamp-1 font-medium rounded-xl">{item.title}</h2>

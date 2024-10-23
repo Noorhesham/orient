@@ -110,8 +110,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
   const ims = product.main_cover
     .map((img: any) => ({ src: img.file }))
     .concat(product.images.map((img: any) => ({ src: img.file })));
-  const paginationImgs = product.main_cover
-    .map((img: any) => ({ src: img.thumbnail }))
+  const paginationImgs = product?.main_cover
+    ?.map((img: any) => ({ src: img.thumbnail }))
     .concat(product.images.map((img: any) => ({ src: img.thumbnail })));
   const t = await getTranslations();
   queryParams.append("ids[]", product.id);
