@@ -90,7 +90,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                       id={product.id || ""}
                       text={product.title}
                       sell={product.sell_price ? product.regular_price : null}
-                      img={product.main_cover[0].sizes.medium || "/default-thumbnail.jpg"}
+                      img={product?.main_cover[0]?.sizes?.medium || "/default-thumbnail.jpg"}
                       price={product.price.toString()}
                     />
                   ))}
