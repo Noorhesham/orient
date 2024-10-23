@@ -25,9 +25,8 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   const [input, setInput] = React.useState(0);
   const [result, setResult] = React.useState(0);
   const [selected, setSelected] = React.useState<any>(id || null);
-
-  if (isLoading) return <Spinner />;
-
+  if ( isLoading) return <Spinner/>;
+  console.log(data);
   const categories = data?.data?.map((d: any) => d.category);
   const selectedUnit = data?.data?.find((item: any) => item.category.id === selected);
 
@@ -61,31 +60,38 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
         </Button>
       }
       content={
-        <div>
-          <div className="flex-col gap-4 flex lg:py-5 px-5 lg:px-20 mt-5">
-            <Input
-              value={input}
-              onChange={(e: any) => setInput(e.target.value)}
-              placeholder={t("inputPlaceholder")} // Use translation for placeholder
-              className="outline-gray-900 placeholder:text-gray-900"
-            />
-            <Select value={selected} onValueChange={(val: any) => setSelected(val)}>
-              <SelectTrigger>
-                <SelectValue placeholder={t("selectCategory")} /> {/* Use translation for placeholder */}
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>{t("categoryLabel")}</SelectLabel> {/* Use translation for label */}
-                  {categories?.map((c: any, i: number) => (
-                    <SelectItem key={i} value={c.id}>
-                      {c.title}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+        isLoading ? (
+          <div className=" absolute left-1/2 -translate-x-1/2 top-1/2  -translate-y-1/2">
+            {" "}
+            <Spinner />
           </div>
-        </div>
+        ) : (
+          <div>
+            <div className="flex-col gap-4 flex lg:py-5 px-5 lg:px-20 mt-5">
+              <Input
+                value={input}
+                onChange={(e: any) => setInput(e.target.value)}
+                placeholder={t("inputPlaceholder")} // Use translation for placeholder
+                className="outline-gray-900 placeholder:text-gray-900"
+              />
+              <Select value={selected} onValueChange={(val: any) => setSelected(val)}>
+                <SelectTrigger>
+                  <SelectValue placeholder={t("selectCategory")} /> {/* Use translation for placeholder */}
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>{t("categoryLabel")}</SelectLabel> {/* Use translation for label */}
+                    {categories?.map((c: any, i: number) => (
+                      <SelectItem key={i} value={c.id}>
+                        {c.title}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        )
       }
     />
   );

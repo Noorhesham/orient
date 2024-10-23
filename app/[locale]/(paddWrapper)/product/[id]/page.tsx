@@ -37,6 +37,9 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
     id,
     body: { with: "tags,upSells,crossSells,category_id" },
   });
+  if (!product)
+    return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
+
   return {
     title: `${product.title} | PUTTY (ACRYLIC 1000) 233 WALL PAINTS | Your Store Name`,
     description: product.description,
@@ -87,7 +90,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
     queryParams,
     body: { with: "tags,upSells,crossSells,category_id" },
   });
-  if (!product) return <NotFound />;
+  if (!product)
+    return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
   const ischild = child === "true" || product.type === "variation";
   const jsonLd = {
     "@context": "https://schema.org",

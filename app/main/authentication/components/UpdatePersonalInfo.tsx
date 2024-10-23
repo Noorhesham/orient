@@ -1,189 +1,189 @@
-"use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Server } from "../../Server";
-import { toast } from "react-toastify";
-import { useAuth } from "@/app/context/AuthContext";
-import UpdateCard from "@/app/components/UpdateCard";
-import { GoPeople } from "react-icons/go";
-import { MailIcon, PhoneIcon } from "lucide-react";
-import Spinner from "@/app/components/Spinner";
-import { InputOTPPattern } from "./OTP";
-import { useLocale, useTranslations } from "next-intl";
-import { format } from "date-fns";
-import FormContainer from "@/app/components/FormContainer";
-import ModalCustom from "@/app/components/ModalCustom";
-import { useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+  "use client";
+  import { useRouter, useSearchParams } from "next/navigation";
+  import { Server } from "../../Server";
+  import { toast } from "react-toastify";
+  import { useAuth } from "@/app/context/AuthContext";
+  import UpdateCard from "@/app/components/UpdateCard";
+  import { GoPeople } from "react-icons/go";
+  import { MailIcon, PhoneIcon } from "lucide-react";
+  import Spinner from "@/app/components/Spinner";
+  import { InputOTPPattern } from "./OTP";
+  import { useLocale, useTranslations } from "next-intl";
+  import { format } from "date-fns";
+  import FormContainer from "@/app/components/FormContainer";
+  import ModalCustom from "@/app/components/ModalCustom";
+  import { useState } from "react";
+  import { Skeleton } from "@/components/ui/skeleton";
 
-const UpdatePersonalInfo = () => {
-  const t = useTranslations();
-  const locale = useLocale();
-  const router = useRouter();
-  const personal = [
-    { name: "name", placeholder: t("name") },
-    { name: "birth_day", placeholder: t("birth_day"), date: true },
-    { name: "avatar", placeholder: t("avatar"), photo: true },
-  ];
-  const email = [{ name: "email", placeholder: t("email") }];
-  const phone = [{ name: "phone", placeholder: t("phone"), phone: true, returnFullPhone: false }];
-  const searchParams = useSearchParams();
-  const { setLogin, userSettings: user, loading } = useAuth();
-  const [OtpError, setOtpError] = useState<string | null>(null);
+  const UpdatePersonalInfo = () => {
+    const t = useTranslations();
+    const locale = useLocale();
+    const router = useRouter();
+    const personal = [
+      { name: "name", placeholder: t("name") },
+      { name: "birth_day", placeholder: t("birth_day"), date: true },
+      { name: "avatar", placeholder: t("avatar"), photo: true },
+    ];
+    const email = [{ name: "email", placeholder: t("email") }];
+    const phone = [{ name: "phone", placeholder: t("phone"), phone: true, returnFullPhone: false }];
+    const searchParams = useSearchParams();
+    const { setLogin, userSettings: user, loading } = useAuth();
+    const [OtpError, setOtpError] = useState<string | null>(null);
 
-  const updatePersonalInfro = async (data: any, setError: any) => {
-    const formData = new FormData();
-    Object.keys(data).forEach((key) => {
-      if (key === "birth_day" && data[key] instanceof Date) {
-        const formattedDate = format(data[key], "yyyy-MM-dd");
-        formData.append(key, formattedDate);
-      } else if (key === "avatar") {
-        if (data[key] instanceof FileList && data[key].length > 0) {
-          formData.append(key, data[key][0]);
+    const updatePersonalInfro = async (data: any, setError: any) => {
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        if (key === "birth_day" && data[key] instanceof Date) {
+          const formattedDate = format(data[key], "yyyy-MM-dd");
+          formData.append(key, formattedDate);
+        } else if (key === "avatar") {
+          if (data[key] instanceof FileList && data[key].length > 0) {
+            formData.append(key, data[key][0]);
+          }
+        } else if (data[key] !== undefined) {
+          formData.append(key, data[key]);
         }
-      } else if (data[key] !== undefined) {
-        formData.append(key, data[key]);
+      });
+
+      const res = await Server({ resourceName: "update_profile", body: formData, formData: true });
+
+      if (!res.status) {
+        setError(Array.isArray(res.errors) ? res.errors : res.message);
+        return;
       }
-    });
-
-    const res = await Server({ resourceName: "update_profile", body: formData, formData: true });
-
-    if (!res.status) {
-      setError(Array.isArray(res.errors) ? res.errors : res.message);
-      return;
-    }
-    toast.success(res.message);
-    setError(null);
-    setLogin((l: any) => !l);
-  };
-
-  const updateEmailInfo = async (data: any, setError: any) => {
-    const phone = data?.phone?.phone;
-    const updatedData = {
-      ...data,
-      country_key: data.phone && user.country_key,
-      phone: phone || null,
+      toast.success(res.message);
+      setError(null);
+      setLogin((l: any) => !l);
     };
 
-    const res = await Server({ resourceName: "update_profile", body: updatedData });
+    const updateEmailInfo = async (data: any, setError: any) => {
+      const phone = data?.phone?.phone;
+      const updatedData = {
+        ...data,
+        country_key: data.phone && user.country_key,
+        phone: phone || null,
+      };
 
-    if (!res.status) {
-      setError(res.errors?.length > 0 ? res.errors.join(", ") : res.errors?.email || res.message);
-      return;
-    }
+      const res = await Server({ resourceName: "update_profile", body: updatedData });
 
-    if (res.status) {
-      toast.success(res.message);
-      setLogin((l: any) => !l);
-      setError(null);
-      const updatedParams = new URLSearchParams(searchParams);
-      data.phone ? updatedParams.set("phone", phone) : updatedParams.set("email", data.email);
-      data.phone ? updatedParams.set("uuid", res.phone_code_uuid) : updatedParams.set("uuid", res.email_code_uuid);
+      if (!res.status) {
+        setError(res.errors?.length > 0 ? res.errors.join(", ") : res.errors?.email || res.message);
+        return;
+      }
 
-      router.push(`?${updatedParams.toString()}`, { scroll: false });
-      setLogin((l: any) => !l);
-    }
+      if (res.status) {
+        toast.success(res.message);
+        setLogin((l: any) => !l);
+        setError(null);
+        const updatedParams = new URLSearchParams(searchParams);
+        data.phone ? updatedParams.set("phone", phone) : updatedParams.set("email", data.email);
+        data.phone ? updatedParams.set("uuid", res.phone_code_uuid) : updatedParams.set("uuid", res.email_code_uuid);
+
+        router.push(`?${updatedParams.toString()}`, { scroll: false });
+        setLogin((l: any) => !l);
+      }
+    };
+
+    return (
+      <>
+        <ModalCustom
+          btn={
+            <div>
+              <UpdateCard
+                text={t("updateEmail")}
+                desc={user?.email}
+                icon={<MailIcon className=" text-main w-10 h-10" />}
+              />
+            </div>
+          }
+          content={
+            loading ? (
+              <Skeleton />
+            ) : (
+              <div className=" px-5 lg:px-20 py-5">
+                <FormContainer
+                  submit={updateEmailInfo}
+                  cancel={true}
+                  defaultValues={user}
+                  btnStyles={"w-full"}
+                  btnText={t("confirm")}
+                  formArray={email}
+                  title={t("updateEmail")}
+                />
+                {searchParams.get("uuid") && <InputOTPPattern setServerError={setOtpError} email sendType="email" />}
+                {OtpError && <p className="text-red-500 text-sm">{OtpError}</p>}
+              </div>
+            )
+          }
+        />
+        <ModalCustom
+          btn={
+            <div>
+              <UpdateCard
+                text={t("updatePhone")}
+                desc={
+                  loading
+                    ? ""
+                    : locale === "ar"
+                    ? `${user?.phone}+${user?.country_key} `
+                    : `+${user?.country_key} ${user?.phone}`
+                }
+                icon={<PhoneIcon className=" text-main w-10 h-10" />}
+              />
+            </div>
+          }
+          content={
+            loading ? (
+              <Skeleton />
+            ) : (
+              <div className=" px-5 lg:px-20 py-5">
+                <FormContainer
+                  submit={updateEmailInfo}
+                  cancel={true}
+                  defaultValues={user}
+                  btnStyles={"w-full"}
+                  btnText={t("confirm")}
+                  formArray={phone}
+                  title={t("updatePhone")}
+                />
+                {searchParams.get("uuid") && (
+                  <InputOTPPattern setServerError={setOtpError} sendType="" phone country_key={user.country_key} />
+                )}
+                {OtpError && <p className="text-red-500">{OtpError}</p>}
+              </div>
+            )
+          }
+        />
+        <ModalCustom
+          btn={
+            <div>
+              <UpdateCard
+                text={t("personalInfo")}
+                desc={t("personalDetails")}
+                icon={<GoPeople className=" text-main w-10 h-10" />}
+              />
+            </div>
+          }
+          content={
+            loading ? (
+              <Skeleton />
+            ) : (
+              <div className=" px-5 lg:px-20 py-5">
+                <FormContainer
+                  submit={updatePersonalInfro}
+                  cancel={true}
+                  defaultValues={user}
+                  btnStyles={"w-full"}
+                  btnText={t("saveChanges")}
+                  formArray={personal}
+                  title={t("updatePersonalInfo")}
+                />
+              </div>
+            )
+          }
+        />
+      </>
+    );
   };
 
-  return (
-    <>
-      <ModalCustom
-        btn={
-          <div>
-            <UpdateCard
-              text={t("updateEmail")}
-              desc={user?.email}
-              icon={<MailIcon className=" text-main w-10 h-10" />}
-            />
-          </div>
-        }
-        content={
-          loading ? (
-            <Skeleton />
-          ) : (
-            <div className=" px-5 lg:px-20 py-5">
-              <FormContainer
-                submit={updateEmailInfo}
-                cancel={true}
-                defaultValues={user}
-                btnStyles={"w-full"}
-                btnText={t("confirm")}
-                formArray={email}
-                title={t("updateEmail")}
-              />
-              {searchParams.get("uuid") && <InputOTPPattern setServerError={setOtpError} email sendType="email" />}
-              {OtpError && <p className="text-red-500 text-sm">{OtpError}</p>}
-            </div>
-          )
-        }
-      />
-      <ModalCustom
-        btn={
-          <div>
-            <UpdateCard
-              text={t("updatePhone")}
-              desc={
-                loading
-                  ? ""
-                  : locale === "ar"
-                  ? `${user?.phone}+${user?.country_key} `
-                  : `+${user?.country_key} ${user?.phone}`
-              }
-              icon={<PhoneIcon className=" text-main w-10 h-10" />}
-            />
-          </div>
-        }
-        content={
-          loading ? (
-            <Skeleton />
-          ) : (
-            <div className=" px-5 lg:px-20 py-5">
-              <FormContainer
-                submit={updateEmailInfo}
-                cancel={true}
-                defaultValues={user}
-                btnStyles={"w-full"}
-                btnText={t("confirm")}
-                formArray={phone}
-                title={t("updatePhone")}
-              />
-              {searchParams.get("uuid") && (
-                <InputOTPPattern setServerError={setOtpError} sendType="" phone country_key={user.country_key} />
-              )}
-              {OtpError && <p className="text-red-500">{OtpError}</p>}
-            </div>
-          )
-        }
-      />
-      <ModalCustom
-        btn={
-          <div>
-            <UpdateCard
-              text={t("personalInfo")}
-              desc={t("personalDetails")}
-              icon={<GoPeople className=" text-main w-10 h-10" />}
-            />
-          </div>
-        }
-        content={
-          loading ? (
-            <Skeleton />
-          ) : (
-            <div className=" px-5 lg:px-20 py-5">
-              <FormContainer
-                submit={updatePersonalInfro}
-                cancel={true}
-                defaultValues={user}
-                btnStyles={"w-full"}
-                btnText={t("saveChanges")}
-                formArray={personal}
-                title={t("updatePersonalInfo")}
-              />
-            </div>
-          )
-        }
-      />
-    </>
-  );
-};
-
-export default UpdatePersonalInfo;
+  export default UpdatePersonalInfo;

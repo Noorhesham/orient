@@ -53,6 +53,7 @@ export type ResourceNameProps =
   | "my_order"
   | "deleteEntity"
   | "countries"
+  | "cities"
   | "states"
   | "home"
   | "getWishlist"
@@ -62,8 +63,7 @@ export type ResourceNameProps =
   | "check"
   | "wishlist"
   | "calculate"
-  | "getinspired"
-  | "cities";
+  | "getinspired";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -244,10 +244,9 @@ export async function Server({
       },
     });
 
-    console.log(requestBody);
+    console.log(url);
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     const data = await response.json();
-    console.log(data);
 
     if (data.message === "Device token mismatch" || data.message === "Login again please") {
       redirect("/login?error=true");

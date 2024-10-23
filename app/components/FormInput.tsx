@@ -184,26 +184,28 @@ const FormInput = ({
                         if (password) handlePasswordChange(e.target.value);
                       }}
                     />
-                    <AnimatePresence>
-                      {!noProgress && password && field.value && (
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: "100%" }}
-                          exit={{ width: 0 }}
-                          className=" flex w-full items-center gap-1"
-                        >
-                          <Progress
-                            nocustomcol={true}
-                            color={passwordStrength.color}
-                            value={passwordStrength.score * 25}
-                            className={` w-full  flex-grow `}
-                          />
-                          <p className={` text-${passwordStrength.text} text-sm font-medium `}>
-                            {passwordStrength.label}
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    {password && (
+                      <AnimatePresence>
+                        {!noProgress && password && field.value && (
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "100%" }}
+                            exit={{ width: 0 }}
+                            className=" flex w-full items-center gap-1"
+                          >
+                            <Progress
+                              nocustomcol={true}
+                              color={passwordStrength.color}
+                              value={passwordStrength.score * 25}
+                              className={` w-full  flex-grow `}
+                            />
+                            <p className={` text-${passwordStrength.text} text-sm font-medium `}>
+                              {passwordStrength.label}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
                   </div>
                 )}
               </FormControl>

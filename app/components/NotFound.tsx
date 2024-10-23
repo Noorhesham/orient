@@ -5,11 +5,12 @@ import Link from "next/link";
 import MyLink from "./MyLink";
 import { ArrowRight } from "lucide-react";
 import { useLocale } from "next-intl";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const NotFound = ({ message, link, linkText }: { message?: string; link?: string; linkText?: string }) => {
   const locale = useLocale();
   return (
-    <div className=" flex flex-col gap-4">
+    <MaxWidthWrapper className=" flex items-center flex-col gap-4">
       <Head1 text={message || "NOT FOUND"} />
       {linkText && (
         <Link
@@ -21,7 +22,7 @@ const NotFound = ({ message, link, linkText }: { message?: string; link?: string
           {linkText} <ArrowRight className=" md:w-5 md:h-5 w-3 h-3" />
         </Link>
       )}
-    </div>
+    </MaxWidthWrapper>
   );
 };
 
