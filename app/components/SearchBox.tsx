@@ -105,7 +105,7 @@ const SearchBox = ({
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && data) {
       data.products.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
-      setResultActive(false)
+      setResultActive(false);
     }
   };
   console.log(data, query);
@@ -119,20 +119,21 @@ const SearchBox = ({
           ? "   "
           : active
           ? ""
-          : "placeholder:text-white"
+          : "placeholder:text-white "
       }  relative flex lg:w-full items-center lg:bg-white/10 lg:gap-10 rounded-3xl mr-1   ${
         active && locale === "ar"
           ? "translate-x-20  py-2 px-4 lg:translate-x-0"
           : active && locale === "en"
           ? "-translate-x-20  py-2 px-4 lg:translate-x-0"
           : "translate-x-0"
-      } duration-150 lg:py-2 border border-input  z-[9999] relative lg:px-4 ${
+      } duration-150 lg:py-2 ${!nonactive && " border border-input"}   z-[9999] relative lg:px-4 ${
         locale === "ar" && "lg:flex-row-reverse"
       } `}
     >
       <AnimatePresence>
         {data && resultActive && (
-          <MotionItem nohover
+          <MotionItem
+            nohover
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -163,7 +164,8 @@ const SearchBox = ({
             ) : (
               <p className=" text-main text-xs">No results Found</p>
             )}
-            <Link onClick={() => setResultActive(false)}
+            <Link
+              onClick={() => setResultActive(false)}
               className=" text-main duration-150 hover:underline"
               href={data.products?.length > 1 ? `/shop?search=${query}` : "/shop"}
             >

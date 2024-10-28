@@ -50,15 +50,17 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
                 >
                   country : {container.country.title}
                 </h3>
-                <h3
-                  className="hover:bg-gray-100 rounded-full  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
-                  // onClick={(e) => {
-                  //   e.stopPropagation();
-                  //   handleClick({ lat: container.city.latitude, lng: container.city.longitude });
-                  // }}
-                >
-                  city : {container.city.title}
-                </h3>
+                {container.city && (
+                  <h3
+                    className="hover:bg-gray-100 rounded-full  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
+                    // onClick={(e) => {
+                    //   e.stopPropagation();
+                    //   handleClick({ lat: container.city.latitude, lng: container.city.longitude });
+                    // }}
+                  >
+                    city : {container.city?.title}
+                  </h3>
+                )}
                 <h3
                   className=" hover:bg-gray-100 rounded-full  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
                   // onClick={(e) => {
