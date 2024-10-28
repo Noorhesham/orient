@@ -17,10 +17,42 @@ import AppDownload from "@/app/components/AppDownload";
 import { getTranslations } from "next-intl/server";
 import { Server } from "@/app/main/Server";
 import MobileWrapper from "@/app/components/MobileWrapper";
+import { WEBSITEURL } from "@/app/constants";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
-
+export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
+  const { page } = await Server({
+    resourceName: "home",
+    cache: 0,
+    queryParams: new URLSearchParams({ with: "tags,category_id" }),
+  });
+  return {
+    title: `${page.title} `,
+    // description: product.description,
+    canonical: WEBSITEURL,
+    openGraph: {
+      title: "oreint",
+      url: "/E logo Blue (2).png",
+      images: [
+        {
+          url: "/E logo Blue (2).png",
+          alt: "orient",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "orient",
+      images: [
+        {
+          url: "/E logo Blue (2).png",
+          title: "orient",
+        },
+      ],
+    },
+  };
+};
 export default async function Home() {
   const local = cookies().get("NEXT_LOCALE")?.value;
   const t = await getTranslations();
@@ -29,7 +61,7 @@ export default async function Home() {
     cache: 0,
     queryParams: new URLSearchParams({ with: "tags,category_id" }),
   });
-
+  console.log(page);
   const {
     products_list,
     blogs,
