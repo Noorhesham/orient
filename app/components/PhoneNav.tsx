@@ -55,7 +55,7 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
   const locale = pathName?.split("/")[1];
 
   return (
-    <div ref={ref} className="overflow-y-scroll">
+    <div ref={ref} className="  ">
       <AnimatePresence>
         {openNavigation && (
           <motion.nav
@@ -64,7 +64,7 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
             animate="visible"
             exit="exit"
             className={`${openNavigation ? "flex" : "hidden"} fixed top-0 left-0 bg-black/40 w-full h-screen
-             backdrop-blur-lg bottom-0 right-0 z-[999] bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}
+             backdrop-blur-lg bottom-0  right-0 z-[999] bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}
             onClick={handleClickOutside}
           >
             <MaxWidthWrapper className="relative z-[9999] mt-32 my-auto h-full w-full flex flex-col gap-4 items-center justify-start mx-auto lg:flex-row">
@@ -105,7 +105,7 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
       </AnimatePresence>
       <button
         className={cn(
-          " z-[999999] relative",
+          " z-[999999] relative hover:opacity-90 duration-150",
           openNavigation && locale === "en" ? " fixed right-2" : openNavigation && locale !== "ar" ? "fixed left-0" : ""
         )}
         onClick={toggleNavigation}
@@ -120,7 +120,7 @@ export default PhoneNav;
 
 const MenuSvg = ({ openNavigation, isHome }: { openNavigation: any; isHome?: boolean }) => {
   return (
-    <svg className="overflow-visible" width="20" height="14" viewBox="0 0 20 14">
+    <svg className="overflow-visible " width="20" height="14" viewBox="0 0 20 14">
       <rect
         className="transition-all origin-center"
         y={openNavigation ? "5" : "0"}

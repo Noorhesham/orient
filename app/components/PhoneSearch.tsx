@@ -23,8 +23,7 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
   const dialCodeValue = currentValue.country_key || ""; // For object case
 
   // Combine dial code and phone number for the PhoneInput value
-  const fullPhoneValue = dialCodeValue ? `${dialCodeValue}${phoneValue}` : defaultValue ? currentValue : ""; 
-  console.log(currentValue, dialCodeValue);
+  const fullPhoneValue = dialCodeValue ? `${dialCodeValue}${phoneValue}` : defaultValue ? currentValue : "";
   return (
     <PhoneInput
       enableSearch
@@ -32,7 +31,7 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
       excludeCountries={["il"]}
       searchStyle={{ width: "80%" }}
       country="eg" // Default country
-      value={returnFullPhone?`${dialCodeValue}${phoneValue}`:fullPhoneValue} // Ensure value is a string (full phone value)
+      value={`${dialCodeValue}${phoneValue}`} // Ensure value is a string (full phone value)
       onChange={(value, country) => {
         let phoneData;
 

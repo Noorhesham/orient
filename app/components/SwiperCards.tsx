@@ -94,7 +94,7 @@ const SwiperCards = ({
       >
         {items?.map(
           ({ src, text, card, link }: { src: string; text: string; card: ReactNode; link?: string }, i: number) => (
-            <SwiperSlide className={`w-full ${rounded ? "rounded-2xl" : ""}`} key={i}>
+            <SwiperSlide className={`w-full group ${rounded ? "rounded-2xl" : ""}`} key={i}>
               {card ? (
                 card
               ) : zoom ? (
@@ -172,7 +172,7 @@ const SwiperCards = ({
               )}
 
               {text && (
-                <h1 className="text-white uppercase text-4xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
+                <h1 className="text-white group-hover:text-main duration-300 group-hover:-translate-y-2 uppercase text-4xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
                   {text}
                 </h1>
               )}
@@ -180,10 +180,11 @@ const SwiperCards = ({
               {link ? (
                 <Link
                   href={link}
-                  className="absolute top-2 left-1/2 transform block -translate-x-1/2 w-[95%] h-[97%] border-2 border-white"
+                  className="absolute top-2 left-1/2 transform block -translate-x-1/2 opacity-0 group-hover:opacity-100
+                   group-hover:w-[95%] w-0 duration-300  h-[97%] border-0 group-hover:border-2 group-hover:border-main border-white"
                 />
               ) : text ? (
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[95%] h-[97%] border-2 border-white" />
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2  group-hover:w-[95%] w-0 h-[97%] border-2 border-white" />
               ) : null}
             </SwiperSlide>
           )

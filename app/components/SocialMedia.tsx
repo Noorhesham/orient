@@ -15,7 +15,7 @@ const SocialMedia = () => {
         <Skeleton className="h-12 w-12 rounded-full" />
       </div>
     );
-    console.log(generalSettings)
+  console.log(generalSettings);
   const { company_contacts } = generalSettings;
 
   return (
@@ -24,7 +24,7 @@ const SocialMedia = () => {
         <Link
           target="_blank"
           href={company_contacts?.whatsapp}
-          className=" text-white p-2 text-xl rounded-full bg-main"
+          className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
         >
           <FaWhatsapp />
         </Link>
@@ -33,13 +33,17 @@ const SocialMedia = () => {
         <Link
           target="_blank"
           href={company_contacts?.linkedin}
-          className=" text-white p-2 text-xl rounded-full bg-main"
+          className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
         >
           <FaLinkedin />
         </Link>
       )}
       {company_contacts?.youtube && (
-        <Link target="_blank" href={company_contacts?.youtube} className=" text-white p-2 text-xl rounded-full bg-main">
+        <Link
+          target="_blank"
+          href={company_contacts?.youtube}
+          className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
+        >
           <FaYoutube />
         </Link>
       )}
@@ -47,7 +51,7 @@ const SocialMedia = () => {
         <Link
           target="_blank"
           href={company_contacts?.instagram}
-          className=" text-white p-2 text-xl rounded-full bg-main"
+          className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
         >
           <FaInstagram />
         </Link>
@@ -56,13 +60,17 @@ const SocialMedia = () => {
         <Link
           target="_blank"
           href={company_contacts?.facebook}
-          className=" text-white p-2 text-xl rounded-full bg-main"
+          className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
         >
           <FaFacebook />
         </Link>
       )}
       {company_contacts?.twitter && (
-        <Link target="_blank" href={company_contacts?.twitter} className=" text-white p-2 text-xl rounded-full bg-main">
+        <Link
+          target="_blank"
+          href={company_contacts?.twitter}
+          className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
+        >
           <FaXTwitter />
         </Link>
       )}

@@ -18,3 +18,19 @@
     transform: rotate(360deg);
   }
 }
+.arrowanimation {
+  animation: arrow 1s linear reverse infinite;
+}
+
+
+@keyframes arrow {
+  0% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}

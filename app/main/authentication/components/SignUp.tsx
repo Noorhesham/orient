@@ -12,10 +12,11 @@ import { Server } from "../../Server";
 import { useDevice } from "@/app/context/DeviceContext";
 import Logo from "@/app/components/Logo";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
 import { useTranslations } from "next-intl";
-
+import cookies from "js-cookie";
+import { useAuth } from "@/app/context/AuthContext";
 const Signup = () => {
   const t = useTranslations();
   const singup = signupSchema(t);
@@ -36,12 +37,14 @@ const Signup = () => {
   const { deviceInfo } = useDevice();
   const [isPending, startTransition] = useTransition();
   const [methods, setMethods] = useLocalStorageState([], "methods");
-
+  const router = useRouter();
+  const { setLogin } = useAuth();
   const signupArray = [
     {
       name: "phone",
       placeholder: t("ADD_YOUR_PHONE"),
       phone: true,
+      returnFullPhone: false,
     },
     {
       name: "sms",
@@ -65,13 +68,17 @@ const Signup = () => {
       optional: true,
     },
     {
-      name: "referealCode",
+      name: "referral_code",
       optional: true,
       placeholder: t("REFERRAL_CODE"),
     },
   ];
 
   const onSubmit = async (data: z.infer<typeof singup>) => {
+    console.log(data);
+    //@ts-ignore
+    if (data.phone) data.country_key = data.phone.country_key;
+    if (data.phone) data.phone = data.phone.phone;
     startTransition(async () => {
       const res = await Server({
         resourceName: "signup",
@@ -80,25 +87,19 @@ const Signup = () => {
           device_info: deviceInfo,
         },
       });
-      if (!res.status) setServerError(res.errors);
+      console.log(res);
+      if (!res.status) setServerError(res.message || res.errors);
       if (res.status) {
         setServerError(null);
-        const res = await Server({
-          resourceName: "login",
-          body: {
-            username: data.phone || data.email,
-            password: data.password,
-            device_info: deviceInfo,
-          },
-          headers: {
-            "device-unique-id": deviceInfo.device_unique_id,
-            Accept: "application/json",
-          },
-        });
+
         if (res.activation_methods) {
           setMethods(res.activation_methods);
           toast.success(`${res.message} ...`);
           redirect(`/login?uuid=${res.activation_uuid}`);
+        } else {
+          cookies.set("jwt", res.token);
+          setLogin(true);
+          router.push("/");
         }
       }
     });

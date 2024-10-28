@@ -18,7 +18,7 @@ const ImageSlider = ({ covers }: { covers: any[] }) => {
     <div className="">
       {covers.map((src, index) => (
         <Link
-          href={covers[currentImage].link}
+          href={covers[currentImage].link || "/"}
           style={{
             backgroundImage: `url('${covers[currentImage]?.image[0]?.file}')`,
             backgroundPosition: "center",

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import MotionItem from "./MotionItem";
 //STYLES
 const containerStyle = { display: "flex", alignItems: "center", gap: "16px" };
 const StarStyle = { display: "flex" };

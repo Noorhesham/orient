@@ -105,6 +105,7 @@ const SearchBox = ({
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && data) {
       data.products.length > 0 ? router.push(`/shop?search=${query}`) : router.push(`/shop`);
+      setResultActive(false)
     }
   };
   console.log(data, query);
@@ -125,11 +126,13 @@ const SearchBox = ({
           : active && locale === "en"
           ? "-translate-x-20  py-2 px-4 lg:translate-x-0"
           : "translate-x-0"
-      } duration-150 lg:py-2 z-[9999] relative lg:px-4 ${locale === "ar" && "lg:flex-row-reverse"} `}
+      } duration-150 lg:py-2 border border-input  z-[9999] relative lg:px-4 ${
+        locale === "ar" && "lg:flex-row-reverse"
+      } `}
     >
       <AnimatePresence>
         {data && resultActive && (
-          <MotionItem
+          <MotionItem nohover
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -148,7 +151,7 @@ const SearchBox = ({
                     <Image src={item?.main_cover[0]?.sizes?.thumbnail} fill alt="product" className=" object-contain" />
                   </div>
                   <div className=" flex flex-col">
-                    <h2 className=" text-black text-xs line-clamp-1 font-medium rounded-xl">{item.title}</h2>
+                    <h2 className=" text-black text-sm line-clamp-1 font-medium rounded-xl">{item.title}</h2>
                     <PriceWithSale
                       price={item.sell_price || item.regular_price}
                       discount={item.sell_price ? item.regular_price : null}
@@ -160,7 +163,7 @@ const SearchBox = ({
             ) : (
               <p className=" text-main text-xs">No results Found</p>
             )}
-            <Link
+            <Link onClick={() => setResultActive(false)}
               className=" text-main duration-150 hover:underline"
               href={data.products?.length > 1 ? `/shop?search=${query}` : "/shop"}
             >
@@ -175,7 +178,7 @@ const SearchBox = ({
           value={val}
           onChange={handleSearchChange}
           placeholder={t("search")}
-          className="bg-transparent  border-2 rounded-full border-input outline-none placeholder:text-black  py-3 px-6  w-full"
+          className="bg-transparent   border-2 rounded-full border-input outline-none placeholder:text-black  py-3 px-6  w-full"
         />
       ) : (
         <input
@@ -183,8 +186,8 @@ const SearchBox = ({
           ref={inputRef}
           onKeyDown={handleKeyDown}
           onChange={handleSearchChange}
-          className={` bg-transparent  duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
-          placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-xs lg:z-50 text-xs font-medium w-full`}
+          className={` bg-transparent text-sm  duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
+          placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-sm lg:z-50  font-medium w-full`}
           type="text"
           placeholder={t("search")}
         />
@@ -217,6 +220,7 @@ const SearchBox = ({
             setIsActive(!active);
             if (data?.products.length > 0) {
               router.push(`/shop?search=${query}`);
+              setResultActive(false);
             }
           }
         }}

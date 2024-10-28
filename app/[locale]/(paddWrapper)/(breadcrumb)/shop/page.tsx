@@ -5,10 +5,12 @@ import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import MotionContainer from "@/app/components/MotionContainer";
 import MotionItem from "@/app/components/MotionItem";
 import { PaginationDemo } from "@/app/components/Pagination";
+import Products from "@/app/components/Products";
 import Sort from "@/app/components/Sort";
+import LoadingProvider from "@/app/context/LoadingContext";
 import { Server } from "@/app/main/Server";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import React, { Suspense } from "react";
+import React from "react";
 
 const page = async ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
   const { price_from, price_to, category_id, brand_id, page, sort, color, volume, search } = searchParams;
@@ -41,11 +43,12 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   });
 
   const { products, categories, attributes, tags, count } = data;
-
+  const totalPages = Math.ceil(count / 9);
   return (
     <MaxWidthWrapper className=" bg-gray-50">
-      <section className=" min-h-screen  ">
-        <Suspense>
+      <LoadingProvider>
+        {" "}
+        <section className=" min-h-screen  ">
           <MotionItem nohover initial={{ y: -100 }} animate={{ y: 1 }} className=" flex justify-center">
             <section className=" flex flex-col w-full lg:grid lg:gap-10 lg:grid-cols-9  mt-5 ">
               <div className="col-span-3 lg:block hidden">
@@ -75,6 +78,10 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                           label: t("htl"),
                           value: "price_htl",
                         },
+                        {
+                          label: t("latest"),
+                          value: "",
+                        },
                       ]}
                     />
                     <FilterMobile filters={[categories, attributes, tags]} />
@@ -84,25 +91,13 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                   serverAnimate
                   className="grid duration-150  w-full grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 "
                 >
-                  {products.map((product: Product) => (
-                    <Card
-                      key={product.id}
-                      id={product.id || ""}
-                      text={product.title}
-                      sell={product.sell_price ? product.regular_price : null}
-                      img={product?.main_cover[0]?.sizes?.medium || "/default-thumbnail.jpg"}
-                      price={product.price.toString()}
-                    />
-                  ))}
-                  <div className="flex justify-center col-span-full">
-                    <PaginationDemo totalPages={Math.ceil(count / 18)} />
-                  </div>
+                  <Products totalPages={totalPages} products={products} />
                 </MotionContainer>
               </div>
             </section>
           </MotionItem>
-        </Suspense>
-      </section>
+        </section>
+      </LoadingProvider>
     </MaxWidthWrapper>
   );
 };

@@ -1,29 +1,41 @@
 "use client";
 import React from "react";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimationControls, MotionProps } from "framer-motion";
 
-const MotionItem = ({
+interface MotionItemProps {
+  children: React.ReactNode;
+  className?: string;
+  variants?: Variants;
+  initial?: string | boolean | number | any;
+  animate?: string | AnimationControls | any;
+  exit?: string | any;
+  whileInView?: MotionProps["whileInView"];
+  nohover?: boolean;
+  viewport?: {
+    once: boolean;
+  };
+}
+
+const MotionItem: React.FC<MotionItemProps> = ({
   children,
   className,
   variants,
   initial,
   animate,
-  exit,whileInView,nohover
-}: {
-  children: React.ReactNode;
-  className?: string;
-  variants?: Variants;
-  initial?: any;
-  animate?: any;
-  exit?: any;whileInView?:any,nohover?:boolean
+  exit,
+  whileInView,
+  nohover,
+  viewport,
 }) => {
   return (
-    <motion.div 
-      whileHover={{ y: nohover?0:-10 }}
+    <motion.div
+      whileHover={{ y: nohover ? 0 : -10 }}
       initial={initial}
       animate={animate}
       exit={exit}
-      className={className} whileInView={whileInView}
+      viewport={viewport}
+      className={className}
+      whileInView={whileInView}
       variants={animate ? undefined : variants}
     >
       {children}

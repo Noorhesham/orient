@@ -32,14 +32,14 @@ const CardHuge = ({ h1, h2, href, item }: { h1?: string; h2?: string; href?: str
   return (
     <MotionItem
       nohover
-      className="  w-full h-full   xl:max-w-full  px-5 shadow-md pb-5 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between"
+      className=" hover:-translate-y-2 group duration-300  w-full h-full   xl:max-w-full  px-5 shadow-md pb-5 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between"
     >
-      <div className="self-center rounded-2xl w-full mt-10 relative h-[248px]">
-        <Link href={item.id ? `/blog/${item.id}` : "#"} className="  w-full  h-full  ">
+      <div className="self-center   rounded-2xl w-full overflow-hidden mt-10 relative h-[248px]">
+        <Link href={item.id ? `/blog/${item.id}` : "#"} className="  rounded-2xl w-full   h-full  ">
           <Image
             src={main_thumbnail[0]?.sizes.medium}
             fill
-            className="rounded-2xl object-cover"
+            className="group-hover:scale-110  duration-200 group-hover:opacity-90 object-cover"
             alt={main_gallery[0]?.alt || "post"}
           />{" "}
         </Link>

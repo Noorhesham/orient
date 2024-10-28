@@ -63,6 +63,31 @@
       animation: ani 0.7s steps(29) forwards;
     }
   }
+  a {
+    width: 101%;
+    height: 100%;
+
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: bold;
+
+    @include button(
+      #e6007e,
+      "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png",
+      3000%,
+      100%,
+      none,
+      #fff
+    );
+    cursor: pointer;
+    -webkit-animation: ani2 0.7s steps(29) forwards;
+    animation: ani2 0.7s steps(29) forwards;
+
+    &:hover {
+      -webkit-animation: ani 0.7s steps(29) forwards;
+      animation: ani 0.7s steps(29) forwards;
+    }
+  }
 }
 
 @-webkit-keyframes ani {

@@ -35,7 +35,7 @@ export const loginSchema = (t: any) =>
 export const signupSchema = (t: any) =>
   z.object({
     name: z.string().min(3, { message: t("validationAuth.nameMin", { length: 3 }) }),
-    phone: z.string().min(10, { message: t("validationAuth.phoneMin", { length: 10 }) }),
+    phone: z.any(),
     email: z.string().email({ message: t("validationAuth.invalidEmail") }),
     password: z
       .string()

@@ -2,6 +2,7 @@ import React from "react";
 import Starrating from "./Rate";
 import { Progress } from "@/components/ui/progress";
 import { useTranslations } from "next-intl";
+import MotionItem from "./MotionItem";
 
 const Reviews = ({
   review_rate,
@@ -24,12 +25,23 @@ const Reviews = ({
         </p>
       </div>
       <div className="flex flex-col mt-2  gap-4 flex-grow flex-[50%]">
-        {Object.keys(reviews_counts).map((key: any) => (
-          <div className="  font-medium flex items-center gap-1" key={key}>
+        {Object.keys(reviews_counts).map((key: any, i: number) => (
+          <div className="  font-medium flex items-center gap-2" key={key}>
             <p className=" text-nowrap">
               {key} {t("stars.star")}
             </p>
-            <Progress color="#FCAB30" value={reviews_counts[key]} />
+            <MotionItem
+              nohover
+              viewport={{ once: true }}
+              initial={{ width: 0, opacity: 0 }}
+              whileInView={{
+                width: "100%",
+                opacity: 1,
+                transition: { duration: 0.5, ease: "easeInOut", stiffness: 100, type: "spring", delay: 0.2 * i },
+              }}
+            >
+              <Progress color="#FCAB30" value={reviews_counts[key]} />
+            </MotionItem>
             <p className=" basis-[3rem] flex-grow">{reviews_counts[key]}</p>
           </div>
         ))}

@@ -41,7 +41,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
     return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
 
   return {
-    title: `${product.title} | PUTTY (ACRYLIC 1000) 233 WALL PAINTS | Your Store Name`,
+    title: `${product.title} | PUTTY (ACRYLIC 1000) 233 WALL PAINTS`,
     description: product.description,
     canonical: `https://yourdomain.com/products/${product.id}`,
     keywords: `${product.title} ${product.description} ${product.search_queries} ${product.short_description}`,
@@ -117,7 +117,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
   queryParams.append("ids[]", product.id);
   const { products: cartStatus } = await Server({ resourceName: "check", queryParams });
   const upSells = product.upSells.length <= 0 ? product.crossSells : product.upSells;
-  console.log(cartStatus);
+  console.log(product);
   return (
     <RightClickProvider>
       <BreadCrumb
@@ -195,19 +195,17 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 px-5">
                 <div className="lg:hidden border-b border-input gap-3 flex flex-col items-start  w-full ">
                   <div className=" lg:hidden flex w-full flex-col  gap-3 items-start ">
-                    <Suspense>
-                      {" "}
-                      {variations && attributes.length > 0 && variations.length > 0 && (
-                        <SingleVariant
-                          parentId={product.parent_id}
-                          childId={ischild ? product.id : ""}
-                          ischild={ischild}
-                          variations={variations}
-                          options={attributes.filter((item: any) => item.slug === "volume")}
-                          colorOptions={attributes.filter((item: any) => item.slug === "color")}
-                        />
-                      )}
-                    </Suspense>
+                    {" "}
+                    {variations && attributes.length > 0 && variations.length > 0 && (
+                      <SingleVariant
+                        parentId={product.parent_id}
+                        childId={ischild ? product.id : ""}
+                        ischild={ischild}
+                        variations={variations}
+                        options={attributes.filter((item: any) => item.slug === "volume")}
+                        colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -304,7 +302,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           card: (
                             <Card
                               key={item.id}
-                              img={item?.main_cover[0]?.thumbnail}
+                              img={item?.main_cover[0]?.sizes?.medium}
                               text={item.title}
                               price={item.sell_price}
                               id={item.id}
@@ -463,7 +461,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               {upSells?.map((item: any, i: number) => (
                 <Card
                   key={item.id}
-                  img={item?.main_cover[0]?.thumbnail}
+                  img={item?.main_cover[0]?.sizes?.medium}
                   text={item.title}
                   price={item.sell_price}
                   id={item.id}

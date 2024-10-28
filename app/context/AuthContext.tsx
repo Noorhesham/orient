@@ -11,6 +11,8 @@ interface AuthContextType {
   user2Settings: any;
   handleLogout: () => void;
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  setDates: React.Dispatch<React.SetStateAction<any>>;
+
   loading: boolean;
   cartCount: any;
   setCartCount: React.Dispatch<React.SetStateAction<any>>;
@@ -24,6 +26,11 @@ interface UpdateFnParams {
   queryClient: QueryClient;
   status: boolean;
   setCartCount?: React.Dispatch<React.SetStateAction<any>>;
+  dates: {
+    last_update_date_general: string;
+    last_update_date_user: string;
+    last_update_date_user2: string;
+  };
 }
 /**
  * Function to update state and cache data.
@@ -38,10 +45,21 @@ interface UpdateFnParams {
  */
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-const updateFn = ({ checker, setState, key, dateKey, setDates, queryClient, status, setCartCount }: UpdateFnParams) => {
+const updateFn = ({ checker, setState, key, dateKey, setDates, queryClient, status, dates }: UpdateFnParams) => {
+  console.log(queryClient.getQueryData([key]));
+  // if some of the data is missed  from local storage the n set its date to empty string so that i can ask the server for it again
+  if (!queryClient.getQueryData([key])) {
+    setDates((prevDates: any) => ({
+      ...prevDates,
+      [dateKey]: checker?.last_update_date,
+    }));
+    localStorage.setItem("dates", JSON.stringify({ ...dates, [dateKey]: checker?.last_update_date }));
+  }
+  // i want to see whether there is data returend from the server or not and  i want
+  //to check  if there is then i will replace
+  // if i do not  have a query of that data  and status is true then it is the first time then i will set it
   if (checker || (!queryClient.getQueryData([key]) && status !== false)) {
     setState(checker);
-
     queryClient.setQueryData([key], checker);
     setDates((prevDates: any) => ({
       ...prevDates,
@@ -71,11 +89,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user2Settings, setUser2Settings] = useState<any>(() => queryClient.getQueryData(["user2_settings"]));
   const [cartCount, setCartCount] = useLocalStorageState(0, "cartCount");
   const [loading, setLoading] = useState(true);
-  console.log("auth context", generalSettings, userSettings, user2Settings, "cartcount", cartCount);
+  // console.log("auth context", generalSettings, userSettings, user2Settings, "cartcount", cartCount);
   useEffect(() => {
     if (user2Settings) setCartCount(user2Settings?.cart_count);
     if (userSettings?.active === false) handleLogout();
-  }, [user2Settings]);
+  }, [userSettings, user2Settings]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -90,10 +108,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             device_id: deviceInfo.device_unique_id,
           },
         });
-        if (!res.check_auth && userSettings) handleLogout();
-        console.log(res);
-        // Handle general settings
-
+        if (res.check_auth === false && userSettings) handleLogout();
+        console.log(res)
         updateFn({
           checker: res.general_settings.data,
           setState: setGeneralSettings,
@@ -102,6 +118,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           setDates,
           queryClient,
           status: res.general_settings.status,
+          dates,
         });
         updateFn({
           checker: res.user_settings?.data,
@@ -111,8 +128,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           setDates,
           queryClient,
           status: res.user_settings?.status,
+          dates,
         });
-        console.log(res.user_settings, res.user2_settings, res.general_settings);
         updateFn({
           checker: res.user2_settings?.data,
           setState: setUser2Settings,
@@ -121,8 +138,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           setDates,
           queryClient,
           status: res.user2_settings?.status,
-          setCartCount: setCartCount,
+          dates,
         });
+        console.log(res.user_settings, res.user2_settings, res.general_settings);
       } catch (error) {
         console.error("Error fetching settings:", error);
       } finally {
@@ -132,16 +150,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     fetchData();
   }, [login]);
-  // useLayoutEffect(() => {
-  //   console.log(queryClient.getQueryData(["general_settings"]), "asdadsadsadasdasdsad  ");
-  //   if (!queryClient.getQueryData(["general_settings"])) {
-  //     setLogin(false);
-  //     setDates((prevDates: any) => ({
-  //       ...prevDates,
-  //       last_update_date_general: "",
-  //     }));
-  //   }
-  // }, []);
+
   const handleLogout = () => {
     setCartCount(0);
     setLoading(true);
@@ -161,7 +170,17 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ generalSettings, userSettings, user2Settings, handleLogout, setLogin, loading, cartCount, setCartCount }}
+      value={{
+        generalSettings,
+        userSettings,
+        user2Settings,
+        handleLogout,
+        setLogin,
+        loading,
+        cartCount,
+        setCartCount,
+        setDates,
+      }}
     >
       {children}
     </AuthContext.Provider>

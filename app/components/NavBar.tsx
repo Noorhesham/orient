@@ -123,7 +123,7 @@ const NavBar = () => {
                 >
                   <Dialog>
                     <DialogTrigger asChild>
-                      <div className="cursor-pointer">
+                      <div className=" hover:opacity-80  duration-150 cursor-pointer">
                         <CloudIcon home={isHome} />
                       </div>
                     </DialogTrigger>
@@ -132,11 +132,11 @@ const NavBar = () => {
                   {loading ? (
                     <Skeleton className="w-8 h-8 rounded-full" />
                   ) : (
-                    <Link href={user ? "/dashboard" : "/login"}>
+                    <Link className="hover:opacity-80 duration-150 " href={user ? "/dashboard" : "/login"}>
                       <BagIcon home={isHome} />
                     </Link>
                   )}
-                  <Link className=" relative" href={"/cart"}>
+                  <Link className="hover:opacity-80 duration-150  relative" href={"/cart"}>
                     {!loading && cartCount > 0 && (
                       <div className="text-[10px] w-3 flex items-center justify-center h-3 rounded-full bg-main text-white absolute top-0 -right-1">
                         {cartCount}

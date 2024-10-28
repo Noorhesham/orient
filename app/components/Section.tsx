@@ -53,11 +53,11 @@ const Section = ({
           {link && (
             <Link
               href={`${link}`}
-              className={`text-[#E6007E] text-xs md:text-sm font-semibold flex flex-row items-center gap-1 md:gap-2 ${
+              className={`text-[#E6007E] text-xs  md:text-sm font-semibold flex flex-row items-center gap-1 md:gap-2 ${
                 locale === "ar" ? "flex-row-reverse" : " "
               }`}
             >
-              {linkText} <ArrowRight className=" md:w-5 md:h-5 w-3 h-3" />
+              {linkText} <ArrowRight className="arrowanimation md:w-5 md:h-5 w-3 h-3" />
             </Link>
           )}
         </MotionContainer>

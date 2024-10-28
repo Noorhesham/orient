@@ -24,7 +24,7 @@ const Page = async () => {
         <div
           style={{
             backgroundSize: "cover",
-            backgroundImage: `url(${page.cover_for_pc[0].file})`,
+            backgroundImage: `url(${page.cover_for_pc?.[0]?.file})`,
             backgroundPosition: "center",
             zIndex: 1,
           }}
@@ -44,10 +44,10 @@ const Page = async () => {
                 description={page.content}
               />
             </div>
-            <div className=" lg:my-0 my-3  flex-grow flex-col flex  w-full xl:w-[35%]  h-[616px] relative ">
-              <Image src={page.content_images[1].file} alt="about" className=" object-cover" fill />
+            <div className=" lg:my-0 my-3  flex-grow flex-col flex  w-full xl:w-[31%]  h-[616px] relative ">
+              <Image src={page.content_images?.[0].file} alt="about" className=" object-cover" fill />
               <Image
-                src={page.content_images[0].file}
+                src={page.content_images?.[1].file}
                 alt="about"
                 width={348}
                 height={297}
@@ -68,9 +68,9 @@ const Page = async () => {
               <div className=" cursor-pointer hover:opacity-90 duration-150 absolute -bottom-10  lg:bottom-10 left-20 lg:left-40 -translate-x-1/2 -translate-y-1/2 z-10">
                 <PlayIcon />
               </div>
-              <Image src={page.video_image_for_pc[0].file} alt="about" className=" md:block hidden object-cover" fill />
+              <Image src={page.video_image_for_pc?.[0].file} alt="about" className=" md:block hidden object-cover" fill />
               <Image
-                src={page.video_image_for_mob[0].file}
+                src={page.video_image_for_mob?.[0].file}
                 alt="about"
                 className=" md:hidden block object-cover"
                 fill

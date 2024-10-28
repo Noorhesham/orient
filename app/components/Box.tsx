@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useIsLoading } from "../context/LoadingContext";
 
 interface Filters {
   [key: string]: string[];
@@ -27,7 +28,7 @@ const Box = ({
   const router = useRouter();
   const t = useTranslations();
   const [filters, setFilters] = useState<Filters>({});
-
+  const { loading, setLoading } = useIsLoading();
   // Parse the existing filters from the URL when the component mounts
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -49,11 +50,16 @@ const Box = ({
         params.delete(key); // Remove the filter if no values are selected
       }
     });
-
+    params.set("page", "1");
     router.push(`?${params.toString()}`, { scroll: false });
   };
   useEffect(() => {
+    setLoading(true);
     updateURL();
+    const t = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return () => clearTimeout(t);
   }, [filters]);
 
   const handleFilter = (filterValue: string, filterName: string) => {
@@ -85,7 +91,7 @@ const Box = ({
   };
   console.log(filters);
   return (
-    <div className="flex px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
+    <div className="flex max-h-[54vh] overflow-y-auto px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
       <h2 className="text-lg mb-2">{text}</h2>
       <ul className="pb-3 flex flex-col gap-2 border-b border-b-gray-400">
         {filter === "category_id" &&
@@ -160,7 +166,7 @@ const Box = ({
             </div>
           ))}
 
-        {filter === "tags" && (
+        {/* {filter === "tags" && (
           <div className="flex flex-wrap gap-2">
             {options?.map((option, i) => (
               <Button
@@ -173,7 +179,7 @@ const Box = ({
               </Button>
             ))}
           </div>
-        )}
+        )} */}
       </ul>
       {!single && (
         <Button variant={"outline"} className="w-full mt-4" onClick={() => handleReset(filter)}>

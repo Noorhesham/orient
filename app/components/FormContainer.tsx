@@ -133,7 +133,7 @@ const FormContainer: React.FC<Formcontainer> = ({
         try {
           console.log(data);
           const res = await Server({ resourceName: "submitForm", body: data, id:id|| "contact-us" });
-
+          console.log(res)
           if (res.status) {
             toast.success(res.message);
             form.reset(defaultValues);

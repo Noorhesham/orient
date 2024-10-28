@@ -18,6 +18,7 @@ import { getTranslations } from "next-intl/server";
 import { Server } from "@/app/main/Server";
 import MobileWrapper from "@/app/components/MobileWrapper";
 import { WEBSITEURL } from "@/app/constants";
+import MotionItem from "@/app/components/MotionItem";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
@@ -133,34 +134,41 @@ export default async function Home() {
         />
       </div>{" "}
       <MaxWidthWrapper>
-        <div className=" flex  sm:flex-nowrap   justify-center  items-start gap-10 md:gap-20  mt-3 ">
-          <Link href={"/color-trend"} className=" flex gap-3 ">
-            <div className=" flex flex-col  items-center gap-2">
-              <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
-                <Image src={"/Ellipse 860.svg"} fill className="rounded-full object-cover" alt="color-trend" />
+        <MotionContainer className=" flex  sm:flex-nowrap   justify-center  items-start gap-10 md:gap-20  mt-3 ">
+          <MotionItem>
+            <Link href={"/color-trend"} className=" flex gap-3 ">
+              <div className=" flex flex-col  items-center gap-2">
+                <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
+                  <Image src={"/Ellipse 860.svg"} fill className="rounded-full object-cover" alt="color-trend" />
+                </div>
+                <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
+                  {t("breadcrumb.color trend")}
+                </h1>
               </div>
-              <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
-                {t("breadcrumb.color trend")}
-              </h1>
-            </div>
-          </Link>
+            </Link>
+          </MotionItem>
 
-          <Link href={"/get-inspired"} className=" flex gap-3 ">
-            <div className=" flex flex-col  items-center gap-2">
-              <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
-                <Image src={"/Rectangle 156397.png"} fill className="rounded-full object-cover" alt="color-trend" />
+          <MotionItem>
+            {" "}
+            <Link href={"/get-inspired"} className=" flex gap-3 ">
+              <div className=" flex flex-col  items-center gap-2">
+                <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
+                  <Image src={"/Rectangle 156397.png"} fill className="rounded-full object-cover" alt="color-trend" />
+                </div>
+                <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
+                  {t("breadcrumb.get inspired")}
+                </h1>
               </div>
-              <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
-                {t("breadcrumb.get inspired")}
-              </h1>
-            </div>
-          </Link>
-          <Calculate />
-        </div>
+            </Link>
+          </MotionItem>
+          <MotionItem>
+            <Calculate />
+          </MotionItem>
+        </MotionContainer>
       </MaxWidthWrapper>
       <Dialog>
         <DialogTrigger asChild>
-          <div className=" cursor-pointer aspect-[1/1.2] h-full  md:aspect-[2.7] relative">
+          <div className=" cursor-pointer aspect-[1/1.2] h-full  md:aspect-[2.3] relative">
             <Image
               className=" md:block hidden   object-contain lg:object-cover  w-full h-full"
               src={page.download_app_image_for_pc[0].file}
@@ -184,20 +192,22 @@ export default async function Home() {
               dangerouslySetInnerHTML={{ __html: page?.section_content }}
               className={` ${
                 local == "ar" ? "" : "xl:translate-x-[24rem]"
-              } translate-x-0 text-center font-medium my-2 leading-[1.7] lg:max-w-2xl   z-10 relative mt-5 `}
+              } translate-x-0 text-start font-medium my-2 leading-[1.7] lg:max-w-2xl   z-10 relative mt-5 `}
             />
-            <div
+            <MotionItem
+              initial={{ opacity: 0, x: -200 }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeInOut", stiffness: 100 } }}
               className={` ${
                 local == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
-              }  aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-80 bottom-0  top-[105%] sm:top-[90%] md:top-[82%] xl:top-[5.5rem]  absolute`}
+              }  aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-80 bottom-0  top-[105%] sm:top-[90%] md:top-[82%] xl:top-[8.8rem]  absolute`}
             >
               <Image src={page.image[0]?.file} fill className=" object-cover " alt="brown" />
-            </div>
+            </MotionItem>
           </div>
         </Section>
       </MaxWidthWrapper>
       <div className=" px-3">
-        <div className=" mt-10   grid grid-cols-6 gap-[4px]">
+        <div className=" mt-8   grid grid-cols-6 gap-[4px]">
           {page.colors.map((item: any, index: number) => {
             return <div className=" w-full h-52 " style={{ backgroundColor: `#${item.color}` }} key={index}></div>;
           })}
