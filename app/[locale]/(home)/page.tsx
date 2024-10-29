@@ -223,7 +223,7 @@ export default async function Home() {
       <MaxWidthWrapper className="  flex  gap-4  flex-col items-center justify-center">
         <Heading mainText={t("discover")} className="mt-5 " subText={t("discover2")} paragraph={""} />
 
-        <div className=" mt-4 w-full  h-full ">
+        <div className=" lg:mt-4 w-full  h-full ">
           <SwiperCards
             className=" w-full h-full"
             slidesPerView={3}

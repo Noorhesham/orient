@@ -20,7 +20,7 @@ const Page = async () => {
   const { certificates } = page;
   return (
     <>
-      <section className=" relative min-h-screen 2xl:min-h-[80vh]">
+      <section className=" relative min-h-[55vh] 2xl:min-h-[80vh]">
         <div
           style={{
             backgroundSize: "cover",
