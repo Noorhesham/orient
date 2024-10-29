@@ -12,7 +12,8 @@ const Socials = () => {
   const router = useRouter();
   const { generalSettings, loading } = useAuth();
   const { deviceInfo } = useDevice();
-  if (loading)
+
+  if (loading||!deviceInfo.device_unique_id)
     return (
       <MaxWidthWrapper className=" grid grid-cols-3">
         <Skeleton className=" rounded-full w-10 h-10 aspect-square" />
@@ -34,7 +35,7 @@ const Socials = () => {
       <div className="flex cursor-pointer text-gray-50 self-center mt-3 items-center gap-5">
         {login_types.includes("social_google") && (
           <Link
-            href={`https://lab.r-m.dev/auth/google/?redirect_url=http://localhost:3001/login&device_unique_id=${deviceInfo.device_unique_id}`}
+            href={`https://lab.r-m.dev/auth/socialite/google/login?redirect_url=http://localhost:3000/login&device_unique_id=${deviceInfo.device_unique_id}`}
             className="  p-1.5 rounded-full  text-lg bg-main2"
           >
             <FaGoogle />
@@ -44,7 +45,7 @@ const Socials = () => {
           <span
             onClick={() =>
               router.push(
-                `https://lab.r-m.dev/auth/facebook/?redirect_url=http://localhost:3001/login?device_unique_id=${deviceInfo.device_unique_id}`
+                `https://lab.r-m.dev/auth/socialite/facebook/login?redirect_url=http://localhost:3000/login&device_unique_id=${deviceInfo.device_unique_id}`
               )
             }
             className="  p-1.5 rounded-full  text-lg bg-main2"
@@ -56,7 +57,7 @@ const Socials = () => {
           <span
             onClick={() =>
               router.push(
-                `https://lab.r-m.dev/auth/linkedin/?redirect_url=http://localhost:3001/login?device_unique_id=${deviceInfo.device_unique_id}`
+                `https://lab.r-m.dev/auth/socialite/linkedin/login?redirect_url=http://localhost:3000/login&device_unique_id=${deviceInfo.device_unique_id}`
               )
             }
             className="  p-1.5 rounded-full  text-lg bg-main2"

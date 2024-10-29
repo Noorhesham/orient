@@ -110,7 +110,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           },
         });
         if (res.check_auth === false && userSettings) handleLogout();
-        console.log(res)
+        console.log(res);
         updateFn({
           checker: res.general_settings.data,
           setState: setGeneralSettings,
