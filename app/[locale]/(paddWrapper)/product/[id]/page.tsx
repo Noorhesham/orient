@@ -301,7 +301,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                               key={item.id}
                               img={item?.main_cover[0]?.sizes?.medium}
                               text={item.title}
-                              price={item.sell_price}
+                              price={item.sell_price ? item.regular_price : item.regular_price}
                               id={item.id}
                             />
                           ),
@@ -472,7 +472,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           key={item.id}
                           img={item?.main_cover[0]?.thumbnail}
                           text={item.title}
-                          price={item.sell_price}
+                          sell={item.sell_price}
+                          price={item.sell_price ? item.regular_price : item.regular_price}
                           id={item.id}
                         />
                       ),

@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Paragraph from "./Paragraph";
 import Link from "next/link";
+import MotionItem from "./MotionItem";
 
 const   IconWidget = ({
   icon,
@@ -14,7 +15,7 @@ const   IconWidget = ({
   link?: string;
 }) => {
   return (
-    <div className=" flex  gap-2 items-start">
+    <MotionItem nohover className=" flex  gap-2 items-start">
       {icon}
       <div className=" max-w-[15rem] flex  gap-2 flex-col ">
         {header && <h2 className=" text-main2 font-semibold">{header}</h2>}
@@ -27,7 +28,7 @@ const   IconWidget = ({
           <Paragraph className=" mt-0 mb-0" size="sm" description={paragraph} />
         )}
       </div>
-    </div>
+    </MotionItem>
   );
 };
 

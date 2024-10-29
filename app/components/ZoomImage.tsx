@@ -20,8 +20,8 @@ const ZoomImage = ({
         {btn}
       </DialogTrigger>
       <DialogContent
-        className={`flex justify-center items-center bg-transparent  max-w-[90%]  max-h-[90vh] bg-none
-           border-none rounded-lg shadow-lg p-4 ${!content && " h-fit"} ${className || "w-fit h-full "}`}
+        className={`flex justify-center items-center bg-transparent  max-w-[90%] w-full  max-h-[90vh] bg-none
+           border-none rounded-lg shadow-lg p-4 ${!content && " h-fit"} ${className || " w-full lg:w-fit h-full "}`}
         whiteClose
       >
         {content ? (

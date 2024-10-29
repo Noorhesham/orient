@@ -77,8 +77,8 @@ const ModalCustom = ({
               </DialogClose>
             </div>
             {desc && (
-              <h2 className="text-xl mx-auto text-center mt-10 gap-1 flex items-center">
-                {desc} <span className="text-main text-2xl font-bold">{span}</span>
+              <h2 className=" text-base lg:text-xl mx-auto text-center my-4 lg:mt-10 gap-1 flex flex-col lg:flex-row items-center">
+                {desc} <span className="text-main text-base lg:text-2xl font-bold">{span}</span>
               </h2>
             )}
           </DialogFooter>

@@ -7,16 +7,18 @@ import L from "leaflet";
 interface MapComponentProps {
   setLocation?: (location: { lat: number; lng: number }) => void;
   defaultLocation?: { lat: number; lng: number };
-  markers: { position: L.LatLng; title: string }[];
+  markers: { position: L.LatLng; title: string; url: string }[];
 }
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocation, markers }) => {
   const [position, setPosition] = useState<L.LatLng | null>(null);
   const [mounted, setMounted] = useState(false);
-
+  const t = useTranslations();
   useEffect(() => {
     if (typeof window !== "undefined") {
       // Ensure this runs only on the client
@@ -54,7 +56,9 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
         {markers ? (
           markers.map((marker) => (
             <Marker key={marker.title} position={marker.position}>
-              <Popup>{marker.title}</Popup>
+              <Popup className=" flex flex-col gap-1">
+                {marker.title} <Link href={`/location/${marker?.url}`}>{t("View on Google Maps")}</Link>
+              </Popup>
             </Marker>
           ))
         ) : (

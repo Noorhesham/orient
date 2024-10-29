@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import MotionContainer from "./MotionContainer";
 
 const Address = ({className}:{className?:String}) => {
   const t = useTranslations();
@@ -35,7 +36,7 @@ const Address = ({className}:{className?:String}) => {
   const address = company_contacts.address?.[local || "en"];
   console.log(address);
   return (
-    <div className={cn(" flex-col gap-2 flex ", className)}>
+    <MotionContainer serverAnimate className={cn(" flex-col gap-2 flex ", className)}>
       {branches.map((branch: any, i: number) => (
         <IconWidget
           key={i}
@@ -57,7 +58,7 @@ const Address = ({className}:{className?:String}) => {
         header={t("address.email")}
         icon={<FaMailBulk className=" text-main" />}
       />
-    </div>
+    </MotionContainer>
   );
 };
 

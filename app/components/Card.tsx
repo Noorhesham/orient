@@ -17,7 +17,8 @@ interface CardProps {
 const Card = ({ img, text, children, width, className, price, id, sell }: CardProps) => {
   return (
     <MotionItem
-      className={`hover:shadow-md w-full h-full self-center flex-grow cursor-pointer duration-150 bg-white flex flex-col justify-start items-center relative rounded-2xl overflow-hidden border border-gray-400 ${className}`}
+      className={`hover:shadow-md after:w-0 after:h-full after:z-20 z-10   after:bg-main/50
+         group-hover:w-full duration-200 after:absolute group w-full h-full self-center flex-grow cursor-pointer  bg-white flex flex-col justify-start items-center relative rounded-2xl overflow-hidden border border-gray-400 ${className}`}
     >
       <Link href={id ? `/product/${id}` : "#"} className="flex flex-col w-full items-center">
         <div className={`${width ? width : "aspect-[403/400]"} h-auto mb-auto self-start w-full relative`}>

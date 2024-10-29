@@ -54,8 +54,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
     },
   };
 };
-export default async function Home() {
-  const local = cookies().get("NEXT_LOCALE")?.value;
+export default async function Home({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations();
   const { page } = await Server({
     resourceName: "home",
@@ -70,8 +69,8 @@ export default async function Home() {
   }: { products_list: Product[]; blogs: any[]; products_categories: any } = page;
 
   return (
-    <main style={{ padding: "0px 0px !important" }} className="">
-      <section className="relative h-full min-h-[47vh] sm:min-h-[80vh] md:min-h-[100vh] 2xl:min-h-[100vh] lg:min-h-[110vh] w-full">
+    <main style={{ padding: "0px 0px !important" }} className=" overflow-x-hidden">
+      <section className="relative h-full  min-h-[47vh] sm:min-h-[80vh] md:min-h-[100vh] 2xl:min-h-[100vh] lg:min-h-[110vh] w-full">
         <ImageSlider covers={page.cover} />
       </section>
       <MaxWidthWrapper>
@@ -188,19 +187,19 @@ export default async function Home() {
         <AppDownload />
       </Dialog>
       <MaxWidthWrapper>
-        <Section headingColor="#E6007E" headingclass="mx-auto" heading={page.section_name} className=" overflow-hidden relative">
+        <Section headingColor="#E6007E" headingclass="mx-auto" heading={page.section_name} className=" relative">
           <div className="  flex flex-col gap-8 lg:mt-5">
             <div
               dangerouslySetInnerHTML={{ __html: page?.section_content }}
               className={` ${
-                local == "ar" ? "" : "xl:translate-x-[24rem]"
+                locale == "ar" ? "" : "xl:translate-x-[24rem]"
               } translate-x-0 text-center md:text-start font-medium my-2 leading-[1.7] lg:max-w-2xl   z-10 relative mt-5 `}
             />
             <MotionItem
               initial={{ opacity: 0, x: -200 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeInOut", stiffness: 100 } }}
               className={` ${
-                local == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
+                locale == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
               }  aspect-square w-auto  h-full lg:mt-0  md:h-80 xl:h-80 bottom-0    md:top-[82%] xl:top-[8.8rem]  md:absolute`}
             >
               <Image

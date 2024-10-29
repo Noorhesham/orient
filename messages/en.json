@@ -385,5 +385,6 @@
   "ADD TO CART": "ADD TO CART",
   "tfamessage": "CHOOSE A METHOD FOR TWO FACTOR AUTHENTICATION",
   "resetmessage": "CHOOSE A METHOD TO RESET YOUR PASSWORD",
-  "logoutfromall": "Log out from all devices"
+  "logoutfromall": "Log out from all devices",
+  "View on Google Maps": "View on Google Maps"
 }

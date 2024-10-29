@@ -42,7 +42,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
                 <div className="rounded-full md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                   <Image src={"/Ellipse 860.png"} fill className="rounded-full object-cover" alt="" />
                 </div>
-                <h1 className="text-center sm:text-sm md:text-2xl text-main2 font-[500] mt-4">{t("calcpaint")}</h1>
+                <h3 className="text-center sm:text-sm md:text-2xl text-main2 font-[500] mt-4">{t("calcpaint")}</h3>
               </div>
             </div>
           </div>

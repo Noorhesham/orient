@@ -161,7 +161,7 @@ const FormContainer: React.FC<Formcontainer> = ({
   }, [resetFormData, form]);
   console.log(form.getValues());
   return (
-    <div className=" min-h-[50vh]">
+    <div className="  w-full min-h-[50vh]">
       {!resetFormData ? (
         <CustomForm
           serverError={serverError}

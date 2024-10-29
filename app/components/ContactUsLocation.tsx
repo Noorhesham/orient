@@ -41,8 +41,8 @@ const ContactUsLocation = () => {
       lng: branch.lng,
     },
     title: branch.title[locale],
+    url: branch.co_info_location_url,
   }));
-
   return (
     <div className=" w-full h-[500px]">
       {mount && <MapComponent defaultLocation={markers[0]?.position} markers={markers} />}

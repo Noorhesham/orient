@@ -27,7 +27,7 @@ const ImageGrid = ({ images }: { images: any[]; reverse?: boolean; separate?: bo
                 return {
                   card: (
                     <TransformWrapper
-                      initialScale={2} initialPositionX={0}
+                      initialScale={1} initialPositionX={0}
                       minScale={0.5}
                       maxScale={3}
                       centerOnInit
