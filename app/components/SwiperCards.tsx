@@ -174,7 +174,7 @@ const SwiperCards = ({
         <div
           style={{ flexDirection: local === "ar" ? "row-reverse" : "row" }}
           className={cn(
-            " flex mb-4 h-fit items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 ",
+            " flex mb-4 h-fit items-center gap-20  md:gap-8 justify-between lg:justify-center  mt-5 ",
             btnClass || ""
           )}
         >

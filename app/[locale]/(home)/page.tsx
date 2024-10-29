@@ -188,7 +188,7 @@ export default async function Home() {
         <AppDownload />
       </Dialog>
       <MaxWidthWrapper>
-        <Section headingColor="#E6007E" headingclass="mx-auto" heading={page.section_name} className=" relative">
+        <Section headingColor="#E6007E" headingclass="mx-auto" heading={page.section_name} className=" overflow-hidden relative">
           <div className="  flex flex-col gap-8 lg:mt-5">
             <div
               dangerouslySetInnerHTML={{ __html: page?.section_content }}
