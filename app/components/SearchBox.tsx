@@ -23,7 +23,7 @@ const SearchBox = ({
   bg?: string;
   icon?: any;
   onSearch?: (value: string) => void;
-  active: boolean;
+  active?: boolean;
   setIsActive?: (value: boolean) => void;
   nonactive?: boolean;
 }) => {
@@ -126,7 +126,7 @@ const SearchBox = ({
           : active && locale === "en"
           ? "-translate-x-20  py-2 px-4 lg:translate-x-0"
           : "translate-x-0"
-      } duration-150 lg:py-2 ${!nonactive && " border border-input"}   z-[9999] relative lg:px-4 ${
+      } duration-150 lg:py-2 ${!nonactive && " border  lg:px-4 border-input"}   shadow-sm z-[99] relative ${
         locale === "ar" && "lg:flex-row-reverse"
       } `}
     >
@@ -180,7 +180,8 @@ const SearchBox = ({
           value={val}
           onChange={handleSearchChange}
           placeholder={t("search")}
-          className="bg-transparent   border-2 rounded-full border-input outline-none placeholder:text-black  py-3 px-6  w-full"
+          className="bg-transparent  w-[88%] border-2 rounded-full border-input outline-none placeholder:text-black  py-1.5 
+           lg:pt-4  lg:py-3 px-3 lg:px-6 "
         />
       ) : (
         <input
@@ -188,8 +189,8 @@ const SearchBox = ({
           ref={inputRef}
           onKeyDown={handleKeyDown}
           onChange={handleSearchChange}
-          className={` bg-transparent text-sm  duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
-          placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-sm lg:z-50  font-medium w-full`}
+          className={` bg-transparent text-sm   w-full duration-150 absolute py-3 px-4  lg:relative lg:px-0 lg:py-0 right-0 placeholder:font-[300] 
+          placeholder:my-auto placeholder:tracking-wide  placeholder:capitalize     lg:block  hidden outline-none placeholder:text-sm lg:z-50  font-medium `}
           type="text"
           placeholder={t("search")}
         />

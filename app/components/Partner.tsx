@@ -7,7 +7,7 @@ import { useLocale } from "next-intl";
 
 const Partner = ({ tabs }: { tabs: any[] }) => {
   const [param, handleParam, deleteParam] = useParams("category", "coloring-centers");
-  console.log(param);
+
   const local = useLocale();
   return (
     <>
@@ -19,8 +19,7 @@ const Partner = ({ tabs }: { tabs: any[] }) => {
         {tabs.map(({ link, text }, i) => (
           <CustomButton
             onClick={() => handleParam(link)}
-            reverse={param === link}
-            backgroundColor="dark"
+            backgroundColor={param !== link ? "dark" : "light"}
             key={i}
             className=" py-6 w-full "
             text={text}
@@ -36,10 +35,9 @@ const Partner = ({ tabs }: { tabs: any[] }) => {
             items={tabs.map(({ link, text }, i) => ({
               card: (
                 <CustomButton
-                stopPropagation
+                  stopPropagation
                   onClick={() => handleParam(link)}
-                  reverse={param === link}
-                  backgroundColor="dark"
+                  backgroundColor={param !== link ? "dark" : "light"}
                   key={i}
                   className="py-6   w-full"
                   text={text}

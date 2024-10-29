@@ -54,7 +54,6 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       };
     })
     .filter((field: any) => field !== undefined);
-  console.log(forms[0].fields);
 
   return (
     <main className="">
@@ -70,7 +69,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
         />
       </section>
       <MaxWidthWrapper>
-        <div className="  flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
+        <div className=" min-h-[80vh]  flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
           <Suspense>
             <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
               <Partner tabs={tabs} />

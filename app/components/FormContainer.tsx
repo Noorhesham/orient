@@ -2,11 +2,13 @@
 import { z, ZodObject, ZodTypeAny } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import CustomForm from "./CustomForm";
 import { useTranslations } from "next-intl";
 import { Server } from "../main/Server";
 import { toast } from "react-toastify";
+import { CheckIcon } from "lucide-react";
+import MotionItem from "./MotionItem";
 
 const generateSchemaFromFields = (fields: any[], t: any): ZodObject<any> => {
   const schemaShape: Record<string, ZodTypeAny> = {};
@@ -90,7 +92,7 @@ interface Formcontainer {
   submit?: any;
   server?: boolean;
   children?: React.ReactNode;
-  id?:string
+  id?: string;
 }
 
 const FormContainer: React.FC<Formcontainer> = ({
@@ -107,12 +109,13 @@ const FormContainer: React.FC<Formcontainer> = ({
 }) => {
   const t = useTranslations("form");
 
-  const dynamicSchema = generateSchemaFromFields(formArray, t);
+  const dynamicSchema = useMemo(() => generateSchemaFromFields(formArray, t), [formArray, t]);
 
   const form = useForm({
     resolver: zodResolver(dynamicSchema),
     mode: "onChange",
     defaultValues:
+      //@ts-ignore
       {
         ...defaultValues,
         birth_day: defaultValues?.birthday || "",
@@ -122,21 +125,24 @@ const FormContainer: React.FC<Formcontainer> = ({
         },
         avatar: defaultValues?.photo || "",
       } || {},
+    shouldUnregister: true,
   });
   console.log(form.formState.errors);
   const [serverError, setServerError] = useState<string[] | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [resetFormData, setResetFormData] = useState(false);
 
   const onSubmit = async (data: z.infer<typeof dynamicSchema>) => {
     startTransition(async () => {
       if (server) {
         try {
           console.log(data);
-          const res = await Server({ resourceName: "submitForm", body: data, id:id|| "contact-us" });
-          console.log(res)
+          const res = await Server({ resourceName: "submitForm", body: data, id: id || "contact-us" });
+          console.log(res);
           if (res.status) {
-            toast.success(res.message);
-            form.reset(defaultValues);
+            toast.success(res.message, { autoClose: 5000 });
+            setResetFormData(true); // Trigger reset
+            setTimeout(() => setResetFormData(false), 0);
           }
           if (!res.status) setServerError(res.message);
         } catch (error) {
@@ -144,24 +150,42 @@ const FormContainer: React.FC<Formcontainer> = ({
         }
       } else if (submit) {
         submit(data, setServerError);
+        form.reset({});
       }
     });
   };
-
+  useEffect(() => {
+    if (resetFormData) {
+      form.reset({}); // or form.reset({ fieldName1: '', fieldName2: '' });
+    }
+  }, [resetFormData, form]);
+  console.log(form.getValues());
   return (
-    <CustomForm
-      serverError={serverError}
-      btnText={btnText || t("Submit")}
-      form={form}
-      isPending={isPending}
-      cancel={cancel}
-      title={title || ""}
-      btnStyles={btnStyles || "w-[40%] mr-auto "}
-      inputs={formArray}
-      onSubmit={onSubmit}
-    >
-      {children}
-    </CustomForm>
+    <div className=" min-h-[50vh]">
+      {!resetFormData ? (
+        <CustomForm
+          serverError={serverError}
+          btnText={btnText || t("Submit")}
+          form={form}
+          isPending={isPending}
+          cancel={cancel}
+          title={title || ""}
+          btnStyles={btnStyles || "w-[40%] mr-auto "}
+          inputs={formArray}
+          onSubmit={onSubmit}
+        >
+          {children}
+        </CustomForm>
+      ) : (
+        <MotionItem initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }}>
+          <p>
+            <CheckIcon className=" text-gray-400" />
+            {t("success")}
+          </p>
+          <span>{t("backtoform")}</span>
+        </MotionItem>
+      )}
+    </div>
   );
 };
 

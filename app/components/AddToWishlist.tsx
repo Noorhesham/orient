@@ -13,17 +13,20 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl"; // Import useTranslations
 import { Server } from "../main/Server";
 import { toast } from "react-toastify";
+import Share from "./Share";
 
 const AddToWishlist = ({
   className,
   id,
   wishlistStatus,
   noshare,
+  title,
 }: {
   className?: string;
   id: any;
   wishlistStatus: boolean;
   noshare?: boolean;
+  title: string;
 }) => {
   const { userSettings } = useAuth();
   const router = useRouter();
@@ -61,7 +64,7 @@ const AddToWishlist = ({
       if (global?.navigator.share) {
         global?.navigator
           .share({
-            title: t("checkOut"), // Use translation here
+            title: title || t("checkOut"),
             url: currentUrl,
           })
           .catch((error) => console.error("Error sharing", error));
@@ -107,29 +110,7 @@ const AddToWishlist = ({
           }
         />
       )}
-      {!noshare && (
-        <div className="flex items-center gap-1 text-sm">
-          <p>{t("share")}</p> {/* Use translation */}
-          <FiCopy onClick={handleShare} className="cursor-pointer hover:text-blue-500" />
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaFacebook className="hover:text-blue-600" />
-          </a>
-          <a href={`https://twitter.com/intent/tweet?url=${currentUrl}`} target="_blank" rel="noopener noreferrer">
-            <FaXTwitter className="hover:text-blue-400" />
-          </a>
-          <a
-            href={`https://pinterest.com/pin/create/button/?url=${currentUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaPinterest className="hover:text-red-500" />
-          </a>
-        </div>
-      )}
+      {!noshare && <Share title={title} currentUrl={currentUrl} handleShare={handleShare} imageUrl={currentUrl} />}
     </div>
   );
 };

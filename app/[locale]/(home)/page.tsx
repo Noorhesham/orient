@@ -100,6 +100,8 @@ export default async function Home() {
                 <SwiperCards
                   autoplay
                   slidesPerView={2}
+                  mobile={2}
+                  md={2}
                   className=" w-full h-full"
                   items={products_list.map((item: Product, index: number) => {
                     return {
@@ -155,9 +157,9 @@ export default async function Home() {
                 <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                   <Image src={"/Rectangle 156397.png"} fill className="rounded-full object-cover" alt="color-trend" />
                 </div>
-                <h1 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
+                <h2 className=" text-base text-center  md:text-2xl text-main2 font-[500] mt-4 ">
                   {t("breadcrumb.get inspired")}
-                </h1>
+                </h2>
               </div>
             </Link>
           </MotionItem>
@@ -187,27 +189,32 @@ export default async function Home() {
       </Dialog>
       <MaxWidthWrapper>
         <Section headingColor="#E6007E" headingclass="mx-auto" heading={page.section_name} className=" relative">
-          <div className="  lg:mt-5">
+          <div className="  flex flex-col gap-8 lg:mt-5">
             <div
               dangerouslySetInnerHTML={{ __html: page?.section_content }}
               className={` ${
                 local == "ar" ? "" : "xl:translate-x-[24rem]"
-              } translate-x-0 text-start font-medium my-2 leading-[1.7] lg:max-w-2xl   z-10 relative mt-5 `}
+              } translate-x-0 text-center md:text-start font-medium my-2 leading-[1.7] lg:max-w-2xl   z-10 relative mt-5 `}
             />
             <MotionItem
               initial={{ opacity: 0, x: -200 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeInOut", stiffness: 100 } }}
               className={` ${
                 local == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
-              }  aspect-square w-auto h-64 sm:h-72 md:h-80 xl:h-80 bottom-0  top-[105%] sm:top-[90%] md:top-[82%] xl:top-[8.8rem]  absolute`}
+              }  aspect-square w-auto  h-full lg:mt-0  md:h-80 xl:h-80 bottom-0    md:top-[82%] xl:top-[8.8rem]  md:absolute`}
             >
-              <Image src={page.image[0]?.file} fill className=" object-cover " alt="brown" />
+              <Image
+                src={page.image[0]?.file}
+                fill
+                className="  object-bottom object-contain md:object-cover "
+                alt="brown"
+              />
             </MotionItem>
           </div>
         </Section>
       </MaxWidthWrapper>
       <div className=" px-3">
-        <div className=" mt-8   grid grid-cols-6 gap-[4px]">
+        <div className=" md:mt-8   grid grid-cols-6 gap-[4px]">
           {page.colors.map((item: any, index: number) => {
             return <div className=" w-full h-52 " style={{ backgroundColor: `#${item.color}` }} key={index}></div>;
           })}

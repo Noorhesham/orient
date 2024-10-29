@@ -14,7 +14,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
 import ImageGrid from "./ImageGrid";
-import { Autoplay } from "swiper/modules";
 
 const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
   const searchParams = useSearchParams();
@@ -58,10 +57,8 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
           </button>
         )}
         <Swiper
-          modules={[Autoplay]}
-          autoplay={{ delay: 2000 }}
           breakpoints={{
-            0: { slidesPerView: 1.3 },
+            0: { slidesPerView: 2.5},
             768: { slidesPerView: 3 },
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 5 },
@@ -69,9 +66,9 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
           }}
           onSlideChange={({ activeIndex }) => setActiveIndex(activeIndex)}
           onSwiper={(swiper) => setSwiper(swiper)}
-          spaceBetween={5}
+          spaceBetween={-5}
           slidesPerView={5}
-          className=" w-full flex items-center"
+          className=" w-full justify-center flex items-center"
         >
           {categories.map((option, i) => (
             <SwiperSlide key={i}>

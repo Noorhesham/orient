@@ -39,7 +39,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
             },
             {
               href: `blog/${item.id}`,
-              text: item.title,
+              text: `${item.title.slice(0, 20)} ..`,
             },
           ]}
         />

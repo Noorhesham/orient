@@ -10,16 +10,16 @@ import {
 } from "@/components/ui/breadcrumb";
 import { FaHome } from "react-icons/fa";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { useTranslations } from "next-intl"; // Import useTranslations
+import { useLocale, useTranslations } from "next-intl"; // Import useTranslations
 
 const BreadCrumb = ({ linksCustom }: { linksCustom?: { href: string; text: string }[] }) => {
   const router = useRouter();
   const pathName = usePathname();
   const t = useTranslations("breadcrumb"); // Translation hook
-
+  const locale = useLocale();
   // Get the links from props or generate from pathname
   const links: any = linksCustom || pathName.split("/").filter((link) => !["ar", "en"].includes(link));
-  console.log(links)
+  console.log(links);
   return (
     <Breadcrumb className=" py-3 bg-gradient-to-r from-[#ff007b2f] via-white to-[#00a2ff3f]">
       <MaxWidthWrapper noPadding>
@@ -42,7 +42,7 @@ const BreadCrumb = ({ linksCustom }: { linksCustom?: { href: string; text: strin
                     {link.text ? link.text : link === "" ? t("home") : t(link.replace("-", " ").toLowerCase())}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                {!isLast && <BreadcrumbSeparator />}
+                {!isLast && <BreadcrumbSeparator className={`${locale === "ar" && "rotate-180"}`} />}
               </div>
             );
           })}

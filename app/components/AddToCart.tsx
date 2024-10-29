@@ -7,6 +7,7 @@ import Counter from "./Counter";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddToCart = ({
   id,
@@ -24,6 +25,7 @@ const AddToCart = ({
 }) => {
   const { mutate, isPending, data } = useCreateEntity("addToCart", "cart");
   const { cartCount, setCartCount } = useAuth();
+  const queryClient = useQueryClient();
   const t = useTranslations();
   const router = useRouter();
   return cartStatus?.in_cart && cartStatus?.in_cart_count !== 0 ? (
@@ -39,6 +41,7 @@ const AddToCart = ({
       isPending={isPending}
       onClick={() => {
         mutate({ product_id: id, qty: 1 });
+        queryClient.invalidateQueries({ queryKey: ["checkout", "cart"] });
         router.refresh();
       }}
       className=" px-8 py-4"

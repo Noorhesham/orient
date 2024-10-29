@@ -26,7 +26,7 @@ const page = async ({ params: { locale } }: { params: { locale: string } }) => {
       />
       <MaxWidthWrapper className="flex flex-col items-center   justify-center">
         <Heading mainText={t("discover the most important")} subText={t("articles about paints")} paragraph="" />
-        <MotionContainer className=" mt-5 lg:mt-10 gap-4 grid grid-cols-1 md:grid-cols-2  items-stretch  lg:grid-cols-3">
+        <MotionContainer className=" mt-5 lg:mt-10 gap-4 grid grid-cols-1 md:grid-cols-2    lg:grid-cols-3">
           {data.data.map((item: BlogProps) => (
             <CardHuge item={item} href={`/blog/${item.id}`} key={item.id} />
           ))}

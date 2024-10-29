@@ -36,6 +36,7 @@ const Box = ({
     params.forEach((value, key) => {
       newFilters[key] = value.split(",");
     });
+    console.log(newFilters);
     setFilters(newFilters);
   }, []);
 
@@ -58,7 +59,7 @@ const Box = ({
     updateURL();
     const t = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 2000);
     return () => clearTimeout(t);
   }, [filters]);
 
@@ -89,7 +90,7 @@ const Box = ({
       };
     });
   };
-  console.log(filters);
+
   return (
     <div className="flex max-h-[54vh] overflow-y-auto px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
       <h2 className="text-lg mb-2">{text}</h2>
@@ -97,7 +98,7 @@ const Box = ({
         {filter === "category_id" &&
           options?.map((option, i) => (
             <li
-              onClick={() => handleFilter(option.id, "category_id")}
+              onClick={() => handleFilter(option.id.toString(), "category_id")}
               key={i}
               className="flex items-center gap-2 cursor-pointer"
             >
@@ -105,8 +106,8 @@ const Box = ({
                 type="checkbox"
                 name={filter}
                 id={option}
-                checked={filters["category_id"]?.includes(option.id) || false}
-                onChange={() => handleFilter(option.id, "category_id")}
+                checked={filters["category_id"]?.includes(option.id.toString()) || false}
+                onChange={() => handleFilter(option.id.toString(), "category_id")}
               />
               <label htmlFor={option}>{option.title}</label>
             </li>

@@ -76,7 +76,7 @@ const CustomForm = ({
   const t = useTranslations();
   return (
     <Form {...form}>
-      <form className="flex w-full items-stretch gap-2" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="flex  uppercase w-full items-stretch gap-2" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-1 flex-col">
           {title && <Head1 className=" text-lg text-center" text={title} />}
           <div className="flex lg:pt-4 flex-col gap-4">
@@ -89,6 +89,7 @@ const CustomForm = ({
                 <FormInput
                   returnFullPhone={input?.returnFullPhone}
                   disabled={disabled}
+                  placeholder={input.label}
                   label2={input?.label2 || ""}
                   switchToggle={input?.switchToggle}
                   phone={input.phone || false}

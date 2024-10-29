@@ -6,19 +6,15 @@ import Container from "@/app/components/Container";
 import EmptyCart from "@/app/components/EmptyCart";
 import Head1 from "@/app/components/Head1";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
-import Paragraph from "@/app/components/Paragraph";
 import PaymentMethods from "@/app/components/PaymentMethods";
 import PriceWithSale from "@/app/components/PriceWithSale";
 import ShippingList from "@/app/components/ShippingList";
-import Spinner from "@/app/components/Spinner";
 import { useAuth } from "@/app/context/AuthContext";
-import { Server } from "@/app/main/Server";
-import { Button } from "@/components/ui/button";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetEntity } from "@/lib/queries";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -38,7 +34,7 @@ const Page = () => {
   if (!generalSettings.visitors_create_order) router.push("/cart");
   const { payment_methods, cart, user_addresses } = data;
   const loggedIn = userSettings!!;
-  console.log(cart, selected);
+  console.log(cart, data);
   return (
     <main className=" bg-gray-50">
       <div className=" pt-5  min-h-screen  ">
@@ -53,7 +49,7 @@ const Page = () => {
                     user_addresses={user_addresses}
                     setSelected={setSelected}
                     selected={selected || data?.user_address?.id}
-                    user_address={data?.user_address?.id}
+                    user_address={data?.user_address?.id||data?.user_addresses?.[0]?.id}
                   />
                 </Container>
               )}

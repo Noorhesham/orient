@@ -14,23 +14,29 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useIsLoading } from "../context/LoadingContext";
 
 export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
-
+  const { loading, setLoading } = useIsLoading();
   useEffect(() => {
     const page = parseInt(searchParams.get("page") || "1", 10);
     setCurrentPage(page);
   }, [searchParams]);
 
   const handlePageChange = (page: number) => {
+    setLoading(true);
+
     const url = new URL(window.location.href);
     //@ts-ignore
     url.searchParams.set("page", page);
     replace(url.toString(), { scroll: false });
     setCurrentPage(page);
+    const t = setTimeout(() => {
+      setLoading(false);
+    },2500);
   };
   const locale = useLocale();
   return (

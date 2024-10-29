@@ -10,7 +10,9 @@ const Products = ({ products, totalPages }: { products: Product[]; totalPages: n
   return (
     <>
       {loading
-        ? Array(18).fill(<ProductSkeleton />)
+        ? Array(18)
+            .fill(0)
+            .map((_, index) => <ProductSkeleton key={index} />)
         : products.map((product: Product) => (
             <Card
               key={product.id}

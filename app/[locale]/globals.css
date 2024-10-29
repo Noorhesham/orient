@@ -92,3 +92,26 @@
 .swiper-slide {
   height: auto !important;
 }
+.react-transform-wrapper {
+  width: 100% !important;
+  z-index: 10 !important;
+}
+.react-transform-wrapper {
+  height: 100% !important;
+  width: 100% !important;
+}
+.reveal {
+  opacity: 0;
+  animation: reveal2 0.5s ease-out forwards;
+  transition: all 0.5s ease-out;
+}
+@keyframes reveal2 {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

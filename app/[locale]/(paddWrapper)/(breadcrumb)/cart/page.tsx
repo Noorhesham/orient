@@ -20,6 +20,7 @@ import Heading from "@/app/components/Heading";
 import Paragraph from "@/app/components/Paragraph";
 import { getTranslations } from "next-intl/server";
 import EmptyCart from "@/app/components/EmptyCart";
+import Head1 from "@/app/components/Head1";
 
 const page = async () => {
   const queryParams = new URLSearchParams();
@@ -43,7 +44,7 @@ const page = async () => {
   return (
     <main className="bg-gray-50">
       <div className="py-5 min-h-screen">
-        <Button className="flex z-50 md:hidden mx-auto sticky top-[90%] rounded-full py-6 px-10 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
+        <Button className="flex z-30 md:hidden mx-auto sticky top-[90%] rounded-full py-6 px-10 text-xs items-center bg-main2 text-gray-50 hover:bg-main2/60 duration-150 gap-2">
           <Link href="/checkout" className="flex gap-2 items-center">
             <CreditCard />
             {t("proceed_to_checkout")}
@@ -52,23 +53,18 @@ const page = async () => {
 
         <MaxWidthWrapper className="flex flex-col lg:grid gap-4 lg:grid-cols-11">
           <div className="col-span-7 gap-4 flex flex-col">
-            <Heading
-              subText=""
-              mainText={t("cart_title", { cartCount })}
-              className="font-[600] mt-4 ml-2 uppercase text-2xl text-main2 mb-3"
+            <Head1
+              text={t("cart_title", { cartCount })}
+              className=" ml-2 uppercase font-semibold text-2xl text-main2 mb-1"
             />
-            {cart.items.length === 0 && <EmptyCart/>}
+            {cart.items.length === 0 && <EmptyCart />}
             <CartItems cart={cart.items} />
           </div>
 
-          <div className="col-span-4 flex flex-col gap-5">
+          <div className="col-span-4 flex  items-center flex-col gap-5">
             {cart.items.length > 0 && (
-              <div className="flex flex-col">
-                <Heading
-                  subText=""
-                  mainText={t("cart_total")}
-                  className="text-main2 text-xl font-semibold text-center"
-                />
+              <Container className="flex w-full flex-col">
+                <Head1 text={t("cart_total")} className="text-main2 text-xl font-semibold text-center" />
                 <div className="px-4 mt-5">
                   <div className="flex pb-1 border-b border-input flex-col gap-2">
                     <div className="flex justify-between">
@@ -84,21 +80,17 @@ const page = async () => {
                     <h2>{t("total_price")}</h2>
                     <p>{totalPrice}</p>
                   </div>
-                  <div className="flex w-fit pt-5 mx-auto mt-3 flex-col">
+                  <div className="flex w-fit pt-5 mx-auto mt-3  flex-col">
                     <Proceed />
                   </div>
                 </div>
-              </div>
+              </Container>
             )}
             {cart.items.length > 0 && (
-              <div className="pt-10 pb-10 flex flex-col">
-                <Heading
-                  subText={""}
-                  mainText={t("coupon_code")}
-                  className="text-main2 text-xl font-semibold text-center"
-                />
+              <Container className="pt-10 pb-10 flex gap-3 w-full flex-col">
+                <Head1 text={t("coupon_code")} className="text-main2 text-xl font-semibold text-center" />
                 <CoponApply applied_coupon={cart.applied_coupon} />
-              </div>
+              </Container>
             )}
           </div>
         </MaxWidthWrapper>
@@ -110,8 +102,8 @@ const page = async () => {
             heading={cart.items.length === 0 ? t("our_products") : t("similar_products")}
             linkText={t("browse_products")}
           >
-            <MotionContainer className="lg:grid hidden lg:grid-cols-4 items-center gap-5 mt-[62px] justify-center">
-              {similarProducts.map((item: any) => (
+            <MotionContainer className="lg:grid hidden lg:grid-cols-4  items-center gap-5 mt-[62px] justify-center">
+              {similarProducts.slice(0, 6).map((item: any) => (
                 <Card
                   key={item.id}
                   img={item.main_cover?.[0]?.sizes.large}
@@ -122,20 +114,20 @@ const page = async () => {
                 />
               ))}
             </MotionContainer>
-            <div className="mt-4 flex lg:hidden">
+            <div className="mt-4  pb-8 flex lg:hidden">
               <SwiperCards
                 slidesPerView={2}
                 className="w-full h-full"
-                items={similarProducts.map((item: any) => ({
+                items={similarProducts.slice(0, 6).map((item: any) => ({
                   card: (
                     <Card
-                      key={item.id}
-                      img={item?.main_cover[0]?.[0]?.sizes.large}
-                      price={item.price_after_discount}
-                      sell={item.price}
-                      text={item.title}
-                      id={item.id}
-                    />
+                    key={item.id}
+                    img={item.main_cover?.[0]?.sizes.medium}
+                    price={item.price_after_discount}
+                    sell={item.price}
+                    text={item.title}
+                    id={item.id}
+                  />
                   ),
                 }))}
               />

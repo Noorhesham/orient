@@ -64,7 +64,7 @@
   "contact": {
     "title": "CONTACT INFO",
     "description": "you can contact us anytime via email or phone.",
-    "book": "LEARN ANOUT OUR MOST IMPORTANT",
+    "book": "LEARN ABOUT OUR MOST IMPORTANT",
     "branches": "BRANCHES AND DISTRIBUTERS",
     "contact": "SOCIAL MEDIA",
     "question": "DO YOU HAVE ANY QUESTIONS ?",
@@ -215,6 +215,7 @@
     "commentPlaceholder": "Comment",
     "ratePlaceholder": "Rate"
   },
+  "backtoform": "BACK TO FORM",
   "feature": {
     "title": "Feature",
     "warranty": "FREE 1 YEAR WARRANTY",
@@ -242,7 +243,8 @@
     "cart": "CART",
     "checkout": "CHECK OUT",
     "blog": "BLOG",
-    "shop": "SHOP"
+    "shop": "SHOP",
+    "branches": "BRANCHES"
   },
   "orderdesc": "Here You Can See All Your Orders.",
   "noorders": "You have not made any orders yet !",
@@ -359,7 +361,9 @@
     "calculate": "CALCULATE",
     "inputPlaceholder": "NUMBER OF METERS",
     "selectCategory": "Select Category",
-    "categoryLabel": "Category"
+    "categoryLabel": "Category",
+    "Choose Category": "Choose Category",
+    "Choose Quantity": "Choose Quantity"
   },
   "customizeNotifications": "CUSTOMIZE NOTIFICATIONS",
   "configureCustomSettings": "CONFIGURE CUSTOM SETTINGS",

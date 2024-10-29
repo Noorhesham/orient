@@ -7,14 +7,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import cookies from "js-cookie";
 import { useLocale, useTranslations } from "next-intl";
 import { Autoplay } from "swiper/modules"; // Correct import for Autoplay
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import ZoomImage from "./ZoomImage";
 import { IoOpenOutline } from "react-icons/io5";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ZoomImage from "./ZoomImage";
 
 const SwiperCards = ({
   items,
@@ -32,6 +31,8 @@ const SwiperCards = ({
   md,
   zoom,
   paginationImgs,
+  activeSlide,
+  btnClass,
 }: {
   items: any;
   className?: string;
@@ -48,13 +49,18 @@ const SwiperCards = ({
   md?: number;
   zoom?: boolean;
   paginationImgs?: string[];
+  activeSlide?: number;
+  btnClass?: string;
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeIndex, setActiveIndex] = React.useState(activeSlide || 0);
   const [slideConfig, setSlideConfig] = React.useState({
     isBeginning: true,
     isEnd: activeIndex === (items?.length ?? 0) - 1,
   });
+  useEffect(() => {
+    if (activeSlide) swiper?.slideTo(activeSlide);
+  }, [activeSlide, swiper]);
   useEffect(() => {
     swiper?.on("slideChange", ({ activeIndex }) => {
       setActiveIndex(activeIndex);
@@ -67,7 +73,7 @@ const SwiperCards = ({
   const local = useLocale();
 
   const t = useTranslations();
-  const pagination = paginationImgs?.length > 0 ? paginationImgs : items;
+  const pagination = paginationImage && paginationImgs?.length > 0 ? paginationImgs : items;
   return (
     <div className="relative h-full gap-3 w-full flex flex-col">
       <Swiper
@@ -99,65 +105,39 @@ const SwiperCards = ({
                 card
               ) : zoom ? (
                 <>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <div className="cursor-pointer hover:opacity-90 duration-150">
-                        <Image
-                          fill
-                          loading="eager"
-                          src={src}
-                          alt="product image"
-                          className={`object-center h-full w-full ${
-                            rounded && !contain ? "rounded-2xl object-cover" : "object-contain"
-                          } ${contain ? "object-contain" : "object-contain  2xl:object-cover"}`}
-                        />
-                        <IoOpenOutline className="w-6 h-6 absolute top-0 left-4" />
+                  <ZoomImage
+                    key={i}
+                    src={src}
+                    className=""
+                    content={
+                      <TransformWrapper
+                        initialScale={1}
+                        minScale={0.5}
+                        maxScale={3}
+                        centerOnInit
+                        wheel={{ step: 0.1 }}
+                        doubleClick={{ disabled: false }}
+                      >
+                        {({ zoomIn, zoomOut, resetTransform }) => (
+                          <>
+                            <TransformComponent>
+                              <img
+                                loading="lazy"
+                                src={src}
+                                alt="product image"
+                                className="h-full z-10 object-top object-contain w-full"
+                              />
+                            </TransformComponent>
+                          </>
+                        )}
+                      </TransformWrapper>
+                    }
+                    btn={
+                      <div className="relative     first:row-span-2  first:col-span-4 first:lg:col-span-2 cursor-pointer hover:opacity-90 duration-100 w-full col-span-4 lg:col-span-1 row-span-1">
+                        <Image src={src} alt="image" width={500} height={250} className="object-cover w-full h-full" />
                       </div>
-                    </DialogTrigger>
-                    {/* @ts-ignore */}
-                    <DialogContent
-                      className={`${src ? "" : " "} w-full ${
-                        className || " bg-transparent "
-                      } outline-none border-none overflow-hidden h-full max-h-[80vh]`}
-                    >
-                      <div className="select-none relative h-full w-full">
-                        <div
-                          className={`absolute ${
-                            local !== "ar" ? "left-1/2 -translate-x-1/2" : "right-10"
-                          } w-full lg:w-[80%]  inset-0`}
-                        >
-                          <TransformWrapper
-                            panning={{ disabled: false }} // Enables drag control
-                            zoomAnimation={{ size: 0.6, animationType: "easeOut" }} // Zoom animation controls
-                            doubleClick={{ disabled: false }}
-                            smooth
-                            initialScale={1}
-                            initialPositionX={0}
-                            initialPositionY={-70}
-                          >
-                            {({ zoomIn, zoomOut }) => (
-                              <>
-                                <div className="mt-14 mb-3">
-                                  <Button variant="outline" size={"sm"} className="mr-2" onClick={() => zoomIn()}>
-                                    <ZoomInIcon />
-                                  </Button>
-                                  <Button variant="outline" size={"sm"} onClick={() => zoomOut()}>
-                                    <ZoomOutIcon />
-                                  </Button>
-                                </div>
-                                <TransformComponent
-                                  contentStyle={{ width: "100%", height: "100%" }}
-                                  wrapperStyle={{ width: "100%", height: "100%" }}
-                                >
-                                  <img className="object-contain" src={src} style={{ width: "100%" }} />
-                                </TransformComponent>
-                              </>
-                            )}
-                          </TransformWrapper>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                    }
+                  />
                 </>
               ) : (
                 <Image
@@ -172,7 +152,7 @@ const SwiperCards = ({
               )}
 
               {text && (
-                <h1 className="text-white group-hover:text-main duration-300 group-hover:-translate-y-2 uppercase text-4xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
+                <h1 className="text-white group-hover:text-main duration-300 group-hover:-translate-y-2 uppercase text-3xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
                   {text}
                 </h1>
               )}
@@ -180,8 +160,8 @@ const SwiperCards = ({
               {link ? (
                 <Link
                   href={link}
-                  className="absolute top-2 left-1/2 transform block -translate-x-1/2 opacity-0 group-hover:opacity-100
-                   group-hover:w-[95%] w-0 duration-300  h-[97%] border-0 group-hover:border-2 group-hover:border-main border-white"
+                  className="absolute top-8 lg:top-2 left-1/2 transform block -translate-x-1/2 opacity-0 group-hover:opacity-100
+                   group-hover:w-[90%] lg:group-hover:w-[95%] w-0 duration-300  h-[90%] lg:h-[97%] border-0 group-hover:border-2 group-hover:border-main border-white"
                 />
               ) : text ? (
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2  group-hover:w-[95%] w-0 h-[97%] border-2 border-white" />
@@ -193,7 +173,10 @@ const SwiperCards = ({
       {btns && (
         <div
           style={{ flexDirection: local === "ar" ? "row-reverse" : "row" }}
-          className=" flex mb-4 items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 "
+          className={cn(
+            " flex mb-4 h-fit items-center gap-20  md:gap-10 justify-between lg:justify-center  mt-5 ",
+            btnClass || ""
+          )}
         >
           <Button
             style={{ flexDirection: local === "ar" ? "row-reverse" : "row" }}

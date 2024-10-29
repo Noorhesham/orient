@@ -15,14 +15,12 @@ import { useTranslations } from "next-intl";
 const schema = z.object({
   // name: z.string(),
   phone: z.object({
-    phone: z.string().min(1, { message: "Phone is required" }),
-    country_key: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
-  }),
+    phone: z.any(),
   country_id: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
   state_id: z.union([z.string(), z.number()]),
   city_id: z.union([z.string(), z.number()]),
   address: z.string().min(1, { message: "Address is required" }),
-});
+})});
 
 const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipping?: any }) => {
   const t = useTranslations();
@@ -70,6 +68,7 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
           toast.success(res.message);
           queryClient.invalidateQueries({ queryKey: ["checkout"] });
           setDefaultShipping && setDefaultShipping(res.id);
+          router.push('/success');
         }
         if (!res.status) toast.error(res.message);
       });

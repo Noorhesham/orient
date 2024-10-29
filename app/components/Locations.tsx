@@ -36,7 +36,7 @@ const Locations = () => {
                 <p className="text-center  lg:text-justify ">{branch.co_info_address[locale]}</p>
                 <Link
                   target="_blank"
-                  href={branches[0].co_info_location_url}
+                  href={branches[i].co_info_location_url}
                   className="py-1 lg:mx-0 mx-auto  text-nowrap lg:text-justify text-center self-end px-4 w-fit text-xs bg-gray-400/40 rounded-full"
                 >
                   {t("footer.showMap")} {/* 'Show Map' */}

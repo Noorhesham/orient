@@ -33,7 +33,7 @@ const Section = ({
   const locale = useLocale();
   return (
     <section id={id} className={`${className || ""}  `}>
-      <div className=" flex flex-col items-stretch  w-full ">
+      <div className=" flex flex-col items-stretch gap-2  w-full ">
         <MotionContainer className="flex flex-row items-center justify-between">
           {heading && (
             <MotionItem

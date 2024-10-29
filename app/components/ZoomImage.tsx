@@ -1,7 +1,7 @@
 "use client";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import Image from "next/image";
 import React, { ReactNode } from "react";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const ZoomImage = ({
   btn,
@@ -16,21 +16,50 @@ const ZoomImage = ({
 }) => {
   return (
     <Dialog>
-      <DialogTrigger asChild>{btn}</DialogTrigger>
-      {/*@ts-ignore*/}
+      <DialogTrigger className=" z-[30] relative" asChild>
+        {btn}
+      </DialogTrigger>
       <DialogContent
-        src="."
-        className={` ${src ? "" : " "} w-full ${className || " bg-transparent "} outline-none border-none h-auto  `}
+        className={`flex justify-center items-center bg-transparent  max-w-[90%]  max-h-[90vh] bg-none
+           border-none rounded-lg shadow-lg p-4 ${!content && " h-fit"} ${className || "w-fit h-full "}`}
+        whiteClose
       >
         {content ? (
           content
         ) : (
-          <img
-            loading="lazy"
-            src={src || ""}
-            alt="product image"
-            className="h-auto lg:scale-125 xl:scale-150 absolute  top-1/2  left-1/2 -translate-x-1/2  -translate-y-1/2 object-contain w-full "
-          />
+          <TransformWrapper
+            initialScale={1}
+            minScale={0.5}
+            maxScale={3}
+            centerOnInit
+            wheel={{ step: 0.1 }}
+            doubleClick={{ disabled: false }}
+          >
+            {({ zoomIn, zoomOut, resetTransform }) => (
+              <div className=" w-full h-full max-h-[90vh] relative">
+                {/* Uncomment if you want to show zoom controls */}
+                {/* <div className="controls flex gap-2 mb-4">
+                  <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={zoomIn}>
+                    Zoom In
+                  </button>
+                  <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={zoomOut}>
+                    Zoom Out
+                  </button>
+                  <button className="bg-gray-500 text-white px-2 py-1 rounded" onClick={resetTransform}>
+                    Reset
+                  </button>
+                </div> */}
+                <TransformComponent>
+                  <img
+                    loading="lazy"
+                    src={src}
+                    alt="product image"
+                    className="h-full z-[-1]  object-center md:object-top object-contain w-full"
+                  />
+                </TransformComponent>
+              </div>
+            )}
+          </TransformWrapper>
         )}
       </DialogContent>
     </Dialog>

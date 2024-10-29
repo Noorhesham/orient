@@ -30,6 +30,7 @@ import ReviewsSection from "@/app/components/ReviewsSection";
 import { processYoutubeUrl } from "@/lib/utils";
 import BreadCrumb from "@/app/components/BreadCrumb";
 import Link from "next/link";
+import BuyNow from "@/app/components/BuyNow";
 
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const { product } = await Server({
@@ -167,13 +168,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 max={product.quantity}
                 id={product.id}
               />
-              <CustomButton
-                link="/checkout"
-                className=" w-full px-8 py-5"
-                reverse
-                icon={<TbShoppingCartPlus />}
-                text={t("buyNow")}
-              />
+              <BuyNow id={product.id} />
             </div>
 
             <Section
@@ -263,6 +258,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     </div>
                   </div>{" "}
                   <AddToWishlist
+                    title={product.title}
                     wishlistStatus={cartStatus[`${product.id}`].favorite}
                     id={product.id}
                     className=" lg:hidden my-3"
@@ -270,11 +266,11 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 </div>
               </div>
               <Paragraph className=" my-2" description={product.description || ""} />
-              <div className=" flex uppercase  text-sm  items-center gap-2">
+              <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">{t("filters.category")} :</h3>
                 <Link
                   href={`/shop?category_id=${product.category_id}`}
-                  className=" py-2 px-4 rounded-full bg-white border border-input  font-semibold"
+                  className=" py-2 px-4 rounded-full hover:bg-main duration-200 hover:text-white bg-white border border-input  font-semibold"
                 >
                   {product.category.title}
                 </Link>
@@ -356,7 +352,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
           </div>
 
           {/* sidebar */}
-          <div className=" hidden lg:block lg:col-span-3 mt-8">
+          <div className=" hidden sticky top-20 lg:block lg:col-span-3 mt-8">
             <Container className=" py-12">
               <div className=" flex flex-col items-start gap-2  pb-4 border-b  border-input">
                 <SwiperCards
@@ -402,22 +398,20 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 />
               </div>
               <div className=" w-full pb-5">
-                <Suspense>
-                  {" "}
-                  {variations && attributes.length > 0 && variations.length > 0 && (
-                    <SingleVariant
-                      parentId={product.parent_id}
-                      childId={ischild ? product.id : ""}
-                      ischild={ischild}
-                      variations={variations}
-                      options={attributes.filter((item: any) => item.slug === "volume")}
-                      colorOptions={attributes.filter((item: any) => item.slug === "color")}
-                    />
-                  )}
-                </Suspense>
+                {variations && attributes.length > 0 && variations.length > 0 && (
+                  <SingleVariant
+                    parentId={product.parent_id}
+                    childId={ischild ? product.id : ""}
+                    ischild={ischild}
+                    variations={variations}
+                    options={attributes.filter((item: any) => item.slug === "volume")}
+                    colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                  />
+                )}
+
                 <div className=" pb-5 border-b border-input">
                   <div className=" flex flex-col items-center justify-center  gap-2">
-                    <div className=" flex items-center gap-2">
+                    <div className=" flex items-center pt-4 gap-2">
                       <h2>{t("price")} :</h2>
                       <PriceWithSale
                         size="sm"
@@ -438,15 +432,10 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     id={product.id}
                   />
 
-                  <CustomButton
-                    link="/checkout"
-                    className=" px-8 py-4"
-                    reverse
-                    icon={<TbShoppingCartPlus />}
-                    text={t("buyNow")}
-                  />
+                  <BuyNow id={product.id} />
                 </div>
                 <AddToWishlist
+                  title={product.title}
                   wishlistStatus={cartStatus[`${product.id}`].favorite}
                   id={product.id}
                   className=" my-3"

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import Spinner from "./Spinner";
 import { useLocale, useTranslations } from "next-intl";
+import { Label } from "@/components/ui/label";
 
 const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   const { data, isLoading } = useGetEntity("calculate");
@@ -28,7 +29,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
 
   const categories = data?.data?.map((d: any) => d.category);
   const selectedUnit = data?.data?.find((item: any) => item.category.id === selected);
- console.log(categories)
+  console.log(categories);
 
   return (
     <ModalCustom
@@ -67,13 +68,15 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
           </div>
         ) : (
           <div>
-            <div className="flex-col gap-4 flex lg:py-5 px-5 lg:px-20 mt-5">
+            <div className="flex-col gap-4 flex  uppercase lg:py-5 px-5 lg:px-20 mt-5">
+              <Label>{t("Choose Quantity")}</Label>
               <Input
                 value={input}
                 onChange={(e: any) => setInput(e.target.value)}
                 placeholder={t("inputPlaceholder")} // Use translation for placeholder
                 className="outline-gray-900 placeholder:text-gray-900"
               />
+              <Label>{t("Choose Category")}</Label>
               <Select value={selected} onValueChange={(val: any) => setSelected(val)}>
                 <SelectTrigger>
                   <SelectValue placeholder={t("selectCategory")} /> {/* Use translation for placeholder */}

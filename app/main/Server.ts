@@ -173,7 +173,7 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
     case "colortrend":
       return { url: `${url}/rm_page/${VERSION}/show?with=blogs&slug=color-trend` };
     case "branches":
-      return { url: `${url}/ec-stores/entities-operations?with=state_id,country_id,city_id` };
+      return { url: `${url}/ec-stores/entities-operations?with=state_id,country_id,city_id&itemsCount=200` };
     case "check":
       return { url: `${url}/rm_ecommarce/${VERSION}/products/check?${queryParams}`, method: "GET" };
     case "wishlist":

@@ -1,5 +1,6 @@
 import Footer from "@/app/components/Footer";
 import NavBar from "@/app/components/NavBar";
+import LoadingProvider from "@/app/context/LoadingContext";
 import { unstable_setRequestLocale } from "next-intl/server";
 const locales = ["en", "ar"];
 export function generateStaticParams() {
@@ -16,7 +17,9 @@ export default async function RootLayout({
   return (
     <main>
       <NavBar />
-      <section className=" pt-40"> {children}</section>
+      <LoadingProvider>
+        <section className=" pt-40"> {children}</section>
+      </LoadingProvider>
       <Footer />
     </main>
   );

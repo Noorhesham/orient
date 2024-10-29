@@ -19,7 +19,7 @@ const Reviews = ({
       <div className="flex mb-2 flex-grow items-start flex-col">
         <h2 className=" font-medium">{t("stars.reviews")}</h2>
         <h3 className=" font-bold text-4xl mt-2">{review_rate}</h3>
-        <Starrating size={25} color="#FCAB30" defaultRating={4.5} MaxRating={5} change={false} />
+        <Starrating size={25} color="#FCAB30" defaultRating={review_rate||5} MaxRating={5} change={false} />
         <p className=" text-xs">
           {review_count ? `(${review_count} ${review_count === 1 ? t("stars.review") : t("stars.reviews")})` : ""}
         </p>

@@ -5,8 +5,8 @@ import MapContainer from "@/app/components/MapContainer";
 import { Server } from "@/app/main/Server";
 
 const page = async () => {
-  const { data: stores } = await Server({ resourceName: "branches" });
-  console.log(stores);
+  const { data: stores } = await Server({ resourceName: "branches" ,});
+  
   return (
     <section>
       <MaxWidthWrapper className="grid gap-5 mt-5 grid-cols-2 lg:grid-cols-4">

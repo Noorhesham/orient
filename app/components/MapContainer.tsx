@@ -26,7 +26,12 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
   const filteredContainers = stores.filter(
     (container) =>
       container.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      container.locations_address.toLowerCase().includes(searchQuery.toLowerCase())
+      container.city?.title
+        .toLowerCase()
+        .includes(
+          searchQuery.toLowerCase() || container.locations_address.toLowerCase().includes(searchQuery.toLowerCase())
+        ) ||
+      container.state.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
   return (
     <>
@@ -40,19 +45,10 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
               className=" flex flex-wrap gap-3 px-4"
             >
               <Head1 text={container.name} />
-              <div className=" flex flex-wrap items-start w-full gap-2 ">
-                <h3
-                  className="hover:bg-gray-100 rounded-full  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
-                  // onClick={(e) => {
-                  //   e.stopPropagation();
-                  //   handleClick({ lat: container.country.latitude, lng: container.country.longitude });
-                  // }}
-                >
-                  country : {container.country.title}
-                </h3>
+              <div className=" flex  flex-wrap items-start w-full gap-2 ">
                 {container.city && (
                   <h3
-                    className="hover:bg-gray-100 rounded-full  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
+                    className="hover:bg-gray-100 rounded-full line-clamp-1  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
                     // onClick={(e) => {
                     //   e.stopPropagation();
                     //   handleClick({ lat: container.city.latitude, lng: container.city.longitude });
@@ -61,8 +57,8 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
                     city : {container.city?.title}
                   </h3>
                 )}
-                <h3
-                  className=" hover:bg-gray-100 rounded-full  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
+                <h3 
+                  className=" hover:bg-gray-100 rounded-full line-clamp-1  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
                   // onClick={(e) => {
                   //   e.stopPropagation();
                   //   handleClick({ lat: container.state.latitude, lng: container.state.longitude });
@@ -71,8 +67,8 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
                   state : {container.state.title}
                 </h3>
               </div>
-              <IconWidget paragraph={container.locations_address} header="Address" icon={<Location />} />
-              <IconWidget paragraph={container?.phone_number} header="Phone" icon={<Phone />} />
+              <IconWidget paragraph={container.locations_address} header="" icon={<Location />} />
+              <IconWidget paragraph={container?.phone_number} header="" icon={<Phone />} />
             </Container>
           ))}
         </div>

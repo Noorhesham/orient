@@ -89,6 +89,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user2Settings, setUser2Settings] = useState<any>(() => queryClient.getQueryData(["user2_settings"]));
   const [cartCount, setCartCount] = useLocalStorageState(0, "cartCount");
   const [loading, setLoading] = useState(true);
+  console.log(generalSettings, userSettings, user2Settings, "cartcount", cartCount);
   // console.log("auth context", generalSettings, userSettings, user2Settings, "cartcount", cartCount);
   useEffect(() => {
     if (user2Settings) setCartCount(user2Settings?.cart_count);

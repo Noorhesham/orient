@@ -38,7 +38,7 @@ const CoponApply = ({ applied_coupon }: { applied_coupon: any }) => {
         disabled={applied_coupon!! || isPending}
         onChange={(e) => setCode(e.target.value)}
         value={code}
-        className=" "
+        className="  py-2"
         placeholder={t("coupon")}
       />
       {applied_coupon && (
