@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useRef, useState, useTransition } from "react";
 import CustomForm from "./CustomForm";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -12,15 +12,16 @@ import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { DialogClose } from "@/components/ui/dialog";
 const schema = z.object({
   // name: z.string(),
-  phone: z.object({
-    phone: z.any(),
+
+  phone: z.any(),
   country_id: z.union([z.string().min(1, { message: "Country is required" }), z.number()]),
   state_id: z.union([z.string(), z.number()]),
   city_id: z.union([z.string(), z.number()]),
   address: z.string().min(1, { message: "Address is required" }),
-})});
+});
 
 const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipping?: any }) => {
   const t = useTranslations();
@@ -36,6 +37,7 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
       address: item?.address || "",
       country_id: item?.country_id || "",
       state_id: item?.state_id || "",
+      city_id: item?.city_id || "",
     },
   });
   const [open, setIsOpen] = useState(false);
@@ -43,6 +45,7 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const closeModal = useRef();
   console.log(form.formState.errors);
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
@@ -66,9 +69,11 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
         router.refresh();
         if (res.status) {
           toast.success(res.message);
+          form.reset();
+          closeModal.current.click();
           queryClient.invalidateQueries({ queryKey: ["checkout"] });
           setDefaultShipping && setDefaultShipping(res.id);
-          router.push('/success');
+          // router.push("/success");
         }
         if (!res.status) toast.error(res.message);
       });
@@ -82,7 +87,15 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
     //   name: "name",
     //   placeholder: "YOUR NAME",
     // },
-    { name: "phone", phone: true, placholder: "COUNTRY KEY", type: "text", required: true, returnFullPhone: false },
+    {
+      name: "phone",
+      phone: true,
+      placholder: "COUNTRY KEY",
+      type: "text",
+      required: true,
+      returnFullPhone: false,
+      label: t("address.phone"),
+    },
     { country: true, countryName: "country_id", stateName: "state_id", cityName: "city_id" },
 
     { name: "address", placeholder: t("address.title"), label: t("address.title") },
@@ -109,6 +122,7 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
             onSubmit={onSubmit}
             inputs={shippingArray}
           />
+          <DialogClose ref={closeModal} className=" hidden"></DialogClose>
         </div>
       }
     />

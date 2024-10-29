@@ -11,7 +11,7 @@ const SideBar = () => {
   const t = useTranslations();
   return (
     <Container className="flex   md:flex-col flex-row    col-span-2   gap-3">
-      <ul className=" text-xs lg:text-sm items-start flex  md:flex-col flex-row  flex-wrap gap-5 mt-3 lg:flex-col text-gray-900 font-semibold">
+      <ul className=" text-xs lg:text-sm items-start flex md:flex grid grid-cols-2  md:flex-col flex-row  flex-wrap gap-5 mt-3 lg:flex-col text-gray-900 font-semibold">
         <div className=" hidden md:block">
           <UserPhoto />
         </div>

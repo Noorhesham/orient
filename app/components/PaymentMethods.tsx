@@ -2,10 +2,11 @@
 import React from "react";
 import PaymentMethod from "./PaymentMethod";
 
-const PaymentMethods = ({ methods }: any) => {
-  const [selectedMethod, setSelectedMethod] = React.useState(0);
+const PaymentMethods = ({ methods, defaultPayment }: any) => {
+  const [selectedMethod, setSelectedMethod] = React.useState(defaultPayment || 0);
+
   return (
-    <div className=" flex justify-center my-4 items-center gap-4">
+    <div className=" flex justify-start my-4 items-center gap-4  lg:gap-8">
       {methods.map((item: any) => (
         <PaymentMethod
           setSelected={setSelectedMethod}

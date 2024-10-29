@@ -46,6 +46,7 @@ export function InputOTPPattern({
   const { setLogin } = useAuth();
   const [resending, setResending] = useState(false);
   const [timer, setTimer] = useState(true);
+
   const otpSchema = z.object({
     code: z.string().min(6).max(6),
     password: !forgot
@@ -144,7 +145,7 @@ export function InputOTPPattern({
         if (email || phone) {
           return router.push(`?${updatedParams.toString()}`, { scroll: false });
         }
-        forgot ? router.push("/login") : router.push(redirect ? redirect : "/");
+        forgot ? router.push("/login") : router.push(redirect ? redirect : "/loader");
       }
     });
   };
@@ -180,15 +181,16 @@ export function InputOTPPattern({
             <div className="mt-4  flex items-center gap-2">
               {!activate && (
                 <Button
+                  disabled={resending}
                   type="button"
-                  className="rounded-full flex-1 px-8"
+                  className="rounded-full bg-white border-main border  text-main hover:text-white flex-1 px-8"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleSend(sendType);
+                    handleSend ? handleSend(sendType) : Resend();
                     setTimer(true);
                   }}
                 >
-                  {t("resend_code")}
+                  {resending ? <Spinner /> : t("resend_code")}
                 </Button>
               )}
               <Button disabled={isPending} className=" flex-1 rounded-full px-8" type="submit">

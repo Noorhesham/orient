@@ -14,7 +14,7 @@ const page = async () => {
   const { data } = await Server({
     resourceName: "getEntity",
     entityName: "shipping-addresses",
-    queryParams: new URLSearchParams({ with: "country_id,state_id" }),
+    queryParams: new URLSearchParams({ with: "country_id,state_id,city_id" }),
   });
   const t = await getTranslations();
   console.log(data);
@@ -26,7 +26,7 @@ const page = async () => {
         data.map((item: any) => (
           <div
             key={item.id}
-            className=" flex  flex-col mt-4  sm:flex-row w-full lg:w-[80%]  gap-2 lg:gap-5 items-start lg:items-center"
+            className=" flex border-b border-input pb-2  flex-col mt-4  sm:flex-row w-full lg:w-[80%]  gap-2 lg:gap-5 items-start lg:items-center"
           >
             <IconWidget
               paragraph={`${item.state.title} ${item.address}`}

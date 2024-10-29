@@ -4,7 +4,6 @@ import ImageGrid from "../../../../components/ImageGrid";
 import Tabing from "../../../../components/Tabing";
 import { PaginationDemo } from "@/app/components/Pagination";
 import { Server } from "@/app/main/Server";
-import { SkeletonCard } from "@/app/components/SkeletonCard";
 
 const page = async ({ searchParams }: { searchParams: any }) => {
   const { data: categories } = await Server({

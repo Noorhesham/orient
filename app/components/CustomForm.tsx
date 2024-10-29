@@ -79,12 +79,12 @@ const CustomForm = ({
       <form className="flex  uppercase w-full items-stretch gap-2" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-1 flex-col">
           {title && <Head1 className=" text-lg text-center" text={title} />}
-          <div className="flex lg:pt-4 flex-col gap-4">
+          <div className="flex lg:pt-4 flex-col gap-2">
             {inputs.map((input) =>
               input?.select ? (
                 <FormSelect placeholder={input.placeholder} key={input.name} {...input} />
               ) : input.country ? (
-                <CountriesInput cityName={input.cityName} countryName={input.countryName} stateName={input.stateName} />
+                <CountriesInput label={input.label} cityName={input.cityName} countryName={input.countryName} stateName={input.stateName} />
               ) : (
                 <FormInput
                   returnFullPhone={input?.returnFullPhone}
@@ -124,11 +124,11 @@ const CustomForm = ({
             {" "}
             {Array.isArray(serverError)
               ? serverError?.map((err: any, i: number) => (
-                  <p key={i} className="text-red-500 text-sm">
+                  <p key={i} className="text-red-500 text-center text-sm">
                     {err}
                   </p>
                 ))
-              : serverError && <p className="text-red-500 text-sm">{serverError}</p>}
+              : serverError && <p className="text-red-500 text-center text-sm">{serverError}</p>}
           </div>
         </div>
       </form>

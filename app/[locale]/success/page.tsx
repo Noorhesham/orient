@@ -21,7 +21,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     <MaxWidthWrapper>
       <Dialog open={true}>
         <DialogContent className="  max-w-4xl text-center py-10 overflow-y-auto max-h-[80vh] flex flex-col items-center  sm:rounded-[1.8rem]">
-          {status === "success" ? (
+          {status === "success"||!status ? (
             <>
               <div className=" w-32 h-32 relative">
                 <Image src="/complete.svg" alt={t("success")} fill />

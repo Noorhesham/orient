@@ -255,7 +255,9 @@
     "total": "Total",
     "action": "Action",
     "viewDetails": "View Details",
-    "totalLabel": "Total"
+    "totalLabel": "Total",
+    "on_hold": "ON HOLD",
+    "processing": "PROCESSING"
   },
   "orderDetails": {
     "orderNumber": "ORDER N{uuid}",

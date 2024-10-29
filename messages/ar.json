@@ -252,7 +252,9 @@
     "total": "الإجمالي",
     "action": "الإجراء",
     "viewDetails": "عرض التفاصيل",
-    "totalLabel": "الإجمالي"
+    "totalLabel": "الإجمالي",
+    "on_hold": " قيد الانتظار",
+    "processing": "قيد التوصيل "
   },
   "orderDetails": {
     "orderNumber": "رقم الطلب {uuid}",

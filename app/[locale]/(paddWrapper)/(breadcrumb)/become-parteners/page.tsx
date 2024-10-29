@@ -1,6 +1,7 @@
 import FormContainer from "@/app/components/FormContainer";
 import Head1 from "@/app/components/Head1";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
+import MotionItem from "@/app/components/MotionItem";
 import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
 import { Server } from "@/app/main/Server";
@@ -75,10 +76,10 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
               <Partner tabs={tabs} />
             </Section>
           </Suspense>
-          <div className=" col-span-full w-full lg:col-span-2">
+          <MotionItem key={category} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" col-span-full w-full lg:col-span-2">
             <Head1 text={t("contact.question")} />
             <FormContainer server id={category} submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
-          </div>
+          </MotionItem>
         </div>
       </MaxWidthWrapper>
     </main>

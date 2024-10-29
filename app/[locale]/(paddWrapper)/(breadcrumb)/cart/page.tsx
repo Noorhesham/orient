@@ -15,9 +15,7 @@ import NotFound from "../../../not-found";
 import CoponApply from "@/app/components/CoponApply";
 import CartItems from "@/app/components/CartItems";
 import Proceed from "@/app/components/Proceed";
-import Image from "next/image";
-import Heading from "@/app/components/Heading";
-import Paragraph from "@/app/components/Paragraph";
+
 import { getTranslations } from "next-intl/server";
 import EmptyCart from "@/app/components/EmptyCart";
 import Head1 from "@/app/components/Head1";
@@ -121,13 +119,13 @@ const page = async () => {
                 items={similarProducts.slice(0, 6).map((item: any) => ({
                   card: (
                     <Card
-                    key={item.id}
-                    img={item.main_cover?.[0]?.sizes.medium}
-                    price={item.price_after_discount}
-                    sell={item.price}
-                    text={item.title}
-                    id={item.id}
-                  />
+                      key={item.id}
+                      img={item.main_cover?.[0]?.sizes.medium}
+                      price={item.price_after_discount}
+                      sell={item.price}
+                      text={item.title}
+                      id={item.id}
+                    />
                   ),
                 }))}
               />

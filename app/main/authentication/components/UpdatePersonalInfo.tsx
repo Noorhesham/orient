@@ -112,7 +112,7 @@ const UpdatePersonalInfo = () => {
                 formArray={email}
                 title={t("updateEmail")}
               />
-              {searchParams.get("uuid") && <InputOTPPattern setServerError={setOtpError} email sendType="email" />}
+              {searchParams.get("uuid") && <InputOTPPattern  setServerError={setOtpError} email sendType="email" />}
               {OtpError && <p className="text-red-500 text-sm">{OtpError}</p>}
             </div>
           )
@@ -151,7 +151,7 @@ const UpdatePersonalInfo = () => {
               {searchParams.get("uuid") && (
                 <InputOTPPattern setServerError={setOtpError} sendType="" phone country_key={user?.country_key} />
               )}
-              {OtpError && <p className="text-red-500">{OtpError}</p>}
+              {OtpError && <p className="text-red-500 text-center mt-4">{OtpError}</p>}
             </div>
           )
         }
@@ -171,7 +171,7 @@ const UpdatePersonalInfo = () => {
             <Skeleton />
           ) : (
             <div className=" px-5 lg:px-20 py-5">
-              <FormContainer
+              <FormContainer 
                 submit={updatePersonalInfro}
                 cancel={true}
                 defaultValues={user}

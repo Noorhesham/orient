@@ -4,10 +4,9 @@ import UpdateCard from "@/app/components/UpdateCard";
 import { useGetEntity } from "@/lib/queries";
 import { format } from "date-fns";
 import React, { useTransition } from "react";
-import { FaPhone } from "react-icons/fa";
-import { MdOutlineDevices } from "react-icons/md";
+import { MdDevices, MdOutlineDevices } from "react-icons/md";
 import { HiComputerDesktop, HiPhone } from "react-icons/hi2";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Server } from "../../Server";
 import { useTranslations } from "next-intl";
 import { useDevice } from "@/app/context/DeviceContext";
@@ -42,7 +41,7 @@ const Devices = () => {
           <Spinner />
         ) : (
           <div className=" flex  lg:flex-row flex-col items-center gap-5  lg:gap-20 lg:items-start px-5 lg:px-20 py-5">
-            <div className=" lg:w-[10rem]">
+            <div className=" lg:sticky lg:top-20 lg:w-[10rem]">
               <p className=" text-sm text-nowrap font-semibold lg:text-base">{t("activedevices")}</p>
             </div>
             <div className=" flex flex-col gap-4  items-start">
@@ -50,15 +49,16 @@ const Devices = () => {
                 ?.flat()
                 ?.reverse()
                 .map((val, i) => (
-                  <div key={i} className=" flex  w-full justify-between">
-                    <div className="flex flex-col ">
+                  <div key={i} className=" flex  w-full lg:flex-nowrap flex-wrap justify-between">
+                    <div className="flex w-full lg:w-fit flex-col ">
                       <div className="flex flex-col items-start gap-1" key={i}>
-                        <div className=" flex items-start gap-2">
+                        <div className=" flex items-start  gap-2">
                           {val.device_type?.toLowerCase() === "desktop" && (
                             <HiComputerDesktop className=" mb-auto text-main w-5 h-5 " />
                           )}
                           {val.device_type === "phone" && <HiPhone className=" text-main w-5 h-5" />}
-                          {val.device_type === "mobile" && <Laptop className=" text-main w-8 h-8" />}
+                          {val.device_type === "mobile" && <Laptop className=" text-main w-5 h-5" />}
+                          {val.device_type === "" && <MdDevices className=" text-main w-5 h-5" />}
                           <h1 className=" font-semibold text-sm text-gray-900">{val?.device_type}</h1>
                           {val.unique_id === deviceInfo.device_unique_id && (
                             <p className=" rounded-2xl text-[10px]  py-2 px-4 uppercase border border-gray-100 font-semibold">

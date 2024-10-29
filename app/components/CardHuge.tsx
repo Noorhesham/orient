@@ -32,7 +32,7 @@ const CardHuge = ({ h1, h2, href, item }: { h1?: string; h2?: string; href?: str
   return (
     <MotionItem
       nohover
-      className=" hover:-translate-y-2 group duration-300  w-full  h-full lg:h-auto  xl:max-w-full  px-5 shadow-md pb-5 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between"
+      className=" hover:-translate-y-2 group duration-300  w-full  h-fit lg:h-full  xl:max-w-full  px-5 shadow-md pb-5 mb-5 lg:mb-10 rounded-2xl border border-gray-300 flex flex-col justify-between"
     >
       <div className="self-center   rounded-2xl w-full  l overflow-hidden mt-10 relative h-[248px]">
         <Link href={item.id ? `/blog/${item.id}` : "#"} className="  rounded-2xl w-full   h-full  ">

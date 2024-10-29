@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import FormContainer from "./FormContainer";
 import { useTranslations } from "next-intl";
+import { WEBSITEURL } from "../constants";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CompeleteOrder = () => {
   const [isPending, startTransition] = useTransition();
@@ -21,6 +23,7 @@ const CompeleteOrder = () => {
       placeholder: t("name"),
       type: "text",
       required: true,
+      label: t("name"),
     },
     {
       email: true,
@@ -28,6 +31,7 @@ const CompeleteOrder = () => {
       placeholder: t("email"),
       type: "email",
       required: true,
+      label: t("email"),
     },
     {
       name: "phone",
@@ -35,7 +39,7 @@ const CompeleteOrder = () => {
       placeholder: t("phone"),
       required: true,
       type: "phoneNumber",
-      label: t("phoneLabel"),
+      label: t("phone"),
       returnFullPhone: false,
     },
     { country: true, countryName: "country_id", stateName: "state_id", cityName: "city_id" },
@@ -44,15 +48,16 @@ const CompeleteOrder = () => {
       placeholder: t("address"),
       type: "text",
       required: true,
+      label: t("address"),
     },
   ];
-  
+  const queryClinet = useQueryClient();
   const completeOrder = async (data?: any, setError?: any) => {
     const dataBody = {
       ...data,
       country_key: parseInt(data.phone?.country_key, 10),
       phone: parseInt(data.phone?.phone, 10),
-      callback: "https://orient-nine.vercel.app/success", // Adjust the callback URL to match the one that works
+      callback: `${WEBSITEURL}/success`,
     };
 
     try {
@@ -64,7 +69,9 @@ const CompeleteOrder = () => {
 
       if (res.status === true) {
         toast.success(res.message);
+        setCartCount(0);
         setError(null);
+        queryClinet.invalidateQueries({ queryKey: ["checkout"] });
         if (res.url) router.push(res.url);
       } else {
         setError(res.message || res.errors);
@@ -76,7 +83,7 @@ const CompeleteOrder = () => {
   };
   if (loading) return <Spinner />;
   return (
-    <div className="flex w-full pt-5  mx-auto flex-col">
+    <div className="flex w-full pt-5  order-2 mx-auto flex-col">
       {userSettings && !loading ? (
         <Button
           onClick={() => {
@@ -84,9 +91,10 @@ const CompeleteOrder = () => {
               const res = await Server({
                 resourceName: "completeOrder",
                 body: {
-                  callback: "http://localhost:3001/success",
+                  callback: `${WEBSITEURL}/success`,
                 },
               });
+              console.log(res);
               if (res.status) {
                 toast.success(res.message);
                 setCartCount(0);

@@ -39,14 +39,16 @@ const SideNav = ({
         {icon} {text}
       </div>
     ) : (
-      <Link
-        href={link}
-        className={`flex hover:bg-gray-100 hover:text-gray-800 duration-150 cursor-pointer w-fit md:w-full rounded-lg  p-1  lg:py-2 lg:px-4 items-center gap-2 self-start 
-         ${isActive ? "bg-gray-100" : ""}`}
-      >
-        {icon}
-        <p className=" font-semibold ">{text}</p>
-      </Link>
+      <li className="w-full">
+        <Link
+          href={link}
+          className={`flex hover:bg-gray-100 hover:text-gray-800 duration-150 cursor-pointer  rounded-lg  p-1  lg:py-2 lg:px-4 items-center gap-2 self-start 
+       ${isActive ? "bg-gray-100" : ""}`}
+        >
+          {icon}
+          <p className=" font-semibold ">{text}</p>
+        </Link>
+      </li>
     ))
   );
 };

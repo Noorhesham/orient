@@ -22,7 +22,7 @@ export function TableDemo({ data }: { data: any }) {
       <Table>
         <TableHeader className="lg:w-full lg:table-row-group hidden w-0">
           <TableRow className="w-full">
-            <TableHead className="px-3 py-1.5  w-full h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
+            <TableHead className="px-3 py-1.5  w-[60%] h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
               {t("orderSerial")}
             </TableHead>
             <TableHead className=" w-full px-3 py-1.5 h-auto flex-grow bg-main2 rounded-full text-gray-50 font-semibold text-center">
@@ -42,10 +42,10 @@ export function TableDemo({ data }: { data: any }) {
         <TableBody className="overflow-x-scroll">
           {data.map((product: any) => (
             <TableRow key={product.name}>
-              <TableCell className="flex items-center gap-2">
-                <p className="max-w-[10rem] text-xs lg:text-base font-semibold text-main2">{product.uuid}</p>
+              <TableCell className=" items-center gap-2">
+                <p className="text-xs lg:text-base font-semibold text-main2">{product.uuid}</p>
               </TableCell>
-              <TableCell className="text-xs lg:text-sm text-main2">{product.status}</TableCell>
+              <TableCell className="text-xs lg:text-sm text-main2">{t(product.status)}</TableCell>
               <TableCell className="text-xs lg:text-sm">{format(new Date(product.date), "dd/MM/yyyy")}</TableCell>
               <TableCell className="text-xs lg:text-sm">
                 <PriceWithSale size="sm" price={product.total} />
@@ -55,7 +55,7 @@ export function TableDemo({ data }: { data: any }) {
                   cancelBtn={false}
                   btn={
                     <div
-                      className={`cursor-pointer text-xs lg:text-sm flex items-center gap-2 ${
+                      className={`cursor-pointer text-nowrap text-xs lg:text-sm flex items-center gap-2 ${
                         locale === "ar" && "flex-row-reverse"
                       }`}
                     >
@@ -68,14 +68,14 @@ export function TableDemo({ data }: { data: any }) {
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
+        {/* <TableFooter>
           <TableRow>
             <TableCell colSpan={4}>{t("totalLabel")}</TableCell>
             <TableCell className="text-right">
               {formatPriceWithCommas(data.reduce((a: number, b: any) => a + b.total, 0))} {default_currency.code}
             </TableCell>
           </TableRow>
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </div>
   );

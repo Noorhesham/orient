@@ -47,7 +47,7 @@ const ShippingList = ({
   }, [selected]);
   console.log(selected);
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col gap-4 mt-4 items-start">
       {/* Default Address */}
 
       {/* Other Addresses */}

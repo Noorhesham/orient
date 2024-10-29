@@ -112,9 +112,9 @@ const FormInput = ({
         control={control}
         name={name}
         render={({ field }) => (
-          <FormItem className={`flex uppercase w-full flex-col text-left items-start  relative`}>
+          <FormItem className={`flex  w-full flex-col text-left items-start  relative`}>
             {!switchToggle && label !== "" && (
-              <FormLabel>
+              <FormLabel className="uppercase">
                 {label} {icon}
               </FormLabel>
             )}
@@ -144,8 +144,8 @@ const FormInput = ({
                     </div>
                   </Suspense>
                 ) : switchToggle ? (
-                  <div className="flex mx-auto uppercase   mt-3 gap-2 items-center ">
-                    <Label className=" md:text-sm  text-xs text-muted-foreground" htmlFor="sale">
+                  <div className="flex mx-auto    mt-3 gap-2 items-center ">
+                    <Label className=" md:text-sm uppercase text-xs text-muted-foreground" htmlFor="sale">
                       {label2 || ""}
                     </Label>
                     <Switch
@@ -176,7 +176,7 @@ const FormInput = ({
                           ? "text"
                           : type || "text"
                       }
-                      className={`${!phone && "bg-white"} capitalize w-full ${password && "pl-8"} `}
+                      className={`${!phone && "bg-white"}  w-full ${password && "pl-8"} `}
                       placeholder={placeholder}
                       {...field}
                       onChange={(e) => {

@@ -14,6 +14,7 @@ const AddToCart = ({
   max,
   disabled,
   cartStatus,
+  reverse = false,
 }: {
   id: number;
   max?: number;
@@ -22,6 +23,7 @@ const AddToCart = ({
   cartId?: any;
   cartStatus?: any;
   disabled?: boolean;
+  reverse?: boolean;
 }) => {
   const { mutate, isPending, data } = useCreateEntity("addToCart", "cart");
   const { cartCount, setCartCount } = useAuth();
@@ -37,6 +39,7 @@ const AddToCart = ({
     </div>
   ) : (
     <CustomButton
+      reverse={reverse}
       disabled={disabled}
       isPending={isPending}
       onClick={() => {

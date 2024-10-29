@@ -30,11 +30,11 @@ const useGetEntities = ({
 const CountriesInput = ({
   countryName,
   stateName,
-  cityName,
+  cityName,label
 }: {
   countryName: string;
   stateName: string;
-  cityName?: string;
+  cityName?: string;label?:string
 }) => {
   const form = useFormContext();
   const t = useTranslations("CountriesInput"); // Get translations for this component
@@ -58,7 +58,7 @@ const CountriesInput = ({
   });
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 my-2">
       {!isLoading && (
         <ComboboxForm
           name={countryName}

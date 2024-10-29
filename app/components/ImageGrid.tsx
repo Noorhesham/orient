@@ -5,13 +5,13 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const ImageGrid = ({ images }: { images: any[]; reverse?: boolean; separate?: boolean }) => {
   return (
-    <div className="grid grid-cols-4 grid-rows-2 hover:opacity-90 duration-100 gap-y-2 mt-8 gap-x-2">
+    <div className="grid grid-cols-4 grid-rows-2 duration-100 gap-y-2 mt-8 gap-x-2">
       {images?.map((src, index) => (
         <ZoomImage
           key={index}
           src={src.file}
           btn={
-            <div className="relative  reveal   first:row-span-2  first:col-span-4 first:lg:col-span-2 cursor-pointer hover:opacity-90 duration-100 w-full col-span-4 lg:col-span-1 row-span-1">
+            <div className="relative  reveal   first:row-span-2  first:col-span-4 first:lg:col-span-2 cursor-pointer hover:opacity-80 duration-100 w-full col-span-4 lg:col-span-1 row-span-1">
               <Image src={src.med} alt="image" width={500} height={250} className="object-cover w-full h-full" />
             </div>
           }
@@ -27,7 +27,7 @@ const ImageGrid = ({ images }: { images: any[]; reverse?: boolean; separate?: bo
                 return {
                   card: (
                     <TransformWrapper
-                      initialScale={1}
+                      initialScale={2} initialPositionX={0}
                       minScale={0.5}
                       maxScale={3}
                       centerOnInit

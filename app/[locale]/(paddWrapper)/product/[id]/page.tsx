@@ -2,7 +2,6 @@ import AddToWishlist from "@/app/components/AddToWishlist";
 import Calculate from "@/app/components/Calculate";
 import Card from "@/app/components/Card";
 import Container from "@/app/components/Container";
-import CustomButton from "@/app/components/CustomButton";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import PriceWithSale from "@/app/components/PriceWithSale";
 import Section from "@/app/components/Section";
@@ -10,9 +9,9 @@ import Stars from "@/app/components/Stars";
 import SwiperCards from "@/app/components/SwiperCards";
 import { Button } from "@/components/ui/button";
 import { BoxIcon, CreditCard, CreditCardIcon, DownloadIcon, Headphones } from "lucide-react";
-import React, { Suspense } from "react";
+import React from "react";
 import { CiCalculator2 } from "react-icons/ci";
-import { TbShoppingCartPlus, TbView360Arrow } from "react-icons/tb";
+import { TbView360Arrow } from "react-icons/tb";
 import YoutubeThumbnail from "@/app/components/YoutubeThumbnail";
 import Reviews from "@/app/components/Reviews";
 import Feature from "@/app/components/Feature";
@@ -161,8 +160,9 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 />
               </div>
             </div>
-            <div className=" fixed z-50  bottom-0 left-0 p-4 w-full flex items-center bg-white/90 justify-center  lg:hidden gap-3 mt-3">
+            <div className=" fixed z-50  bottom-0 left-0 p-4 w-full flex items-center bg-main2/70 justify-center  lg:hidden gap-3 mt-3">
               <AddToCart
+                reverse={true}
                 disabled={product.quantity === 0 || product.stock_status === "out"}
                 cartStatus={cartStatus[`${product.id}`]}
                 max={product.quantity}
@@ -292,6 +292,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                       <SwiperCards
                         autoplay
                         zoom={true}
+                        mobile={2}
                         slidesPerView={3}
                         className=" w-full h-full"
                         items={product.crossSells?.map((item: any) => ({
@@ -309,7 +310,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     </div>
                   </>
                 )}
-                <div className="flex  my-3 lg:my-10 z-[50] w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
+                <div className="flex  my-3 lg:my-10 z-[40] w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
                   <a href="#desc">{t("description")}</a>
                   <a href="#review">{t("review")}</a>
                 </div>
@@ -460,6 +461,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
             {
               <div className=" mt-4 flex lg:hidden">
                 <SwiperCards
+                  mobile={2}
                   autoplay
                   slidesPerView={2}
                   className=" w-full h-full"
