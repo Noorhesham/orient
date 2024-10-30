@@ -146,13 +146,13 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
         <MaxWidthWrapper noPadding className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
           <div className="lg:col-span-8 items-center max-w-full flex flex-col gap-4  lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
             <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
-              <div className="aspect-square  w-full h-full ">
+              <div className="aspect-square  w-full ">
                 <SwiperCards
                   paginationImgs={paginationImgs}
                   zoom={true}
                   rounded
                   spaceBetween={50}
-                  className="w-full aspect-square h-full"
+                  className="w-full aspect-square"
                   slidesPerView={1}
                   md={1}
                   items={ims}
@@ -172,7 +172,6 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
             </div>
 
             <Section
-              CustomePadding="px-0 pb-5  py-0"
               headingColor="#E6007E"
               heading={product.title}
               className=" col-span-3 flex-grow text-wrap  mt-12"

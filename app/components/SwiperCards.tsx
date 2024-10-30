@@ -134,7 +134,7 @@ const SwiperCards = ({
                     }
                     btn={
                       <div className="relative     first:row-span-2  first:col-span-4 first:lg:col-span-2 cursor-pointer hover:opacity-90 duration-100 w-full col-span-4 lg:col-span-1 row-span-1">
-                        <Image src={src} alt="image" width={500} height={250} className="object-cover w-full h-full" />
+                        <Image src={src} alt="image" fill className="object-cover w-full h-full" />
                       </div>
                     }
                   />
