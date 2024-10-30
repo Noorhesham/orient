@@ -262,7 +262,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   />
                 </div>
               </div>
-              <Paragraph className=" my-2" danger description={product.description || ""} />
+              <Paragraph className=" my-2" danger description={product.short_description || ""} />
 
               <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">{t("filters.category")} :</h3>
@@ -314,7 +314,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 </div>
                 <section className="  w-full mt-8">
                   <h1 className=" text-xl font-semibold">{t("description")}</h1>
-                  <Paragraph description={product.description || ""} />
+                  <Paragraph danger description={product.description || ""} />
                   <br />
 
                   <Feature />
