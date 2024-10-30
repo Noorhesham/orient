@@ -6,6 +6,7 @@ import MotionItem from "@/app/components/MotionItem";
 import Products from "@/app/components/Products";
 import Sort from "@/app/components/Sort";
 import { Server } from "@/app/main/Server";
+import { cn } from "@/lib/utils";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import React from "react";
 
@@ -54,9 +55,9 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
             </div>
             <div className=" lg:col-span-6 grid-cols-3 ">
               <div className="  gap-3 w-full flex-col md:flex-row  flex  lg:items-center sm:flex-row flex-grow justify-between">
-                <div className="flex  gap-1  items-center">
+                <div className={cn("flex  gap-1  items-center", { " flex-row-reverse": locale === "ar" })}>
                   <h1 className=" text-black font-semibold">{data.count}</h1>{" "}
-                  <p className=" text-muted-foreground ml-2">
+                  <p className={cn(`text-muted-foreground flex items-center  ml-2`)}>
                     {t("found")}
                     {search ? (
                       <span>

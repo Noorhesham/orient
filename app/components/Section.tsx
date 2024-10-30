@@ -15,7 +15,7 @@ const Section = ({
   className,
   headingColor,
   paragraph,
-  CustomePadding,
+
   id,
   headingclass,
 }: {
@@ -26,7 +26,7 @@ const Section = ({
   className?: string;
   headingColor?: string;
   paragraph?: string;
-  CustomePadding?: string;
+
   id?: string;
   headingclass?: string;
 }) => {
@@ -57,7 +57,7 @@ const Section = ({
                 locale === "ar" ? "flex-row-reverse" : " "
               }`}
             >
-              {linkText} <ArrowRight className="arrowanimation md:w-5 md:h-5 w-3 h-3" />
+              {linkText} <ArrowRight className={`${locale==='ar'&&"rotate-180"} arrowanimation md:w-5 md:h-5 w-3 h-3`} />
             </Link>
           )}
         </MotionContainer>

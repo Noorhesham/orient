@@ -8,6 +8,7 @@ import { Server } from "@/app/main/Server";
 import { getTranslations } from "next-intl/server";
 import VideoZoom from "@/app/components/VideoZoom";
 import { processYoutubeUrl } from "@/lib/utils";
+import MotionItem from "@/app/components/MotionItem";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   const t = await getTranslations();
@@ -15,7 +16,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   const { page } = data;
   return (
     <>
-      <section className=" relative min-h-[50vh] 2xl:min-h-[80vh]">
+      <section className=" relative min-h-[23vh] 2xl:min-h-[80vh]">
         <div
           style={{
             backgroundSize: "cover",
@@ -39,7 +40,11 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
                 description={page.content}
               />
             </div>
-            <div className=" lg:my-0 my-3  flex-grow flex-col flex  w-full xl:w-[31%]  h-[616px] relative ">
+            <MotionItem
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, type: "spring" } }}
+              className=" lg:my-0 my-3  flex-grow flex-col flex  w-full xl:w-[31%]  h-[616px] relative "
+            >
               <Image src={page.content_images?.[0].file} alt="about" className=" object-cover" fill />
               <Image
                 src={page.content_images?.[1].file}
@@ -47,10 +52,12 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
                 width={348}
                 height={297}
                 className={` ${
-                  locale === "ar" ? "right-10 " : "left-10 lg:left-[-13%]"
-                } absolute  w-[60%]   top-[50%]  md:top-[40%]`}
+                  locale === "ar"
+                    ? " left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:-right-52 "
+                    : "left-1/2  -translate-x-1/2 lg:translate-x-0  lg:left-[-13%]"
+                } absolute  w-[60%]   top-auto md:bottom-0 bottom-10  md:top-[40%]`}
               />
-            </div>
+            </MotionItem>
           </div>
         </section>
       </MaxWidthWrapper>
@@ -135,7 +142,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           />
         </div>
         <div className="">
-          <div className="flex mt-5  gap-4 lg:gap-8 items-start flex-col md:flex-row lg:items-center">
+          <div className="flex mt-5  gap-8 items-start flex-col md:flex-row lg:items-center">
             <div className=" flex-grow  relative">
               <h2 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.parteners")}</h2>
             </div>

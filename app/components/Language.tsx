@@ -37,17 +37,6 @@ const Language = () => {
         method: "POST",
       });
 
-      const res = await Server({
-        resourceName: "languageUpdate",
-        body: {
-          key: "language",
-          value: cookies.get("NEXT_LOCALE"),
-          device_info: deviceInfo,
-          action: "set",
-          default: "en",
-        },
-      });
-
       router.refresh();
     });
   };

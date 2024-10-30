@@ -121,8 +121,8 @@ export default async function Home({ params: { locale } }: { params: { locale: s
           />
         </Section>
       </MaxWidthWrapper>
-      <div className=" relative  sm:h-96  h-80 mt-2">
-        <SwiperCards
+      <div className=" relative  sm:h-[28rem]  h-80 mt-2">
+        <SwiperCards  btns
           mobile={1.3}
           className="aspect-square "
           items={products_categories?.map((item: any, index: number) => {

@@ -213,7 +213,7 @@ export async function Server({
 }) {
   const jwt = cookies().get("jwt")?.value;
   const deviceId = cookies().get("deviceInfo")?.value || "{}";
-
+  const lang = cookies().get("NEXT_LOCALE")?.value || "en";
   // Set up headers
   const combinedHeaders: { [key: string]: string } = {
     ...headers,
@@ -224,6 +224,9 @@ export async function Server({
   }
   if (deviceId) {
     combinedHeaders["device-unique-id"] = JSON.parse(deviceId).device_unique_id;
+  }
+  if (lang) {
+    combinedHeaders["lang"] = lang;
   }
   try {
     const { url, method: resolvedMethod } = getURL(resourceName, id, entityName, queryParams);
