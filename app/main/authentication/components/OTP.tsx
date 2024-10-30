@@ -145,7 +145,7 @@ export function InputOTPPattern({
         if (email || phone) {
           return router.push(`?${updatedParams.toString()}`, { scroll: false });
         }
-        forgot ? router.push("/login") : router.push(redirect ? redirect : "/loader");
+        forgot ? router.push("/login") : router.push(redirect ? redirect : "/");
       }
     });
   };

@@ -265,7 +265,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   />
                 </div>
               </div>
-              <Paragraph className=" my-2" description={product.description || ""} />
+              <Paragraph className=" my-2" danger description={product.description || ""} />
+              
               <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">{t("filters.category")} :</h3>
                 <Link
