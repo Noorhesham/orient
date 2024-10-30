@@ -30,7 +30,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         />
       </section>
       <MaxWidthWrapper>
-        <section className="">
+        <section className=" overflow-x-hidden">
           <div className=" flex lg:flex-row flex-col items-start lg:items-center">
             <div className="flex lg:max-w-2xl w-full lg:w-[65%] flex-col gap-4">
               <h2 className=" text-main uppercase text-2xl lg:text-3xl font-bold">{page.content_title}</h2>
