@@ -21,7 +21,7 @@ const NavLink = ({
 }) => {
   const locale = cookies.get("NEXT_LOCALE");
   const linkStyles =
-    "uppercase hover:opacity-90 duration-150 hover:text-gray-200  opacity-100 text-white flex items-center gap-2 font-[400]  font-medium text-sm xl:text-base tracking-wide ";
+    "uppercase hover:opacity-90 duration-150 hover:text-gray-200  opacity-100 flex items-center gap-2 font-[400]  font-medium text-sm xl:text-base tracking-wide ";
   if (!subLinks)
     return (
       <Link href={href || "/"} className={linkStyles}>

@@ -14,6 +14,7 @@ import { IoOpenOutline } from "react-icons/io5";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ZoomImage from "./ZoomImage";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const SwiperCards = ({
   items,
@@ -77,12 +78,12 @@ const SwiperCards = ({
   return (
     <div className="relative h-full gap-3 w-full flex flex-col">
       <Swiper
-        touchStartPreventDefault={false}
         breakpoints={{
           0: {
             slidesPerView: mobile ? mobile : logo ? 2 : samePhone ? slidesPerView : 1,
             centeredSlides: logo ? false : true,
           },
+          320: { slidesPerView: mobile || slidesPerView || 1 },
           580: { slidesPerView: md || mobile || slidesPerView || 2 },
           768: { slidesPerView: md || 2 },
           900: { slidesPerView: md || slidesPerView || 3 },
@@ -171,11 +172,11 @@ const SwiperCards = ({
         )}
       </Swiper>
       {btns && (
-        <div
-          style={{ flexDirection: local === "ar" ? "row-reverse" : "row" }}
+        <MaxWidthWrapper noPadding
           className={cn(
-            " flex mb-4 h-fit items-center gap-20  md:gap-8 justify-between lg:justify-center  mt-5 ",
-            btnClass || ""
+            "flex mb-4 h-fit items-center gap-20 md:gap-8 justify-between lg:justify-center mt-5",
+            btnClass || "",
+            local === "ar" ? "flex-row-reverse" : ""
           )}
         >
           <Button
@@ -193,7 +194,7 @@ const SwiperCards = ({
           >
             {t("next")} <ArrowRight />
           </Button>
-        </div>
+        </MaxWidthWrapper>
       )}
       {paginationImage && (
         <div className="p-3 hidden justify-center md:flex z-10 mt-4 relative items-center gap-2">

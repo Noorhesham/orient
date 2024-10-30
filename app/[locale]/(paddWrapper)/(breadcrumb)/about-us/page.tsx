@@ -112,7 +112,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           </MotionItem>
         </MotionContainer>
 
-        <MotionContainer className="flex lg:flex-row flex-col  gap-4 items-center">
+        <MotionContainer className="flex lg:flex-row    flex-col-reverse gap-4 items-center">
           <MotionItem nohover className=" flex-shrink flex flex-col gap-2">
             <h2 className=" text-3xl font-bold text-main">{page.mission_title}</h2>
             <Paragraph danger full description={page.mission_content} />
@@ -122,7 +122,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           </MotionItem>
         </MotionContainer>
 
-        <div className="flex   gap-4 lg:gap-8 items-start flex-col lg:flex-row lg:items-center">
+        <div className="flex   gap-4  lg:gap-8 items-start flex-col lg:flex-row lg:items-center">
           <div className=" flex-grow  relative">
             {locale === "en" && <h2 className=" text-main2 text-3xl lg:text-5xl font-semibold">OUR</h2>}
             <h2 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.certificate")}</h2>
@@ -137,6 +137,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
             logo={true}
             spaceBetween={50}
             contain
+            mobile={3}
             slidesPerView={5}
             className=" w-full  h-32 "
             items={page.certificates.map((item: any, index: number) => {
@@ -145,7 +146,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           />
         </div>
         <div className="">
-          <div className="flex mt-5  gap-8 items-start flex-col md:flex-row lg:items-center">
+          <div className="flex mt-5  gap-4  lg:gap-8 items-start flex-col md:flex-row lg:items-center">
             <div className=" flex-grow  relative">
               <h2 className=" text-main2 text-3xl lg:text-5xl font-semibold">{t("aboutusPage.parteners")}</h2>
             </div>
@@ -157,6 +158,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
             <SwiperCards
               btns={true}
               logo={true}
+              mobile={3}
               spaceBetween={50}
               slidesPerView={5}
               contain
