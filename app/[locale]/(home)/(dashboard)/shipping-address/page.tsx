@@ -29,8 +29,8 @@ const page = async () => {
             className=" flex border-b border-input pb-2  flex-col mt-4  sm:flex-row w-full lg:w-[80%]  gap-2 lg:gap-5 items-start lg:items-center"
           >
             <IconWidget
-              paragraph={`${item.state.title} ${item.address}`}
-              header={item.country.title}
+              paragraph={`${item?.state?.title} ${item?.address}`}
+              header={item?.country?.title}
               icon={<Location />}
             />
             <div className=" w-full  justify-end flex flex-wrap flex-row  items-center gap-3">
