@@ -47,7 +47,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   return (
     <MaxWidthWrapper className=" bg-gray-50">
       {" "}
-      <section className=" min-h-screen  ">
+      <section className="overflow-x-hidden  min-h-screen  ">
         <MotionItem nohover initial={{ y: -100 }} animate={{ y: 1 }} className=" flex justify-center">
           <section className=" flex flex-col w-full lg:grid lg:gap-10 lg:grid-cols-9  mt-5 ">
             <div className="col-span-3 lg:block hidden">
@@ -86,7 +86,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                   <FilterMobile filters={[categories, attributes, tags]} />
                 </div>
               </div>
-              <MotionContainer className="grid duration-150   overflow-x-hidden w-full grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 ">
+              <MotionContainer className="grid duration-150 overflow-x-hidden   w-full grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 ">
                 <Products totalPages={totalPages} products={products} />
               </MotionContainer>
             </div>
