@@ -12,7 +12,8 @@ import { format } from "date-fns";
 const OrderDetails = ({ id }: { id: string }) => {
   const { data, isLoading } = useGetEntity("my_order", "order", id);
   const t = useTranslations("orderDetails"); // Translation hook
-  const t1 = useTranslations();
+  const t1 = useTranslations("table");
+  const t2 = useTranslations("CountriesInput");
   if (isLoading) return <Spinner />;
   const { order } = data;
 
@@ -43,7 +44,9 @@ const OrderDetails = ({ id }: { id: string }) => {
           <div className="mt-2 flex flex-col gap-2">
             <h2 className="text-base text-main2">{t("shippingAddress")}</h2>
             <Paragraph
-              description={`${order.shipping_info.address_text} Country: ${order.shipping_info.country} State: ${order.shipping_info.state}`}
+              description={`${order.shipping_info.address_text} ${t2("countryLabel")}: ${
+                order.shipping_info.country
+              } ${t2("stateLabel")}: ${order.shipping_info.state}`}
             />
           </div>
         </div>

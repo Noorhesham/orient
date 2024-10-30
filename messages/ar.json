@@ -347,8 +347,8 @@
   "CountriesInput": {
     "countryLabel": "الدولة",
     "selectCountry": "اختر الدولة",
-    "stateLabel": "الولاية",
-    "selectState": "اختر الولاية",
+    "stateLabel": "المحافظة",
+    "selectState": "اختر المحافظة",
     "cityLabel": "المدينة",
     "selectCity": "اختر المدينة"
   },
