@@ -14,6 +14,7 @@ const OrderDetails = ({ id }: { id: string }) => {
   const t = useTranslations("orderDetails"); // Translation hook
   const t1 = useTranslations("table");
   const t2 = useTranslations("CountriesInput");
+  const address = useTranslations("address");
   if (isLoading) return <Spinner />;
   const { order } = data;
 
@@ -44,10 +45,11 @@ const OrderDetails = ({ id }: { id: string }) => {
           <div className="mt-2 flex flex-col gap-2">
             <h2 className="text-base text-main2">{t("shippingAddress")}</h2>
             <Paragraph
-              description={`${order.shipping_info.address_text} ${t2("countryLabel")}: ${
-                order.shipping_info.country
-              } ${t2("stateLabel")}: ${order.shipping_info.state}`}
+              description={` ${t2("countryLabel")}: ${order.shipping_info.country} ${t2("stateLabel")}: ${
+                order.shipping_info.state
+              }`}
             />
+            <Paragraph description={` ${address("title")} : ${order.shipping_info.address_text}`} />
           </div>
         </div>
       </div>
