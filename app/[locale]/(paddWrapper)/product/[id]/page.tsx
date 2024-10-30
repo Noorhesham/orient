@@ -84,12 +84,14 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
       queryParams.append(`options[${key}]`, value);
     });
   }
-  const { product, attributes, reviews_counts, variations } = await Server({
+  const data = await Server({
     resourceName: "getProduct",
     id,
     queryParams,
     body: { with: "tags,upSells,crossSells,category_id" },
   });
+  const { product, attributes, reviews_counts, variations } = data;
+  console.log(data)
   if (!product)
     return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
   const ischild = child === "true" || product.type === "variation";
@@ -171,11 +173,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <BuyNow id={product.id} />
             </div>
 
-            <Section
-              headingColor="#E6007E"
-              heading={product.title}
-              className=" col-span-3 flex-grow text-wrap  mt-12"
-            >
+            <Section headingColor="#E6007E" heading={product.title} className=" col-span-3 flex-grow text-wrap  mt-12">
               <div className="flex flex-col gap-3 pb-5">
                 <Stars count={product.review_count} rating={product?.review_rate || 5} />
                 <PriceWithSale
@@ -196,7 +194,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                         childId={ischild ? product.id : ""}
                         ischild={ischild}
                         variations={variations}
-                        options={attributes.filter((item: any) => item.slug === "volume")}
+                        options={attributes.filter((item: any) => item.slug === "wight")}
                         colorOptions={attributes.filter((item: any) => item.slug === "color")}
                       />
                     )}
@@ -265,7 +263,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 </div>
               </div>
               <Paragraph className=" my-2" danger description={product.description || ""} />
-              
+
               <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">{t("filters.category")} :</h3>
                 <Link
@@ -405,7 +403,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     childId={ischild ? product.id : ""}
                     ischild={ischild}
                     variations={variations}
-                    options={attributes.filter((item: any) => item.slug === "volume")}
+                    options={attributes.filter((item: any) => item.slug === "wight")}
                     colorOptions={attributes.filter((item: any) => item.slug === "color")}
                   />
                 )}

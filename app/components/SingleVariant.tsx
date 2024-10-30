@@ -3,23 +3,23 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-const syncUrls = ({ setVolumes, setColors, variations, filters }: any) => {
+const syncUrls = ({ setwights, setColors, variations, filters }: any) => {
   const existingVariationsVloume: any[] = [];
   const existingVariationsColor: any[] = [];
   variations?.forEach((variation: any) => {
-    const foundVolume = variation.find(
+    const foundwight = variation.find(
       (varr: any) =>
         varr.attribute_id == filters["color"]?.[0]?.split(":")[0] &&
         varr.option_id == filters["color"]?.[0]?.split(":")[1]
     );
     const foundColor = variation.find(
       (varr: any) =>
-        varr.attribute_id == filters["volume"]?.[0]?.split(":")[0] &&
-        varr.option_id == filters["volume"]?.[0]?.split(":")[1]
+        varr.attribute_id == filters["wight"]?.[0]?.split(":")[0] &&
+        varr.option_id == filters["wight"]?.[0]?.split(":")[1]
     );
     if (foundColor) existingVariationsColor.push(variation[0].option_id);
-    if (foundVolume) existingVariationsVloume.push(variation[1].option_id);
-    setVolumes(existingVariationsVloume);
+    if (foundwight) existingVariationsVloume.push(variation[1].option_id);
+    setwights(existingVariationsVloume);
     setColors(existingVariationsColor);
   });
 };
@@ -46,15 +46,15 @@ const SingleVariant = ({
     ischild
       ? {
           ["color"]: [`${[child[0].attribute_id]}:${[child[0].option_id]}`],
-          ["volume"]: [`${[child[1]?.attribute_id]}:${[child[1]?.option_id]}`],
+          ["wight"]: [`${[child[1]?.attribute_id]}:${[child[1]?.option_id]}`],
         }
       : {
           ["color"]: [`${[colorOptions[0]?.id]}:${[colorOptions[0]?.options[0]?.id]}`],
-          ["volume"]: [`${[options[0]?.id]}:${[options[0]?.options[0]?.id]}`],
+          ["wight"]: [`${[options[0]?.id]}:${[options[0]?.options[0]?.id]}`],
         }
   );
   const [colors, setColors] = React.useState<string[]>(colorOptions[0]?.options);
-  const [volumes, setVolumes] = React.useState<string[]>(options[0]?.options);
+  const [wights, setwights] = React.useState<string[]>(options[0]?.options);
   const router = useRouter();
   console.log(filters, options);
   const handleFilter = (filterValue: string, filterName: string) => {
@@ -67,7 +67,7 @@ const SingleVariant = ({
   };
   useEffect(() => {
     if (ischild) {
-      syncUrls({ setVolumes, setColors, variations, filters });
+      syncUrls({ setwights, setColors, variations, filters });
     }
   }, [ischild, filters, variations]);
   useEffect(() => {
@@ -84,7 +84,7 @@ const SingleVariant = ({
 
       if (ischild) {
         router.push(`/product/${parentId}?${params.toString()}`, { scroll: false });
-      } else if (filters["color"] && filters["volume"]) {
+      } else if (filters["color"] && filters["wight"]) {
         router.push(`?${params.toString()}`, { scroll: false });
       }
     };
@@ -111,12 +111,12 @@ const SingleVariant = ({
       newFilters[key] = value.split(",");
     });
     if (ischild) return;
-    if (params.get("color") && params.get("volume") && !ischild) setFilters(newFilters);
+    if (params.get("color") && params.get("wight") && !ischild) setFilters(newFilters);
   }, []);
 
   useEffect(() => {
     if (!ischild) return;
-    syncUrls({ setVolumes, setColors, variations, filters });
+    syncUrls({ setwights, setColors, variations, filters });
   }, []);
   const t = useTranslations();
   console.log(filters);
@@ -148,16 +148,16 @@ const SingleVariant = ({
         )}
         {options?.[0] && (
           <div className="flex items-center gap-2">
-            <h2 className="text-base  mb-2">{t("volume")}</h2>
+            <h2 className="text-base  mb-2">{t("wight")}</h2>
             {options[0].options?.map((option: any, i: number) => (
               <button
-                disabled={!volumes.includes(option.id)}
+                disabled={!wights.includes(option.id)}
                 onClick={() => {
-                  handleFilter(`${options[0].id}:${option.id}`, "volume");
+                  handleFilter(`${options[0].id}:${option.id}`, "wight");
                 }}
                 key={i}
                 className={`w-8 disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${
-                  filters?.["volume"]?.includes(`${options[0].id}:${option.id}`)
+                  filters?.["wight"]?.includes(`${options[0].id}:${option.id}`)
                     ? "bg-main text-gray-50"
                     : "bg-white text-black"
                 } hover:opacity-90 duration-100 shadow-sm text-xs  border  border-black rounded-md`}
@@ -172,7 +172,7 @@ const SingleVariant = ({
         variant={"ghost"}
         onClick={() => {
           handleReset("color");
-          handleReset("volume");
+          handleReset("wight");
         }}
       >
         RESET
