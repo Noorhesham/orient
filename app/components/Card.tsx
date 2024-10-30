@@ -21,7 +21,11 @@ const Card = ({ img, text, children, width, className, price, id, sell, desc }: 
       className={`hover:shadow-md after:w-0 after:h-full after:z-20 z-10 hover:after:w-full after:opacity-0 hover:after:opacity-100
      after:duration-300 after:bg-main2/70  group-hover:w-full duration-200 after:absolute group w-full h-full self-center flex-grow cursor-pointer bg-white flex flex-col justify-start items-center relative rounded-2xl overflow-hidden border border-gray-400 ${className}`}
     >
-      <div className="absolute top-1/2 h-fit left-1/2 -translate-x-1/2 -translate-y-1/2  w-full z-30 max-w-[14rem]  group-hover:opacity-100 opacity-0 transition-opacity duration-300">
+      <div
+        className="absolute after:absolute group-hover:after:border-t-2  
+        before:absolute before:border-b-2 before:border-gray-50 before:scale-0 group-hover:before:scale-100   before:duration-300 before:right-0 before:top-5 before:border-r-2 before:w-full before:h-full
+       after:border-gray-50 after:scale-0 group-hover:after:scale-100  after:duration-300 after:left-0 after:top-0 after:w-full after:h-full p-2 group-hover:after:border-l-2 top-1/2 h-fit left-1/2 -translate-x-1/2 -translate-y-1/2  w-full z-30 max-w-[14rem]  group-hover:opacity-100 opacity-0 transition-opacity duration-300"
+      >
         {<p className="text-sm  font-semibold mb-1 text-main text-center  z-30">{text}</p>}
         {desc && <p className="text-xs text-center text-gray-50 line-clamp-5 z-30">{desc}</p>}
       </div>
