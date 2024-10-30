@@ -142,6 +142,7 @@ const FormContainer: React.FC<Formcontainer> = ({
           if (res.status) {
             toast.success(res.message, { autoClose: 5000 });
             setResetFormData(true); // Trigger reset
+            setServerError(null);
             setTimeout(() => setResetFormData(false), 0);
           }
           if (!res.status) setServerError(res.message);
@@ -151,6 +152,7 @@ const FormContainer: React.FC<Formcontainer> = ({
       } else if (submit) {
         submit(data, setServerError);
         form.reset({});
+        setServerError(null);
       }
     });
   };
