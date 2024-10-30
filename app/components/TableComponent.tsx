@@ -1,6 +1,5 @@
 "use client";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowRight } from "./Icons";
 import ModalCustom from "./ModalCustom";
 import PriceWithSale from "./PriceWithSale";
 import OrderDetails from "./OrderDetails";
@@ -9,6 +8,7 @@ import { formatPriceWithCommas } from "@/lib/utils";
 import { useAuth } from "../context/AuthContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLocale, useTranslations } from "next-intl"; // Import useTranslations
+import { ArrowRight } from "lucide-react";
 
 export function TableDemo({ data }: { data: any }) {
   const { generalSettings, loading } = useAuth();
@@ -59,7 +59,7 @@ export function TableDemo({ data }: { data: any }) {
                         locale === "ar" && "flex-row-reverse"
                       }`}
                     >
-                      {t("viewDetails")} <ArrowRight />
+                      {t("viewDetails")} <ArrowRight className={`${locale==='ar'?'rotate-180':'rotate-0'} text-main`}  />
                     </div>
                   }
                   content={<OrderDetails id={product.id} />}
