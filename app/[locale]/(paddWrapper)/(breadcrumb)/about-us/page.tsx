@@ -5,13 +5,14 @@ import { PlayIcon } from "../../../../components/Icons";
 import SwiperCards from "../../../../components/SwiperCards";
 import Paragraph from "@/app/components/Paragraph";
 import { Server } from "@/app/main/Server";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import VideoZoom from "@/app/components/VideoZoom";
 import { processYoutubeUrl } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
 import MotionContainer from "@/app/components/MotionContainer";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
   const t = await getTranslations();
   const data = await Server({ resourceName: "about-us", cache: 0 });
   const { page } = data;

@@ -14,7 +14,7 @@ import { cookies } from "next/headers";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 import AppDownload from "@/app/components/AppDownload";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Server } from "@/app/main/Server";
 import MobileWrapper from "@/app/components/MobileWrapper";
 import { WEBSITEURL } from "@/app/constants";
@@ -55,6 +55,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
   };
 };
 export default async function Home({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
   const t = await getTranslations();
   const { page } = await Server({
     resourceName: "home",
