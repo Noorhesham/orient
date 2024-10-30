@@ -53,11 +53,9 @@ const Section = ({
           {link && (
             <Link
               href={`${link}`}
-              className={`text-[#E6007E] text-xs  md:text-sm font-semibold flex flex-row items-center gap-1 md:gap-2 ${
-                locale === "ar" ? "flex-row-reverse" : " "
-              }`}
+              className={`text-[#E6007E] text-xs  md:text-sm font-semibold flex flex-row items-center gap-1 md:gap-2 `}
             >
-              {linkText} <ArrowRight className={`${locale==='ar'&&"rotate-180"} arrowanimation md:w-5 md:h-5 w-3 h-3`} />
+              {linkText} <ArrowRight className={`${locale === "ar" && " rotate-180 "}  md:w-5 md:h-5 w-3 h-3`} />
             </Link>
           )}
         </MotionContainer>

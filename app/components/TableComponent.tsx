@@ -55,12 +55,10 @@ export function TableDemo({ data }: { data: any }) {
                   cancelBtn={false}
                   btn={
                     <div
-                      className={`cursor-pointer text-nowrap text-xs lg:text-sm flex items-center gap-2 ${
-                        locale === "ar" && "flex-row-reverse"
-                      }`}
+                      className={`cursor-pointer text-nowrap text-xs lg:text-sm flex items-center gap-2`}
                     >
-                      {t("viewDetails")} <ArrowRight className={`${locale==='ar'?'rotate-180':'rotate-0'} text-main`}  />
-                    </div>
+                      {t("viewDetails")} <ArrowRight className={`${locale==='ar'?'rotate-180':'rotate-0'}  text-main`}  />
+                      </div>
                   }
                   content={<OrderDetails id={product.id} />}
                 />
