@@ -12,15 +12,16 @@ import { format } from "date-fns";
 const OrderDetails = ({ id }: { id: string }) => {
   const { data, isLoading } = useGetEntity("my_order", "order", id);
   const t = useTranslations("orderDetails"); // Translation hook
-  if (isLoading) return <Spinner/>;
+  const t1 = useTranslations();
+  if (isLoading) return <Spinner />;
   const { order } = data;
 
   return (
-    <div className="lg:px-10">
+    <div className="lg:px-10 py-10 lg:py-5">
       <MiniHeader
         heading={t("orderNumber", { uuid: order.uuid })} // Use translation with variable
         date={format(new Date(order.date), "dd/MM/yyyy")}
-        status={order.status}
+        status={t1(order.status)}
       />
       <div className="grid items-center py-3 gap-8 grid-cols-1 lg:grid-cols-2">
         <Container CustomePadding="lg:py-10 lg:px-10" className="flex gap-5 mt-4 flex-col">
