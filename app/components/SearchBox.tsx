@@ -139,7 +139,7 @@ const SearchBox = ({
             exit={{ opacity: 0, height: 0 }}
             className={`${
               locale === "ar" ? "right-0" : "left-0"
-            } flex items-start w-[340px] xl:w-full bg-white absolute gap-2 top-full py-4 px-2 rounded-md  max-h-[14rem] overflow-y-scroll flex-col `}
+            } flex items-start w-[340px] shadow-md xl:w-full bg-white absolute gap-2 top-full py-4 px-2 rounded-md  max-h-[14rem] overflow-y-scroll flex-col `}
           >
             {(data && data.products?.length > 0) || query.length > 4 ? (
               data?.products.map((item: any) => (

@@ -38,7 +38,7 @@ const generateSchemaFromFields = (fields: any[], t: any): ZodObject<any> => {
         else fieldSchema = z.string().email(`${t("must be a valid email")}`);
         break;
       case "phoneNumber":
-        if (field.returnFullPhone) fieldSchema = z.string().min(10, `${t("must be a valid phone number")}`);
+        if (field.returnFullPhone) fieldSchema = z.string().min(9, `${t("must be a valid phone number")}`);
         else
           fieldSchema = z
             .object({
@@ -163,7 +163,7 @@ const FormContainer: React.FC<Formcontainer> = ({
   }, [resetFormData, form]);
   console.log(form.getValues());
   return (
-    <div className="  w-full min-h-[50vh]">
+    <div className="  w-full min-h-[20vh]">
       {!resetFormData ? (
         <CustomForm
           serverError={serverError}

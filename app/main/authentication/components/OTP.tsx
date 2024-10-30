@@ -151,7 +151,7 @@ export function InputOTPPattern({
   };
   return (
     <Suspense>
-      <div className="flex flex-col items-center mt-8">
+      <div className="flex flex-col gap-4 items-center mt-8">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField

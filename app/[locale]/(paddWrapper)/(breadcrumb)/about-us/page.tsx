@@ -18,7 +18,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   const { page } = data;
   return (
     <>
-      <section className=" relative min-h-[23vh] 2xl:min-h-[80vh]">
+      <section className=" relative min-h-[23vh] lg:min-h-[80vh]">
         <div
           style={{
             backgroundSize: "cover",

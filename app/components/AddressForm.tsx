@@ -112,7 +112,7 @@ const AddressForm = ({ item, setDefaultShipping }: { item?: any; setDefaultShipp
         </Button>
       }
       content={
-        <div className=" px-20">
+        <div className="  px-5 lg:px-20">
           <CustomForm
             isPending={isPending}
             disabled={loading || isPending}

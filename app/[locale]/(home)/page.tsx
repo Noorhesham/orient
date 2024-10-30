@@ -196,7 +196,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
                 locale == "ar" ? "" : "xl:translate-x-[24rem]"
               } translate-x-0 text-center md:text-start font-medium my-2 leading-[1.7] lg:max-w-2xl   z-10 relative mt-5 `}
             />
-            <MotionItem
+            <MotionItem nohover
               initial={{ opacity: 0, x: -200 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeInOut", stiffness: 100 } }}
               className={` ${
@@ -216,7 +216,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
       <div className=" px-3">
         <div className=" md:mt-8   grid grid-cols-6 gap-[4px]">
           {page.colors.map((item: any, index: number) => {
-            return <div className=" w-full h-52 " style={{ backgroundColor: `#${item.color}` }} key={index}></div>;
+            return <div className=" w-full  h-40 lg:h-52 " style={{ backgroundColor: `#${item.color}` }} key={index}></div>;
           })}
         </div>
       </div>

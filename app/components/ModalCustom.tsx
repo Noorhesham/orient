@@ -47,7 +47,7 @@ const ModalCustom = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{btn}</DialogTrigger>
-      <DialogContent className=" lg:max-w-4xl py-5 lg:py-10 overflow-y-auto max-h-[80vh] sm:rounded-[1.8rem]">
+      <DialogContent className=" max-w-[90%] lg:max-w-4xl py-5 lg:py-10 overflow-y-auto max-h-[80vh] sm:rounded-[1.8rem]">
         <DialogHeader className="">
           {title ? (
             <DialogTitle className="text-xl mt-10 lg:mt-14 text-center text-main2">{title}</DialogTitle>
@@ -58,8 +58,7 @@ const ModalCustom = ({
           )}
           {desc && <DialogDescription className="text-center mt-2">{desc}</DialogDescription>}
         </DialogHeader>
-
-        {content}
+        <div className="mt-10 w-full">{content}</div>
 
         {(cancelBtn || functionalbtn || desc) && (
           <DialogFooter className="pb-10 flex items-center sm:flex-col">

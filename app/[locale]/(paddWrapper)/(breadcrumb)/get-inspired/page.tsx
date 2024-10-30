@@ -14,6 +14,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
   const { data } = await Server({
     resourceName: "getinspired",
     entityName: "inspired-items",
+
     queryParams: new URLSearchParams({
       inspired_categories: searchParams?.category,
       page: searchParams?.page,
@@ -27,16 +28,14 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <MaxWidthWrapper className=" min-h-screen mt-5">
-
-        <Tabing
-          categories={categories}
-          defaultValue="1"
-          options={images.map((img: any) => {
-            return { file: img.file, med: img.sizes.medium };
-          })}
-        />
-        {totalPages > 1 && <PaginationDemo totalPages={Math.ceil(data.length / 12) || 1} />}
- 
+      <Tabing
+        categories={categories}
+        defaultValue="1"
+        options={images.map((img: any) => {
+          return { file: img.file, med: img.sizes.medium };
+        })}
+      />
+      {totalPages > 1 && <PaginationDemo totalPages={Math.ceil(data.length / 12) || 1} />}
     </MaxWidthWrapper>
   );
 };

@@ -161,7 +161,7 @@ const SwiperCards = ({
                 <Link
                   href={link}
                   className="absolute top-[3rem] lg:top-2 left-1/2 transform block -translate-x-1/2 opacity-0 group-hover:opacity-100
-                   group-hover:w-[90%] lg:group-hover:w-[95%] w-0 duration-300  h-[70%] lg:h-[97%] border-0 group-hover:border-2 group-hover:border-main border-white"
+                   group-hover:w-[80%] lg:group-hover:w-[95%] w-0 duration-300  h-[70%] lg:h-[97%] border-0 group-hover:border-2 group-hover:border-main border-white"
                 />
               ) : text ? (
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2  group-hover:w-[95%] w-0 h-[97%] border-2 border-white" />

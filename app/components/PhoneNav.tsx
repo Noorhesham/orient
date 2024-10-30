@@ -70,7 +70,7 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
             <MaxWidthWrapper className="relative z-[9999] mt-32 my-auto h-full w-full flex flex-col gap-4 items-center justify-start mx-auto lg:flex-row">
               {navigation.map((link: any, i: number) =>
                 link.subLinks ? (
-                  <Accordion key={i} className={`text-gray-50  z-[999] w-full ml-3`} type="single" collapsible>
+                  <Accordion key={i} className={`text-gray-50  z-[999] w-full`} type="single" collapsible>
                     <AccordionItem className="w-full" value={`item-${i}`}>
                       <AccordionTrigger className="font-medium  uppercase">
                         {t(`${link.text.toLowerCase()}`)}
@@ -93,7 +93,7 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
                     </AccordionItem>
                   </Accordion>
                 ) : (
-                  <motion.div key={i} variants={item} className=" border-gray-50 border-b pb-2 w-full">
+                  <motion.div key={i} variants={item} className=" border-gray-50 border-b  py-4 w-full">
                     <Link
                       href={link.href || ""}
                       className={`text-balance  my-2 z-50 w-full text-start text-gray-50 font-medium ${

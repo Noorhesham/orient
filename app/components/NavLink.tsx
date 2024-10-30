@@ -20,7 +20,8 @@ const NavLink = ({
   isHome?: boolean;
 }) => {
   const locale = cookies.get("NEXT_LOCALE");
-  const linkStyles = "uppercase flex items-center gap-2 font-[400]  font-medium text-sm xl:text-base tracking-wide ";
+  const linkStyles =
+    "uppercase hover:opacity-90 duration-150 hover:text-gray-200  opacity-100 text-white flex items-center gap-2 font-[400]  font-medium text-sm xl:text-base tracking-wide ";
   if (!subLinks)
     return (
       <Link href={href || "/"} className={linkStyles}>
@@ -35,11 +36,11 @@ const NavLink = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className=" w-full rounded-lg">
           {subLinks.map((link) => (
-            <DropdownMenuItem className=" uppercase   rounded-sm" key={link.text}>
+            <DropdownMenuItem className=" uppercase  rounded-sm" key={link.text}>
               <Link
                 className={`${
                   locale === "en" ? "pr-20" : "pl-20"
-                }   pl-3  py-2  w-full text-xs  lg:text-sm  font-[600] text-black  uppercase`}
+                }   pl-3  py-2  w-full text-xs hover:opacity-90 duration-150 hover:text-gray-200   lg:text-sm  font-[600] text-black  uppercase`}
                 href={link.href || "#"}
               >
                 {link.text}

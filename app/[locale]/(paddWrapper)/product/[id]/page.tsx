@@ -91,7 +91,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
     body: { with: "tags,upSells,crossSells,category_id" },
   });
   const { product, attributes, reviews_counts, variations } = data;
-  console.log(data)
+  console.log(data);
   if (!product)
     return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
   const ischild = child === "true" || product.type === "variation";
@@ -276,13 +276,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
             </Section>
 
             <MaxWidthWrapper className=" col-span-7  " noPadding noPaddingX={true}>
-              <Section
-                CustomePadding=" px-0 py-5"
-                heading={t("similarProducts")}
-                link="/shop"
-                id="desc"
-                linkText={t("browse all products")}
-              >
+              <Section heading={t("similarProducts")} link="/shop" id="desc" linkText={t("browse all products")}>
                 {product.crossSells?.length > 0 && (
                   <>
                     <div className=" mt-4 flex ">

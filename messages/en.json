@@ -386,5 +386,10 @@
   "tfamessage": "CHOOSE A METHOD FOR TWO FACTOR AUTHENTICATION",
   "resetmessage": "CHOOSE A METHOD TO RESET YOUR PASSWORD",
   "logoutfromall": "Log out from all devices",
-  "View on Google Maps": "View on Google Maps"
+  "View on Google Maps": "View on Google Maps",
+  "SEND_TFA_CODE_SMS": " Send TFA code by SMS",
+  "SEND_TFA_CODE_EMAIL": " Send TFA CODE BY EMAIL",
+  "SEND_TFA_CODE_WHATSAPP": " Send TFA CODE BY WHATSAPP",
+  "SEND_TFA_CODE_AUTHAPP": " Send TFA CODE BY AUTHAPP",
+  "2fadescc": "There are three methods for two-step verification: via phone, email (if both are enabled), or through an app like Google Authenticator. Simply use the information provided below, then add the code that will appear."
 }

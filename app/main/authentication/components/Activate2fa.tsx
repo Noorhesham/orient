@@ -15,6 +15,7 @@ import ModalCustom from "@/app/components/ModalCustom";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/app/context/AuthContext";
 import { SkeletonCard } from "@/app/components/SkeletonCard";
+import Paragraph from "@/app/components/Paragraph";
 const Activate2fa = () => {
   const [serial, setSerial] = useLocalStorageState("", "serial");
   const [qrCode, setQrCode] = useLocalStorageState("", "qrCode");
@@ -24,7 +25,7 @@ const Activate2fa = () => {
   const [err, setErr] = useState<string>("");
   const isActivated = userSettings?.tfa;
   useEffect(() => {
-    if(!qrCode) return;
+    if (!qrCode) return;
     QRCode?.toDataURL(qrCode).then(setQr);
   }, [qrCode]);
   const handleCheckTfa = async () => {
@@ -42,7 +43,7 @@ const Activate2fa = () => {
     }
   };
   if (loading) return <SkeletonCard className="w-full" />;
-  console.log(serial)
+  console.log(serial);
   const secret = serial ? serial?.match(/secret=([^&]+)/)?.[1] : "";
 
   return (
@@ -63,6 +64,7 @@ const Activate2fa = () => {
               {t("2fadesc")}
             </label>
           </div>
+            <Paragraph description={t("2fadescc")} />
           <div>
             {serial && isActivated && (
               <div className=" text-2xl items-center flex flex-col mt-5">
