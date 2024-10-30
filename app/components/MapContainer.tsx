@@ -23,7 +23,7 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
   const handleClick = ({ lat, lng }: { lat: number; lng: number }) => {
     setLoctation({ lat, lng });
   };
-  const filteredContainers = stores.filter(
+  const filteredContainers = stores?.filter(
     (container) =>
       container.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       container.city?.title
@@ -38,7 +38,7 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
       <div className=" flex flex-col gap-5 mt-3  col-span-2">
         <SearchBox nonactive onSearch={setSearchQuery} bg="blue" />
         <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5 ">
-          {filteredContainers.map((container) => (
+          {filteredContainers?.map((container) => (
             <Container
               key={container.id}
               onClick={() => handleClick({ lat: container.lat, lng: container.lng })}
@@ -57,7 +57,7 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
                     city : {container.city?.title}
                   </h3>
                 )}
-                <h3 
+                <h3
                   className=" hover:bg-gray-100 rounded-full line-clamp-1  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
                   // onClick={(e) => {
                   //   e.stopPropagation();
