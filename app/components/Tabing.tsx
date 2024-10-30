@@ -94,7 +94,7 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
         )}
       </div>
 
-      <ImageGrid images={options} />
+      <ImageGrid id={category} images={options} />
     </div>
   );
 };

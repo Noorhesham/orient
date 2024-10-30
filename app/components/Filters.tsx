@@ -24,7 +24,7 @@ const Filters = ({ colseBtn, filters }: { colseBtn?: ReactNode; filters?: any })
               options={attribute.options}
             />
           ))}
-          <Box filter="tags" text={t("tags")} options={tags} />
+          {/* <Box filter="tags" text={t("tags")} options={tags} /> */}
         </Suspense>
       </div>
     </div>

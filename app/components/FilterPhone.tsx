@@ -38,7 +38,7 @@ const FilterMobile = ({ filters }: { filters: any }) => {
         {filterMobile && (
           <motion.div
             ref={containerRef}
-            className="fixed z-[11111199]  top-0 -left-10  w-[300px]  lg:hidden h-full"
+            className="fixed z-[11111199]  top-0 left-0  w-[300px]  lg:hidden h-full"
             initial={{ x: "-140%" }}
             exit={{ x: "-140%" }}
             animate={{ x: filterMobile ? "0%" : "-100%" }}

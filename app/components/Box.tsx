@@ -42,6 +42,7 @@ const Box = ({
 
   // Update URL when filters change
   const updateURL = () => {
+    console.log(window.location.search);
     const params = new URLSearchParams(window.location.search);
     // Update the params with the current filters state
     Object.entries(filters).forEach(([key, values]) => {
@@ -98,7 +99,7 @@ const Box = ({
         {filter === "category_id" &&
           options?.map((option, i) => (
             <li
-              onClick={() => handleFilter(option.id.toString(), "category_id")}
+           
               key={i}
               className="flex items-center gap-2 cursor-pointer"
             >
@@ -125,7 +126,7 @@ const Box = ({
                     if (single && !filters[filter]?.includes(`${id}:${option.id}`)) handleReset(filter);
                     handleFilter(`${id}:${option.id}`, filter);
                   }}
-                  className={`cursor-pointer  border-2 border-input p-1 hover:opacity-90 duration-100 ${
+                  className={`cursor-pointer  border-2 border-input p-1 px-3 hover:opacity-90 duration-100 ${
                     filters[filter]?.includes(`${id}:${option.id}`) ? "outline-2  outline outline-main" : ""
                   } shadow-sm w-10 h-10 aspect-square rounded-md lg:w-full lg:h-full`}
                 ></button>

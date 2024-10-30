@@ -2,10 +2,18 @@ import Image from "next/image";
 import ZoomImage from "./ZoomImage";
 import SwiperCards from "./SwiperCards";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import MotionItem from "./MotionItem";
+import Spinner from "./Spinner";
 
-const ImageGrid = ({ images }: { images: any[]; reverse?: boolean; separate?: boolean }) => {
+const ImageGrid = ({ images, id }: { images: any[]; reverse?: boolean; separate?: boolean; id?: string }) => {
   return (
-    <div className="grid grid-cols-4 grid-rows-2 duration-100 gap-y-2 mt-8 gap-x-2">
+    <MotionItem
+      nohover
+      key={id}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      className="grid grid-cols-4 grid-rows-2 duration-100 gap-y-2 mt-8 gap-x-2"
+    >
       {images?.map((src, index) => (
         <ZoomImage
           key={index}
@@ -27,7 +35,8 @@ const ImageGrid = ({ images }: { images: any[]; reverse?: boolean; separate?: bo
                 return {
                   card: (
                     <TransformWrapper
-                      initialScale={1} initialPositionX={0}
+                      initialScale={1}
+                      initialPositionX={0}
                       minScale={0.5}
                       maxScale={3}
                       centerOnInit
@@ -36,6 +45,9 @@ const ImageGrid = ({ images }: { images: any[]; reverse?: boolean; separate?: bo
                     >
                       {({ zoomIn, zoomOut, resetTransform }) => (
                         <>
+                        <div className=" absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
+                          <Spinner/>
+                        </div>
                           <TransformComponent>
                             <img
                               loading="lazy"
@@ -54,7 +66,7 @@ const ImageGrid = ({ images }: { images: any[]; reverse?: boolean; separate?: bo
           }
         />
       ))}
-    </div>
+    </MotionItem>
   );
 };
 
