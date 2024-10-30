@@ -42,7 +42,7 @@ const OrderDetails = ({ id }: { id: string }) => {
         </Container>
         <div className="self-start py-4 text-base">
           <h1 className="text-main font-semibold mb-4">{t("orderInformation")}</h1>
-          <div className="mt-2 flex flex-col gap-2">
+          <div className="mt-2 flex flex-col">
             <h2 className="text-base text-main2">{t("shippingAddress")}</h2>
             <Paragraph
               description={` ${t2("countryLabel")}: ${order.shipping_info.country} ${t2("stateLabel")}: ${

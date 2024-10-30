@@ -50,7 +50,7 @@ const CartItem = ({
             onClick={() => remove(id)}
           />
         )}
-        <div className=" flex  items-center gap-2">
+        <div className=" flex   items-center gap-2">
           {!nocheck && <CartDelete handleAdd={handleAdd} id={id} />}
           <Link
             href={`/product/${productId}?child=true`}
@@ -59,7 +59,7 @@ const CartItem = ({
             <Image src={img} fill alt="product" className=" object-contain" />
           </Link>
         </div>
-        <div className="flex ml-3 flex-col">
+        <div className="flex mx-3 flex-col">
           <Link
             href={`/product/${productId}?child=true`}
             className={cn(" uppercase line-clamp-1  font-semibold text-xs md:text-base lg:text-lg", {
@@ -70,9 +70,11 @@ const CartItem = ({
           </Link>
           <div className={cn({ "flex items-center gap-1 mt-2 text-xs md:text-sm": size && size === "sm" })}>
             {price && <div className=" text-gray-800"> {<PriceWithSale price={price} size="sm" />}</div>}
-          {discount&&price!==discount&&  <div className=" line-through text-gray-500 text-xs md:text-sm">
-              {<PriceWithSale price={discount} size="sm" />}
-            </div>}
+            {discount && price !== discount && (
+              <div className=" line-through text-gray-500 text-xs md:text-sm">
+                {<PriceWithSale price={discount} size="sm" />}
+              </div>
+            )}
           </div>
         </div>
         {size !== "sm" && (
