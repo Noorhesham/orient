@@ -70,14 +70,14 @@ const CartItem = ({
           </Link>
           <div className={cn({ "flex items-center gap-1 mt-2 text-xs md:text-sm": size && size === "sm" })}>
             {price && <div className=" text-gray-800"> {<PriceWithSale price={price} size="sm" />}</div>}
-          {discount&&  <div className=" line-through text-gray-500 text-xs md:text-sm">
+          {discount&&price!==discount&&  <div className=" line-through text-gray-500 text-xs md:text-sm">
               {<PriceWithSale price={discount} size="sm" />}
             </div>}
           </div>
         </div>
         {size !== "sm" && (
           <div className=" flex flex-col items-end gap-2 ml-auto">
-            {wishlist && <AddToWishlist wishlistStatus={true} noshare id={id} />}
+            {wishlist && <AddToWishlist title={text} wishlistStatus={true} noshare id={id} />}
             {!nocheck && <Counter handleAdd={handleAdd} value={id} defaultcount={quantity} />}
           </div>
         )}

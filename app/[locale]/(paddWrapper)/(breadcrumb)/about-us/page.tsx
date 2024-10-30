@@ -9,6 +9,7 @@ import { getTranslations } from "next-intl/server";
 import VideoZoom from "@/app/components/VideoZoom";
 import { processYoutubeUrl } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
+import MotionContainer from "@/app/components/MotionContainer";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   const t = await getTranslations();
@@ -41,6 +42,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
               />
             </div>
             <MotionItem
+              nohover
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, type: "spring" } }}
               className=" lg:my-0 my-3  flex-grow flex-col flex  w-full xl:w-[31%]  h-[616px] relative "
@@ -53,7 +55,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
                 height={297}
                 className={` ${
                   locale === "ar"
-                    ? " left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:-right-52 "
+                    ? " left-1/2 lg:left-0 -translate-x-1/2 lg:translate-x-0 lg:-right-16 "
                     : "left-1/2  -translate-x-1/2 lg:translate-x-0  lg:left-[-13%]"
                 } absolute  w-[60%]   top-auto md:bottom-0 bottom-10  md:top-[40%]`}
               />
@@ -99,25 +101,25 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
       </div>
 
       <MaxWidthWrapper className=" flex flex-col gap-5 lg:gap-10">
-        <div className="flex lg:flex-row gap-4 flex-col items-center">
-          <div className=" w-full lg:min-w-[576px] flex-grow h-[200px] relative">
+        <MotionContainer className="flex lg:flex-row gap-4 flex-col items-center">
+          <MotionItem nohover className=" w-full lg:min-w-[576px] flex-grow h-[200px] relative">
             <Image src={page.vision_image[0]?.file} alt="about" className=" object-cover" fill />
-          </div>
-          <div className=" flex-shrink flex flex-col gap-2">
+          </MotionItem>
+          <MotionItem nohover className=" flex-shrink flex flex-col gap-2">
             <h2 className=" text-3xl font-bold text-main">{page.vision_title}</h2>
             <Paragraph danger full description={page.vision_content} />
-          </div>
-        </div>
+          </MotionItem>
+        </MotionContainer>
 
-        <div className="flex lg:flex-row flex-col  gap-4 items-center">
-          <div className=" flex-shrink flex flex-col gap-2">
+        <MotionContainer className="flex lg:flex-row flex-col  gap-4 items-center">
+          <MotionItem nohover className=" flex-shrink flex flex-col gap-2">
             <h2 className=" text-3xl font-bold text-main">{page.mission_title}</h2>
             <Paragraph danger full description={page.mission_content} />
-          </div>
-          <div className=" w-full lg:min-w-[576px] lg:mt-0  flex-grow h-[200px] relative">
+          </MotionItem>
+          <MotionItem nohover className=" w-full lg:min-w-[576px] lg:mt-0  flex-grow h-[200px] relative">
             <Image src={page?.mission_image[0]?.file} alt="about" className=" object-cover" fill />
-          </div>
-        </div>
+          </MotionItem>
+        </MotionContainer>
 
         <div className="flex   gap-4 lg:gap-8 items-start flex-col lg:flex-row lg:items-center">
           <div className=" flex-grow  relative">

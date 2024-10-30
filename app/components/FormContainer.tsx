@@ -177,7 +177,7 @@ const FormContainer: React.FC<Formcontainer> = ({
           {children}
         </CustomForm>
       ) : (
-        <MotionItem initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }}>
+        <MotionItem nohover initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }}>
           <p>
             <CheckIcon className=" text-gray-400" />
             {t("success")}

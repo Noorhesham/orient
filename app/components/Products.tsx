@@ -15,6 +15,7 @@ const Products = ({ products, totalPages }: { products: Product[]; totalPages: n
             .map((_, index) => <ProductSkeleton key={index} />)
         : products.map((product: Product) => (
             <Card
+            desc={product.short_description}
               key={product.id}
               id={product.id || ""}
               text={product.title}

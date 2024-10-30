@@ -12,14 +12,19 @@ interface CardProps {
   className?: string;
   id?: string | number;
   sell?: number | string | null;
+  desc?: string;
 }
 
-const Card = ({ img, text, children, width, className, price, id, sell }: CardProps) => {
+const Card = ({ img, text, children, width, className, price, id, sell, desc }: CardProps) => {
   return (
     <MotionItem
-      className={`hover:shadow-md after:w-0 after:h-full after:z-20 z-10   after:bg-main/50
+      className={`hover:shadow-md after:w-0 after:h-full after:z-20 z-10 hover:after:w-full after:opacity-0 hover:after:opacity-100
+         after:duration-300   after:bg-main2/50
          group-hover:w-full duration-200 after:absolute group w-full h-full self-center flex-grow cursor-pointer  bg-white flex flex-col justify-start items-center relative rounded-2xl overflow-hidden border border-gray-400 ${className}`}
     >
+      <div className=" group-hover:opacity-100 scale-90 group-hover:scale-100 w-full h-full absolute opacity-0">
+        {desc && <p className=" text-sm text-center text-gray-50 z-30">{desc}</p>}
+      </div>
       <Link href={id ? `/product/${id}` : "#"} className="flex flex-col w-full items-center">
         <div className={`${width ? width : "aspect-[403/400]"} h-auto mb-auto self-start w-full relative`}>
           <Image src={img} className="object-contain object-top" fill alt="Product Image" />
