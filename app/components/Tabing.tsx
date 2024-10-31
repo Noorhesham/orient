@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,26 +14,35 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
 import ImageGrid from "./ImageGrid";
+import { useIsLoading } from "../context/LoadingContext";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
   const searchParams = useSearchParams();
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
-
+  const { setLoading, loading } = useIsLoading();
+  const [isPending, startTransition] = useTransition();
   const category = searchParams.get("category");
   const router = useRouter();
   const [currentPath, setCurrentPath] = useState("");
   useEffect(() => {
-    if (category && window.location.search.includes(category)) setCurrentPath(category);
-    else {
-      setCurrentPath(defaultValue);
-      router.push(`${window.location.pathname}?category=${defaultValue}`, { scroll: false });
-    }
+    setLoading(isPending);
+  }, [isPending]);
+  useEffect(() => {
+    startTransition(() => {
+      if (category && window.location.search.includes(category)) setCurrentPath(category);
+      else {
+        setCurrentPath(defaultValue);
+        router.push(`${window.location.pathname}?category=${defaultValue}`, { scroll: false });
+      }
+    });
   }, [category, defaultValue]);
   const handleClick = (href: string) => {
-    console.log(href, currentPath);
-    router.push(`${window.location.pathname}?category=${href}`, { scroll: false });
-    setCurrentPath(href);
+    startTransition(() => {
+      router.push(`${window.location.pathname}?category=${href}`, { scroll: false });
+      setCurrentPath(href);
+    });
   };
   const locale = useLocale();
   const isSlide = categories.length > 5;
@@ -58,7 +67,7 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
         )}
         <Swiper
           breakpoints={{
-            0: { slidesPerView: 2.5},
+            0: { slidesPerView: 2.5 },
             768: { slidesPerView: 3 },
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 5 },
@@ -94,7 +103,15 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
         )}
       </div>
 
-      <ImageGrid id={category} images={options} />
+      {loading ? (
+        <div className=" gap-5 grid grid-cols-1 mt-5 lg:grid-cols-4">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <Skeleton key={i} className=" h-96 w-full" />
+          ))}
+        </div>
+      ) : (
+        <ImageGrid id={category} images={options} />
+      )}
     </div>
   );
 };

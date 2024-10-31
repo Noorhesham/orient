@@ -11,9 +11,8 @@ import FormContainer from "./FormContainer";
 import { useTranslations } from "next-intl";
 import { WEBSITEURL } from "../constants";
 import { useQueryClient } from "@tanstack/react-query";
-import Container from "./Container";
 
-const CompeleteOrder = ({ portalContainer }: any) => {
+const CompeleteOrder = () => {
   const [isPending, startTransition] = useTransition();
   const { userSettings, setCartCount, loading } = useAuth();
   const router = useRouter();
@@ -84,7 +83,7 @@ const CompeleteOrder = ({ portalContainer }: any) => {
   };
   if (loading) return <Spinner />;
   return (
-    <div className="flex w-full pt-5   mx-auto flex-col">
+    <div className="flex w-full   mx-auto flex-col">
       {userSettings && !loading ? (
         <Button
           onClick={() => {
@@ -118,9 +117,7 @@ const CompeleteOrder = ({ portalContainer }: any) => {
           )}
         </Button>
       ) : (
-        <Container>
-          <FormContainer server={false} submit={completeOrder} formArray={shippingArray} />
-        </Container>
+        <FormContainer server={false} submit={completeOrder} formArray={shippingArray} />
       )}
     </div>
   );

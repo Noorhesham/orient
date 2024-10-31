@@ -78,11 +78,11 @@ const Page = () => {
           </div>{" "}
           {cart.items.length > 0 && (
             <div className={cn("col-span-4 flex flex-col gap-5 ")}>
-              {" "}
-              {!loggedIn && <CompeleteOrder />}
+
               <Container
-                className={`  portal  pb-10 gap-5 flex flex-col ${!userSettings ? "flex-col-reverse" : "pt-10"}`}
-              >
+                className={`  portal  pb-5 gap-5 flex flex-col ${userSettings ? "flex-col-reverse" : "pt-5"}`}
+                >
+                { <CompeleteOrder />}
                 <div>
                   <h1 className=" text-main2 text-xl font-semibold text-center">{t("cart_total")}</h1>
                   <div className="  px-14 mt-5">
