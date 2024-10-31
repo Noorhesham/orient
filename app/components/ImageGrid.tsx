@@ -20,7 +20,13 @@ const ImageGrid = ({ images, id }: { images: any[]; reverse?: boolean; separate?
           src={src.file}
           btn={
             <div className="relative  reveal   first:row-span-2  first:col-span-4 first:lg:col-span-2 cursor-pointer hover:opacity-80 duration-100 w-full col-span-4 lg:col-span-1 row-span-1">
-              <Image src={src.med} alt="image" width={500} height={250} className="object-cover w-full h-full" />
+              <Image
+                src={index === 0 ? src.file : src.med}
+                alt="image"
+                width={500}
+                height={250}
+                className="object-cover w-full h-full"
+              />
             </div>
           }
           content={
@@ -45,9 +51,9 @@ const ImageGrid = ({ images, id }: { images: any[]; reverse?: boolean; separate?
                     >
                       {({ zoomIn, zoomOut, resetTransform }) => (
                         <>
-                        <div className=" absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
-                          <Spinner/>
-                        </div>
+                          <div className=" absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2">
+                            <Spinner />
+                          </div>
                           <TransformComponent>
                             <img
                               loading="lazy"
