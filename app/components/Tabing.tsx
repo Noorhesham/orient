@@ -34,6 +34,7 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
       if (category && window.location.search.includes(category)) setCurrentPath(category);
       else {
         setCurrentPath(defaultValue);
+
         router.push(`${window.location.pathname}?category=${defaultValue}`, { scroll: false });
       }
     });
