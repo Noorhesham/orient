@@ -26,6 +26,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
               <div className=" w-32 h-32 relative">
                 <Image src="/complete.svg" alt={t("success")} fill />
               </div>
+              <h1 className=" hidden">{t("success")}</h1>
               <Heading subText="" mainText={t("orderCompleted")} />
               <Paragraph
                 size="sm"

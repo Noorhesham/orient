@@ -144,7 +144,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           key="profile-jsonld"
         />
-
+  <h1 className=" hidden">{product.title}</h1>
         <MaxWidthWrapper noPadding className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
           <div className="lg:col-span-8 items-center max-w-full flex flex-col gap-4  lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
             <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
@@ -307,7 +307,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   <a href="#review">{t("review")}</a>
                 </div>
                 <section className="  w-full mt-8">
-                  <h1 className=" text-xl font-semibold">{t("description")}</h1>
+                  <h3 className=" text-xl font-semibold">{t("description")}</h3>
                   <Paragraph danger description={product.description || ""} />
                   <br />
 

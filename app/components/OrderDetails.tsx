@@ -41,7 +41,7 @@ const OrderDetails = ({ id }: { id: string }) => {
           ))}
         </Container>
         <div className="self-start py-4 text-base">
-          <h1 className="text-main font-semibold mb-4">{t("orderInformation")}</h1>
+          <h3 className="text-main font-semibold mb-4">{t("orderInformation")}</h3>
           <div className="mt-2 flex flex-col">
             <h2 className="text-base text-main2">{t("shippingAddress")}</h2>
             <Paragraph

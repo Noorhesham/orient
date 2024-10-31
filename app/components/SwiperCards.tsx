@@ -153,9 +153,9 @@ const SwiperCards = ({
               )}
 
               {text && (
-                <h1 className="text-white group-hover:text-main duration-300 group-hover:-translate-y-2 uppercase text-3xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
+                <h4 className="text-white group-hover:text-main duration-300 group-hover:-translate-y-2 uppercase text-3xl md:text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold">
                   {text}
-                </h1>
+                </h4>
               )}
 
               {link ? (

@@ -18,7 +18,7 @@ const AppDownload = () => {
       <main className="  flex justify-center items-center gap-5 flex-col  h-screen">
         <div className=" flex justify-center items-center  flex-col gap-2">
           <Logo />
-          <h1 className=" text-4xl my-3 text-white  text-center font-bold">{t("downloadApp")}</h1>
+          <h2 className=" text-4xl my-3 text-white  text-center font-bold">{t("downloadApp")}</h2>
           <p className=" max-w-lg text-white text-center">{t("download")}.</p>
         </div>
         <div className="flex flex-col gap-3">

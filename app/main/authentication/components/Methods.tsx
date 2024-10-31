@@ -25,7 +25,7 @@ const Methods = ({
   };
   return (
     <Suspense>
-      <h1 className=" text-center text-xl mt-8 font-bold text-main2">{tfa ? t("2fadesc") : t("resetmessage")}</h1>
+      <h2 className=" text-center text-xl mt-8 font-bold text-main2">{tfa ? t("2fadesc") : t("resetmessage")}</h2>
       <MaxWidthWrapper className="  mx-auto">
         {Object.keys(methods)
           .filter((m) => m !== "apps")

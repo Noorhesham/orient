@@ -28,6 +28,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <MaxWidthWrapper className=" min-h-screen mt-5">
+      <h1 className=" hidden">get inspired</h1>
       <Tabing
         categories={categories}
         defaultValue="1"

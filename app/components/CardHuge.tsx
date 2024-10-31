@@ -62,7 +62,7 @@ const CardHuge = ({ h1, h2, href, item }: { h1?: string; h2?: string; href?: str
           )}
         </div>
         <Link href={item.id ? `/blog/${item.id}` : "#"} className="  w-full  h-full  ">
-          <h1 className="mt-2 text-base font-semibold text-[#0D3B6F]">{title}</h1>
+          <h2 className="mt-2 text-base font-semibold text-[#0D3B6F]">{title}</h2>
         </Link>
         {/* Render HTML content */}
         <Paragraph description={short_description} />
