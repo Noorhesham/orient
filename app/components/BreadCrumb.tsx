@@ -10,14 +10,13 @@ import {
 } from "@/components/ui/breadcrumb";
 import { FaHome } from "react-icons/fa";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { useLocale, useTranslations } from "next-intl"; // Import useTranslations
+import { useLocale, useTranslations } from "next-intl"; 
 
 const BreadCrumb = ({ linksCustom }: { linksCustom?: { href: string; text: string }[] }) => {
   const router = useRouter();
   const pathName = usePathname();
-  const t = useTranslations("breadcrumb"); // Translation hook
+  const t = useTranslations("breadcrumb");
   const locale = useLocale();
-  // Get the links from props or generate from pathname
   const links: any = linksCustom || pathName.split("/").filter((link) => !["ar", "en"].includes(link));
   console.log(links);
   return (

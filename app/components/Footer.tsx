@@ -48,12 +48,11 @@ const Footer = () => {
                   {t("footer.aboutus")}
                 </Link>
                 <Link className=" hover:opacity-80 duration-150" href="/shop">
-                  {t("footer.products")}
+                  {t("footer.shop")}
                 </Link>
                 <Link className=" hover:opacity-80 duration-150" href="/color-trend">
                   {t("footer.colorTrend")}
                 </Link>{" "}
-                {/* 'COLOR TREND' */}
                 <Link className=" hover:opacity-80 duration-150" href="/become-parteners">
                   {t("footer.becomepartener")}
                 </Link>

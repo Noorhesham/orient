@@ -60,9 +60,7 @@ const Box = ({
     });
   };
   useEffect(() => {
-
     updateURL();
-
   }, [filters]);
 
   const handleFilter = (filterValue: string, filterName: string) => {
@@ -103,11 +101,11 @@ const Box = ({
               <input
                 type="checkbox"
                 name={filter}
-                id={option}
+                id={option.id}
                 checked={filters["category_id"]?.includes(option.id.toString()) || false}
                 onChange={() => handleFilter(option.id.toString(), "category_id")}
               />
-              <label htmlFor={option}>{option.title}</label>
+              <label htmlFor={option.id}>{option.title}</label>
             </li>
           ))}
 
