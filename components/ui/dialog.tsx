@@ -54,9 +54,9 @@ const DialogContent = React.forwardRef<
               whiteClose
                 ? "text-white"
                 : closePink
-                ? "bg-main hover:bg-white  hover:border-main text-white py-2 px-4 rounded-full hover:text-black border duration-200"
-                : "text-black"
-            } flex items-center z-[9999999999] gap-2 top-8 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground`}
+                ? "bg-main  hover:bg-white  hover:border-main text-white py-2 px-4 rounded-full lg:rounded-full hover:text-black border duration-200"
+                : "text-black  rounded-sm"
+            } flex items-center z-[9999999999] gap-2 top-8 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground`}
           >
             <CircleX className="h-8 w-8" /> <span className=" text-base   font-semibold">{t("close")}</span>
           </DialogPrimitive.Close>

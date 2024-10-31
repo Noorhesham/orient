@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useIsLoading } from "../context/LoadingContext";
 
 interface Filters {
@@ -25,10 +25,14 @@ const Box = ({
   single?: boolean;
 }) => {
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const t = useTranslations();
   const [filters, setFilters] = useState<Filters>({});
   const { loading, setLoading } = useIsLoading();
+  useEffect(() => {
+    setLoading(isPending);
+  }, [isPending, setLoading]);
   // Parse the existing filters from the URL when the component mounts
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -40,28 +44,25 @@ const Box = ({
     setFilters(newFilters);
   }, []);
 
-  // Update URL when filters change
   const updateURL = () => {
-    console.log(window.location.search);
-    const params = new URLSearchParams(window.location.search);
-    // Update the params with the current filters state
-    Object.entries(filters).forEach(([key, values]) => {
-      if (values.length > 0) {
-        params.set(key, values.join(",")); // Set the new values for each filter
-      } else {
-        params.delete(key); // Remove the filter if no values are selected
-      }
+    startTransition(async () => {
+      console.log(window.location.search);
+      const params = new URLSearchParams(window.location.search);
+      Object.entries(filters).forEach(([key, values]) => {
+        if (values.length > 0) {
+          params.set(key, values.join(",")); // Set the new values for each filter
+        } else {
+          params.delete(key); // Remove the filter if no values are selected
+        }
+      });
+      params.set("page", "1");
+      router.push(`?${params.toString()}`, { scroll: false });
     });
-    params.set("page", "1");
-    router.push(`?${params.toString()}`, { scroll: false });
   };
   useEffect(() => {
-    setLoading(true);
+
     updateURL();
-    const t = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return () => clearTimeout(t);
+
   }, [filters]);
 
   const handleFilter = (filterValue: string, filterName: string) => {
@@ -98,11 +99,7 @@ const Box = ({
       <ul className="pb-3 flex flex-col gap-2 border-b border-b-gray-400">
         {filter === "category_id" &&
           options?.map((option, i) => (
-            <li
-           
-              key={i}
-              className="flex items-center gap-2 cursor-pointer"
-            >
+            <li key={i} className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 name={filter}

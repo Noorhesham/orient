@@ -184,7 +184,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   <p className="text-red-500 mt-2 font-semibold text-sm">{t("outOfStock")}</p>
                 )}
               </div>
-              <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 px-5">
+              <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 ">
                 <div className="lg:hidden border-b border-input gap-3 flex flex-col items-start  w-full ">
                   <div className=" lg:hidden flex w-full flex-col  gap-3 items-start ">
                     {" "}
