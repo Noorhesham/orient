@@ -108,7 +108,7 @@ const SearchBox = ({
       setResultActive(false);
     }
   };
-  console.log(data, query);
+
   return (
     <div
       ref={containerRef}

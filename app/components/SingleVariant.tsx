@@ -56,7 +56,7 @@ const SingleVariant = ({
   const [colors, setColors] = React.useState<string[]>(colorOptions[0]?.options);
   const [wights, setwights] = React.useState<string[]>(options[0]?.options);
   const router = useRouter();
-  console.log(filters, options);
+
   const handleFilter = (filterValue: string, filterName: string) => {
     setFilters((prevFilters: any) => {
       return {
@@ -119,14 +119,14 @@ const SingleVariant = ({
     syncUrls({ setwights, setColors, variations, filters });
   }, []);
   const t = useTranslations();
-  console.log(filters);
+
   return (
     <div className="flex w-full px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
       <ul className="pb-3 w-full flex flex-col gap-2 border-b border-b-gray-400">
         {colorOptions?.[0] && (
           <div className="flex w-full items-center gap-2">
             {" "}
-            <h2 className="text-base  mb-2">{t('colors')}</h2>
+            <h4 className="text-base  mb-2">{t('colors')}</h4>
             <div className=" grid grid-cols-5 items-center  w-full lg:gap-2">
               {colorOptions[0].options?.map((option: any, i: number) => (
                 <button
@@ -148,7 +148,7 @@ const SingleVariant = ({
         )}
         {options?.[0] && (
           <div className="flex items-center gap-2">
-            <h2 className="text-base  mb-2">{t("wight")}</h2>
+            <h4 className="text-base  mb-2">{t("wight")}</h4>
             {options[0].options?.map((option: any, i: number) => (
               <button
                 disabled={!wights.includes(option.id)}
@@ -156,7 +156,7 @@ const SingleVariant = ({
                   handleFilter(`${options[0].id}:${option.id}`, "wight");
                 }}
                 key={i}
-                className={`w-8 disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${
+                className={`w-10 disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${
                   filters?.["wight"]?.includes(`${options[0].id}:${option.id}`)
                     ? "bg-main text-gray-50"
                     : "bg-white text-black"

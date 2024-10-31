@@ -121,7 +121,7 @@ const Box = ({
                     if (single && !filters[filter]?.includes(`${id}:${option.id}`)) handleReset(filter);
                     handleFilter(`${id}:${option.id}`, filter);
                   }}
-                  className={`cursor-pointer  border-2 border-input p-1 px-3 hover:opacity-90 duration-100 ${
+                  className={`cursor-pointer  border-2 border-input p-1 px-4 hover:opacity-90 duration-100 ${
                     filters[filter]?.includes(`${id}:${option.id}`) ? "outline-2  outline outline-main" : ""
                   } shadow-sm w-10 h-10 aspect-square rounded-md lg:w-full lg:h-full`}
                 ></button>
@@ -153,7 +153,7 @@ const Box = ({
                     handleFilter(`${id}:${option.id}`, filter);
                   }}
                   key={i}
-                  className={`w-8 text-center cursor-pointer p-1 ${
+                  className={`  text-center cursor-pointer p-1 ${
                     filters[filter]?.includes(`${id}:${option.id}`) ? "bg-main text-gray-50" : "bg-white text-black"
                   } hover:opacity-90 duration-100 shadow-sm text-xs  border  border-black rounded-md`}
                 >

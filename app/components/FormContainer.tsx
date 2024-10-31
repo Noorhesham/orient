@@ -158,10 +158,10 @@ const FormContainer: React.FC<Formcontainer> = ({
   };
   useEffect(() => {
     if (resetFormData) {
-      form.reset({}); // or form.reset({ fieldName1: '', fieldName2: '' });
+      form.reset({});
     }
   }, [resetFormData, form]);
-  console.log(form.getValues());
+
   return (
     <div className="  w-full min-h-[20vh]">
       {!resetFormData ? (

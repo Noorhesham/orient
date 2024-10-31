@@ -1,4 +1,4 @@
-import React, { ReactNode, useTransition } from "react";
+import React, { ReactNode, useEffect, useState, useTransition } from "react";
 import FormSelect from "./FormSelect";
 import FormInput from "./FormInput";
 import { Form } from "@/components/ui/form";
@@ -11,6 +11,7 @@ import { DialogClose } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import CountriesInput from "./CountriesInput";
+import { createPortal } from "react-dom";
 export interface CustomFormProps {
   inputs: InputProps[];
   src?: string;
@@ -31,6 +32,7 @@ export interface CustomFormProps {
   disabled?: boolean;
   btnStyles?: string;
   cancel?: any;
+  notbtn?: any;
 }
 export interface InputProps {
   name: string;
@@ -72,19 +74,27 @@ const CustomForm = ({
   isPending,
   btnStyles,
   cancel,
+  notbtn = false,
 }: CustomFormProps) => {
   const t = useTranslations();
+
   return (
     <Form {...form}>
       <form className="flex  uppercase w-full items-stretch gap-2" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-1 flex-col">
           {title && <Head1 className=" text-lg text-center" text={title} />}
           <div className="flex lg:pt-4 flex-col gap-2">
-            {inputs.map((input) =>
+            {inputs.map((input, i) =>
               input?.select ? (
-                <FormSelect placeholder={input.placeholder} key={input.name} {...input} />
+                <FormSelect placeholder={input.placeholder} key={i} {...input} />
               ) : input.country ? (
-                <CountriesInput label={input.label} cityName={input.cityName} countryName={input.countryName} stateName={input.stateName} />
+                <CountriesInput
+                  key={i}
+                  label={input.label}
+                  cityName={input.cityName}
+                  countryName={input.countryName}
+                  stateName={input.stateName}
+                />
               ) : (
                 <FormInput
                   returnFullPhone={input?.returnFullPhone}
@@ -93,7 +103,7 @@ const CustomForm = ({
                   label2={input?.label2 || ""}
                   switchToggle={input?.switchToggle}
                   phone={input.phone || false}
-                  key={input.name}
+                  key={i}
                   {...input}
                 />
               )
@@ -103,8 +113,9 @@ const CustomForm = ({
           <div className={cn("flex gap-2 mt-5 items-center", { "self-center w-full lg:w-[60%]": cancel })}>
             <div className={`${btnStyles} flex-1 flex items-center flex-col`}>
               {link && linkText && <MyLink link={link} text={linkText} />}
-              <div className=" w-full">
-                <SubmitButton btnStyles={btnStyles} text={btnText || t("Submit")} isPending={isPending || disabled} />
+
+              <div className="w-full">
+                <SubmitButton text={btnText || t("Submit")} isPending={isPending || disabled} />
               </div>
             </div>
             {cancel && (

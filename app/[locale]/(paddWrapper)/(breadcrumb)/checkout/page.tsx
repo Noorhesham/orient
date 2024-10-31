@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Page = () => {
   const { data, isLoading } = useGetEntity("checkout", "checkout");
@@ -25,7 +25,6 @@ const Page = () => {
   const { generalSettings, loading, userSettings } = useAuth();
   const t = useTranslations();
   const router = useRouter();
-  console.log(data);
   if (isLoading || !data || loading)
     return (
       <div className=" min-h-screen">
@@ -55,7 +54,6 @@ const Page = () => {
                 </Container>
               )}
             </div>
-
             {cart.items.length > 0 && (
               <Container>
                 <Head1 className=" text-xl font-bold" text={t("payment")} />
@@ -77,10 +75,14 @@ const Page = () => {
                 />
               ))}
             </Container>
-          </div>
+          </div>{" "}
           {cart.items.length > 0 && (
             <div className={cn("col-span-4 flex flex-col gap-5 ")}>
-              <Container className={`   pb-10 gap-5 flex flex-col ${!userSettings ? "flex-col-reverse" : "pt-10"}`}>
+              {" "}
+              {!loggedIn && <CompeleteOrder />}
+              <Container
+                className={`  portal  pb-10 gap-5 flex flex-col ${!userSettings ? "flex-col-reverse" : "pt-10"}`}
+              >
                 <div>
                   <h1 className=" text-main2 text-xl font-semibold text-center">{t("cart_total")}</h1>
                   <div className="  px-14 mt-5">
@@ -100,7 +102,6 @@ const Page = () => {
                     </div>
                   </div>
                 </div>
-                <CompeleteOrder />
               </Container>
             </div>
           )}

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import MotionItem from "./MotionItem";
 import Link from "next/link";
 
@@ -28,7 +28,7 @@ const Card = ({ img, text, children, width, className, price, id, sell, desc }: 
          before:scale-0 group-hover:before:scale-100   before:duration-300 before:right-0
           before:top-2 before:border-b-2 before:w-[110%] before:h-full
        after:border-gray-50 after:scale-0 group-hover:after:scale-100 
-        after:duration-300 after:left-0 after:h-[116%] before:left-[-6px] before:delay-100  after:-top-0 after:w-[104%] 
+        after:duration-300 after:-left-1 after:h-[116%] before:left-[-6px] before:delay-100  after:-top-0 after:w-[104%] 
           group-hover:after:border-r-2 top-1/2 h-fit left-1/2 -translate-x-1/2 -translate-y-1/2 
            w-full z-30 max-w-[14rem]  group-hover:opacity-100 opacity-0 transition-opacity duration-300"
       >

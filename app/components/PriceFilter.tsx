@@ -5,10 +5,13 @@ import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
+import { useIsLoading } from "../context/LoadingContext";
 
 const PriceFilter = () => {
   const t = useTranslations("filters");
+  const { setLoading } = useIsLoading();
+  const [isPending, startTransition] = useTransition();
   const PRICE_FILTERS = [
     { value: [0, 10000], label: t("allPrice"), isCustom: false },
     { value: [1, 100], label: t("under100"), isCustom: false },
@@ -39,13 +42,18 @@ const PriceFilter = () => {
   const { replace } = useRouter();
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
-    url.searchParams.append("price_from", priceFilter.range[0].toString());
-    url.searchParams.append("price_to", priceFilter.range[1].toString());
-    url.searchParams.append("custom", priceFilter.isCustom.toString());
-    replace(url.toString(), { scroll: false });
+    startTransition(() => {
+      const url = new URL(window.location.href);
+      ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
+      url.searchParams.append("price_from", priceFilter.range[0].toString());
+      url.searchParams.append("price_to", priceFilter.range[1].toString());
+      url.searchParams.append("custom", priceFilter.isCustom.toString());
+      replace(url.toString(), { scroll: false });
+    });
   }, [priceFilter, replace]);
+  useEffect(() => {
+    setLoading(isPending);
+  }, [isPending, setLoading]);
   const handlePriceChange = ({ range, isCustom }: any) => setPriceFilter({ range, isCustom });
 
   return (

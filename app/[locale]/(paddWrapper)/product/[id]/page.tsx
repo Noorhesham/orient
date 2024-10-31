@@ -404,7 +404,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
 
                 <div className=" pb-5 border-b border-input">
                   <div className=" flex flex-col items-center justify-center  gap-2">
-                    <div className=" flex items-center pt-4 gap-2">
+                    <div className=" flex items-center pt-2 gap-2">
                       <h2>{t("price")} :</h2>
                       <PriceWithSale
                         size="sm"
