@@ -12,11 +12,12 @@ import Address from "@/app/components/Address";
 import ContactUsLocation from "@/app/components/ContactUsLocation";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Server } from "@/app/main/Server";
+import { CACHE } from "@/app/constants";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   const t = await getTranslations({ locale });
-  const { forms } = await Server({ resourceName: "getForms", body: { slugs: ["contact-us"] } });
+  const { forms } = await Server({ resourceName: "getForms", body: { slugs: ["contact-us"] }, cache: CACHE });
   const fields = forms[0].fields
     .map((field: any) => {
       if (field.type === "button") return;

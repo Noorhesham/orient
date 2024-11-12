@@ -12,12 +12,13 @@ import SwiperCards from "@/app/components/SwiperCards";
 import { Server } from "@/app/main/Server";
 import { convertToHTML } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
+import { CACHE } from "@/app/constants";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   // const t = useTranslations();
   const t = await getTranslations({ locale });
-  const { page } = await Server({ resourceName: "colortrend", cache: 0 });
+  const { page } = await Server({ resourceName: "colortrend", cache: CACHE });
   console.log(page.products);
   const contentHTML = convertToHTML(page.content);
   return (
