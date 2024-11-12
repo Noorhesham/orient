@@ -36,7 +36,7 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
     setCurrentPage(page);
     const t = setTimeout(() => {
       setLoading(false);
-    },2500);
+    }, 2500);
   };
   const locale = useLocale();
   return (
@@ -77,9 +77,11 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
             </PaginationItem>
           );
         })}
-        {/* <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem> */}
+        {totalPages > 3 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
         <PaginationItem>
           <Button
             size={"sm"}
