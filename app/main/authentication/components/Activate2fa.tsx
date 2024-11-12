@@ -64,7 +64,7 @@ const Activate2fa = () => {
               {t("2fadesc")}
             </label>
           </div>
-            <Paragraph description={t("2fadescc")} />
+            <Paragraph className=" text-center" description={t("2fadescc")} />
           <div>
             {serial && isActivated && (
               <div className=" text-2xl items-center flex flex-col mt-5">

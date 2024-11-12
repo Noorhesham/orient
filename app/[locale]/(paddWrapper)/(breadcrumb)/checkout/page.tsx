@@ -9,6 +9,7 @@ import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import PaymentMethods from "@/app/components/PaymentMethods";
 import PriceWithSale from "@/app/components/PriceWithSale";
 import ShippingList from "@/app/components/ShippingList";
+import Spinner from "@/app/components/Spinner";
 import { useAuth } from "@/app/context/AuthContext";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -27,8 +28,8 @@ const Page = () => {
   const router = useRouter();
   if (isLoading || !data || loading)
     return (
-      <div className=" min-h-screen">
-        <Skeleton />
+      <div className=" relative min-h-screen">
+        <Spinner />
       </div>
     );
   if (!generalSettings.visitors_create_order) router.push("/cart");
