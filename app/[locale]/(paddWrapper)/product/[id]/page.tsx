@@ -119,7 +119,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
   queryParams.append("ids[]", product.id);
   const { products: cartStatus } = await Server({ resourceName: "check", queryParams });
   const upSells = product.upSells.length <= 0 ? product.crossSells : product.upSells;
-  console.log(product);
+  console.log(product.pdf);
   return (
     <RightClickProvider>
       <BreadCrumb
@@ -144,7 +144,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           key="profile-jsonld"
         />
-  <h1 className=" hidden">{product.title}</h1>
+        <h1 className=" hidden">{product.title}</h1>
         <MaxWidthWrapper noPadding className="  flex flex-col lg:grid  lg:grid-cols-11 lg:gap-3 items-start">
           <div className="lg:col-span-8 items-center max-w-full flex flex-col gap-4  lg:grid md:grid-cols-2 lg:grid-cols-5 lg:items-start">
             <div className="max-w-full flex col-span-full lg:col-span-2 flex-col mt-3 lg:mt-12 w-full">
@@ -216,10 +216,16 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   />
                   <div className="flex lg:w-auto w-full   items-center gap-2">
                     {product.pdf && product.pdf.length > 0 && (
-                      <Button className="flex-1 md:flex-auto   rounded-full gap-2 py-4 border-black" variant="outline">
-                        <DownloadIcon className="w-4 h-4" />
-                        {t("downloadProduct")}
-                      </Button>
+                      <Link href={product.pdf[0].file} target="_blank">
+                        {" "}
+                        <Button
+                          className="flex-1 md:flex-auto   rounded-full gap-2 py-4 border-black"
+                          variant="outline"
+                        >
+                          <DownloadIcon className="w-4 h-4" />
+                          {t("downloadProduct")}
+                        </Button>
+                      </Link>
                     )}
                     {product.image_360_panorama.length > 0 && (
                       <Button
