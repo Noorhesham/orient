@@ -156,7 +156,7 @@ const SingleVariant = ({
                   handleFilter(`${options[0].id}:${option.id}`, "wight");
                 }}
                 key={i}
-                className={`w-10 disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${
+                className={`w-12 disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${
                   filters?.["wight"]?.includes(`${options[0].id}:${option.id}`)
                     ? "bg-main text-gray-50"
                     : "bg-white text-black"

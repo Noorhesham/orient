@@ -1,4 +1,5 @@
 "use client";
+import { CopyIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
 import { FiCopy } from "react-icons/fi";
@@ -26,8 +27,8 @@ const Share = ({
   return (
     <div className="flex items-center gap-2 text-sm">
       <p>{t("share")}</p> {/* Use translation */}
-      <FiCopy onClick={handleShare} className="cursor-pointer text-xl w-6 h-6 hover:text-blue-500" />
-      <FacebookShareButton url={currentUrl} quote={title} title={title} hashtag={title}>
+      <CopyIcon onClick={handleShare} className="cursor-pointer text-xl w-6  text-main h-6 hover:text-blue-500" />
+      <FacebookShareButton url={currentUrl} quote={title} hashtag={`#${title.replace(/\s+/g, "")}`}>
         <FacebookIcon className="hover:text-blue-600 w-6 h-6" size={32} round />
       </FacebookShareButton>
       <TwitterShareButton url={currentUrl} title={title} hashtags={["yourHashtag"]}>

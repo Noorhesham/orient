@@ -55,7 +55,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       };
     })
     .filter((field: any) => field !== undefined);
-
+    console.log(forms)
   return (
     <main className="">
       <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">
@@ -76,7 +76,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
               <Partner tabs={tabs} />
             </Section>
           </Suspense>
-          <MotionItem key={category} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" col-span-full w-full lg:col-span-2">
+          <MotionItem nohover key={category} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" col-span-full w-full lg:col-span-2">
             <Head1 text={t("contact.question")} />
             <FormContainer server id={category} submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
           </MotionItem>

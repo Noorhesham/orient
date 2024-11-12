@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Spinner from "./Spinner";
 import { FaSpinner } from "react-icons/fa";
+import { useState } from "react";
 
 export default function ComboboxForm({
   options,
@@ -25,6 +26,8 @@ export default function ComboboxForm({
   disabled?: boolean;
 }) {
   const form = useFormContext();
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <FormField
@@ -34,7 +37,7 @@ export default function ComboboxForm({
         render={({ field }) => (
           <FormItem className={` w-full`}>
             {label && <FormLabel>{label}</FormLabel>}
-            <Popover>
+            <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger className=" w-full" asChild>
                 <FormControl className=" w-full">
                   <Button
@@ -70,6 +73,7 @@ export default function ComboboxForm({
                                 form.setValue(name, option.value);
                                 form.trigger(name);
                                 if (onChange) onChange(option.value);
+                                setOpen(false);
                               }}
                             >
                               {option.label}

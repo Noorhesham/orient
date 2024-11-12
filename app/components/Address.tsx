@@ -1,19 +1,17 @@
 "use client";
-import { HeadPhones, Location, Phone } from "@/app/components/Icons";
+import { Location, Phone } from "@/app/components/Icons";
 import IconWidget from "@/app/components/IconWidget";
 import { FaMailBulk } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
-import cookies from "js-cookie";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import MotionContainer from "./MotionContainer";
 
-const Address = ({className}:{className?:String}) => {
+const Address = ({ className }: { className?: String }) => {
   const t = useTranslations();
   const locale = useLocale();
-
   const { generalSettings, loading } = useAuth();
   if (loading)
     return (
@@ -31,33 +29,27 @@ const Address = ({className}:{className?:String}) => {
     );
   const { company_contacts } = generalSettings;
   const { branches } = company_contacts;
-
-  const local = cookies.get("NEXT_LOCALE");
-  const address = company_contacts.address?.[local || "en"];
-  console.log(address);
   return (
     <MotionContainer serverAnimate className={cn(" flex-col gap-2 flex ", className)}>
       {branches.map((branch: any, i: number) => (
-        <IconWidget
-          key={i}
-          paragraph={branch.co_info_address[locale]}
-          header={branch.title[locale]}
-          icon={<Location />}
-        />
+        <Link key={i} href={`/${branch.co_info_location_url}`}>
+          <IconWidget paragraph={branch.co_info_address[locale]} header={branch.title[locale]} icon={<Location />} />
+        </Link>
       ))}
-      <IconWidget
-        link={`tel:${company_contacts.phone}`}
-        paragraph={`${t("address.hotline")}  ${company_contacts.phone}`}
-        header={t("address.phone")}
-        icon={<Phone />}
-      />
-
-      <IconWidget
-        link={`mailto:${company_contacts.email || "info@orient-paints.com"}`}
-        paragraph="info@orient-paints.com"
-        header={t("address.email")}
-        icon={<FaMailBulk className=" text-main" />}
-      />
+      <Link href={`tel:${company_contacts.phone}`}>
+        <IconWidget
+          paragraph={`${t("address.hotline")}  ${company_contacts.phone}`}
+          header={t("address.phone")}
+          icon={<Phone />}
+        />
+      </Link>
+      <Link href={`mailto:${company_contacts.email || "info@orient-paints.com"}`}>
+        <IconWidget
+          paragraph="info@orient-paints.com"
+          header={t("address.email")}
+          icon={<FaMailBulk className=" text-main" />}
+        />
+      </Link>
     </MotionContainer>
   );
 };

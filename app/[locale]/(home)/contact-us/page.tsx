@@ -51,11 +51,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
       </section>
       <MaxWidthWrapper>
         <div className=" flex flex-col  gap-4 lg:gap-2 md:grid items-center lg:items-start  md:grid-cols-4">
-          <Section
-            CustomePadding="px-0  lg:px-0"
-            className="  w-full col-span-2 flex flex-col gap-2 lg:gap-4"
-            heading={t("contact.title")}
-          >
+          <Section className="  w-full col-span-2 flex flex-col gap-2 lg:gap-4" heading={t("contact.title")}>
             <Paragraph description={t("contact.description")} />
             <Address className="mt-2" />
             {/* <IconWidget paragraph="From 09 am To 6 pm " header="All Week (off Line)" icon={<Calender />} /> */}

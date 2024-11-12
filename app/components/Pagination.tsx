@@ -77,9 +77,9 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
             </PaginationItem>
           );
         })}
-        <PaginationItem>
+        {/* <PaginationItem>
           <PaginationEllipsis />
-        </PaginationItem>
+        </PaginationItem> */}
         <PaginationItem>
           <Button
             size={"sm"}

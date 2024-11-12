@@ -38,7 +38,7 @@ const ReviewsSection = ({ id }: { id: string }) => {
     id,
     { enabled: inView } // Only fetch data when the component is in view
   );
-
+  console.log(data)
   return (
     <div ref={sectionRef}>
       {inView ? (

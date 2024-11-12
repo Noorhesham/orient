@@ -29,7 +29,7 @@ const SearchBox = ({
 }) => {
   const [val, setVal] = useState("");
   const [query, setQuery] = useState<string>("");
-  console.log(query);
+ 
   useEffect(() => {
     searchParams.set("search", query);
   }, [query]);
@@ -41,7 +41,6 @@ const SearchBox = ({
     { enabled: query.length > 3 },
     `search=${query}`
   );
-  console.log(data);
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);

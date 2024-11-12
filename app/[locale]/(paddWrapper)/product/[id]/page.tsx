@@ -338,8 +338,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   review_count={product.review_count}
                   review_rate={product.review_rate}
                 />
-                <ReviewsSection id={product.parent_id} />
-                <AddComment id={product.parent_id} />
+                <ReviewsSection id={product.id} />
+                <AddComment id={product.id} />
               </Section>
             </MaxWidthWrapper>
           </div>
