@@ -30,4 +30,5 @@ export const PRODUCTS_LINKS = [
   { text: "specialized", href: "/shop?category_id=6" },
 ];
 export const BASE_URL = "https://lab.r-m.dev/api";
-export const WEBSITEURL='https://localhost:3000'
+export const WEBSITEURL = "https://localhost:3000";
+export const CACHE = 6400;

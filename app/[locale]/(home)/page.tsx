@@ -10,14 +10,12 @@ import LinkButton from "../../components/LinkButton";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
-import { cookies } from "next/headers";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 import AppDownload from "@/app/components/AppDownload";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Server } from "@/app/main/Server";
-import MobileWrapper from "@/app/components/MobileWrapper";
-import { WEBSITEURL } from "@/app/constants";
+import { CACHE, WEBSITEURL } from "@/app/constants";
 import MotionItem from "@/app/components/MotionItem";
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
@@ -59,7 +57,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
   const t = await getTranslations();
   const { page } = await Server({
     resourceName: "home",
-    cache: 0,
+    cache: CACHE,
     queryParams: new URLSearchParams({ with: "tags,category_id" }),
   });
   console.log(page);
@@ -82,7 +80,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
           linkText={t("browse all products")}
         >
           <div className=" mt-4 flex">
-            <SwiperCards 
+            <SwiperCards
               autoplay
               slidesPerView={4}
               mobile={2}
