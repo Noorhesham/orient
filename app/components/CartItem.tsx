@@ -80,7 +80,11 @@ const CartItem = ({
         {size !== "sm" && (
           <div className=" flex flex-col items-end gap-2 ml-auto">
             {wishlist && <AddToWishlist title={text} wishlistStatus={true} noshare id={id} />}
-            {nocheck ?<p className=" text-main2 font-semibold">Quantity : {quantity}</p>: <Counter handleAdd={handleAdd} value={id} defaultcount={quantity} />}
+            {quantity && nocheck ? (
+              <p className=" text-main2 font-semibold">Quantity : {quantity}</p>
+            ) : (
+              <Counter handleAdd={handleAdd} value={id} defaultcount={quantity} />
+            )}
           </div>
         )}
         {retrive && (
