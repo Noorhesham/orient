@@ -15,7 +15,12 @@ const OrderDetails = ({ id }: { id: string }) => {
   const t1 = useTranslations("table");
   const t2 = useTranslations("CountriesInput");
   const address = useTranslations("address");
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return (
+      <div className=" absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+        <Spinner />;
+      </div>
+    );
   const { order } = data;
 
   return (
