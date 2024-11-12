@@ -32,7 +32,7 @@ const Address = ({ className }: { className?: String }) => {
   return (
     <MotionContainer serverAnimate className={cn(" flex-col gap-2 flex ", className)}>
       {branches.map((branch: any, i: number) => (
-        <Link key={i} href={`/${branch.co_info_location_url}`}>
+        <Link key={i} href={`${branch.co_info_location_url}`}>
           <IconWidget paragraph={branch.co_info_address[locale]} header={branch.title[locale]} icon={<Location />} />
         </Link>
       ))}
