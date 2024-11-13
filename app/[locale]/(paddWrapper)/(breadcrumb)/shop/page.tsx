@@ -55,7 +55,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
             </div>
             <div className=" lg:col-span-6 grid-cols-3 ">
               <div className="  gap-3 w-full flex-col md:flex-row  flex  lg:items-center sm:flex-row flex-grow justify-between">
-                <h1 className={cn("flex  gap-1  items-center", { " flex-row-reverse": locale === "ar" })}>
+                <div className={cn("flex  gap-1  items-center", { " flex-row-reverse": locale === "ar" })}>
                   <h4 className=" text-black font-semibold">{data.count}</h4>{" "}
                   <p className={cn(`text-muted-foreground flex items-center  ml-2`)}>
                     {t("found")}
@@ -68,7 +68,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                       ""
                     )}
                   </p>
-                </h1>
+                </div>
                 <div className="flex items-center gap-4 ml-auto ">
                   <Sort
                     options={[
