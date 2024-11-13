@@ -11,7 +11,7 @@ const Filters = ({ colseBtn, filters }: { colseBtn?: ReactNode; filters?: any })
     <div className="  max-h-screen   rounded-2xl border bg-white shadow-md border-gray-400 overflow-y-auto lg:max-h-full col-span-full ">
       <div className="   flex flex-col py-4  px-3">
         {colseBtn}
-        <Suspense>
+       
           <Box filter="category_id" text={t("category")} options={category} />
           <PriceFilter />
           {attributes?.map((attribute: any) => (
@@ -25,7 +25,7 @@ const Filters = ({ colseBtn, filters }: { colseBtn?: ReactNode; filters?: any })
             />
           ))}
           {/* <Box filter="tags" text={t("tags")} options={tags} /> */}
-        </Suspense>
+   
       </div>
     </div>
   );
