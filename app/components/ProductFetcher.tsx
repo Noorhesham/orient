@@ -56,14 +56,13 @@ const ProductFetcher = async ({ queryParams, search }: any) => {
                 <FilterMobile filters={[categories, attributes, tags]} />
               </div>
             </div>
-            <Suspense fallback={<p>Loading...</p>}>
+
             <MotionContainer
               serverAnimate
               className="grid duration-150  w-full grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 "
             >
               <Products totalPages={totalPages} products={products} />
             </MotionContainer>
-            </Suspense>
           </div>
         </section>
       </MotionItem>

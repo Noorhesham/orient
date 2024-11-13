@@ -39,7 +39,7 @@ const PriceFilter = () => {
       });
     }
   }, [price_from, price_to, custom]);
-  const { replace } = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     startTransition(() => {
@@ -48,9 +48,9 @@ const PriceFilter = () => {
       url.searchParams.append("price_from", priceFilter.range[0].toString());
       url.searchParams.append("price_to", priceFilter.range[1].toString());
       url.searchParams.append("custom", priceFilter.isCustom.toString());
-      replace(url.toString(), { scroll: false });
+      router.push(url.toString(), { scroll: false });
     });
-  }, [priceFilter, replace]);
+  }, [priceFilter]);
   useEffect(() => {
     setLoading(isPending);
   }, [isPending, setLoading]);
