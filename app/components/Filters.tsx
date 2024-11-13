@@ -5,7 +5,7 @@ import PriceFilter from "./PriceFilter";
 import { useTranslations } from "next-intl";
 
 const Filters = ({ colseBtn, filters }: { colseBtn?: ReactNode; filters?: any }) => {
-  const [category, attributes, tags] = filters;
+  const [category, attributes, ] = filters;
   const t = useTranslations("filters");
   return (
     <div className="  max-h-screen   rounded-2xl border bg-white shadow-md border-gray-400 overflow-y-auto lg:max-h-full col-span-full ">

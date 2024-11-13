@@ -5,7 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useCallback, useEffect, useState, useTransition } from "react";
 import { useIsLoading } from "../context/LoadingContext";
 
 const PriceFilter = () => {
@@ -40,20 +40,22 @@ const PriceFilter = () => {
     }
   }, [price_from, price_to, custom]);
   const router = useRouter();
+  const updateUrl = useCallback(() => {
+    const url = new URL(window.location.href);
+    ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
+    url.searchParams.append("price_from", priceFilter.range[0].toString());
+    url.searchParams.append("price_to", priceFilter.range[1].toString());
+    url.searchParams.append("custom", priceFilter.isCustom.toString());
+    router.push(url.toString(), { scroll: false });
+  }, [priceFilter, router]);
 
   useEffect(() => {
-    startTransition(() => {
-      const url = new URL(window.location.href);
-      ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
-      url.searchParams.append("price_from", priceFilter.range[0].toString());
-      url.searchParams.append("price_to", priceFilter.range[1].toString());
-      url.searchParams.append("custom", priceFilter.isCustom.toString());
-      router.push(url.toString(), { scroll: false });
-    });
-  }, [priceFilter]);
-  useEffect(() => {
-    setLoading(isPending);
-  }, [isPending, setLoading]);
+    updateUrl();
+  }, [priceFilter, updateUrl]);
+
+  // useEffect(() => {
+  //   setLoading(isPending);
+  // }, [isPending, setLoading]);
   const handlePriceChange = ({ range, isCustom }: any) => setPriceFilter({ range, isCustom });
 
   return (
