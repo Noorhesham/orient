@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl"; // Import useTranslations
 import { format } from "date-fns";
 
 const OrderDetails = ({ id }: { id: string }) => {
-  const { data, isLoading } = useGetEntity("my_order", "order", id);
+  const { data, isLoading } = useGetEntity("my_order", `order-${id}`, id);
   const t = useTranslations("orderDetails"); // Translation hook
   const t1 = useTranslations("table");
   const t2 = useTranslations("CountriesInput");
