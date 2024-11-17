@@ -40,7 +40,7 @@ const NavLink = ({
               <Link
                 className={`${
                   locale === "en" ? "pr-20" : "pl-20"
-                }   pl-3  py-2  w-full text-xs hover:opacity-90 duration-150 hover:text-gray-200   lg:text-sm  font-[600] text-black  uppercase`}
+                }   pl-3  py-2  w-full text-xs hover:opacity-90 duration-150 hover:text-gray-900   lg:text-sm  font-[600] text-black  uppercase`}
                 href={link.href || "#"}
               >
                 {link.text}
