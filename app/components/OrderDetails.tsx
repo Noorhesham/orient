@@ -26,7 +26,7 @@ const OrderDetails = ({ id }: { id: string }) => {
   return (
     <div className="lg:px-10 py-10 lg:py-5">
       <MiniHeader
-        heading={t("orderNumber", { uuid: order?.uuid })} // Use translation with variable
+        heading={t("orderNumber", { uuid: order?.uuid })} 
         date={format(new Date(order.date), "dd/MM/yyyy")}
         status={t1(order.status)}
       />
