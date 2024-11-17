@@ -58,7 +58,7 @@ const CountriesInput = ({
   });
 
   return (
-    <div className="flex flex-col gap-2 my-2">
+    <div className="flex flex-col gap-2 ">
       {!isLoading && (
         <ComboboxForm
           name={countryName}
