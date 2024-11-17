@@ -101,11 +101,11 @@ const Box = ({
               <input
                 type="checkbox"
                 name={filter}
-                id={option.id}
+                id={option.id.toString()}
                 checked={filters["category_id"]?.includes(option.id.toString()) || false}
                 onChange={() => handleFilter(option.id.toString(), "category_id")}
               />
-              <label htmlFor={option.id}>{option.title}</label>
+              <label htmlFor={option.id.toString()}>{option.title}</label>
             </li>
           ))}
 

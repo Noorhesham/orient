@@ -103,7 +103,7 @@ const AddToWishlist = ({
           content={
             <Link
               href={"/login"}
-              className="text-2xl hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
+              className="text-2xl hover:underline m-auto duration-150 py-10 text-main uppercase font-semibold text-center"
             >
               {t("loginPrompt")} {/* Use translation */}
             </Link>
