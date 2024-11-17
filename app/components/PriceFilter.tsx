@@ -32,7 +32,6 @@ const PriceFilter = () => {
   const price_to = Number(searchParams.get("price_to"));
   const custom = searchParams.get("custom") === "true" ? true : false;
   useEffect(() => {
-    console.log(price_from, price_to);
     if (!price_from && !price_to) {
       setPriceFilter({
         range: DEFAULT_RANGE,

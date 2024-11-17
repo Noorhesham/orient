@@ -56,7 +56,7 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
           outline: "#E6007E",
           boxShadow: "0 0 0 1px #e4e4e7",
           direction: "ltr",
-          marginLeft: "10px",
+          marginTop: "10px",
         },
       }}
     />
