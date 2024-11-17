@@ -41,14 +41,19 @@ const PriceFilter = () => {
   }, [price_from, price_to, custom]);
   const router = useRouter();
   const updateUrl = useCallback(() => {
-    const url = new URL(window.location.href);
-    ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
-    url.searchParams.append("price_from", priceFilter.range[0].toString());
-    url.searchParams.append("price_to", priceFilter.range[1].toString());
-    url.searchParams.append("custom", priceFilter.isCustom.toString());
-    router.push(url.toString(), { scroll: false });
+    startTransition(() => {
+      const url = new URL(window.location.href);
+      ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
+      url.searchParams.append("price_from", priceFilter.range[0].toString());
+      url.searchParams.append("price_to", priceFilter.range[1].toString());
+      url.searchParams.append("custom", priceFilter.isCustom.toString());
+      url.searchParams.set("page", "1");
+      router.push(url.toString(), { scroll: false });
+    });
   }, [priceFilter, router]);
-
+  useEffect(() => {
+    setLoading(isPending);
+  }, [isPending, setLoading]);
   useEffect(() => {
     updateUrl();
   }, [priceFilter, updateUrl]);
