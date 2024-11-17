@@ -57,7 +57,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ setLocation, defaultLocatio
           markers.map((marker) => (
             <Marker key={marker.title} position={marker.position}>
               <Popup className=" flex flex-col gap-1">
-                {marker.title} <Link href={`${marker?.url}`}>{t("View on Google Maps")}</Link>
+                {marker.title} <Link target="_blank" href={`${marker?.url}`}>{t("View on Google Maps")}</Link>
               </Popup>
             </Marker>
           ))

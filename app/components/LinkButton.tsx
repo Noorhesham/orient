@@ -12,7 +12,7 @@ const LinkButton = ({ href, text }: { href: string; text: string }) => {
         <span className="mas  text-nowrap flex items-center gap-2">
           {text} <ArrowRight className={` ${locale === "ar" ? "rotate-180" : "rotate-0"}  text-black  w-4 h-4 ml-2"`} />
         </span>{" "}
-        <Link href={`/${locale}/${href}`} className={` px-8 flex items-center gap-2 rounded-full `}>
+        <Link href={`/${locale}${href}`} className={` px-8 flex items-center gap-2 rounded-full `}>
           <div className=" flex items-center gap-2 text-nowrap">
             {text}{" "}
             <ArrowRight className={` ${locale === "ar" ? "rotate-180" : "rotate-0"}  text-white  w-4 h-4 ml-2"`} />
