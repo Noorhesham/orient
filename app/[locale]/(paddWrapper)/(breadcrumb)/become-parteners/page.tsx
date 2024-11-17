@@ -71,11 +71,11 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       </section>
       <MaxWidthWrapper>
         <div className=" min-h-[80vh]  flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
-          <Suspense>
+      
             <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
               <Partner tabs={tabs} />
             </Section>
-          </Suspense>
+        
           <MotionItem nohover key={category} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" col-span-full w-full lg:col-span-2">
             <Head1 text={t("contact.question")} />
             <FormContainer server id={category} submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
