@@ -32,18 +32,18 @@ const Address = ({ className }: { className?: String }) => {
   return (
     <MotionContainer serverAnimate className={cn(" flex-col gap-2 flex ", className)}>
       {branches.map((branch: any, i: number) => (
-        <Link key={i} href={`${branch.co_info_location_url}`}>
+        <Link target="_blank" key={i} href={`${branch.co_info_location_url}`}>
           <IconWidget paragraph={branch.co_info_address[locale]} header={branch.title[locale]} icon={<Location />} />
         </Link>
       ))}
-      <Link href={`tel:${company_contacts.phone}`}>
+      <Link target="_blank" href={`tel:${company_contacts.phone}`}>
         <IconWidget
           paragraph={`${t("address.hotline")}  ${company_contacts.phone}`}
           header={t("address.phone")}
           icon={<Phone />}
         />
       </Link>
-      <Link href={`mailto:${company_contacts.email || "info@orient-paints.com"}`}>
+      <Link  href={`mailto:${company_contacts.email || "info@orient-paints.com"}`}>
         <IconWidget
           paragraph="info@orient-paints.com"
           header={t("address.email")}
