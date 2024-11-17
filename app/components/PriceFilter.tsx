@@ -32,21 +32,19 @@ const PriceFilter = () => {
   const price_to = Number(searchParams.get("price_to"));
   const custom = searchParams.get("custom") === "true" ? true : false;
   useEffect(() => {
-    // Reset to default if parameters are missing
-    console.log(price_from,price_to)
+    console.log(price_from, price_to);
     if (!price_from && !price_to) {
       setPriceFilter({
         range: DEFAULT_RANGE,
         isCustom: false,
       });
     } else {
-      // Update state if parameters exist
       setPriceFilter({
         range: [price_from || DEFAULT_RANGE[0], price_to || DEFAULT_RANGE[1]],
         isCustom: custom || false,
       });
     }
-  }, [price_from, price_to, custom, searchParams, setPriceFilter]);
+  }, [price_from, price_to, custom]);
   const router = useRouter();
   const updateUrl = useCallback(() => {
     startTransition(() => {
@@ -99,7 +97,8 @@ const PriceFilter = () => {
         {priceFilter && (
           <div className="flex self-start mb-3 justify-between">
             <div className="flex w-fit gap-5   items-center">
-              <Input disabled={true}
+              <Input
+                disabled={true}
                 onChange={(e) => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [Number(e.target.value), prev.range[1]] }));
@@ -107,7 +106,8 @@ const PriceFilter = () => {
                 value={price_from?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
-              <Input disabled={true}
+              <Input
+                disabled={true}
                 onChange={(e) => {
                   priceFilter?.isCustom &&
                     setPriceFilter((prev) => ({ isCustom: true, range: [prev.range[0], Number(e.target.value)] }));
