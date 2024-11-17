@@ -366,6 +366,8 @@
     "Choose Category": "اختر تصنيفا",
     "Choose Quantity": "أدخل المساحة"
   },
+  "Reset Filters": "اعادة تعيين التصنيفات",
+  "empty": "لا يوجد منتجات بهذه المواصفات",
   "customizeNotifications": "تخصيص الإشعارات",
   "configureCustomSettings": "تكوين الإعدادات المخصصة",
   "saveChanges": "حفظ التغييرات",

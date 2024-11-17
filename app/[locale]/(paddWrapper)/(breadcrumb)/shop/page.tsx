@@ -1,3 +1,4 @@
+import Empty from "@/app/components/Empty";
 import FilterMobile from "@/app/components/FilterPhone";
 import Filters from "@/app/components/Filters";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
@@ -86,9 +87,15 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                   <FilterMobile filters={[categories, attributes, tags]} />
                 </div>
               </div>
-              <MotionContainer className="grid duration-150 overflow-x-hidden   w-full grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 ">
-                <Products totalPages={totalPages} products={products} />
-              </MotionContainer>
+              {products.length > 0 ? (
+                <MotionContainer className="grid duration-150 overflow-x-hidden   w-full grid-cols-2  md:grid-cols-3 lg:grid-cols-3 items-center gap-3 mt-10 ">
+                  <Products totalPages={totalPages} products={products} />
+                </MotionContainer>
+              ) : (
+                <div className=" mt-10">
+                  <Empty textLink={t("Reset Filters")} link="/shop" text={t("empty")} />
+                </div>
+              )}
             </div>
           </section>
         </MotionItem>

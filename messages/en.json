@@ -368,6 +368,8 @@
     "Choose Category": "Choose Category",
     "Choose Quantity": "Choose Distance"
   },
+  "empty": "THERE ARE NO PRODUCT WITH THIS SPECIFICATIONS",
+  "Reset Filters":"RESET FILTERS",
   "customizeNotifications": "CUSTOMIZE NOTIFICATIONS",
   "configureCustomSettings": "CONFIGURE CUSTOM SETTINGS",
   "saveChanges": "SAVE CHANGES",
