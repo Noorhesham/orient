@@ -92,7 +92,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
                     <Card
                       key={index}
                       id={item.id}
-                      price={item.price}
+                      price={item.price_before_discount}
                       text={item.title}
                       img={item?.main_cover[0]?.sizes?.medium}
                     />

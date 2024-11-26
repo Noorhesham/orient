@@ -7,6 +7,7 @@ import ProductSkeleton from "./ProductSkeleton";
 
 const Products = ({ products, totalPages }: { products: Product[]; totalPages: number }) => {
   const { loading } = useIsLoading();
+  console.log(products);
   return (
     <>
       {loading
@@ -15,13 +16,13 @@ const Products = ({ products, totalPages }: { products: Product[]; totalPages: n
             .map((_, index) => <ProductSkeleton key={index} />)
         : products.map((product: Product) => (
             <Card
-            desc={product.short_description}
+              desc={product.short_description}
               key={product.id}
               id={product.id || ""}
               text={product.title}
-              sell={product.sell_price ? product.regular_price : null}
+              price={product.price_before_discount}
+              discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}
               img={product?.main_cover[0]?.sizes?.medium || "/default-thumbnail.jpg"}
-              price={product.price.toString()}
             />
           ))}
       {totalPages > 1 && (

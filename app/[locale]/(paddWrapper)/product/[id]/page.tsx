@@ -177,15 +177,15 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <div className="flex flex-col gap-3 pb-5">
                 <Stars count={product.review_count} rating={product?.review_rate || 5} />
                 <PriceWithSale
-                  price={product.sell_price || product.regular_price}
-                  discount={product.sell_price ? product.regular_price : null}
+                  price={product.price_before_discount}
+                  discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}
                 />
                 {product.stock_status === "out" && (
                   <p className="text-red-500 mt-2 font-semibold text-sm">{t("outOfStock")}</p>
                 )}
               </div>
               <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 ">
-                <div className="lg:hidden border-b border-input gap-3 flex flex-col items-start  w-full ">
+                <div className="lg:hidden border-b border-input gap-3 flex flex-col products-start  w-full ">
                   <div className=" lg:hidden flex w-full flex-col  gap-3 items-start ">
                     {" "}
                     {variations && attributes.length > 0 && variations.length > 0 && (
@@ -299,7 +299,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                               key={item.id}
                               img={item?.main_cover[0]?.sizes?.medium}
                               text={item.title}
-                              price={item.sell_price ? item.regular_price : item.regular_price}
+                              price={item.price_before_discount}
+                              discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
                               id={item.id}
                             />
                           ),
@@ -414,8 +415,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                       <h2>{t("price")} :</h2>
                       <PriceWithSale
                         size="sm"
-                        price={product.sell_price || product.regular_price}
-                        discount={product.sell_price ? product.regular_price : null}
+                        price={product.price_before_discount}
+                        discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}
                       />
                     </div>
                     {product.stock_status === "out" && (
@@ -470,8 +471,8 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           key={item.id}
                           img={item?.main_cover[0]?.thumbnail}
                           text={item.title}
-                          sell={item.sell_price}
-                          price={item.sell_price ? item.regular_price : item.regular_price}
+                          price={item.price_before_discount}
+                          discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
                           id={item.id}
                         />
                       ),

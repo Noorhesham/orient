@@ -94,9 +94,9 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
                         key={product.id}
                         id={product.id || ""}
                         text={product.title}
-                        sell={product.sell_price ? product.regular_price : null}
                         img={product.main_cover[0]?.sizes?.medium || "/default-thumbnail.jpg"}
-                        price={product.price.toString()}
+                        price={product.price_before_discount}
+                        discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}
                       />
                     ),
                   };

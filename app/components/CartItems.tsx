@@ -27,8 +27,8 @@ const CartItems = ({ cart }: { cart: any }) => {
               handleAdd={handleAdd}
               key={item.id}
               img={item.image?.[0]?.sizes.large}
-              price={item.price_after_discount}
-              discount={item.price}
+              price={item.price_before_discount}
+              discount={item.price_before_discount !== item.price_after_discount ? item.price_after_discount : null}
               text={item.title}
               quantity={item.quantity}
               id={item.id}
@@ -49,7 +49,7 @@ const CartItems = ({ cart }: { cart: any }) => {
                 key={item.id}
                 img={item.image?.[0]?.sizes.large}
                 price={item.price_after_discount}
-                discount={item.price}
+                discount={item.price_before_discount}
                 text={item.title}
                 quantity={item.quantity}
                 id={item.id}

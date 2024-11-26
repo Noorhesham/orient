@@ -69,12 +69,11 @@ const CartItem = ({
             {text}
           </Link>
           <div className={cn({ "flex items-center gap-1 mt-2 text-xs md:text-sm": size && size === "sm" })}>
-            {price && <div className=" text-gray-800"> {<PriceWithSale price={price} size="sm" />}</div>}
-            {discount && price !== discount && (
+            {
               <div className=" line-through text-gray-500 text-xs md:text-sm">
-                {<PriceWithSale price={discount} size="sm" />}
+                {<PriceWithSale discount={discount} price={price} size="sm" />}
               </div>
-            )}
+            }
           </div>
         </div>
         {size !== "sm" && (

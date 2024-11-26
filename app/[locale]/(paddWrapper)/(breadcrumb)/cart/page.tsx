@@ -95,7 +95,6 @@ const page = async () => {
         <MaxWidthWrapper>
           <Section
             link="/shop"
-            CustomePadding="px-0"
             className="md:px-0 min-h-[30vh]"
             heading={cart.items.length === 0 ? t("our_products") : t("similar_products")}
             linkText={t("browse_products")}
@@ -106,7 +105,7 @@ const page = async () => {
                   key={item.id}
                   img={item.main_cover?.[0]?.sizes.large}
                   price={item.price_after_discount}
-                  sell={item.price}
+                  sell={item.price_before_discount}
                   text={item.title}
                   id={item.id}
                 />
@@ -122,7 +121,9 @@ const page = async () => {
                       key={item.id}
                       img={item.main_cover?.[0]?.sizes.medium}
                       price={item.price_after_discount}
-                      sell={item.price}
+                      sell={
+                        item.price_before_discount !== item.price_after_discount ? item.price_before_discount : null
+                      }
                       text={item.title}
                       id={item.id}
                     />

@@ -19,14 +19,15 @@ const page = async () => {
       <div className="flex flex-col gap-8 mt-10">
         {data.length === 0 && <NotFound message={t("wishlistContent.empty")} />}
         {data.map((item: any) => (
-          <CartItem productId={item.id}
+          <CartItem
+            productId={item.id}
             wishlist
             nocheck={true}
             id={item.id}
             key={item.id}
             img={item?.main_cover[0]?.sizes.medium}
-            price={item.sell_price || item.regular_price}
-            discount={item.sell_price ? item.regular_price : null}
+            price={item.price_before_discount}
+            discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
             text={item.title}
           />
         ))}

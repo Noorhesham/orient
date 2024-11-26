@@ -69,8 +69,8 @@ const Page = () => {
                   nocheck
                   key={item.id}
                   img={item?.image[0]?.sizes?.large}
-                  price={item.price_after_discount}
-                  discount={item.price}
+                  price={item.price_before_discount}
+                  discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
                   text={item.title}
                   quantity={item.quantity}
                 />
@@ -79,11 +79,8 @@ const Page = () => {
           </div>{" "}
           {cart.items.length > 0 && (
             <div className={cn("col-span-4 flex flex-col gap-5 ")}>
-
-              <Container
-                className={`  portal  pb-5 gap-5 flex flex-col ${userSettings ? "flex-col-reverse" : "pt-5"}`}
-                >
-                { <CompeleteOrder />}
+              <Container className={`  portal  pb-5 gap-5 flex flex-col ${userSettings ? "flex-col-reverse" : "pt-5"}`}>
+                {<CompeleteOrder />}
                 <div>
                   <h1 className=" text-main2 text-xl font-semibold text-center">{t("cart_total")}</h1>
                   <div className="  px-14 mt-5">

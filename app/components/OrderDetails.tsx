@@ -40,7 +40,7 @@ const OrderDetails = ({ id }: { id: string }) => {
               size="sm"
               img={item?.image[0]?.sizes?.medium}
               price={item.price_after_discount}
-              discount={item.price}
+              discount={item.price_before_discount}
               text={item.title}
             />
           ))}

@@ -29,7 +29,7 @@ const SearchBox = ({
 }) => {
   const [val, setVal] = useState("");
   const [query, setQuery] = useState<string>("");
- 
+
   useEffect(() => {
     searchParams.set("search", query);
   }, [query]);
@@ -153,8 +153,8 @@ const SearchBox = ({
                   <div className=" flex flex-col">
                     <h2 className=" text-black text-sm line-clamp-1 font-medium rounded-xl">{item.title}</h2>
                     <PriceWithSale
-                      price={item.sell_price || item.regular_price}
-                      discount={item.sell_price ? item.regular_price : null}
+                      price={item.price_before_discount}
+                      discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
                       size="xs"
                     />
                   </div>
