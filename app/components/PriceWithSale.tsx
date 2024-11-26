@@ -9,9 +9,9 @@ const PriceWithSale = ({
   discount,
   size = "lg",
 }: {
-  price: number|string;
+  price: number | string;
   discount?: number | null;
-  size?: "lg" | "sm"|"xs";
+  size?: "lg" | "sm" | "xs";
 }) => {
   const { generalSettings, loading } = useAuth();
   if (loading) return <Skeleton />;
@@ -21,12 +21,20 @@ const PriceWithSale = ({
     <div>
       <div className="  flex flex-wrap gap-3 items-center">
         <bdi
-          className={`${size === "sm" ? "text-base text-black":size==='xs'?"text-xs text-black" : "text-3xl md:text-2xl text-main2 font-semibold"}  text-nowrap  `}
+          className={`${
+            size === "sm"
+              ? "text-base text-black"
+              : size === "xs"
+              ? "text-xs text-black"
+              : "text-3xl md:text-2xl text-main2 font-semibold"
+          }  text-nowrap  `}
         >
           {formatPriceWithCommas(price)} {default_currency?.code}
         </bdi>
-        {discount && (
-          <del className={`  ${size==='xs'?"text-xs":"text-sm md:text-base"}  font-medium text-muted-foreground `}>
+        {discount !== null && (
+          <del
+            className={`  ${size === "xs" ? "text-xs" : "text-sm md:text-base"}  font-medium text-muted-foreground `}
+          >
             {formatPriceWithCommas(discount)} {default_currency?.code}
           </del>
         )}{" "}
