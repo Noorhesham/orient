@@ -81,7 +81,9 @@ const CartItem = ({
           <div className=" flex flex-col items-end gap-2 ml-auto">
             {wishlist && <AddToWishlist title={text} wishlistStatus={true} noshare id={id} />}
             {quantity && nocheck ? (
-              <p className=" text-main2 font-semibold">Quantity : {quantity}</p>
+              <p className=" text-main2 lg:text-base text-sm font-semibold">
+                {t("quantity")} : {quantity}
+              </p>
             ) : (
               <Counter handleAdd={handleAdd} value={id} defaultcount={quantity} />
             )}
