@@ -35,7 +35,7 @@ const Page = () => {
   if (!generalSettings.visitors_create_order) router.push("/cart");
   const { payment_methods, cart, user_addresses } = data;
   const loggedIn = userSettings!!;
-  console.log(data);
+  console.log(cart);
   return (
     <main className=" bg-gray-50">
       <div className=" pt-5  min-h-screen  ">
