@@ -58,7 +58,7 @@ const ModalCustom = ({
           )}
           {desc && <DialogDescription className="text-center mt-2">{desc}</DialogDescription>}
         </DialogHeader>
-        <div className="mt-10 w-full">{content}</div>
+        <div className={` ${title && "mt-5 lg:mt-10"} w-full`}>{content}</div>
 
         {(cancelBtn || functionalbtn || desc) && (
           <DialogFooter className="pb-10 flex items-center sm:flex-col">
