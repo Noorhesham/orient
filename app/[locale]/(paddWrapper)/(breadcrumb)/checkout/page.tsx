@@ -49,8 +49,8 @@ const Page = () => {
                   <ShippingList
                     user_addresses={user_addresses}
                     setSelected={setSelected}
-                    selected={selected || data?.user_address?.id}
-                    user_address={data?.user_address?.id || data.user_addresses[0]?.id}
+                    selected={selected || cart.address_id || data?.user_address?.id}
+                    user_address={cart.address_id || data?.user_address?.id || data.user_addresses[0]?.id}
                   />
                 </Container>
               )}

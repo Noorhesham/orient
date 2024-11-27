@@ -31,7 +31,7 @@ const PriceWithSale = ({
         >
           {formatPriceWithCommas(price)} {default_currency?.code}
         </bdi>
-        {discount !== null && (
+        {discount && (
           <del
             className={`  ${size === "xs" ? "text-xs" : "text-sm md:text-base"}  font-medium text-muted-foreground `}
           >
