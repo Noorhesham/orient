@@ -63,7 +63,8 @@ export type ResourceNameProps =
   | "check"
   | "wishlist"
   | "calculate"
-  | "getinspired";
+  | "getinspired"
+  | "sitemap";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -180,6 +181,8 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/ec-products/entities-operations/bookmarks/list` };
     case "calculate":
       return { url: `${url}/rm_ecommarce/${VERSION}/product-calculator` };
+    case "sitemap":
+      return { url: `${url}/rm_seo/google-sheet` };
     default:
       return { url, method: "GET" as MethodProps };
   }
