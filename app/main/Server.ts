@@ -50,6 +50,7 @@ export type ResourceNameProps =
   | "getProducts"
   | "completeOrder"
   | "my_orders"
+  | "google"
   | "my_order"
   | "deleteEntity"
   | "countries"
@@ -181,8 +182,10 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/ec-products/entities-operations/bookmarks/list` };
     case "calculate":
       return { url: `${url}/rm_ecommarce/${VERSION}/product-calculator` };
-    case "sitemap":
+    case "google":
       return { url: `${url}/rm_seo/google-sheet` };
+    case "sitemap":
+      return { url: `${url}/rm_seo/sitemap` };
     default:
       return { url, method: "GET" as MethodProps };
   }
