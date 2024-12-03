@@ -31,11 +31,12 @@ export default async function sitemap({ id }: { id: string }) {
       url: `${WEBSITEURL}/product/${item.id}`,
       lastModified: item.updated_at || item.created_at,
       changefreq: "monthly",
+
       priority: 0.8,
       alternates: {
         languages: {
-          es: `${WEBSITEURL}/en/product/${item.id}`,
-          de: `${WEBSITEURL}/ar/product/${item.id}`,
+          en: `${WEBSITEURL}/en/product/${item.id}`,
+          ar: `${WEBSITEURL}/ar/product/${item.id}`,
         },
       },
     }));
@@ -47,10 +48,11 @@ export default async function sitemap({ id }: { id: string }) {
       lastModified: item.updated_at || item.created_at,
       changefreq: "weekly",
       priority: 0.7,
+
       alternates: {
         languages: {
-          es: `${WEBSITEURL}/en/blog/${item.id}`,
-          de: `${WEBSITEURL}/ar/blog/${item.id}`,
+          en: `${WEBSITEURL}/en/blog/${item.id}`,
+          ar: `${WEBSITEURL}/ar/blog/${item.id}`,
         },
       },
     }));
