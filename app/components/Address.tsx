@@ -43,9 +43,9 @@ const Address = ({ className }: { className?: String }) => {
           icon={<Phone />}
         />
       </Link>
-      <Link  href={`mailto:${company_contacts.email || "info@orient-paints.com"}`}>
+      <Link href={`mailto:${company_contacts.email || "info@orient-paints.com"}`}>
         <IconWidget
-          paragraph="info@orient-paints.com"
+          paragraph={company_contacts?.email || "info@orient-paints.com"}
           header={t("address.email")}
           icon={<FaMailBulk className=" text-main" />}
         />
