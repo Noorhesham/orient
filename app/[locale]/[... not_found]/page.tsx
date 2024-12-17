@@ -3,13 +3,13 @@ import { headers } from "next/headers";
 
 import { convertToHTML } from "@/lib/utils";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { AuthProvider } from "../context/AuthContext";
-import NavBar from "../components/NavBar";
-import { Server } from "../main/Server";
-import Empty from "../components/Empty";
-import { DeviceProvider } from "../context/DeviceContext";
-import MaxWidthWrapper from "../components/MaxWidthWrapper";
-import Footer from "../components/Footer";
+import { AuthProvider } from "../../context/AuthContext";
+import NavBar from "../../components/NavBar";
+import { Server } from "../../main/Server";
+import Empty from "../../components/Empty";
+import { DeviceProvider } from "../../context/DeviceContext";
+import MaxWidthWrapper from "../../components/MaxWidthWrapper";
+import Footer from "../../components/Footer";
 
 export default async function NotFound() {
   const headersList = headers();
@@ -34,7 +34,7 @@ export default async function NotFound() {
     <QueryProvider>
       <DeviceProvider>
         <AuthProvider>
-          <NavBar/>
+          <NavBar />
           <MaxWidthWrapper className=" flex justify-center items-center min-h-screen">
             {!data.status ? (
               <Empty text="404 Page Not Found" />
