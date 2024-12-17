@@ -30,6 +30,7 @@ import { processYoutubeUrl } from "@/lib/utils";
 import BreadCrumb from "@/app/components/BreadCrumb";
 import Link from "next/link";
 import BuyNow from "@/app/components/BuyNow";
+import { WEBSITEURL } from "@/app/constants";
 
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const { product } = await Server({
@@ -106,7 +107,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
       priceCurrency: "EGP",
       price: product.sell_price,
       availability: "https://schema.org/InStock",
-      url: `http://localhost:3001/en/product/${product.id}",`,
+      url: `${WEBSITEURL}/product/${product.id}",`,
     },
   };
   const ims = product.main_cover
