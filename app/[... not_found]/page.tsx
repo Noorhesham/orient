@@ -1,15 +1,15 @@
 import QueryProvider from "@/lib/QueryProvider";
 import { headers } from "next/headers";
-import { DeviceProvider } from "../../context/DeviceContext";
-import { Server } from "../../main/Server";
-import { AuthProvider } from "../../context/AuthContext";
-import NavBar from "../../components/nav/NavBar";
-import MiniTitle from "../../components/defaults/MiniTitle";
-import MaxWidthWrapper from "../../components/defaults/MaxWidthWrapper";
+
 import { convertToHTML } from "@/lib/utils";
-import Footer from "../../components/Footer";
 import { unstable_setRequestLocale } from "next-intl/server";
-import Empty from "../../components/Empty";
+import { AuthProvider } from "../context/AuthContext";
+import NavBar from "../components/NavBar";
+import { Server } from "../main/Server";
+import Empty from "../components/Empty";
+import { DeviceProvider } from "../context/DeviceContext";
+import MaxWidthWrapper from "../components/MaxWidthWrapper";
+import Footer from "../components/Footer";
 
 export default async function NotFound() {
   const headersList = headers();
@@ -25,7 +25,6 @@ export default async function NotFound() {
     const url = new URL(fullUrl);
     const pathSegments = url.pathname.split("/").filter(Boolean);
     lastSlug = pathSegments[pathSegments.length - 1];
-
   } catch (error) {
     console.error("Invalid URL:", error);
   }
@@ -35,7 +34,7 @@ export default async function NotFound() {
     <QueryProvider>
       <DeviceProvider>
         <AuthProvider>
-          <NavBar />
+          <NavBar/>
           <MaxWidthWrapper className=" flex justify-center items-center min-h-screen">
             {!data.status ? (
               <Empty text="404 Page Not Found" />
