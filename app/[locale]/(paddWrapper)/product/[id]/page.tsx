@@ -274,7 +274,9 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <Paragraph className=" my-2" danger description={product.short_description || ""} />
 
               <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
-                <h3 className="text-main2 font-semibold">{t("filters.category")} :</h3>
+                <h3 className="text-main2 font-semibold">
+                  {product.categories.length >1 ? t("filters.categories") : t("filters.category")} :
+                </h3>
                 {product.categories.map((category: any) => (
                   <Link
                     key={category.id}
@@ -311,7 +313,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                                   ? item.price_after_discount
                                   : null
                               }
-                              id={item.id}
+                              id={item.parent_slug}
                             />
                           ),
                         }))}
@@ -467,7 +469,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   img={item?.main_cover[0]?.sizes?.medium}
                   text={item.title}
                   price={item.sell_price}
-                  id={item.id}
+                  id={item.parent_slug}
                 />
               ))}
             </MotionContainer>
@@ -489,7 +491,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           discount={
                             item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null
                           }
-                          id={item.id}
+                          id={item.parent_slug}
                         />
                       ),
                     };

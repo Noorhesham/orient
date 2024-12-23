@@ -29,6 +29,6 @@ export const PRODUCTS_LINKS = [
   { text: "wood", href: "/shop?category_id=5" },
   { text: "specialized", href: "/shop?category_id=6" },
 ];
-export const BASE_URL = "https://test.r-m.dev/api";
+export const BASE_URL = "https://lab.r-m.dev/api";
 export const WEBSITEURL = "https://orient-nine.vercel.app";
 export const CACHE = 6400;

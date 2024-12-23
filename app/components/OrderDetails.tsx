@@ -35,7 +35,7 @@ const OrderDetails = ({ id }: { id: string }) => {
           {order.items.map((item: any) => (
             <CartItem
               nocheck
-              productId={item.product_id}
+              productId={item.product_slug}
               key={item.id}
               size="sm"
               img={item?.image[0]?.sizes?.medium}
