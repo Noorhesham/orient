@@ -100,14 +100,14 @@ const page = async () => {
             linkText={t("browse_products")}
           >
             <MotionContainer className="lg:grid hidden lg:grid-cols-4  items-center gap-5 mt-[62px] justify-center">
-              {similarProducts.slice(0, 6).map((item: any) => (
+              {similarProducts?.slice(0, 6).map((item: any) => (
                 <Card
                   key={item.id}
                   img={item.main_cover?.[0]?.sizes.large}
                   price={item.price_after_discount}
                   sell={item.price_before_discount}
                   text={item.title}
-                  id={item.id}
+                  id={item.product_slug}
                 />
               ))}
             </MotionContainer>
@@ -115,7 +115,7 @@ const page = async () => {
               <SwiperCards
                 slidesPerView={2}
                 className="w-full h-full"
-                items={similarProducts.slice(0, 6).map((item: any) => ({
+                items={similarProducts?.slice(0, 6).map((item: any) => ({
                   card: (
                     <Card
                       key={item.id}
@@ -125,7 +125,7 @@ const page = async () => {
                         item.price_before_discount !== item.price_after_discount ? item.price_before_discount : null
                       }
                       text={item.title}
-                      id={item.id}
+                      id={item.product_slug}
                     />
                   ),
                 }))}

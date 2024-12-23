@@ -31,8 +31,8 @@ const CartItems = ({ cart }: { cart: any }) => {
               discount={item.price_before_discount !== item.price_after_discount ? item.price_after_discount : null}
               text={item.title}
               quantity={item.quantity}
-              id={item.id}
-              productId={item.product_id}
+              id={item.slug}
+              productId={item.product_slug}
             />
           ))}
         </Container>
@@ -53,7 +53,7 @@ const CartItems = ({ cart }: { cart: any }) => {
                 text={item.title}
                 quantity={item.quantity}
                 id={item.id}
-                productId={item.product_id}
+                productId={item.product_slug}
               />
             ))}
           </Container>

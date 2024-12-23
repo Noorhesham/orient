@@ -12,7 +12,7 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import React from "react";
 
 const page = async ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
-  const { price_from, price_to, category_id, brand_id, page, sort, color, volume, search } = searchParams;
+  const { price_from, price_to, category_id, brand_id, page, sort, color, wight, search } = searchParams;
   unstable_setRequestLocale(locale);
   const queryParams = new URLSearchParams({
     price_from: price_from || "",
@@ -26,7 +26,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   });
   const array = color
     ?.split(",")
-    .concat(volume?.split(","))
+    .concat(wight?.split(","))
     .filter((f: any) => f !== undefined);
   if (array) {
     array.forEach((element: any) => {

@@ -18,7 +18,7 @@ const Products = ({ products, totalPages }: { products: Product[]; totalPages: n
             <Card
               desc={product.short_description}
               key={product.id}
-              id={product.id || ""}
+              id={product.slug || ""}
               text={product.title}
               price={product.price_before_discount}
               discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}

@@ -72,12 +72,12 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
 };
 
 const page = async ({ params: { id }, searchParams }: { params: { id: string }; searchParams: any }) => {
-  const { color, volume, child } = searchParams;
+  const { color, wight, child } = searchParams;
 
   const queryParams = new URLSearchParams();
   const array = color
     ?.split(",")
-    .concat(volume?.split(","))
+    .concat(wight?.split(","))
     .filter((f: any) => f !== undefined);
   if (array) {
     array.forEach((element: any) => {
@@ -89,10 +89,10 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
     resourceName: "getProduct",
     id,
     queryParams,
-    body: { with: "tags,upSells,crossSells,category_id" },
+    body: { with: "tags,upSells,crossSells,category_id,categories" },
   });
   const { product, attributes, reviews_counts, variations } = data;
-  console.log(data);
+
   if (!product)
     return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
   const ischild = child === "true" || product.type === "variation";
@@ -120,7 +120,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
   queryParams.append("ids[]", product.id);
   const { products: cartStatus } = await Server({ resourceName: "check", queryParams });
   const upSells = product.upSells.length <= 0 ? product.crossSells : product.upSells;
-  console.log(product.pdf);
+  console.log(product.categories);
   return (
     <RightClickProvider>
       <BreadCrumb
@@ -179,7 +179,9 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 <Stars count={product.review_count} rating={product?.review_rate || 5} />
                 <PriceWithSale
                   price={product.price_before_discount}
-                  discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}
+                  discount={
+                    product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null
+                  }
                 />
                 {product.stock_status === "out" && (
                   <p className="text-red-500 mt-2 font-semibold text-sm">{t("outOfStock")}</p>
@@ -191,7 +193,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     {" "}
                     {variations && attributes.length > 0 && variations.length > 0 && (
                       <SingleVariant
-                        parentId={product.parent_id}
+                        parentId={product.parent_slug}
                         childId={ischild ? product.id : ""}
                         ischild={ischild}
                         variations={variations}
@@ -273,12 +275,15 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
 
               <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">{t("filters.category")} :</h3>
-                <Link
-                  href={`/shop?category_id=${product.category_id}`}
-                  className=" py-2 px-4 rounded-full hover:bg-main duration-200 hover:text-white bg-white border border-input  font-semibold"
-                >
-                  {product.category.title}
-                </Link>
+                {product.categories.map((category: any) => (
+                  <Link
+                    key={category.id}
+                    href={`/shop?category_id=${product.id}`}
+                    className=" py-2 px-4 rounded-full hover:bg-main duration-200 hover:text-white bg-white border border-input  font-semibold"
+                  >
+                    {category.title}
+                  </Link>
+                ))}
               </div>
             </Section>
 
@@ -301,7 +306,11 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                               img={item?.main_cover[0]?.sizes?.medium}
                               text={item.title}
                               price={item.price_before_discount}
-                              discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
+                              discount={
+                                item.price_after_discount !== item.price_before_discount
+                                  ? item.price_after_discount
+                                  : null
+                              }
                               id={item.id}
                             />
                           ),
@@ -401,7 +410,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <div className=" w-full pb-5">
                 {variations && attributes.length > 0 && variations.length > 0 && (
                   <SingleVariant
-                    parentId={product.parent_id}
+                    parentId={product.parent_slug}
                     childId={ischild ? product.id : ""}
                     ischild={ischild}
                     variations={variations}
@@ -417,7 +426,11 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                       <PriceWithSale
                         size="sm"
                         price={product.price_before_discount}
-                        discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}
+                        discount={
+                          product.price_after_discount !== product.price_before_discount
+                            ? product.price_after_discount
+                            : null
+                        }
                       />
                     </div>
                     {product.stock_status === "out" && (
@@ -473,7 +486,9 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           img={item?.main_cover[0]?.thumbnail}
                           text={item.title}
                           price={item.price_before_discount}
-                          discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
+                          discount={
+                            item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null
+                          }
                           id={item.id}
                         />
                       ),

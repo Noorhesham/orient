@@ -65,7 +65,7 @@ const Page = () => {
               {cart.items.length === 0 && <EmptyCart />}
               {cart.items.map((item: any) => (
                 <CartItem
-                  productId={item.product_id}
+                  productId={item.product_slug}
                   nocheck
                   key={item.id}
                   img={item?.image[0]?.sizes?.large}

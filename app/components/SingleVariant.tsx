@@ -147,7 +147,7 @@ const SingleVariant = ({
           </div>
         )}
         {options?.[0] && (
-          <div className="flex items-center gap-2">
+          <div className="flex  flex-wrap items-center gap-2">
             <h4 className="text-base  mb-2">{t("wight")}</h4>
             {options[0].options?.map((option: any, i: number) => (
               <button
