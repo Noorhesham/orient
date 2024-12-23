@@ -20,7 +20,7 @@ const page = async () => {
         {data.length === 0 && <NotFound message={t("wishlistContent.empty")} />}
         {data.map((item: any) => (
           <CartItem
-            productId={item.id}
+            productId={item.slug}
             wishlist
             nocheck={true}
             id={item.id}
