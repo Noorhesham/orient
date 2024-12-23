@@ -60,7 +60,7 @@ const updateFn = ({ checker, setState, key, dateKey, setDates, queryClient, stat
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
-  const { device_info } = useDevice();
+  const { deviceInfo } = useDevice();
   const [login, setLogin] = useState<any>(false);
   const [dates, setDates] = useLocalStorageState(
     {
@@ -99,7 +99,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             last_update_date_general: dates.last_update_date_general,
             last_update_date_user: dates.last_update_date_user,
             last_update_date_user2: dates.last_update_date_user2,
-            device_id: device_info.device_unique_id,
+            device_id: deviceInfo.device_unique_id,
           },
         });
         console.log(res);
