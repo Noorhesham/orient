@@ -1,10 +1,11 @@
 "use client";
-import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
+import { createContext, use, useContext, useEffect, useLayoutEffect, useState } from "react";
 import cookies from "js-cookie";
 import { Server } from "../main/Server";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import { useDevice } from "./DeviceContext";
+import { useSearchParams } from "next/navigation";
 interface AuthContextType {
   generalSettings: any;
   userSettings: any;
@@ -45,35 +46,21 @@ interface UpdateFnParams {
  */
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-const updateFn = ({ checker, setState, key, dateKey, setDates, queryClient, status, dates }: UpdateFnParams) => {
-  console.log(queryClient.getQueryData([key]));
-  // if some of the data is missed  from local storage the n set its date to empty string so that i can ask the server for it again
-  if (!queryClient.getQueryData([key])) {
-    setDates((prevDates: any) => ({
-      ...prevDates,
-      [dateKey]: checker?.last_update_date,
-    }));
-    localStorage.setItem("dates", JSON.stringify({ ...dates, [dateKey]: checker?.last_update_date }));
-  }
-  // i want to see whether there is data returend from the server or not and  i want
-  //to check  if there is then i will replace
-  // if i do not  have a query of that data  and status is true then it is the first time then i will set it
-  if (checker || (!queryClient.getQueryData([key]) && status !== false)) {
-    setState(checker);
+const updateFn = ({ checker, setState, key, dateKey, setDates, queryClient, status }: UpdateFnParams) => {
+  if (status && checker) {
     queryClient.setQueryData([key], checker);
-    setDates((prevDates: any) => ({
-      ...prevDates,
-      [dateKey]: checker?.last_update_date,
-    }));
+    setDates((prevDates: any) => ({ ...prevDates, [dateKey]: checker.last_update_date }));
+    setState(checker);
+  } else if (!checker && queryClient.getQueryData([key])) {
+    setState(queryClient.getQueryData([key]));
   } else {
-    // Keep the current state if no updates
-    setState((prev: any) => prev || queryClient.getQueryData([key]));
+    console.warn(`No data available for ${key}`);
   }
 };
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
-  const { deviceInfo } = useDevice();
+  const { device_info } = useDevice();
   const [login, setLogin] = useState<any>(false);
   const [dates, setDates] = useLocalStorageState(
     {
@@ -84,20 +71,26 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     "dates"
   );
   const token = cookies.get("jwt");
-  const [generalSettings, setGeneralSettings] = useState<any>(() => queryClient.getQueryData(["general_settings"]));
-  const [userSettings, setUserSettings] = useState<any>(() => queryClient.getQueryData(["user_settings"]));
-  const [user2Settings, setUser2Settings] = useState<any>(() => queryClient.getQueryData(["user2_settings"]));
+  const [generalSettings, setGeneralSettings] = useState<any>();
+  const [userSettings, setUserSettings] = useState<any>();
+  const [user2Settings, setUser2Settings] = useState<any>();
+
   const [cartCount, setCartCount] = useLocalStorageState(0, "cartCount");
   const [loading, setLoading] = useState(true);
-  console.log(generalSettings, userSettings, user2Settings, "cartcount", cartCount);
-  // console.log("auth context", generalSettings, userSettings, user2Settings, "cartcount", cartCount);
+  const searchParams = useSearchParams();
+  const referal = searchParams.get("referal");
   useEffect(() => {
-    if (user2Settings) setCartCount(user2Settings?.cart_count);
     if (userSettings?.active === false) handleLogout();
-  }, [userSettings, user2Settings]);
+    if (referal) localStorage.setItem("referal", referal);
+  }, [userSettings]);
+  useEffect(() => {
+    if (userSettings && !token) handleLogout();
+  }, [userSettings]);
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log(userSettings, user2Settings, generalSettings, "before server");
+        console.log(dates, "dates before server");
         const res = await Server({
           resourceName: "MGS",
           body: {
@@ -106,11 +99,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             last_update_date_general: dates.last_update_date_general,
             last_update_date_user: dates.last_update_date_user,
             last_update_date_user2: dates.last_update_date_user2,
-            device_id: deviceInfo.device_unique_id,
+            device_id: device_info.device_unique_id,
           },
         });
-        if (res.check_auth === false && userSettings) handleLogout();
         console.log(res);
+        if (!res.check_auth && userSettings) handleLogout();
+
         updateFn({
           checker: res.general_settings.data,
           setState: setGeneralSettings,
@@ -141,7 +135,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           status: res.user2_settings?.status,
           dates,
         });
-        console.log(res.user_settings, res.user2_settings, res.general_settings);
       } catch (error) {
         console.error("Error fetching settings:", error);
       } finally {
@@ -149,8 +142,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    fetchData();
-  }, [login]);
+    if (queryClient) fetchData();
+  }, [login, queryClient]);
+  console.log(userSettings, user2Settings, generalSettings, "after server");
 
   const handleLogout = () => {
     setCartCount(0);
@@ -158,6 +152,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     cookies.remove("jwt");
     queryClient.removeQueries({ queryKey: ["user_settings"] });
     queryClient.removeQueries({ queryKey: ["user2_settings"] });
+    queryClient.removeQueries({ queryKey: ["my-profile"] });
     const newDates = {
       last_update_date_general: dates.last_update_date_general,
       last_update_date_user: "",
