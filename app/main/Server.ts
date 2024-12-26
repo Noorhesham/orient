@@ -229,7 +229,7 @@ export async function Server({
     combinedHeaders.Authorization = `Bearer ${jwt}`;
   }
   if (deviceId) {
-    combinedHeaders["deviceInfo"] = JSON.parse(deviceId).device_unique_id;
+    combinedHeaders["device-unique-id"] = JSON.parse(deviceId).device_unique_id;
   }
   if (lang) {
     combinedHeaders["lang"] = lang;
