@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 const syncUrls = ({ setwights, setColors, variations, filters }: any) => {
@@ -38,6 +38,7 @@ const SingleVariant = ({
   childId?: any;
   parentId: string;
 }) => {
+  const [first, setFirst] = React.useState(true);
   const child = variations.filter((variation: any) => {
     return variation.find((varr: any) => varr.product_id === childId);
   })[0];
@@ -56,8 +57,9 @@ const SingleVariant = ({
   const [colors, setColors] = React.useState<string[]>(colorOptions[0]?.options);
   const [wights, setwights] = React.useState<string[]>(options[0]?.options);
   const router = useRouter();
-
+  const locale=useLocale()
   const handleFilter = (filterValue: string, filterName: string) => {
+    setFirst(false);
     setFilters((prevFilters: any) => {
       return {
         ...prevFilters,
@@ -83,14 +85,14 @@ const SingleVariant = ({
       });
 
       if (ischild) {
-        router.push(`/product/${parentId}?${params.toString()}`, { scroll: false });
+        router.push(`/${locale}/product/${parentId}?${params.toString()}`, { scroll: false });
       } else if (filters["color"] && filters["wight"]) {
         router.push(`?${params.toString()}`, { scroll: false });
       }
     };
 
-    updateURL();
-  }, [filters, router, ischild, parentId]);
+    if (!first) updateURL();
+  }, [filters, router, ischild, parentId, first]);
   const handleReset = (name: string) => {
     const params = new URLSearchParams(window.location.search);
 
@@ -126,7 +128,7 @@ const SingleVariant = ({
         {colorOptions?.[0] && (
           <div className="flex w-full items-center gap-2">
             {" "}
-            <h4 className="text-base  mb-2">{t('colors')}</h4>
+            <h4 className="text-base  mb-2">{t("colors")}</h4>
             <div className=" grid grid-cols-5 items-center  w-full lg:gap-2">
               {colorOptions[0].options?.map((option: any, i: number) => (
                 <button

@@ -20,7 +20,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Label } from "@/components/ui/label";
 
 const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
-  const { data, isLoading } = useGetEntity("calculate");
+  const { data, isLoading } = useGetEntity("calculate", "calculate");
   const t = useTranslations("Calculate"); // Get translations for this component
   const locale = useLocale();
   const [input, setInput] = React.useState(0);

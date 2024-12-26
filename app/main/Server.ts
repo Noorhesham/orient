@@ -235,8 +235,17 @@ export async function Server({
     combinedHeaders["lang"] = lang;
   }
   try {
+    if (!jwt || jwt === "undefined") {
+      console.warn("JWT cookie is missing or invalid");
+    }
+    if (!deviceId || deviceId === "{}") {
+      console.warn("Device ID cookie is missing or default value");
+    }
+    if (!lang) {
+      console.warn("Language cookie is missing, defaulting to 'en'");
+    }
+
     const { url, method: resolvedMethod } = getURL(resourceName, id, entityName, queryParams);
-    console.log(url);
     let requestBody;
     if (formData) requestBody = body;
     else {

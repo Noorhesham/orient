@@ -32,48 +32,16 @@ import Link from "next/link";
 import BuyNow from "@/app/components/BuyNow";
 import { WEBSITEURL } from "@/app/constants";
 
-export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
-  const { product } = await Server({
+const fetchProduct = async (id: any, queryParams) => {
+  console.log("Fetching product from server");
+  return await Server({
     resourceName: "getProduct",
     id,
-    body: { with: "tags,upSells,crossSells,category_id,categories" },
-  });
-  if (!product)
-    return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
-
-  return {
-    title: `${product.title} | PUTTY (ACRYLIC 1000) 233 WALL PAINTS`,
-    description: product.description,
-    canonical: `https://yourdomain.com/products/${product.id}`,
-    keywords: `${product.title} ${product.description} ${product.search_queries} ${product.short_description}`,
-    openGraph: {
-      title: product.title,
-      description: product.description,
-      url: product.main_cover[0]?.thumbnail,
-      images: [
-        {
-          url: product.main_cover[0]?.thumbnail,
-          alt: product.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: product.title,
-      description: product.description,
-      images: [
-        {
-          url: product.main_cover?.[0]?.thumbnail,
-          alt: product.title,
-        },
-      ],
-    },
-  };
+    queryParams,
+    body: { with: "tags,upSells,crossSells,category_id,categories" },cache: 3600
+  }); // Your Server fetch logic here
 };
-
-const page = async ({ params: { id }, searchParams }: { params: { id: string }; searchParams: any }) => {
-  const { color, wight, child } = searchParams;
-
+const formQueryParams = (color, wight) => {
   const queryParams = new URLSearchParams();
   const array = color
     ?.split(",")
@@ -85,12 +53,67 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
       queryParams.append(`options[${key}]`, value);
     });
   }
-  const data = await Server({
-    resourceName: "getProduct",
-    id,
-    queryParams,
-    body: { with: "tags,upSells,crossSells,category_id,categories" },
-  });
+  return queryParams;
+};
+// export const generateMetadata = async ({
+//   params: { id },
+//   searchParams,
+// }: {
+//   params: { id: string };
+//   searchParams: any;
+// }) => {
+//   const { color, wight, child } = searchParams;
+//   const queryParams = formQueryParams(color, wight);
+//   const { product } = await Server({
+//     resourceName: "getProduct",
+//     id,
+//     queryParams,
+//     body: { with: "tags,upSells,crossSells,category_id,categories" },
+//   });
+//   if (!product)
+//     return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
+
+//   return {
+//     title: `${product.title} | PUTTY (ACRYLIC 1000) 233 WALL PAINTS`,
+//     description: product.description,
+//     canonical: `https://yourdomain.com/products/${product.id}`,
+//     keywords: `${product.title} ${product.description} ${product.search_queries} ${product.short_description}`,
+//     openGraph: {
+//       title: product.title,
+//       description: product.description,
+//       url: product.main_cover[0]?.thumbnail,
+//       images: [
+//         {
+//           url: product.main_cover[0]?.thumbnail,
+//           alt: product.title,
+//         },
+//       ],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: product.title,
+//       description: product.description,
+//       images: [
+//         {
+//           url: product.main_cover?.[0]?.thumbnail,
+//           alt: product.title,
+//         },
+//       ],
+//     },
+//   };
+// };
+
+const page = async ({ params: { id }, searchParams }: { params: { id: string }; searchParams: any }) => {
+  const { color, wight, child } = searchParams;
+
+  const queryParams = formQueryParams(color, wight);
+  const data = await fetchProduct(id, queryParams);
+  // Server({
+  //   resourceName: "getProduct",
+  //   id,
+  //   queryParams,
+  //   body: { with: "tags,upSells,crossSells,category_id,categories" },
+  // });
   const { product, attributes, reviews_counts, variations } = data;
 
   if (!product)
