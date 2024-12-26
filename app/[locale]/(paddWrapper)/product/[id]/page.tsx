@@ -36,7 +36,7 @@ export const generateMetadata = async ({ params: { id } }: { params: { id: strin
   const { product } = await Server({
     resourceName: "getProduct",
     id,
-    body: { with: "tags,upSells,crossSells,category_id" },
+    body: { with: "tags,upSells,crossSells,category_id,categories" },
   });
   if (!product)
     return <NotFound link="/shop" linkText="Go Back to shop" message="The product you are looking for is not found" />;
@@ -275,7 +275,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
 
               <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">
-                  {product.categories.length >1 ? t("filters.categories") : t("filters.category")} :
+                  {product.categories.length > 1 ? t("filters.categories") : t("filters.category")} :
                 </h3>
                 {product.categories.map((category: any) => (
                   <Link

@@ -45,7 +45,7 @@ const AddToCart = ({
       onClick={() => {
         mutate({ product_id: id, qty: 1 });
         queryClient.invalidateQueries({ queryKey: ["checkout", "cart"] });
-        // router.refresh();
+        router.refresh();
       }}
       className=" px-8 py-4"
       icon={<BsHandbag />}
