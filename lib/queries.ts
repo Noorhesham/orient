@@ -60,7 +60,7 @@ const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string, id?:
       if (data?.status) {
         toast.success(data.message);
         router.refresh();
-        QueryClient.invalidateQueries({ queryKey: [queryKey] });
+        // QueryClient.invalidateQueries({ queryKey: [queryKey] });
       }
       if (data?.cartCount) setCartCount(data.cartCount);
 
