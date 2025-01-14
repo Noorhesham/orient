@@ -23,9 +23,10 @@ const MotionContainer = dynamic(() => import("../../components/MotionContainer")
 export const generateMetadata = async ({ params: { id } }: { params: { id: string } }) => {
   const { page } = await Server({
     resourceName: "home",
-    cache: 0,
+    cache: CACHE,
     queryParams: new URLSearchParams({ with: "tags,category_id" }),
   });
+  console.log(page);
   return {
     title: `${page.title} `,
     // description: product.description,

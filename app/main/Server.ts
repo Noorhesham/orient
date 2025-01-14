@@ -167,7 +167,7 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
     case "my_order":
       return { url: `${url}/rm_ecommarce/${VERSION}/cart/my_orders/${id}`, method: "GET" };
     case "home":
-      return { url: `${url}/rm_page/${VERSION}/show?slug=${id}`, method: "GET" };
+      return { url: `${url}/rm_page/${VERSION}/show?slug=${id || "home-web"}`, method: "GET" };
     case "getWishlist":
       return { url: `${url}/ec-products/entities-operations/bookmarks/list`, method: "GET" };
     case "addWishlist":
