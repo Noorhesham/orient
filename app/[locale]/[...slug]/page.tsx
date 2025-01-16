@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             ) : (
               <div
                 dangerouslySetInnerHTML={{ __html: convertToHTML(data.page.content || "") }}
-                className={`  text-black lg:text-base text-sm  font-medium my-2 leading-[1.7] `}
+                className={`  text-black lg:text-base m text-sm  font-medium my-2 leading-[1.7] `}
               />
             )}
           </MaxWidthWrapper>
