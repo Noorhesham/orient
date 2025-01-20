@@ -13,7 +13,7 @@ import { InputOTPPattern } from "./OTP";
 import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
 import Spinner from "@/app/components/Spinner";
 import { useLocale, useTranslations } from "next-intl";
-import Section from "@/app/components/defaults/Section";
+import Section from "@/app/components/Section";
 
 const ResetPassword = () => {
   const t = useTranslations(); // For translations
@@ -58,7 +58,7 @@ const ResetPassword = () => {
     <Suspense fallback={<Spinner />}>
       <Section CustomePadding="px-5 py-40" className=" bg-gray-50 justify-center flex flex-1 flex-col items-center">
         <div className=" mx-auto flex flex-col items-center justify-center w-full">
-          <Logo isdark size="lg" />
+          <Logo  type="blue" />
           <h3 className=" text-center text-2xl mt-8 font-bold text-main2">{t("forgotPasswordContent.title")}</h3>
           {param === "prepare" && <Prepare setMessage={setMessage} handleParam={handleParam} setMethods={setMethods} />}
           {param === "forgot" && (
