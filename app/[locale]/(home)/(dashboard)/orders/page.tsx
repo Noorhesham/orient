@@ -10,13 +10,15 @@ const page = async () => {
   const { orders } = await Server({ resourceName: "my_orders" });
   const t = await getTranslations();
   console.log(orders);
+  if (!orders) return <NotFound message={t("noorders")} link="/shop" linkText={t("go_to_shop")} />;
+
   return (
     <div>
       <Head1 text={t("orders")} className=" text-4xl font-bold" />
 
-      <Paragraph description={t('orderdesc')} />
+      <Paragraph description={t("orderdesc")} />
       {orders.length === 0 ? (
-        <NotFound message={t("noorders")} link="/shop" linkText={t('go_to_shop')} />
+        <NotFound message={t("noorders")} link="/shop" linkText={t("go_to_shop")} />
       ) : (
         <TableDemo data={orders} />
       )}

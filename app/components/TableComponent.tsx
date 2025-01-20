@@ -1,21 +1,16 @@
 "use client";
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import ModalCustom from "./ModalCustom";
 import PriceWithSale from "./PriceWithSale";
 import OrderDetails from "./OrderDetails";
 import { format } from "date-fns";
-import { formatPriceWithCommas } from "@/lib/utils";
-import { useAuth } from "../context/AuthContext";
-import { Skeleton } from "@/components/ui/skeleton";
+
 import { useLocale, useTranslations } from "next-intl"; // Import useTranslations
 import { ArrowRight } from "lucide-react";
 
 export function TableDemo({ data }: { data: any }) {
-  const { generalSettings, loading } = useAuth();
   const t = useTranslations("table"); // Translation hook
   const locale = useLocale();
-  if (loading) return <Skeleton />;
-  const { default_currency } = generalSettings;
 
   return (
     <div className=" max-w-full overflow-x-auto">
@@ -54,11 +49,10 @@ export function TableDemo({ data }: { data: any }) {
                 <ModalCustom
                   cancelBtn={false}
                   btn={
-                    <div
-                      className={`cursor-pointer text-nowrap text-xs lg:text-sm flex items-center gap-2`}
-                    >
-                      {t("viewDetails")} <ArrowRight className={`${locale==='ar'?'rotate-180':'rotate-0'}  text-main`}  />
-                      </div>
+                    <div className={`cursor-pointer text-nowrap text-xs lg:text-sm flex items-center gap-2`}>
+                      {t("viewDetails")}{" "}
+                      <ArrowRight className={`${locale === "ar" ? "rotate-180" : "rotate-0"}  text-main`} />
+                    </div>
                   }
                   content={<OrderDetails id={product.id} />}
                 />
