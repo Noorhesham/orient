@@ -8,7 +8,7 @@ import { z } from "zod";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import CustomForm from "@/app/components/forms/CustomForm";
+import CustomForm from "@/app/components/CustomForm";
 
 const Prepare = ({ setMethods, handleParam, setMessage }: { setMethods: any; handleParam: any; setMessage: any }) => {
   const [useEmail, setUseEmail] = useState(false);
