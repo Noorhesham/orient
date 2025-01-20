@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import { Server } from "../../Server";
 import { z } from "zod";
 import { toast } from "react-toastify";
-import CustomForm from "@/app/components/CustomForm";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import CustomForm from "@/app/components/forms/CustomForm";
 
 const Prepare = ({ setMethods, handleParam, setMessage }: { setMethods: any; handleParam: any; setMessage: any }) => {
   const [useEmail, setUseEmail] = useState(false);

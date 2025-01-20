@@ -149,7 +149,7 @@ const FormInput = ({
                       {label2 || ""}
                     </Label>
                     <Switch
-                      noSwitch
+                      
                       disabled={disabled}
                       id="sale"
                       className=""

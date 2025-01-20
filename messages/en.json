@@ -191,10 +191,17 @@
     "tags": "POPULAR TAGS",
     "range": "PRICE RANGE"
   },
+  "SEND_ACTIVATION_EMAIL": "Send Activation Email",
+  "SEND_ACTIVATION_SMS": "Send Activation SMS",
+  "SEND_PASSWORD_RESET_WHATSAPP": "Send Password Reset via WhatsApp",
+  "SEND_ACTIVATION_WHATSAPP": "Send Activation via WhatsApp",
   "reset": "RESET",
   "sort": "SORT BY :",
+  "Phone":"PHONE",
   "htl": "Price: High to Low",
   "lth": "Price: Low to High",
+  "Update Phone": "UPDATE YOUR PHONE",
+  "Phone": "PHONE",
   "latest": "BY LATEST",
   "SAVE CHANGES": "SAVE CHANGES",
   "stars": {
@@ -370,11 +377,12 @@
     "Choose Quantity": "Choose Distance"
   },
   "empty": "THERE ARE NO PRODUCT WITH THIS SPECIFICATIONS",
-  "Reset Filters":"RESET FILTERS",
+  "Reset Filters": "RESET FILTERS",
   "customizeNotifications": "CUSTOMIZE NOTIFICATIONS",
   "configureCustomSettings": "CONFIGURE CUSTOM SETTINGS",
   "saveChanges": "SAVE CHANGES",
   "deactivate": "DEACTIVATE",
+  "Update Email": "UPDATE EMAIL",
   "activate": "ACTIVATE",
   "pick_a_date": "Pick a date",
   "birth_day_description": "Your date of birth is used to calculate your age.",
@@ -396,6 +404,6 @@
   "SEND_TFA_CODE_WHATSAPP": " Send TFA CODE BY WHATSAPP",
   "WIGHT": "WEIGHT",
   "SEND_TFA_CODE_AUTHAPP": " Send TFA CODE BY AUTHAPP",
-  "quantity":"QUANTITY",
+  "quantity": "QUANTITY",
   "2fadescc": "There are three methods for two-step verification: via phone, email (if both are enabled), or through an app like Google Authenticator. Simply use the information provided below, then add the code that will appear."
 }

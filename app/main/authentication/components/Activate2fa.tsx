@@ -11,11 +11,12 @@ import { useEffect, useState } from "react";
 import { InputOTPPattern } from "./OTP";
 import { TbAuth2Fa } from "react-icons/tb";
 import UpdateCard from "@/app/components/UpdateCard";
-import ModalCustom from "@/app/components/ModalCustom";
 import { useTranslations } from "next-intl";
 import { useAuth } from "@/app/context/AuthContext";
 import { SkeletonCard } from "@/app/components/SkeletonCard";
+import ModalCustom from "@/app/components/ModalCustom";
 import Paragraph from "@/app/components/Paragraph";
+
 const Activate2fa = () => {
   const [serial, setSerial] = useLocalStorageState("", "serial");
   const [qrCode, setQrCode] = useLocalStorageState("", "qrCode");
@@ -63,8 +64,8 @@ const Activate2fa = () => {
             >
               {t("2fadesc")}
             </label>
-          </div>
-            <Paragraph className=" text-center" description={t("2fadescc")} />
+          </div>{" "}
+          <Paragraph className=" text-center" description={t("2fadescc")} />
           <div>
             {serial && isActivated && (
               <div className=" text-2xl items-center flex flex-col mt-5">

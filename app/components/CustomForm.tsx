@@ -104,6 +104,7 @@ const CustomForm = ({
                   switchToggle={input?.switchToggle}
                   phone={input.phone || false}
                   key={i}
+                  
                   {...input}
                 />
               )

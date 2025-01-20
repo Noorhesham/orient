@@ -1,12 +1,12 @@
 "use client";
-import FormContainer from "@/app/components/FormContainer";
-import ModalCustom from "@/app/components/ModalCustom";
 import { useAuth } from "@/app/context/AuthContext";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Server } from "../../Server";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import FormContainer from "@/app/components/FormContainer";
+import ModalCustom from "@/app/components/ModalCustom";
 
 const DeleteAccount = () => {
   const router = useRouter();
@@ -14,7 +14,8 @@ const DeleteAccount = () => {
   const { handleLogout } = useAuth();
   const removeAccount = async (data: any, setError: any) => {
     const res = await Server({ resourceName: "remove_account", body: data });
-    if (!res.status) setError(res.errors?.length > 0 ? res.errors : res.message)();
+    // if (!res.status) setError(res.errors?.length > 0 ? res.errors : res.message);
+    if(!res.status) toast.error(res.message);
     if (res.status) {
       toast.success(res.message);
       router.push("/");

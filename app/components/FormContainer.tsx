@@ -171,6 +171,7 @@ const FormContainer: React.FC<Formcontainer> = ({
           form={form}
           isPending={isPending}
           cancel={cancel}
+          
           title={title || ""}
           btnStyles={btnStyles || "w-[40%] mr-auto "}
           inputs={formArray}

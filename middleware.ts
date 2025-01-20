@@ -32,7 +32,6 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   });
   const isAuthRoute = authRoutes.includes(url);
 
-  if (token === "undefined") cookies().delete("jwt");
   console.log("token", cookies().get("jwt")?.value);
   // Redirect to login if token is missing for protected routes
   if ((!token || token === "undefined") && isProtectedRoute) {
@@ -41,7 +40,7 @@ export async function middleware(req: NextRequest, res: NextResponse) {
     req.nextUrl.searchParams.set("redirect", redirectPath);
     return NextResponse.redirect(req.nextUrl);
   }
-  if (token && isAuthRoute) {
+  if (token && token !== "undefined" && isAuthRoute) {
     const redirectUrl = req.nextUrl.searchParams.get("redirect");
     if (redirectUrl) {
       req.nextUrl.pathname = redirectUrl;

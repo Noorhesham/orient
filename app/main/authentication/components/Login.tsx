@@ -33,9 +33,7 @@ const Login = () => {
   const [methods, setMethods] = useLocalStorageState([], "methods");
   const [message, setMessage] = useState("");
   const [isCode, setIsCode] = useState("");
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
-  const [fa, set2fa] = useState(searchParams.get("tfa") === "true" || false);
+  const [fa, set2fa] = useState(false);
   const form = useForm({
     resolver: zodResolver(loginSchemaa),
     defaultValues: {
@@ -46,7 +44,8 @@ const Login = () => {
     mode: "onChange",
   });
   const [param, handleParam] = useParams("uuid", "");
-
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const router = useRouter();
   const { deviceInfo } = useDevice();
   const [serverError, setServerError] = useState<string[] | string | null>(null);
@@ -61,6 +60,9 @@ const Login = () => {
     if (param !== "") setActivate(true);
   }, [param]);
   const onSubmit = async (data: z.infer<typeof loginSchemaa>) => {
+    form.clearErrors();
+    setServerError(null);
+
     startTransition(async () => {
       try {
         const res = await Server({
@@ -78,9 +80,9 @@ const Login = () => {
         if (!res.status) setServerError(res.errors?.length > 0 ? res.errors : res.message);
         if (res.status) {
           setServerError(null);
-          toast.done(`${res.message} ...`);
+          toast.success(`${res.message} ...`);
           if (res.require_activation || res.tfa) {
-            set2fa(true);
+            if (res.tfa) set2fa(true);
             setTimeout(() => {
               setActivate(true);
             }, 300);
@@ -96,7 +98,7 @@ const Login = () => {
           }
           if (!res.require_activation && !res.tfa) {
             cookies.set("jwt", res.token);
-            setLogin(true);
+            setLogin((l) => !l);
             router.push(redirect || "/");
           }
         }
@@ -131,9 +133,9 @@ const Login = () => {
       const token = searchParams.get("token");
       if (token) {
         toast.success(searchParams.get("message"));
-        if (token) cookies.set("jwt", token || "");
-        setLogin(true);
-        router.push(redirect || "/");
+        if (token) cookies.set("jwt", token || "", { expires: 2 });
+        setLogin((l) => !l);
+        router.push(redirect || "/loader");
       }
     }
     if (searchParams.get("status") === "false") setServerError(searchParams.get("message"));
@@ -156,9 +158,9 @@ const Login = () => {
   ];
   console.log(serverError);
   return (
-    <Section CustomePadding="px-5 py-20" className="bg-gray-50 justify-center flex flex-1 flex-col items-center">
+    <Section className="bg-gray-50 justify-center flex flex-1 flex-col items-center">
       <div className="mx-auto flex flex-col items-center justify-center w-full">
-        <Logo type="blue" />
+        <Logo  type="blue"  />
         {!activate && (
           <>
             <h1 className="text-center text-xl md:text-2xl mt-8 font-bold text-main2">{t("login")}</h1>
@@ -193,7 +195,7 @@ const Login = () => {
                 />
               </CustomForm>
 
-              <Socials />
+              <Socials login={true} />
             </div>
             <div className="mt-8 text-sm flex flex-col gap-2 md:gap-0 md:flex-row items-center">
               <span className="font-[400] text-main2">{t("dontHaveAccount")}</span>
@@ -212,7 +214,7 @@ const Login = () => {
         <Suspense fallback={<Spinner />}>
           {activate && !isCode && (
             <Methods
-              tfa={!fa || searchParams.get("tfa") || ""}
+              tfa={(fa && "true") || searchParams.get("tfa") || ""}
               handleSend={handleSend}
               message={message}
               methods={methods}
@@ -229,7 +231,7 @@ const Login = () => {
                 sendType={isCode}
                 handleSend={handleSend}
               />{" "}
-              <Link href="/" className="hover:underline duration-150 mt-2 text-main  font-semibold">
+              <Link href="/" className="hover:underline duration-150 mt-4 text-main  font-semibold">
                 {" "}
                 {t("backtowebsite")}{" "}
               </Link>
@@ -243,3 +245,4 @@ const Login = () => {
 };
 
 export default Login;
+// referral_code=asdfs56&register_as=doctor&job_title=newdoc

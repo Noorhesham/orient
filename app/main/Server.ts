@@ -65,7 +65,7 @@ export type ResourceNameProps =
   | "wishlist"
   | "calculate"
   | "getinspired"
-  | "sitemap";
+  | "sitemap"|'create-verification'|'verify-account';
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -186,6 +186,10 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/rm_seo/google-sheet` };
     case "sitemap":
       return { url: `${url}/rm_seo/sitemap` };
+    case "create-verification":
+      return { url: `${url}/rm_users/${VERSION}/account_verification/create`, method: "POST" };
+    case "verify-account":
+      return { url: `${url}/rm_users/${VERSION}/account_verification/${id}/validate-account-code`, method: "POST" };
     default:
       return { url, method: "GET" as MethodProps };
   }

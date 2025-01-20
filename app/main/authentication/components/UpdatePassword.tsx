@@ -1,21 +1,24 @@
 import React from "react";
 import { Server } from "../../Server";
 import { toast } from "react-toastify";
-import ModalCustom from "@/app/components/ModalCustom";
 import { Lock } from "lucide-react";
 import UpdateCard from "@/app/components/UpdateCard";
-import FormContainer from "@/app/components/FormContainer";
 import { useTranslations } from "next-intl";
+import { DialogClose } from "@/components/ui/dialog";
+import ModalCustom from "@/app/components/ModalCustom";
+import FormContainer from "@/app/components/FormContainer";
 
 const UpdatePassword = () => {
+  const ref = React.useRef<HTMLButtonElement>(null);
   const t = useTranslations();
   const updatePasswordInfo = async (data: any, setError: any) => {
     const res = await Server({ resourceName: "update_password", body: data });
     console.log(res);
-    if (!res.status) setError(res.errors.password || res.message);
-    if (res.status) {
+    if (!res.status) setError(res.errors.password || res.message)();
+    if (res) {
       toast.success(res.message);
       setError(null);
+      ref.current?.click();
     }
   };
   const updatePassword = [
@@ -34,7 +37,10 @@ const UpdatePassword = () => {
       }
       content={
         <div className=" px-5 lg:px-20 py-5">
+          <DialogClose ref={ref} />
+
           <FormContainer
+            closeAfter={true}
             submit={updatePasswordInfo}
             cancel={true}
             btnStyles={"w-full"}

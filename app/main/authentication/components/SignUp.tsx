@@ -46,12 +46,7 @@ const Signup = () => {
       phone: true,
       returnFullPhone: false,
     },
-    {
-      name: "sms",
-      label: t("ACTIVE_BY_SMS"),
-      label2: t("ACTIVE_BY_WHATSAPP"),
-      switchToggle: true,
-    },
+
     {
       name: "password",
       type: "password",
@@ -96,17 +91,20 @@ const Signup = () => {
           setMethods(res.activation_methods);
           toast.success(`${res.message} ...`);
           redirect(`/login?uuid=${res.activation_uuid}`);
-        } else {
+        } else if (res.token) {
           cookies.set("jwt", res.token);
           setLogin(true);
           router.push("/");
+        } else {
+          router.push("/login");
+          toast.success(`${res.message} ...`);
         }
       }
     });
   };
 
   return (
-    <Section CustomePadding="px-5 py-10" className=" bg-gray-50 flex flex-1 justify-center flex-col items-center">
+    <Section className=" bg-gray-50 flex flex-1 justify-center flex-col items-center">
       <div className=" mx-auto flex flex-col items-center justify-center w-full ">
         <Logo size={{ width: 863, height: 338 }} type="blue" />
         <h1 className="text-center text-2xl mt-5 font-bold text-main2">{t("CREATE_NEW_ACCOUNT")}</h1>
