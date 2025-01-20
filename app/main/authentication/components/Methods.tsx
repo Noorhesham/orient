@@ -55,7 +55,7 @@ const Methods = ({
                   } flex cursor-pointer hover:border-main hover:bg-gray-50 duration-100 flex-col gap-3 bg-white py-4 px-8 rounded-2xl border border-input items-center mt-5`}
                 >
                   <Head1 size="sm" text={methodLabels[method]} />
-                  <p className="text-main2 font-medium text-base">{methods[method]}</p>
+                  <p className="text-main2 !text-left font-medium text-base">{methods[method]}</p>
                 </div>
               )
           )}

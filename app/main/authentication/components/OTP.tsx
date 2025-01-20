@@ -168,7 +168,7 @@ export function InputOTPPattern({
         if (email || phone) {
           return router.push(`?${updatedParams.toString()}`, { scroll: false });
         }
-        if (res.token) router.push("/loader");
+        if (res.token) router.push("/");
         else if (forgot) router.push("/login");
         else router.push(redirect ? redirect : "/");
       }
