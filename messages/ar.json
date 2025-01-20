@@ -375,6 +375,8 @@
     "Choose Category": "اختر تصنيفا",
     "Choose Quantity": "أدخل المساحة"
   },
+  "fees": "الرسوم",
+  "taxes": "الضرايب",
   "Reset Filters": "اعادة تعيين التصنيفات",
   "empty": "لا يوجد منتجات بهذه المواصفات",
   "customizeNotifications": "تخصيص الإشعارات",

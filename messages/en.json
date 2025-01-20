@@ -376,6 +376,8 @@
     "Choose Category": "Choose Category",
     "Choose Quantity": "Choose Distance"
   },
+  "fees": "Fees",
+  "taxes": "Taxes",
   "empty": "THERE ARE NO PRODUCT WITH THIS SPECIFICATIONS",
   "Reset Filters": "RESET FILTERS",
   "customizeNotifications": "CUSTOMIZE NOTIFICATIONS",

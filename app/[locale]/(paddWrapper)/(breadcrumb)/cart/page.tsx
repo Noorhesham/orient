@@ -73,6 +73,14 @@ const page = async () => {
                       <h2>{t("discount")}</h2>
                       <p>{discountTotal}</p>
                     </div>
+                    <div className="flex pt-1 justify-between">
+                      <h2>{t("taxes")}:</h2>
+                      <p>{formatPrice(cart.taxes_total)}</p>
+                    </div>
+                  </div>{" "}
+                  <div className="flex pt-1 justify-between">
+                    <h2>{t("fees")}</h2>
+                    <p>{formatPrice(cart.fees_total)}</p>
                   </div>
                   <div className="flex pt-1 justify-between">
                     <h2>{t("total_price")}</h2>
@@ -107,7 +115,7 @@ const page = async () => {
                   price={item.price_after_discount}
                   sell={item.price_before_discount}
                   text={item.title}
-                  id={item.product_slug}
+                  id={item.product_slug || item.parent_slug}
                 />
               ))}
             </MotionContainer>
@@ -125,7 +133,7 @@ const page = async () => {
                         item.price_before_discount !== item.price_after_discount ? item.price_before_discount : null
                       }
                       text={item.title}
-                      id={item.product_slug}
+                      id={item.product_slug || item.parent_slug}
                     />
                   ),
                 }))}
