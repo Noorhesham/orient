@@ -29,7 +29,7 @@ const Page = () => {
   if (isLoading || !data || loading)
     return (
       <div className=" relative min-h-screen">
-        <Spinner />
+        <Spinner  />
       </div>
     );
   if (!generalSettings.visitors_create_order) router.push("/cart");

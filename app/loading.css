@@ -1,7 +1,10 @@
 .loader {
   width: 20px;
   height: 20px;
-
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   border: 5px solid #f491ea;
   border-bottom-color: transparent;
   border-radius: 50%;
