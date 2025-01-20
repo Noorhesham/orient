@@ -60,14 +60,6 @@ export function TableDemo({ data }: { data: any }) {
             </TableRow>
           ))}
         </TableBody>
-        {/* <TableFooter>
-          <TableRow>
-            <TableCell colSpan={4}>{t("totalLabel")}</TableCell>
-            <TableCell className="text-right">
-              {formatPriceWithCommas(data.reduce((a: number, b: any) => a + b.total, 0))} {default_currency.code}
-            </TableCell>
-          </TableRow>
-        </TableFooter> */}
       </Table>
     </div>
   );
