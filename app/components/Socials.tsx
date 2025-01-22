@@ -58,7 +58,7 @@ const Socials = () => {
           <span
             onClick={() =>
               router.push(
-                `${URL}/auth/socialite/social_linkedin-openid/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`
+                `${URL}/auth/socialite/linkedin-openid/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`
               )
             }
             className="  p-1.5 rounded-full  text-lg bg-main2"
