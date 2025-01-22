@@ -29,6 +29,7 @@ export const PRODUCTS_LINKS = [
   { text: "wood", href: "/shop?category_id=5" },
   { text: "specialized", href: "/shop?category_id=6" },
 ];
+export const URL = "https://backend.orient-paints.com";
 export const BASE_URL = "https://backend.orient-paints.com/api";
 export const WEBSITEURL = "https://ftest.orient-paints.com/en";
 export const CACHE = 6400;

@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { WEBSITEURL } from "../constants";
+import { URL, WEBSITEURL } from "../constants";
 
 const Socials = () => {
   const t = useTranslations();
@@ -36,7 +36,7 @@ const Socials = () => {
       <div className="flex cursor-pointer text-gray-50 self-center mt-3 items-center gap-5">
         {login_types.includes("social_google") && (
           <Link
-            href={`https://backend.orient-paints.com/auth/socialite/google/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`}
+            href={`${URL}/auth/socialite/google/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`}
             className="  p-1.5 rounded-full  text-lg bg-main2"
           >
             <FaGoogle />
@@ -46,7 +46,7 @@ const Socials = () => {
           <span
             onClick={() =>
               router.push(
-                `https://backend.orient-paints.com/auth/socialite/facebook/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`
+                `${URL}/auth/socialite/facebook/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`
               )
             }
             className="  p-1.5 rounded-full  text-lg bg-main2"
@@ -54,11 +54,11 @@ const Socials = () => {
             <FaFacebook />
           </span>
         )}
-        {login_types.includes("social_linkedin") && (
+        {login_types.includes("social_linkedin-openid") && (
           <span
             onClick={() =>
               router.push(
-                `https://backend.orient-paints.com/auth/socialite/linkedin/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`
+                `${URL}/auth/socialite/social_linkedin-openid/login?redirect_url=${WEBSITEURL}/login&device_unique_id=${deviceInfo.device_unique_id}`
               )
             }
             className="  p-1.5 rounded-full  text-lg bg-main2"
