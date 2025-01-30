@@ -65,7 +65,9 @@ export type ResourceNameProps =
   | "wishlist"
   | "calculate"
   | "getinspired"
-  | "sitemap"|'create-verification'|'verify-account';
+  | "sitemap"
+  | "create-verification"
+  | "verify-account";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -279,6 +281,10 @@ export async function Server({
       throw error;
     }
     if (error.message === "Device token mismatch" || error.message === "Login again please") {
+      redirect("/login?error=true");
+    }
+    if (error.message.includes("401")) {
+      redirect("/login?error=true");
     }
     console.error("Server request error:", error);
     throw new Error(`Error: ${error.message}`);
