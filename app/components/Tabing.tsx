@@ -11,11 +11,12 @@ interface TabingProps {
 }
 import type SwiperType from "swiper";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import ImageGrid from "./ImageGrid";
 import { useIsLoading } from "../context/LoadingContext";
 import { Skeleton } from "@/components/ui/skeleton";
+import Paragraph from "./Paragraph";
 
 const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
   const searchParams = useSearchParams();
@@ -45,6 +46,7 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
       setCurrentPath(href);
     });
   };
+  const t = useTranslations();
   const locale = useLocale();
   const isSlide = categories.length > 5;
   return (
@@ -103,6 +105,7 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
           </button>
         )}
       </div>
+      <Paragraph className="text-center my-8 mx-auto" description={t("inspired")} />
 
       {loading ? (
         <div className=" gap-5 grid grid-cols-1 mt-5 lg:grid-cols-4">

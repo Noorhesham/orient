@@ -28,6 +28,8 @@ export const PRODUCTS_LINKS = [
   { text: "metal", href: "/shop?category_id=2" },
   { text: "wood", href: "/shop?category_id=5" },
   { text: "specialized", href: "/shop?category_id=6" },
+  { text: "colorant", href: "/shop?category_id=7" },
+  { text: "dicore", href: "/shop?category_id=8" },
 ];
 export const URL = "https://backend.orient-paints.com";
 export const BASE_URL = "https://backend.orient-paints.com/api";

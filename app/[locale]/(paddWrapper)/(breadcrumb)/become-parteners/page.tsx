@@ -4,6 +4,7 @@ import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import MotionItem from "@/app/components/MotionItem";
 import Partner from "@/app/components/Partner";
 import Section from "@/app/components/Section";
+import { CACHE } from "@/app/constants";
 import { Server } from "@/app/main/Server";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -23,7 +24,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   const { forms } = await Server({
     resourceName: "getForms",
     body: { slugs: [category || "coloring-centers"] },
-    cache: Infinity,
+    cache: CACHE,
   });
   let countryAdded = false;
   const fields = forms[0].fields
@@ -55,7 +56,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       };
     })
     .filter((field: any) => field !== undefined);
-    console.log(forms)
+  console.log(forms[0].fields);
   return (
     <main className="">
       <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">
@@ -71,12 +72,17 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       </section>
       <MaxWidthWrapper>
         <div className=" min-h-[80vh]  flex flex-col gap-10 md:flex-row  lg:grid items-start lg:grid-cols-4">
-      
-            <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
-              <Partner tabs={tabs} />
-            </Section>
-        
-          <MotionItem nohover key={category} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" col-span-full w-full lg:col-span-2">
+          <Section className="  w-full overflow-hidden  col-span-2 flex flex-col gap-10">
+            <Partner tabs={tabs} />
+          </Section>
+
+          <MotionItem
+            nohover
+            key={category}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className=" col-span-full w-full lg:col-span-2"
+          >
             <Head1 text={t("contact.question")} />
             <FormContainer server id={category} submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
           </MotionItem>

@@ -26,7 +26,7 @@ const ModalCustom = ({
   btnText,
   isPending,
   btnStyles,
-  form,
+  className,
 }: {
   btn: React.ReactNode;
   content: React.ReactNode;
@@ -40,6 +40,7 @@ const ModalCustom = ({
   isPending?: boolean;
   btnStyles?: boolean;
   form?: boolean;
+  className?: string;
 }) => {
   const [open, setOpen] = React.useState(isOpen || false);
   const t = useTranslations();
@@ -50,7 +51,7 @@ const ModalCustom = ({
       <DialogContent className=" max-w-[90%] lg:max-w-4xl py-5 lg:py-10 overflow-y-auto max-h-[80vh] sm:rounded-[1.8rem]">
         <DialogHeader className="">
           {title ? (
-            <DialogTitle className="text-xl mt-10 lg:mt-14 text-center text-main2">{title}</DialogTitle>
+            <DialogTitle className="text-xl capitalize mt-10 lg:mt-14 text-center text-main2">{title}</DialogTitle>
           ) : (
             <VisuallyHidden>
               <DialogTitle>Untitled</DialogTitle> {/* Hidden but accessible title */}
@@ -58,7 +59,7 @@ const ModalCustom = ({
           )}
           {desc && <DialogDescription className="text-center mt-2">{desc}</DialogDescription>}
         </DialogHeader>
-        <div className={` ${title && "mt-5 lg:mt-10"} w-full`}>{content}</div>
+        <div className={` ${title && "mt-5 lg:mt-10"} ${className||""} w-full`}>{content}</div>
 
         {(cancelBtn || functionalbtn || desc) && (
           <DialogFooter className="pb-10 flex items-center sm:flex-col">

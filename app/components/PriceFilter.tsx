@@ -51,7 +51,7 @@ const PriceFilter = () => {
       ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
       url.searchParams.append("price_from", priceFilter.range[0].toString());
       url.searchParams.append("price_to", priceFilter.range[1].toString());
-      url.searchParams.append("custom", priceFilter.isCustom.toString());
+      url.searchParams.append("custom", priceFilter.isCustom?.toString());
       url.searchParams.set("page", "1");
       router.push(url.toString(), { scroll: false });
     });
@@ -69,7 +69,7 @@ const PriceFilter = () => {
   const handlePriceChange = ({ range, isCustom }: any) => setPriceFilter({ range, isCustom });
 
   return (
-    <ul className="space-y-1 filter border-b px-5 border-gray-200 pb-6 text-sm font-medium text-gray-900">
+    <ul className="space-y-1 filter border-b px-5 flex flex-col gap-2 border-gray-200 pb-6 text-sm font-medium text-gray-900">
       <li className="flex items-center  flex-row flex-wrap  lg:flex-col gap-4">
         <div className="self-start flex items-center gap-2 ">
           <label
@@ -150,6 +150,9 @@ const PriceFilter = () => {
           </li>
         ))}
       </div>
+      <Button variant={"outline"} className="w-full mt-8" onClick={() => handlePriceChange({ range: [0, 10000] })}>
+        {t("reset")}
+      </Button>
     </ul>
   );
 };

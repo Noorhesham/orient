@@ -38,7 +38,8 @@ const fetchProduct = async (id: any, queryParams) => {
     resourceName: "getProduct",
     id,
     queryParams,
-    body: { with: "tags,upSells,crossSells,category_id,categories" },cache: 3600
+    body: { with: "tags,upSells,crossSells,category_id,categories" },
+    cache: 3600,
   }); // Your Server fetch logic here
 };
 const formQueryParams = (color, wight) => {
@@ -268,7 +269,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                       <BoxIcon className=" w-8 h-8" />
                       <div className=" flex flex-col ">
                         <h2 className="  text-black font-medium">{t("fastestDelivery")}</h2>
-                        <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p>
+                        {/* <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p> */}
                       </div>
                     </div>
                     <div className="  text-xs flex flex-col text-center  items-center gap-3">
@@ -402,7 +403,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                           <BoxIcon />
                           <div className=" flex flex-col gap-2">
                             <h2 className="  text-black font-medium">{t("fastestDelivery")}</h2>
-                            <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p>
+                            {/* <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p> */}
                           </div>
                         </div>
                       ),

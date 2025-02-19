@@ -31,7 +31,7 @@ const CartItems = ({ cart }: { cart: any }) => {
               discount={item.price_before_discount !== item.price_after_discount ? item.price_after_discount : null}
               text={item.title}
               quantity={item.quantity}
-              id={item.slug}
+              id={item.product_id}
               productId={item.product_slug}
             />
           ))}

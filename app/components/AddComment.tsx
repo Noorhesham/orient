@@ -40,11 +40,12 @@ const AddComment = ({ id }: { id?: string }) => {
   return (
     <ModalCustom
       title={t("title")}
+      className="!items-center "
       content={
         !userSettings ? (
           <Link
             href={`/login?redirect=/product/${id}`}
-            className="text-xl hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
+            className="text-xl absolute left-1/2 -translate-x-1/2  top-24  w-fit hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
           >
             {t("loginPrompt")}
           </Link>

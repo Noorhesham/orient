@@ -60,7 +60,6 @@ const Signup = () => {
     {
       name: "email",
       placeholder: t("ADD_YOUR_EMAIL"),
-      optional: true,
     },
     {
       name: "referral_code",

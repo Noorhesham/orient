@@ -34,6 +34,7 @@ const SwiperCards = ({
   paginationImgs,
   activeSlide,
   btnClass,
+  centeredSlides,
 }: {
   items: any;
   className?: string;
@@ -52,6 +53,7 @@ const SwiperCards = ({
   paginationImgs?: string[];
   activeSlide?: number;
   btnClass?: string;
+  centeredSlides?: boolean;
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(activeSlide || 0);
@@ -92,12 +94,12 @@ const SwiperCards = ({
         modules={[Autoplay]}
         autoplay={autoplay ? { delay: 2000 } : false}
         loop={autoplay}
-        centeredSlides={false}
+        centeredSlides={centeredSlides || false}
         initialSlide={0}
         onSwiper={(swiper) => setSwiper(swiper)}
         spaceBetween={spaceBetween || 10}
         slidesPerView={slidesPerView || 3.4}
-        className={`w-full h-full ${className || "h-96"} `}
+        className={`w-full place-content-center h-full ${className || "h-96"} `}
       >
         {items?.map(
           ({ src, text, card, link }: { src: string; text: string; card: ReactNode; link?: string }, i: number) => (
@@ -172,7 +174,8 @@ const SwiperCards = ({
         )}
       </Swiper>
       {btns && (
-        <MaxWidthWrapper noPadding
+        <MaxWidthWrapper
+          noPadding
           className={cn(
             "flex mb-4 h-fit items-center gap-20 md:gap-8 justify-between lg:justify-center mt-5",
             btnClass || "",
@@ -184,7 +187,7 @@ const SwiperCards = ({
             onClick={() => swiper?.slidePrev()}
             className={`rounded-full flex px-6 py-4 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main `}
           >
-            <ArrowLeft className="mr-1" />
+            <ArrowLeft className="mr-1 w-4 h-4" />
             {t("previous")}
           </Button>
           <Button
@@ -192,7 +195,7 @@ const SwiperCards = ({
             onClick={() => swiper?.slideNext()}
             className={` rounded-full flex px-6 py-4 items-center  border border-main bg-white text-main duration-150 hover:text-white hover:bg-main`}
           >
-            {t("next")} <ArrowRight />
+            {t("next")} <ArrowRight className=" ml-1 w-4 h-4" />
           </Button>
         </MaxWidthWrapper>
       )}

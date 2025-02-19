@@ -57,7 +57,7 @@ const SingleVariant = ({
   const [colors, setColors] = React.useState<string[]>(colorOptions[0]?.options);
   const [wights, setwights] = React.useState<string[]>(options[0]?.options);
   const router = useRouter();
-  const locale=useLocale()
+  const locale = useLocale();
   const handleFilter = (filterValue: string, filterName: string) => {
     setFirst(false);
     setFilters((prevFilters: any) => {
@@ -150,7 +150,7 @@ const SingleVariant = ({
         )}
         {options?.[0] && (
           <div className="flex  flex-wrap items-center gap-2">
-            <h4 className="text-base  mb-2">{t("wight")}</h4>
+            <h4 className="text-base  mb-2">{t("WIGHT")}</h4>
             {options[0].options?.map((option: any, i: number) => (
               <button
                 disabled={!wights.includes(option.id)}

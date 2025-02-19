@@ -1,6 +1,5 @@
-import React, { Suspense } from "react";
+import React from "react";
 import MaxWidthWrapper from "../../../../components/MaxWidthWrapper";
-import ImageGrid from "../../../../components/ImageGrid";
 import Tabing from "../../../../components/Tabing";
 import { PaginationDemo } from "@/app/components/Pagination";
 import { Server } from "@/app/main/Server";
@@ -10,7 +9,6 @@ const page = async ({ searchParams }: { searchParams: any }) => {
     resourceName: "getEntity",
     entityName: "inspired-categories",
   });
-
   const { data } = await Server({
     resourceName: "getinspired",
     entityName: "inspired-items",
@@ -35,7 +33,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
         options={images.map((img: any) => {
           return { file: img.file, med: img.sizes.medium };
         })}
-      />
+      />{" "}
       {totalPages > 1 && <PaginationDemo totalPages={Math.ceil(data.length / 12) || 1} />}
     </MaxWidthWrapper>
   );

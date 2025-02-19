@@ -40,6 +40,7 @@ const CartItem = ({
   const { mutate, isPending } = useCreateEntity("addToCart", "cart");
   const router = useRouter();
   const t = useTranslations();
+  console.log(id, productId);
   return (
     <div>
       <div className=" flex   items-center">

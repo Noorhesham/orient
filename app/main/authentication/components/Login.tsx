@@ -199,7 +199,7 @@ const Login = () => {
             </div>
             <div className="mt-8 text-sm flex flex-col gap-2 md:gap-0 md:flex-row items-center">
               <span className="font-[400] text-main2">{t("dontHaveAccount")}</span>
-              <Link href="/signup" className="hover:underline duration-150 ml-1 text-main font-[700]">
+              <Link href="/signup" className="hover:underline duration-150 ml-1 my-5 text-main font-[700]">
                 {" "}
                 {t("createAccount")}{" "}
               </Link>

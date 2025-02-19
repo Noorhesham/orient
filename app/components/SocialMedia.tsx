@@ -5,6 +5,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { useAuth } from "../context/AuthContext";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { BsMessenger } from "react-icons/bs";
 const SocialMedia = () => {
   const { generalSettings, loading } = useAuth();
   if (loading)
@@ -63,6 +64,15 @@ const SocialMedia = () => {
           className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
         >
           <FaFacebook />
+        </Link>
+      )}
+      {company_contacts?.messenger && (
+        <Link
+          target="_blank"
+          href={company_contacts?.messenger}
+          className=" hover:opacity-90 hover:-translate-y-2 duration-200 text-white p-2 text-xl rounded-full bg-main"
+        >
+          <BsMessenger />
         </Link>
       )}
       {company_contacts?.twitter && (

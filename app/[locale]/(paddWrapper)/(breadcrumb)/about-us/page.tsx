@@ -139,7 +139,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
             contain
             mobile={3}
             slidesPerView={5}
-            className=" w-full  h-32 "
+            className=" place-items-center place-content-center  w-full  h-32 "
             items={page.certificates.map((item: any, index: number) => {
               return { src: item.file };
             })}
@@ -158,11 +158,12 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
             <SwiperCards
               btns={true}
               logo={true}
+              centeredSlides={true}
               mobile={3}
               spaceBetween={50}
               slidesPerView={5}
               contain
-              className=" w-full  object-contain  h-32 "
+              className=" w-full !place-content-center object-contain  h-32 "
               items={page.partners.map((item: any, index: number) => {
                 return { src: item.file };
               })}

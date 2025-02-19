@@ -39,7 +39,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
       <MaxWidthWrapper>
         <div className=" flex flex-col md:flex-row gap-5   justify-between items-start  ">
           <div style={{ color: page.page_color }} className=" flex  flex-col items-start">
-            <p className=" text-xs font-medium">ABOUT COLOR</p>
+            <p className=" text-xs font-medium">{t("ABOUT COLOR")}</p>
             <h1 className=" text-3xl font-[600] uppercase max-w-[20rem] ">{page.title}</h1>
           </div>
           <div
@@ -76,7 +76,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           }}
           className="   flex-1 lg:flex hidden lg:basis-[40%]   h-[435px] relative"
         >
-          <Image src={"/chair.png"} alt="" fill className=" object-cover" />
+          <Image src={"/06adf7b6-c541-4597-9024-b33ffa6f91b3.png"} alt="" fill className=" object-cover" />
         </MotionItem>
         <MaxWidthWrapper className=" lg:max-w-full px-4 md:px-10 lg:px-0 max-w-[1330px] lg:w-[60%]   flex-1  ">
           <Section
@@ -96,7 +96,11 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
                         text={product.title}
                         img={product.main_cover[0]?.sizes?.medium || "/default-thumbnail.jpg"}
                         price={product.price_before_discount}
-                        discount={product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null}
+                        discount={
+                          product.price_after_discount !== product.price_before_discount
+                            ? product.price_after_discount
+                            : null
+                        }
                       />
                     ),
                   };

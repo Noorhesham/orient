@@ -17,20 +17,22 @@ const Locations = () => {
     <div className=" flex flex-col gap-3">
       {" "}
       <div className="flex items-center mx-auto lg:text-justify text-center lg:mx-0 gap-3">
-        <div className=" lg:block hidden">
+        <div className=" ">
           <Phone />
         </div>
-        <Link href={`tel:${company_contacts.phone}`} className="ml-2 tracking-wide text-white text-3xl font-[600]">{company_contacts.phone}</Link>
+        <Link href={`tel:${company_contacts.phone}`} className="ml-2 tracking-wide text-white text-3xl font-[600]">
+          {company_contacts.phone}
+        </Link>
       </div>
       <div className="text-white flex gap-3 w-full flex-col">
         {branches.map((branch: any, i: number) => (
           <div className=" w-full flex items-start" key={i}>
-            <div className=" lg:block hidden">
-              <HeadPhones />
-            </div>
             <div className=" flex flex-col  w-full items-center lg:items-start">
-              <h3 className="ml-2 flex-1 tracking-wide text-center  lg:text-justify text-lg font-semibold ">
+              <h3 className="ml-2 flex gap-6 flex-row-reverse flex-1 tracking-wide text-center  lg:text-justify text-lg font-semibold ">
                 {branch.title[locale]}
+                <div className="">
+                  <HeadPhones />
+                </div>
               </h3>
               <div className="ml-2 flex-1 flex justify-center lg:justify-between w-full flex-col lg:flex-row gap-3 items-center  text-sm">
                 <p className="text-center  lg:text-justify ">{branch.co_info_address[locale]}</p>

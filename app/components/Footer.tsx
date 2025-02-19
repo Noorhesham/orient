@@ -18,13 +18,9 @@ const Footer = () => {
   const t = useTranslations(); // Initialize translation hook
 
   const images = [
-    "/Vector Smart Object 1 (1).png",
     "/PROUDLY MADE IN EGYPT بكل فخر صنع في مصر 23-02 1.svg",
     "/Group 1321317229 (2).svg",
     "/Group 1321317229 (3).svg",
-    "/t 1 (2).svg",
-    "/eos_logo 1.svg",
-    "/12 1.svg",
   ];
 
   return (
@@ -80,9 +76,9 @@ const Footer = () => {
           </div>
           <MobileWrapper
             desktop={
-              <div className="px-5 lg:mt-5 grid  grid-cols-7 gap-10 justify-center mx-auto pt-5">
+              <div className="px-5 lg:mt-5 flex gap-20  justify-center mx-auto pt-5">
                 {images.map((img, i) => (
-                  <div key={i} className="relative h-24 w-full">
+                  <div key={i} className="relative w-24 h-24 ">
                     <Image src={img} alt="logo" fill className="object-contain" />
                   </div>
                 ))}

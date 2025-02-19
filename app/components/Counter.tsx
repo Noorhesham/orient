@@ -21,6 +21,7 @@ const Counter = ({
   const [count, setCount] = React.useState(defaultcount || 1);
   const { mutate, isPending, data } = useCreateEntity("addToCartQuantity", "cart");
   console.log(data);
+  console.log(value);
   const debouncedMutate = React.useCallback(
     debounce((newCount) => {
       mutate({ item_id: value, qty: newCount });

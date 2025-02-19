@@ -202,7 +202,7 @@ export function InputOTPPattern({
                 </FormItem>
               )}
             />
-            {forgot && <FormInput name="password" control={form.control} placeholder={t("password")} password />}
+            {forgot && <FormInput name="password" type="password" control={form.control} placeholder={t("password")} password />}
             <div className="mt-4  flex items-center gap-2">
               {!activate && (
                 <Button

@@ -52,10 +52,9 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
       disablePageScroll();
     }
   };
-  const locale = pathName?.split("/")[1];
 
   return (
-    <div ref={ref} className="  ">
+    <div ref={ref}>
       <AnimatePresence>
         {openNavigation && (
           <motion.nav
@@ -63,16 +62,15 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={`${openNavigation ? "flex" : "hidden"} fixed top-0 left-0 bg-black/40 w-full h-screen
-             backdrop-blur-lg bottom-0  uppercase  right-0 z-[999] bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}
+            className="fixed top-0 left-0 bg-black/40 w-full h-screen backdrop-blur-lg bottom-0 uppercase right-0 z-[999] bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent"
             onClick={handleClickOutside}
           >
             <MaxWidthWrapper className="relative z-[9999] mt-32 my-auto h-full w-full flex flex-col gap-4 items-center justify-start mx-auto lg:flex-row">
               {navigation.map((link: any, i: number) =>
                 link.subLinks ? (
-                  <Accordion key={i} className={`text-gray-50  z-[999] w-full`} type="single" collapsible>
+                  <Accordion key={i} className="text-gray-50 z-[999] w-full" type="single" collapsible>
                     <AccordionItem className="w-full" value={`item-${i}`}>
-                      <AccordionTrigger className="font-medium  uppercase">
+                      <AccordionTrigger className="font-medium uppercase">
                         {t(`${link.text.toLowerCase()}`)}
                       </AccordionTrigger>
                       <AccordionContent className="flex z-50 flex-col gap-2">
@@ -93,10 +91,10 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
                     </AccordionItem>
                   </Accordion>
                 ) : (
-                  <motion.div key={i} variants={item} className=" border-gray-50 border-b  py-4 w-full">
+                  <motion.div key={i} variants={item} className="border-gray-50 border-b py-4 w-full">
                     <Link
                       href={link.href || ""}
-                      className={`text-balance  my-2 z-50 w-full text-start text-gray-50 font-medium ${
+                      className={`text-balance my-2 z-50 w-full text-start text-gray-50 font-medium ${
                         pathName === link.url ? "text-main" : ""
                       }`}
                       onClick={() => {
@@ -113,14 +111,10 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
           </motion.nav>
         )}
       </AnimatePresence>
-      <button
-        className={cn(
-          " z-[999999] relative hover:opacity-90 duration-150",
-          openNavigation && locale === "en" ? " fixed right-2" : openNavigation && locale !== "ar" ? "fixed left-0" : ""
-        )}
-        onClick={toggleNavigation}
-      >
-        <MenuSvg isHome={isHome} openNavigation={openNavigation} />
+
+      {/* Button that toggles the navigation */}
+      <button className="z-[999999] fixed left-2 top-14 hover:opacity-90 duration-150" onClick={toggleNavigation}>
+        {openNavigation ? <CloseSvg /> : <MenuSvg isHome={isHome} />}
       </button>
     </div>
   );
@@ -128,35 +122,38 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
 
 export default PhoneNav;
 
-const MenuSvg = ({ openNavigation, isHome }: { openNavigation: any; isHome?: boolean }) => {
-  return (
-    <svg className="overflow-visible " width="20" height="14" viewBox="0 0 20 14">
-      <rect
-        className="transition-all origin-center"
-        y={openNavigation ? "5" : "0"}
-        width="20"
-        height="2"
-        rx="1"
-        fill={isHome ? "white" : "#E6007E"}
-        transform={`rotate(${openNavigation ? "45" : "0"})`}
-      />
-      <rect
-        className={`${openNavigation ? " opacity-0" : "transition-all opacity-100"} origin-center`}
-        y={openNavigation ? "5" : "8"}
-        width="20"
-        height="2"
-        rx="1"
-        fill={isHome ? "white" : "#E6007E"}
-      />
-      <rect
-        className="transition-all origin-center"
-        y={openNavigation ? "5" : "16"}
-        width="20"
-        height="2"
-        rx="1"
-        fill={isHome ? "white" : "#E6007E"}
-        transform={`rotate(${openNavigation ? "-45" : "0"})`}
-      />
-    </svg>
-  );
-};
+// Menu Icon
+// Menu Icon
+const MenuSvg = ({ isHome }: { isHome?: boolean }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#ff4d6d" // Pink color
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+
+// Close Icon (Same pink color)
+const CloseSvg = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#ff4d6d" // Pink color
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);

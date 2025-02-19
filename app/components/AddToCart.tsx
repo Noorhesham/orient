@@ -30,6 +30,7 @@ const AddToCart = ({
   const queryClient = useQueryClient();
   const t = useTranslations();
   const router = useRouter();
+  console.log(cartStatus)
   return cartStatus?.in_cart && cartStatus?.in_cart_count !== 0 ? (
     <div className=" flex items-center ">
       <div className=" flex self-center mx-auto  items-center gap-2">

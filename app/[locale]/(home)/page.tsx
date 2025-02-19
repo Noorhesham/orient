@@ -179,25 +179,27 @@ export default async function Home({ params: { locale } }: { params: { locale: s
                 locale == "ar" ? "" : "xl:translate-x-[24rem]"
               } translate-x-0 text-center md:text-start font-medium my-2 leading-[1.7] lg:max-w-2xl   z-10 relative mt-5 `}
             />
-            <MotionItem
-              nohover
-              initial={{ opacity: 0, x: -200 }}
-              whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeInOut", stiffness: 100 } }}
-              className={` ${
-                locale == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
-              }  aspect-square w-auto  h-full lg:mt-0  md:h-80 xl:h-80 bottom-0    md:top-[82%] xl:top-[8.9rem]  md:absolute`}
-            >
-              <Image
-                src={page.image[0]?.file}
-                fill
-                className="  object-bottom object-contain md:object-cover "
-                alt="brown"
-              />
-            </MotionItem>
           </div>
         </Section>
       </MaxWidthWrapper>
-      <div className=" px-3">
+      <div className=" relative px-3">
+        <MaxWidthWrapper className=" relative xl:absolute xl:left-36  bottom-0" noPadding noPaddingX>
+          <MotionItem
+            nohover
+            initial={{ opacity: 0, x: -200 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeInOut", stiffness: 100 } }}
+            className={` ${
+              locale == "ar" ? "left-0" : "right-[20%] sm:right-[40%]    md:right-20 xl:left-0 "
+            }  aspect-square w-auto  h-full lg:mt-0  md:h-80 xl:h-80 bottom-0  lg:absolute`}
+          >
+            <Image
+              src={page.image[0]?.file}
+              fill
+              className="  object-bottom object-contain lg:object-cover "
+              alt="brown"
+            />
+          </MotionItem>
+        </MaxWidthWrapper>
         <div className=" md:mt-8   grid grid-cols-6 gap-[4px]">
           {page.colors.map((item: any, index: number) => {
             return (
