@@ -39,9 +39,11 @@ const Methods = ({
   };
   return (
     <Suspense>
-      <h3 className=" text-center text-xl mt-8 font-bold text-main2">{tfa ? t("2fadesc") : t("resetmessage")}</h3>
+      <h3 className=" text-center text-xl mt-8 font-bold text-main2">
+        {tfa ? t("2fadesc") : reset ? t("resetmessage") : t("activatemessage")}
+      </h3>
       <div className=" my-5 relative  mx-auto">
-        {isPending && <Spinner  />}
+        {isPending && <Spinner />}
         {Object.keys(methodLabels)
           .filter((m) => m !== "apps")
           .map(

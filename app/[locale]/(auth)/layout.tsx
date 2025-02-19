@@ -12,7 +12,7 @@ export default async function RootLayout({
   return (
     <main className=" min-h-screen h-full flex items-stretch  w-full ">
       <div className=" hidden md:block md:w-[40%] lg:w-[60%]  min-h-full relative">
-        <Image src="/login.png" alt="login" className=" object-cover" fill />
+        <Image src="/log in screen photo.webp" alt="login" className=" object-cover" fill />
       </div>
       {children}
     </main>

@@ -62,7 +62,7 @@ const ResetPassword = () => {
           <h3 className=" text-center text-2xl mt-8 font-bold text-main2">{t("forgotPasswordContent.title")}</h3>
           {param === "prepare" && <Prepare setMessage={setMessage} handleParam={handleParam} setMethods={setMethods} />}
           {param === "forgot" && (
-            <Methods reset={true} message={message || ""} handleSend={handleSend} methods={methods} />
+            <Methods  reset={true} message={message || ""} handleSend={handleSend} methods={methods} />
           )}
           {param === "code" && (
             <InputOTPPattern

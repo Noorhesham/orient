@@ -30,9 +30,7 @@
   opacity: 0.6;
   height: 65%;
 }
-.swiper-wrapper {
-  place-content: center !important;
-}
+
 .arrow1 {
   animation: slide1 1s ease-in-out infinite;
   margin-left: 9px;

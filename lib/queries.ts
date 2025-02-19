@@ -63,8 +63,12 @@ const useCreateEntity = (resourceName: ResourceNameProps, queryKey: string, id?:
         QueryClient.invalidateQueries({ queryKey: [queryKey] });
       }
       if (data?.cartCount) setCartCount(data.cartCount);
-
+       if(!data.status) toast.error(data.message);
       return data;
+    },
+    onError: (error: any) => {
+      console.log(error);
+      toast.error(error.message);
     },
   });
 

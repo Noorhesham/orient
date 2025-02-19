@@ -33,7 +33,7 @@ const UpdateNotifications = () => {
           device_info: deviceInfo,
         },
       });
-      console.log(res);
+      console.log(res,'notificaaaaaaaaaaaaaaaaaaaaaaaaaation');
       setNotificationStatus(res.device.notification_token_status);
       setLoading(false);
     };

@@ -10,7 +10,7 @@ import VideoZoom from "@/app/components/VideoZoom";
 import { processYoutubeUrl } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
 import MotionContainer from "@/app/components/MotionContainer";
-
+import "./CUSTOM.css";
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   const t = await getTranslations();
@@ -133,7 +133,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
 
         <div className="h-52 block">
           <SwiperCards
-            btns={true}
+            btns={page.certificates.length > 5}
             logo={true}
             spaceBetween={50}
             contain
@@ -156,7 +156,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
 
           <div className=" justify-center  h-52 lg:mt-8  flex items-center">
             <SwiperCards
-              btns={true}
+              btns={page.partners.length > 5}
               logo={true}
               centeredSlides={true}
               mobile={3}

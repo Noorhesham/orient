@@ -59,15 +59,24 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   console.log(forms[0].fields);
   return (
     <main className="">
-      <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">
+      <section className=" relative min-h-[37vh] md:min-h-[46vh] lg:min-h-[60vh]">
         <div
           style={{
-            backgroundImage: `url('/partner.png')`,
+            backgroundImage: `url('/become a partner.webp')`,
             backgroundPosition: "center",
             zIndex: 1,
             backgroundRepeat: "no-repeat",
           }}
-          className={`reveal_animation absolute inset-0 bg-cover `}
+          className={`reveal_animation lg:block hidden absolute inset-0 bg-cover `}
+        />
+        <div
+          style={{
+            backgroundImage: `url('/become a partner-mobile.webp')`,
+            backgroundPosition: "center",
+            zIndex: 1,
+            backgroundRepeat: "no-repeat",
+          }}
+          className={`reveal_animation lg:hidden block absolute inset-0 bg-cover `}
         />
       </section>
       <MaxWidthWrapper>

@@ -31,7 +31,7 @@ const CartItems = ({ cart }: { cart: any }) => {
               discount={item.price_before_discount !== item.price_after_discount ? item.price_after_discount : null}
               text={item.title}
               quantity={item.quantity}
-              id={item.product_id}
+              id={item.id}
               productId={item.product_slug}
             />
           ))}
@@ -47,7 +47,7 @@ const CartItems = ({ cart }: { cart: any }) => {
                 nocheck
                 retrive
                 key={item.id}
-                img={item.image?.[0]?.sizes.large}
+                img={item?.image?.[0]?.sizes.large}
                 price={item.price_after_discount}
                 discount={item.price_before_discount}
                 text={item.title}

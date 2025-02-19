@@ -144,7 +144,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
   queryParams.append("ids[]", product.id);
   const { products: cartStatus } = await Server({ resourceName: "check", queryParams });
   const upSells = product.upSells.length <= 0 ? product.crossSells : product.upSells;
-  console.log(product.categories);
+  console.log(product);
   return (
     <RightClickProvider>
       <BreadCrumb

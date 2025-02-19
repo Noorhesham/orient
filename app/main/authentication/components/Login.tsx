@@ -25,6 +25,7 @@ import { useTranslations } from "next-intl";
 import Spinner from "@/app/components/Spinner";
 import Section from "@/app/components/Section";
 import CustomForm from "@/app/components/CustomForm";
+import useFcmToken from "@/app/hooks/useFcmToken";
 const Login = () => {
   const t = useTranslations();
   const loginSchemaa = loginSchema(t);
@@ -59,6 +60,8 @@ const Login = () => {
     }
     if (param !== "") setActivate(true);
   }, [param]);
+  const { token } = useFcmToken();
+
   const onSubmit = async (data: z.infer<typeof loginSchemaa>) => {
     form.clearErrors();
     setServerError(null);
@@ -98,6 +101,15 @@ const Login = () => {
           }
           if (!res.require_activation && !res.tfa) {
             cookies.set("jwt", res.token);
+            const notifcationRes = await Server({
+              resourceName: "languageUpdate",
+              body: {
+                action: "set",
+                key: "notification_token",
+                value: token,
+                device_info: deviceInfo,
+              },
+            });
             setLogin((l) => !l);
             router.push(redirect || "/");
           }
@@ -160,7 +172,7 @@ const Login = () => {
   return (
     <Section className="bg-gray-50 justify-center flex flex-1 flex-col items-center">
       <div className="mx-auto flex flex-col items-center justify-center w-full">
-        <Logo  type="blue"  />
+        <Logo type="blue" />
         {!activate && (
           <>
             <h1 className="text-center text-xl md:text-2xl mt-8 font-bold text-main2">{t("login")}</h1>
