@@ -15,11 +15,9 @@ const localeMiddleware = createMiddleware({
 export async function middleware(req: NextRequest, res: NextResponse) {
   const path = req.nextUrl.pathname;
 
-  if (
-    path.startsWith("/api") ||
-    path.match(/\.(png|jpg|jpeg|svg|gif|ico|txt|css|js|json|webp|woff|woff2|ttf|otf|eot)$/)
-  ) {
-    return NextResponse.next();
+  // Skip middleware for API routes
+  if (path.startsWith("/api")) {
+    return NextResponse.next(); // Skip middleware for API routes
   }
 
   // Access cookies
@@ -64,5 +62,5 @@ export async function middleware(req: NextRequest, res: NextResponse) {
 }
 
 export const config = {
-  matcher: ["/", "/(ar|en)/:path*", "/((?!.*\\..*|_next|api|public|static).*)"],
+  matcher: ["/", "/(ar|en)/:path*", "/((?!.*\\..*|_next|api|public).*)"],
 };
