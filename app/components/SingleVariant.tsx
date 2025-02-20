@@ -42,7 +42,6 @@ const SingleVariant = ({
   const child = variations.filter((variation: any) => {
     return variation.find((varr: any) => varr.product_id === childId);
   })[0];
-  console.log(child);
   const [filters, setFilters] = React.useState<{ [key: string]: string[] }>(
     ischild
       ? {
@@ -54,8 +53,11 @@ const SingleVariant = ({
           ["wight"]: [`${[options[0]?.id]}:${[options[0]?.options[0]?.id]}`],
         }
   );
+
   const [colors, setColors] = React.useState<string[]>(colorOptions[0]?.options);
   const [wights, setwights] = React.useState<string[]>(options[0]?.options);
+  console.log(colors, colorOptions[0].options);
+
   const router = useRouter();
   const locale = useLocale();
   const handleFilter = (filterValue: string, filterName: string) => {

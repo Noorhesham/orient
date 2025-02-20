@@ -1,0 +1,7 @@
+ul {
+  list-style: decimal;
+}
+.content {
+  flex-direction: column;
+  display: flex;
+}

@@ -31,7 +31,7 @@ import BreadCrumb from "@/app/components/BreadCrumb";
 import Link from "next/link";
 import BuyNow from "@/app/components/BuyNow";
 import { WEBSITEURL } from "@/app/constants";
-
+import "./product.css";
 const fetchProduct = async (id: any, queryParams) => {
   console.log("Fetching product from server");
   return await Server({
@@ -144,7 +144,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
   queryParams.append("ids[]", product.id);
   const { products: cartStatus } = await Server({ resourceName: "check", queryParams });
   const upSells = product.upSells.length <= 0 ? product.crossSells : product.upSells;
-  console.log(product);
+  console.log(variations);
   return (
     <RightClickProvider>
       <BreadCrumb
@@ -351,7 +351,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 </div>
                 <section className="  w-full mt-8">
                   <h3 className=" text-xl font-semibold">{t("description")}</h3>
-                  <Paragraph danger description={product.description || ""} />
+                  <Paragraph className="flex flex-col" danger description={product.description || ""} />
                   <br />
 
                   <Feature />
