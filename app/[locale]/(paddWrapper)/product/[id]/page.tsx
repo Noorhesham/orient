@@ -39,7 +39,7 @@ const fetchProduct = async (id: any, queryParams) => {
     id,
     queryParams,
     body: { with: "tags,upSells,crossSells,category_id,categories" },
-    cache: 3600,
+    cache: 0,
   }); // Your Server fetch logic here
 };
 const formQueryParams = (color, wight) => {
