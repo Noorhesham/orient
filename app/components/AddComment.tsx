@@ -45,7 +45,7 @@ const AddComment = ({ id }: { id?: string }) => {
         !userSettings ? (
           <Link
             href={`/login?redirect=/product/${id}`}
-            className="text-xl absolute left-1/2 -translate-x-1/2  top-24  w-fit hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
+            className="text-xl  mt-5 absolute left-1/2 -translate-x-1/2  top-24  w-fit hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
           >
             {t("loginPrompt")}
           </Link>
@@ -57,9 +57,9 @@ const AddComment = ({ id }: { id?: string }) => {
         )
       }
       btn={
-        <div className="uppercase lg:mt-5 flex-col flex gap-6">
+        <div className="uppercase lg:mt-5 flex-col flex !gap-6">
           <h2 className="text-2xl font-medium my-2">{t("heading")}</h2>
-          <Paragraph  description={t("description")} />
+          <Paragraph className="" description={t("description")} />
           <CustomButton text={t("buttonText")} icon={<IoMdChatbubbles />} />
         </div>
       }
