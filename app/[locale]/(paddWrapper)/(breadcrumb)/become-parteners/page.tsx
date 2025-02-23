@@ -53,6 +53,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
         select: false,
         required: field.validate?.required || false,
         returnFullPhone: true,
+        optional: !field.validate?.required || false,
       };
     })
     .filter((field: any) => field !== undefined);
