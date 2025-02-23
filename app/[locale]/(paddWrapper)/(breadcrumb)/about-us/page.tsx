@@ -137,7 +137,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
             logo={true}
             spaceBetween={50}
             contain
-            mobile={3}
+            mobile={2}
             slidesPerView={5}
             className=" place-items-center place-content-center  w-full  h-32 "
             items={page.certificates.map((item: any, index: number) => {
