@@ -9,6 +9,7 @@ export const INSPIRED_LINKS = [
   },
   { text: "kitchen", href: "/get-inspired?category=1" },
   { text: "kids room", href: "/get-inspired?category=2" },
+  { text: "dinner room", href:"/get-inspired?category=5" },
 ];
 export const PARTENER_LINKS = [
   { text: "projectsproducts", href: "/become-parteners?category=project-quotations" },

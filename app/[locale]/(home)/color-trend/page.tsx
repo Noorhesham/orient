@@ -81,7 +81,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         <MaxWidthWrapper className=" lg:max-w-full px-4 md:px-10 lg:px-0 max-w-[1330px] lg:w-[60%]   flex-1  ">
           <Section
             className="mt-5   flex items-center  gap-4  md:flex-row flex-col w-full "
-            heading={t("similarProducts")}
+            heading={page.product_title || t("similarProducts")}
           >
             <div className=" flex  w-full  h-full  mt-4 ">
               <SwiperCards

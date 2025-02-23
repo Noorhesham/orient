@@ -40,7 +40,7 @@ const Section = ({
               nohover
               className={` text-lg sm:text-2xl  ${headingclass || ""}    lg:mx-0  md:text-3xl  ${
                 headingColor ? `text-[${headingColor}]` : "text-[#0D3B6F]"
-              }   font-[700]`}
+              }   capitalize font-[700]`}
             >
               {heading}
             </MotionItem>

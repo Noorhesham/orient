@@ -41,7 +41,8 @@
     "livingroom": "Living Room",
     "bedroom": "Bedroom",
     "kitchen": "Kitchen",
-    "kidsroom": "Kids Room"
+    "kidsroom": "Kids Room",
+    "dinnerroom": "Dinner Room"
   },
   "partnerLinks": {
     "projectsproducts": "Projects/Products",
