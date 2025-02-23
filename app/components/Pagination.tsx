@@ -39,22 +39,23 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
     }, 2500);
   };
   const locale = useLocale();
+  console.log(totalPages);
   return (
     <Pagination className=" mt-10 col-span-full">
       <PaginationContent className={cn(locale === "ar" ? "flex-row-reverse" : " flex-row")}>
         <PaginationItem className=" w-fit">
           <Button
-            size={"sm"}
-            className={`${
-              currentPage >= (totalPages || 5) ? " cursor-not-allowed  opacity-80" : ""
-            } rounded-full flex mr-1 md:mr-3 p-1 items-center  border  border-main bg-white text-main duration-150 hover:text-white hover:bg-main`}
+            size="icon"
+            className={`rounded-full flex items-center justify-center border border-main bg-white text-main hover:text-white hover:bg-main transition-all ${
+              currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+            }`}
+            disabled={currentPage === 1}
             onClick={(e) => {
               e.preventDefault();
               if (currentPage > 1) handlePageChange(currentPage - 1);
             }}
           >
-            {" "}
-            <ArrowLeft className="mr-1" />
+            <ArrowLeft className="w-4 h-4" />
           </Button>
         </PaginationItem>
         {[...Array(totalPages)].map((_, i) => {
@@ -63,7 +64,7 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
             <PaginationItem key={page}>
               <PaginationLink
                 className={
-                  currentPage === page ? "bg-main   text-gray-50 rounded-full text-primary-foreground" : "rounded-full"
+                  currentPage === page ? "bg-main text-gray-50 rounded-full text-primary-foreground" : "rounded-full"
                 }
                 href="#"
                 isActive={currentPage === page}
@@ -77,7 +78,7 @@ export function PaginationDemo({ totalPages = 5 }: { totalPages?: number }) {
             </PaginationItem>
           );
         })}
-        {totalPages > 3 && (
+        {currentPage >= (totalPages || 5) && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
