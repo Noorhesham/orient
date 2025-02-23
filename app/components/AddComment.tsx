@@ -57,9 +57,9 @@ const AddComment = ({ id }: { id?: string }) => {
         )
       }
       btn={
-        <div className="uppercase lg:mt-5 flex-col flex gap-2">
+        <div className="uppercase lg:mt-5 flex-col flex gap-6">
           <h2 className="text-2xl font-medium my-2">{t("heading")}</h2>
-          <Paragraph description={t("description")} />
+          <Paragraph  description={t("description")} />
           <CustomButton text={t("buttonText")} icon={<IoMdChatbubbles />} />
         </div>
       }
