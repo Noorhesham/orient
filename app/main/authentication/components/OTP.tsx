@@ -159,7 +159,7 @@ export function InputOTPPattern({
         onSuccess?.();
         invalidateData();
         if (res.token) cookies.set("jwt", res.token, { expires: 2 });
-        if (res.token && tfa) {
+        if (res.token && !tfa&&!forgot&&!verify) {
           const NotificationREs = await Server({
             resourceName: "languageUpdate",
             body: {
