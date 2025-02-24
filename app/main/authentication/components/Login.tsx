@@ -99,17 +99,30 @@ const Login = () => {
             }
             setMessage(res.message);
           }
-          if (!res.require_activation && !res.tfa) {
-            cookies.set("jwt", res.token);
+          if (res.token) {
             const notifcationRes = await Server({
               resourceName: "languageUpdate",
               body: {
                 action: "set",
-                key: "notification_token",
-                value: token,
+                key: "notification_token_status",
+                value: true,
                 device_info: deviceInfo,
               },
             });
+            console.log(notifcationRes);
+          }
+          if (!res.require_activation && !res.tfa) {
+            cookies.set("jwt", res.token);
+            // const notifcationRes = await Server({
+            //   resourceName: "languageUpdate",
+            //   body: {
+            //     action: "set",
+            //     key: "notification_token",
+            //     value: token,
+            //     device_info: deviceInfo,
+            //   },
+            // });
+
             setLogin((l) => !l);
             router.push(redirect || "/");
           }
@@ -210,7 +223,7 @@ const Login = () => {
               <Socials login={true} />
             </div>
             <div className="mt-8 text-sm flex flex-col gap-2 md:gap-0 md:flex-row items-center">
-              <span className="font-[400]  mx-3 text-main2">{t("dontHaveAccount")}</span>
+              <span className="font-[400]  mx-3b text-main2">{t("dontHaveAccount")}</span>
               <Link href="/signup" className="hover:underline duration-150 ml-1 my-5 text-main font-[700]">
                 {" "}
                 {t("createAccount")}{" "}

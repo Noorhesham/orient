@@ -107,7 +107,6 @@ const SearchBox = ({
       setResultActive(false);
     }
   };
-
   return (
     <div
       ref={containerRef}
@@ -154,7 +153,9 @@ const SearchBox = ({
                     <h2 className=" text-black text-sm line-clamp-1 font-medium rounded-xl">{item.title}</h2>
                     <PriceWithSale
                       price={item.price_before_discount}
-                      discount={item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null}
+                      discount={
+                        item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null
+                      }
                       size="xs"
                     />
                   </div>
@@ -168,7 +169,7 @@ const SearchBox = ({
               className=" text-main duration-150 hover:underline"
               href={data.products?.length > 1 ? `/shop?search=${query}` : "/shop"}
             >
-              {`${data.products?.length > 1 ? `Browse All Products For ${query}` : "View All Products"}`}
+              {`${data.products?.length > 1 ? t("browseAllProducts", { query }) : t("browseAllProducts")}`}
             </Link>
           </MotionItem>
         )}
