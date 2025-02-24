@@ -159,6 +159,18 @@ export function InputOTPPattern({
         onSuccess?.();
         invalidateData();
         if (res.token) cookies.set("jwt", res.token, { expires: 2 });
+        if (res.token && tfa) {
+          const NotificationREs = await Server({
+            resourceName: "languageUpdate",
+            body: {
+              action: "set",
+              key: "notification_token_status",
+              value: true,
+              device_info: deviceInfo,
+            },
+          });
+          console.log(NotificationREs);
+        }
         toast.success(res.message);
         if (!forgot) setLogin((l: boolean) => !l);
         setServerError(null);
@@ -202,7 +214,9 @@ export function InputOTPPattern({
                 </FormItem>
               )}
             />
-            {forgot && <FormInput name="password" type="password" control={form.control} placeholder={t("password")} password />}
+            {forgot && (
+              <FormInput name="password" type="password" control={form.control} placeholder={t("password")} password />
+            )}
             <div className="mt-4  flex items-center gap-2">
               {!activate && (
                 <Button

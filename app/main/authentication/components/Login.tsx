@@ -99,18 +99,8 @@ const Login = () => {
             }
             setMessage(res.message);
           }
-          if (res.token) {
-            const notifcationRes = await Server({
-              resourceName: "languageUpdate",
-              body: {
-                action: "set",
-                key: "notification_token_status",
-                value: true,
-                device_info: deviceInfo,
-              },
-            });
-            console.log(notifcationRes);
-          }
+          console.log(res);
+
           if (!res.require_activation && !res.tfa) {
             cookies.set("jwt", res.token);
             // const notifcationRes = await Server({
