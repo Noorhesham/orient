@@ -150,16 +150,16 @@ const Login = () => {
         toast.success(searchParams.get("message"));
         if (token) {
           cookies.set("jwt", token || "", { expires: 2 });
-          const NotificationREs = await Server({
-            resourceName: "languageUpdate",
-            body: {
-              action: "set",
-              key: "notification_token_status",
-              value: true,
-              device_info: deviceInfo,
-            },
-          });
-          console.log(NotificationREs);
+          // const NotificationREs = await Server({
+          //   resourceName: "languageUpdate",
+          //   body: {
+          //     action: "set",
+          //     key: "notification_token_status",
+          //     value: true,
+          //     device_info: deviceInfo,
+          //   },
+          // });
+          // console.log(NotificationREs);
         }
         setLogin((l) => !l);
         router.push(redirect || "/");

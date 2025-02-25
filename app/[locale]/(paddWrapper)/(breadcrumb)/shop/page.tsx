@@ -24,18 +24,25 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     search: search || "",
     itemsCount: "18",
   });
+  if (category_id) {
+    const categoryIds = Array.isArray(category_id) ? category_id : [category_id];
+    categoryIds.forEach((id) => queryParams.append("category_id[]", id));
+  }
+
+  // Handle attributes (color & weight)
   const array = color
     ?.split(",")
     .concat(wight?.split(","))
-    .filter((f: any) => f !== undefined);
+    .filter((f) => f !== undefined);
+
   if (array) {
-    array.forEach((element: any) => {
-      console.log(array);
-      const [key, value] = element?.split(":");
-      queryParams.append(`attributes[${key}][]`, value);
+    array.forEach((element) => {
+      const [key, value] = element.split(":");
+      if (key && value) {
+        queryParams.append(`attributes[${key}][]`, value);
+      }
     });
   }
-
   const t = await getTranslations({ locale });
   const data = await Server({
     resourceName: "getSearch",
@@ -49,7 +56,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     <MaxWidthWrapper className=" bg-gray-50">
       {" "}
       <section className="  lg:overflow-x-visible overflow-x-hidden  min-h-screen  ">
-        <div  className=" flex justify-center">
+        <div className=" flex justify-center">
           <section className=" flex flex-col w-full lg:grid lg:gap-10 lg:grid-cols-9  mt-5 ">
             <div className="col-span-3 lg:block hidden">
               <Filters filters={[categories, attributes, tags]} />
