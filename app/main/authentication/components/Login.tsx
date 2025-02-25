@@ -144,22 +144,25 @@ const Login = () => {
     });
   };
   useEffect(() => {
+    const sendNotification = async () => {
+      const NotificationREs = await Server({
+        resourceName: "languageUpdate",
+        body: {
+          action: "set",
+          key: "notification_token_status",
+          value: true,
+          device_info: deviceInfo,
+        },
+      });
+      console.log(NotificationREs);
+    };
     if (searchParams.get("status") === "true") {
       const token = searchParams.get("token");
       if (token) {
         toast.success(searchParams.get("message"));
         if (token) {
           cookies.set("jwt", token || "", { expires: 2 });
-          // const NotificationREs = await Server({
-          //   resourceName: "languageUpdate",
-          //   body: {
-          //     action: "set",
-          //     key: "notification_token_status",
-          //     value: true,
-          //     device_info: deviceInfo,
-          //   },
-          // });
-          // console.log(NotificationREs);
+          sendNotification();
         }
         setLogin((l) => !l);
         router.push(redirect || "/");

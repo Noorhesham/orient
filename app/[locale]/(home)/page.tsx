@@ -67,7 +67,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
     blogs,
     products_categories,
   }: { products_list: Product[]; blogs: any[]; products_categories: any } = page;
-
+  
   return (
     <main style={{ padding: "0px 0px !important" }} className=" overflow-x-hidden">
       <section className="relative h-full  min-h-[47vh] sm:min-h-[80vh] md:min-h-[100vh] 2xl:min-h-[100vh] lg:min-h-[110vh] w-full">

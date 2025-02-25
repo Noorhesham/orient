@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ResponsiveCover from "./Responsive";
 
 const images = ["/img1.png", "/img2.png", "/img3.png"];
 const SLIDERTIMER = 3000;
@@ -16,19 +17,8 @@ const ImageSlider = ({ covers }: { covers: any[] }) => {
 
   return (
     <div className="">
-      {covers.map((src, index) => (
-        <Link
-          href={covers[currentImage].link || "/"}
-          style={{
-            backgroundImage: `url('${covers[currentImage]?.image[0]?.file}')`,
-            backgroundPosition: "center",
-            // backgroundAttachment: "fixed",
-            zIndex: 1,
-          }}
-          key={index}
-          className={`reveal_animation bg-no-repeat bg-cover absolute inset-0 `}
-        />
-      ))}
+      <ResponsiveCover covers={covers} currentImage={currentImage} index={currentImage} />
+  
     </div>
   );
 };

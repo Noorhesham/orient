@@ -60,6 +60,7 @@ const Signup = () => {
     {
       name: "email",
       placeholder: t("ADD_YOUR_EMAIL"),
+      optional: true,
     },
     {
       name: "referral_code",
@@ -73,6 +74,8 @@ const Signup = () => {
     //@ts-ignore
     if (data.phone) data.country_key = data.phone.country_key;
     if (data.phone) data.phone = data.phone.phone;
+    if (!data.email) delete data.email;
+
     startTransition(async () => {
       const res = await Server({
         resourceName: "signup",

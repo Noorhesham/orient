@@ -36,7 +36,12 @@ export const signupSchema = (t: any) =>
   z.object({
     name: z.string().min(3, { message: t("validationAuth.nameMin", { length: 3 }) }),
     phone: z.any(),
-    email: z.string().email({ message: t("validationAuth.invalidEmail") }),
+    email: z
+      .string()
+      .email({ message: t("validationAuth.invalidEmail") })
+      .optional()
+      .or(z.literal("")), // Allows empty string as valid optional input
+
     password: z
       .string()
       .min(8, { message: t("validationAuth.passwordMin", { length: 8 }) })

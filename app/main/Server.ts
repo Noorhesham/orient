@@ -67,7 +67,8 @@ export type ResourceNameProps =
   | "getinspired"
   | "sitemap"
   | "create-verification"
-  | "verify-account";
+  | "verify-account"
+  | "page";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -148,6 +149,8 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/rm_ecommarce/${VERSION}/products/${id}/review`, method: "POST" };
     case "about-us":
       return { url: `${url}/rm_page/v1/show?with=metas&slug=about-us-web`, method: "GET" };
+    case "page":
+      return { url: `${url}/rm_page/v1/show?with=metas&slug=${id}`, method: "GET" };
     case "getForms":
       return { url: `${url}/forms/getForms`, method: "POST" };
     case "submitForm":

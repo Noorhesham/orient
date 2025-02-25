@@ -11,7 +11,8 @@ import { Suspense } from "react";
 
 const page = async ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
   unstable_setRequestLocale(locale);
-
+  const { page } = await Server({ resourceName: "page", id: "become-partner" });
+  console.log(page);
   const t = await getTranslations();
   const { category } = searchParams;
   console.log(category);
@@ -57,13 +58,13 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       };
     })
     .filter((field: any) => field !== undefined);
-  console.log(forms[0].fields);
+  console.log(page);
   return (
     <main className="">
       <section className=" relative min-h-[37vh] md:min-h-[46vh] lg:min-h-[60vh]">
         <div
           style={{
-            backgroundImage: `url('/become a partner.webp')`,
+            backgroundImage: `url(${page?.cover_desktop?.[0]?.file})`,
             backgroundPosition: "center",
             zIndex: 1,
             backgroundRepeat: "no-repeat",
@@ -72,7 +73,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
         />
         <div
           style={{
-            backgroundImage: `url('/become a partner-mobile.webp')`,
+            backgroundImage: `url(${page.cover_mobile?.[0]?.file})`,
             backgroundPosition: "center",
             zIndex: 1,
             backgroundRepeat: "no-repeat",

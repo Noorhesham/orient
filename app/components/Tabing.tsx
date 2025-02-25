@@ -17,6 +17,7 @@ import ImageGrid from "./ImageGrid";
 import { useIsLoading } from "../context/LoadingContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import Paragraph from "./Paragraph";
+import { Autoplay } from "swiper/modules";
 
 const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
   const searchParams = useSearchParams();
@@ -76,10 +77,12 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
             1280: { slidesPerView: 5 },
             1536: { slidesPerView: 5 },
           }}
+          modules={[Autoplay]}
           onSlideChange={({ activeIndex }) => setActiveIndex(activeIndex)}
           onSwiper={(swiper) => setSwiper(swiper)}
           spaceBetween={-5}
           slidesPerView={5}
+          autoplay
           className=" w-full justify-center flex items-center"
         >
           {categories.map((option, i) => (

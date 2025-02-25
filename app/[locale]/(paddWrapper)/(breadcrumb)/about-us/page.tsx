@@ -10,7 +10,6 @@ import VideoZoom from "@/app/components/VideoZoom";
 import { processYoutubeUrl } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
 import MotionContainer from "@/app/components/MotionContainer";
-import "./CUSTOM.css";
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   const t = await getTranslations();
@@ -135,6 +134,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           <SwiperCards
             btns={page.certificates.length > 5}
             logo={true}
+            centeredSlides
             spaceBetween={50}
             contain
             mobile={2}

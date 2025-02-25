@@ -19,7 +19,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   // const t = useTranslations();
   const t = await getTranslations({ locale });
   const { page } = await Server({ resourceName: "colortrend", cache: CACHE });
-  console.log(page.products);
+  console.log(page);
   const contentHTML = convertToHTML(page.content);
   return (
     <main className=" pt-40 min-h-screen  ">
@@ -28,11 +28,20 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         <div
           style={{
             backgroundSize: "cover",
-            backgroundImage: `url(${page.cover_for_web[0].file})`,
+            backgroundImage: `url(${page?.cover_for_web[0]?.file})`,
             backgroundPosition: "center",
             zIndex: 1,
           }}
-          className={`reveal_animation absolute inset-0 `}
+          className={`reveal_animation lg:block  hidden absolute inset-0 `}
+        />
+        <div
+          style={{
+            backgroundSize: "cover",
+            backgroundImage: `url(${page?.cover_for_mobile?.[0]?.file})`,
+            backgroundPosition: "center",
+            zIndex: 1,
+          }}
+          className={`reveal_animation block lg:hidden  absolute inset-0 `}
         />
       </section>
 

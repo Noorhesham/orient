@@ -213,7 +213,7 @@ const SearchBox = ({
             active ? "z-50" : "w-0"
           }`}
           type="text"
-          placeholder="Hey, what are you looking for?"
+          placeholder={t("search")}
         />
       )}
       <div

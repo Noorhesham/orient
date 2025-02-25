@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import React from "react";
-
+import "./product.css";
 const page = async ({ params }: { params: { locale: string; id: string } }) => {
   unstable_setRequestLocale(params.locale);
   const data = await Server({

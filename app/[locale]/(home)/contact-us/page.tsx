@@ -15,6 +15,8 @@ import { Server } from "@/app/main/Server";
 import { CACHE } from "@/app/constants";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
+  const { page } = await Server({ resourceName: "page", id: "contact-us" });
+
   unstable_setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const { forms } = await Server({ resourceName: "getForms", body: { slugs: ["contact-us"] }, cache: CACHE });
@@ -35,20 +37,28 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
       };
     })
     .filter((field: any) => field !== undefined);
-  console.log(forms[0].fields);
+  console.log(page);
   return (
     <main className=" pt-40">
       <BreadCrumb />
-      <section className=" relative min-h-[34vh] md:min-h-[46vh] lg:min-h-[60vh]">
+      <section className=" relative min-h-[37vh] md:min-h-[46vh] lg:min-h-[60vh]">
         <div
           style={{
-            backgroundSize: "cover",
-            backgroundImage: `url('/contact.svg')`,
+            backgroundImage: `url(${page?.cover_desktop?.[0]?.file})`,
             backgroundPosition: "center",
             zIndex: 1,
             backgroundRepeat: "no-repeat",
           }}
-          className={`reveal_animation absolute inset-0 `}
+          className={`reveal_animation lg:block hidden absolute inset-0 bg-cover `}
+        />
+        <div
+          style={{
+            backgroundImage: `url(${page.cover_mobile?.[0]?.file})`,
+            backgroundPosition: "center",
+            zIndex: 1,
+            backgroundRepeat: "no-repeat",
+          }}
+          className={`reveal_animation lg:hidden block absolute inset-0 bg-cover `}
         />
       </section>
       <MaxWidthWrapper>

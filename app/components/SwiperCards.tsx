@@ -57,6 +57,17 @@ const SwiperCards = ({
 }) => {
   const [swiper, setSwiper] = React.useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = React.useState(activeSlide || 0);
+  const [isMobile, setIsMobile] = React.useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
   const [slideConfig, setSlideConfig] = React.useState({
     isBeginning: true,
     isEnd: activeIndex === (items?.length ?? 0) - 1,
@@ -173,7 +184,7 @@ const SwiperCards = ({
           )
         )}
       </Swiper>
-      {btns && (
+      {(btns || (!btns && isMobile)) && (
         <MaxWidthWrapper
           noPadding
           className={cn(
