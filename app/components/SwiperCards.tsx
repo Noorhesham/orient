@@ -184,7 +184,7 @@ const SwiperCards = ({
           )
         )}
       </Swiper>
-      {(btns || (!btns && isMobile)) && (
+      {btns && (
         <MaxWidthWrapper
           noPadding
           className={cn(
