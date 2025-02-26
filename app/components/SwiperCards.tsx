@@ -21,7 +21,7 @@ const SwiperCards = ({
   className,
   slidesPerView,
   spaceBetween,
-  btns,
+  btns=false,
   paginationImage,
   rounded = false,
   logo,
