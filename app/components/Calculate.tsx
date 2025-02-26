@@ -93,7 +93,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
             <Spinner />
           </div>
         ) : (
-          <div className="flex flex-col gap-4 uppercase lg:py-5 px-5 lg:px-20 mt-5">
+          <div className="flex flex-col gap-4 uppercase  px-5 lg:px-20 ">
             <Label>{t("enterDimensions") || "Enter Dimensions"}</Label>
             <div className="flex gap-4">
               <Input
@@ -111,10 +111,10 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
                 className="outline-gray-900 placeholder:text-gray-900"
               />
             </div>
-            <Label>{t("chooseCategory") || "Choose Category"}</Label>
+            <Label>{t("chooseProduct") || "Choose Category"}</Label>
             <Select value={selected} onValueChange={(val: any) => setSelected(val)}>
               <SelectTrigger>
-                <SelectValue placeholder={t("selectCategory") || "Select Category"} />
+                <SelectValue placeholder={t("selectProduct") || "Select Category"} />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
