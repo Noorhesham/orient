@@ -233,7 +233,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 flex-wrap  w-full lg:flex-row flex-col items-center gap-2"
                 >
                  {product.per_meter_value&& product.per_meter_unit && <Calculate
-                    id={product.category_id}
+                    id={product.id}
                     btn={
                       <Button className=" capitalize  hover:bg-white gap-2 lg:w-fit w-full hover:text-main2 border border-main2  font-medium rounded-full flex  items-center  px-6  bg-main2">
                         <CiCalculator2 className=" w-5 h-5" />
