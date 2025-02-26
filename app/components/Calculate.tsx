@@ -14,6 +14,7 @@ import { Server } from "../main/Server";
 import { toast } from "react-toastify";
 
 const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
+  console.log(id);
   const { data, isLoading } = useGetEntity("calculate", "calculate");
   const t = useTranslations();
   const locale = useLocale();
@@ -22,11 +23,15 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   const [width, setWidth] = React.useState<string>("");
   const [height, setHeight] = React.useState<string>("");
   const [result, setResult] = React.useState<number>(0);
-  const [selected, setSelected] = React.useState<string | null>(id || null);
+  const [selected, setSelected] = React.useState<string | null>(id?.toString() || null);
 
   // Using products for the select list.
   const categories = data?.products?.map((d: any) => d);
-  const selectedUnit = data?.data?.find((item: any) => item.category.id === selected);
+  React.useEffect(() => {
+    if (id && data?.products) {
+      setSelected(id.toString());
+    }
+  }, [id, data?.products]); // Ensure it runs when data updates
 
   // Utility function to remove leading zeros.
   const removeLeadingZeros = (value: string) => {
@@ -112,14 +117,14 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
               />
             </div>
             <Label>{t("chooseProduct") || "Choose Category"}</Label>
-            <Select value={selected} onValueChange={(val: any) => setSelected(val)}>
+            <Select value={selected?.toString()} onValueChange={(val: any) => setSelected(val)}>
               <SelectTrigger>
                 <SelectValue placeholder={t("selectProduct") || "Select Category"} />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {categories?.map((c: any, i: number) => (
-                    <SelectItem key={i} value={c.id}>
+                    <SelectItem key={i} value={c.id.toString()}>
                       {c.title}
                     </SelectItem>
                   ))}

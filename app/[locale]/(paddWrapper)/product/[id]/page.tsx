@@ -144,7 +144,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
   queryParams.append("ids[]", product.id);
   const { products: cartStatus } = await Server({ resourceName: "check", queryParams });
   const upSells = product.upSells.length <= 0 ? product.crossSells : product.upSells;
-  console.log(product);//per_meter
+  console.log(product); //per_meter
   return (
     <RightClickProvider>
       <BreadCrumb
@@ -232,15 +232,17 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                   className="flex  text-sm  my-5  sticky top-0 z-20 xl:flex-nowrap 
                 flex-wrap  w-full lg:flex-row flex-col items-center gap-2"
                 >
-                 {product.per_meter_value&& product.per_meter_unit && <Calculate
-                    id={product.id}
-                    btn={
-                      <Button className=" capitalize  hover:bg-white gap-2 lg:w-fit w-full hover:text-main2 border border-main2  font-medium rounded-full flex  items-center  px-6  bg-main2">
-                        <CiCalculator2 className=" w-5 h-5" />
-                        {t("calculateQuantity")}
-                      </Button>
-                    }
-                  />}
+                  {product.per_meter_value && product.per_meter_unit && (
+                    <Calculate
+                      id={product.parent_id}
+                      btn={
+                        <Button className=" capitalize  hover:bg-white gap-2 lg:w-fit w-full hover:text-main2 border border-main2  font-medium rounded-full flex  items-center  px-6  bg-main2">
+                          <CiCalculator2 className=" w-5 h-5" />
+                          {t("calculateQuantity")}
+                        </Button>
+                      }
+                    />
+                  )}
                   <div className="flex lg:w-auto w-full   items-center gap-2">
                     {product.pdf && product.pdf.length > 0 && (
                       <Link href={product.pdf[0].file} target="_blank">
