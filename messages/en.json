@@ -1,4 +1,15 @@
 {
+ 
+  "paintUsed": "Paint used:",
+  "is": "is",
+  "enterDimensions": "Enter Dimensions",
+  "widthPlaceholder": "Width",
+  "heightPlaceholder": "Height",
+  "chooseCategory": "Choose Category",
+  "selectCategory": "Select Category",
+  "calculate": "Calculate & Submit",
+  "submitSuccess": "Calculation submitted successfully!",
+  "submitError": "Error submitting calculation.",
   "HomePage": {
     "title": "Hello world!"
   },

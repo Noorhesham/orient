@@ -68,7 +68,8 @@ export type ResourceNameProps =
   | "sitemap"
   | "create-verification"
   | "verify-account"
-  | "page";
+  | "page"
+  | "calculate-send";
 
 // Function to get the full URL from the resource name
 const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: string, queryParams?: URLSearchParams) => {
@@ -187,6 +188,8 @@ const getURL = (resourceName: ResourceNameProps, id?: string, entityName?: strin
       return { url: `${url}/ec-products/entities-operations/bookmarks/list` };
     case "calculate":
       return { url: `${url}/rm_ecommarce/${VERSION}/product-calculator` };
+    case "calculate-send":
+      return { url: `${url}/rm_ecommarce/${VERSION}/product-calculator`, method: "POST" };
     case "google":
       return { url: `${url}/rm_seo/google-sheet` };
     case "sitemap":
