@@ -8,6 +8,7 @@ import Products from "@/app/components/Products";
 import Sort from "@/app/components/Sort";
 import { Server } from "../main/Server";
 import { getTranslations } from "next-intl/server";
+import MobileOnly from "./MobileOnly";
 const ProductFetcher = async ({ queryParams, search }: any) => {
   const data = await Server({
     resourceName: "getSearch",
@@ -53,7 +54,10 @@ const ProductFetcher = async ({ queryParams, search }: any) => {
                     },
                   ]}
                 />
-                <FilterMobile filters={[categories, attributes, tags]} />
+                <MobileOnly>
+                  {" "}
+                  <FilterMobile filters={[categories, attributes, tags]} />
+                </MobileOnly>
               </div>
             </div>
 

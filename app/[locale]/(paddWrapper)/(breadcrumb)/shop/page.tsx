@@ -1,8 +1,9 @@
+import DesktopOnly from "@/app/components/DesktopOnly";
 import Empty from "@/app/components/Empty";
 import FilterMobile from "@/app/components/FilterPhone";
 import Filters from "@/app/components/Filters";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
-import MotionContainer from "@/app/components/MotionContainer";
+import MobileOnly from "@/app/components/MobileOnly";
 import MotionItem from "@/app/components/MotionItem";
 import Products from "@/app/components/Products";
 import Sort from "@/app/components/Sort";
@@ -58,9 +59,11 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
       <section className="  lg:overflow-x-visible overflow-x-hidden  min-h-screen  ">
         <div className=" flex justify-center">
           <section className=" flex flex-col w-full lg:grid lg:gap-10 lg:grid-cols-9  mt-5 ">
-            <div className="col-span-3 lg:block hidden">
-              <Filters filters={[categories, attributes, tags]} />
-            </div>
+            <DesktopOnly>
+              <div className="col-span-3 lg:block hidden">
+                <Filters filters={[categories, attributes, tags]} />
+              </div>
+            </DesktopOnly>
             <div className=" lg:col-span-6 grid-cols-3 ">
               <div className="  gap-3 w-full flex-col md:flex-row  flex  lg:items-center sm:flex-row flex-grow justify-between">
                 <div className={cn("flex  gap-1  items-center", { " flex-row-reverse": locale === "ar" })}>
@@ -91,7 +94,9 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                       },
                     ]}
                   />
-                  <FilterMobile filters={[categories, attributes, tags]} />
+                  <MobileOnly>
+                    <FilterMobile filters={[categories, attributes, tags]} />
+                  </MobileOnly>
                 </div>
               </div>
               {products.length > 0 ? (
