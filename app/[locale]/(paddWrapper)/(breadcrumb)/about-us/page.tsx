@@ -10,6 +10,9 @@ import VideoZoom from "@/app/components/VideoZoom";
 import { processYoutubeUrl } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
 import MotionContainer from "@/app/components/MotionContainer";
+import styles from "./CUSTOM.module.css";
+import IsMobSlide from "./IsMobSlide";
+
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
   const t = await getTranslations();
@@ -130,21 +133,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           <Paragraph danger className=" " full description={page.certificates_content} />
         </div>
 
-        <div className="h-52 block">
-          <SwiperCards
-            btns={page.certificates.length > 5}
-            logo={true}
-            centeredSlides
-            spaceBetween={50}
-            contain
-            mobile={2}
-            slidesPerView={5}
-            className=" place-items-center place-content-center  w-full  h-32 "
-            items={page.certificates.map((item: any, index: number) => {
-              return { src: item.file };
-            })}
-          />
-        </div>
+        <IsMobSlide items={page.certificates} />
         <div className="">
           <div className="flex mt-5  gap-4  lg:gap-8 items-start flex-col md:flex-row lg:items-center">
             <div className=" flex-grow  relative">
@@ -153,22 +142,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
 
             <Paragraph danger full description={page.partners_content} />
           </div>
-
-          <div className=" justify-center  h-52 lg:mt-8  flex items-center">
-            <SwiperCards
-              btns={page.partners.length > 5}
-              logo={true}
-              centeredSlides={true}
-              mobile={3}
-              spaceBetween={50}
-              slidesPerView={5}
-              contain
-              className=" w-full !place-content-center object-contain  h-32 "
-              items={page.partners.map((item: any, index: number) => {
-                return { src: item.file };
-              })}
-            />
-          </div>
+          <IsMobSlide items={page.partners} />
         </div>
       </MaxWidthWrapper>
     </>

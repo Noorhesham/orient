@@ -45,7 +45,7 @@ const AddComment = ({ id }: { id?: string }) => {
         !userSettings ? (
           <Link
             href={`/login?redirect=/product/${id}`}
-            className="text-xl  mt-5 absolute left-1/2 -translate-x-1/2  top-24  w-fit hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
+            className="text-xl  mt-5 relative text-center lg:absolute lg:left-1/2 lg:-translate-x-1/2  lg:top-24  w-fit hover:underline duration-150 py-10 text-main uppercase font-semibold text-center"
           >
             {t("loginPrompt")}
           </Link>

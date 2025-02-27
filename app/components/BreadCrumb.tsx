@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { FaHome } from "react-icons/fa";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { useLocale, useTranslations } from "next-intl"; 
+import { useLocale, useTranslations } from "next-intl";
 
 const BreadCrumb = ({ linksCustom }: { linksCustom?: { href: string; text: string }[] }) => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const BreadCrumb = ({ linksCustom }: { linksCustom?: { href: string; text: strin
                         ? " text-main  hover:text-pink-400 duration-150"
                         : " text-[#191c1f86]"
                     } flex uppercase items-center gap-2`}
-                    href={`/${link.href === "" ? "/" : link.href || link}`}
+                    href={`${link.href === "" || link.href === "/" ? "/" : `/${link.href || link}`}`}
                   >
                     {i === 0 && <FaHome />}
                     {/* Translate breadcrumb text */}

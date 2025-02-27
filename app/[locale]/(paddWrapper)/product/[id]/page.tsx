@@ -31,7 +31,10 @@ import BreadCrumb from "@/app/components/BreadCrumb";
 import Link from "next/link";
 import BuyNow from "@/app/components/BuyNow";
 import { WEBSITEURL } from "@/app/constants";
-import "./product.css";
+import styles from "../../../product.module.css";
+import MobileOnly from "@/app/components/MobileOnly";
+import DesktopOnly from "@/app/components/DesktopOnly";
+
 const fetchProduct = async (id: any, queryParams) => {
   console.log("Fetching product from server");
   return await Server({
@@ -151,11 +154,11 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
         linksCustom={[
           {
             href: "/",
-            text: "HOME",
+            text: t("breadcrumb.home"),
           },
           {
             href: "shop",
-            text: "SHOP",
+            text: t("breadcrumb.shop"),
           },
           {
             href: `product/${product.id}`,
@@ -187,16 +190,18 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 />
               </div>
             </div>
-            <div className=" fixed z-50  bottom-0 left-0 p-4 w-full flex items-center bg-main2/70 justify-center  lg:hidden gap-3 mt-3">
-              <AddToCart
-                reverse={true}
-                disabled={product.quantity === 0 || product.stock_status === "out"}
-                cartStatus={cartStatus[`${product.id}`]}
-                max={product.quantity}
-                id={product.id}
-              />
-              <BuyNow id={product.id} />
-            </div>
+            <MobileOnly>
+              <div className="fixed z-50 bottom-0 left-0 p-4 w-full flex items-center bg-main2/70 justify-center lg:hidden gap-3 mt-3">
+                <AddToCart
+                  reverse={true}
+                  disabled={product.quantity === 0 || product.stock_status === "out"}
+                  cartStatus={cartStatus[`${product.id}`]}
+                  max={product.quantity}
+                  id={product.id}
+                />
+                <BuyNow id={product.id} />
+              </div>
+            </MobileOnly>
 
             <Section headingColor="#E6007E" heading={product.title} className=" col-span-3 flex-grow text-wrap  mt-12">
               <div className="flex flex-col gap-3 pb-5">
@@ -212,22 +217,23 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 )}
               </div>
               <div className="border-input  flex flex-wrap  border-b border-t    gap-3 py-3 ">
-                <div className="lg:hidden border-b border-input gap-3 flex flex-col products-start  w-full ">
-                  <div className=" lg:hidden flex w-full flex-col  gap-3 items-start ">
-                    {" "}
-                    {variations && attributes.length > 0 && variations.length > 0 && (
-                      <SingleVariant
-                        parentId={product.parent_slug}
-                        childId={ischild ? product.id : ""}
-                        ischild={ischild}
-                        variations={variations}
-                        options={attributes.filter((item: any) => item.slug === "wight")}
-                        colorOptions={attributes.filter((item: any) => item.slug === "color")}
-                      />
-                    )}
+                <MobileOnly>
+                  <div className="lg:hidden border-b border-input gap-3 flex flex-col products-start  w-full ">
+                    <div className=" lg:hidden flex w-full flex-col  gap-3 items-start ">
+                      {" "}
+                      {variations && attributes.length > 0 && variations.length > 0 && (
+                        <SingleVariant
+                          parentId={product.parent_slug}
+                          childId={ischild ? product.id : ""}
+                          ischild={ischild}
+                          variations={variations}
+                          options={attributes.filter((item: any) => item.slug === "wight")}
+                          colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-
+                </MobileOnly>
                 <div
                   className="flex  text-sm  my-5  sticky top-0 z-20 xl:flex-nowrap 
                 flex-wrap  w-full lg:flex-row flex-col items-center gap-2"
@@ -266,38 +272,44 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                       </Button>
                     )}
                   </div>
-                  <div className=" grid text-nowrap grid-cols-3  mt-3 items-center gap-4 lg:hidden">
-                    <div className="text-xs flex flex-col text-center  items-center gap-3">
-                      <BoxIcon className=" w-8 h-8" />
-                      <div className=" flex flex-col ">
-                        <h2 className="  text-black font-medium">{t("fastestDelivery")}</h2>
-                        {/* <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p> */}
+                  <MobileOnly>
+                    <div className=" grid text-nowrap grid-cols-3  mt-3 items-center gap-4 lg:hidden">
+                      <div className="text-xs flex flex-col text-center  items-center gap-3">
+                        <BoxIcon className=" w-8 h-8" />
+                        <div className=" flex flex-col ">
+                          <h2 className="  text-black font-medium">{t("fastestDelivery")}</h2>
+                          {/* <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p> */}
+                        </div>
                       </div>
-                    </div>
-                    <div className="  text-xs flex flex-col text-center  items-center gap-3">
-                      <Headphones className=" w-8 h-8" />
-                      <div className="flex flex-col ">
-                        <h2 className="  text-black font-medium">{t("support")}</h2>
-                        <p className="  text-[9px] text-muted-foreground">{t("supportContact")}</p>
+                      <div className="  text-xs flex flex-col text-center  items-center gap-3">
+                        <Headphones className=" w-8 h-8" />
+                        <div className="flex flex-col ">
+                          <h2 className="  text-black font-medium">{t("support")}</h2>
+                          <p className="  text-[9px] text-muted-foreground">{t("supportContact")}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="  text-xs flex flex-col text-center  items-center gap-3">
-                      <CreditCard className=" w-8 h-8" />
-                      <div className="flex flex-col ">
-                        <h2 className="  text-black font-medium">{t("securePayments")}</h2>
-                        <p className=" text-[9px]  text-muted-foreground">{t("moneySafe")}</p>
+                      <div className="  text-xs flex flex-col text-center  items-center gap-3">
+                        <CreditCard className=" w-8 h-8" />
+                        <div className="flex flex-col ">
+                          <h2 className="  text-black font-medium">{t("securePayments")}</h2>
+                          <p className=" text-[9px]  text-muted-foreground">{t("moneySafe")}</p>
+                        </div>
                       </div>
-                    </div>
-                  </div>{" "}
-                  <AddToWishlist
-                    title={product.title}
-                    wishlistStatus={cartStatus[`${product.id}`].favorite}
-                    id={product.id}
-                    className=" lg:hidden my-3"
-                  />
+                    </div>{" "}
+                    <AddToWishlist
+                      title={product.title}
+                      wishlistStatus={cartStatus[`${product.id}`].favorite}
+                      id={product.id}
+                      className=" lg:hidden my-3"
+                    />
+                  </MobileOnly>
                 </div>
               </div>
-              <Paragraph className=" my-2" danger description={product.short_description || ""} />
+              <Paragraph
+                className={` my-2 ${styles.description}`}
+                danger
+                description={product.short_description || ""}
+              />
 
               <div className=" flex uppercase  mt-2 text-sm  items-center gap-2">
                 <h3 className="text-main2 font-semibold">
@@ -390,140 +402,148 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
           </div>
 
           {/* sidebar */}
-          <div className=" hidden sticky top-20 lg:block lg:col-span-3 mt-8">
-            <Container className=" py-12">
-              <div className=" flex flex-col items-start gap-2  pb-4 border-b  border-input">
-                <SwiperCards
-                  zoom={true}
-                  autoplay
-                  slidesPerView={1.4}
-                  className=" h-20"
-                  items={[
-                    {
-                      card: (
-                        <div className=" flex items-start gap-3">
-                          <BoxIcon />
-                          <div className=" flex flex-col gap-2">
-                            <h2 className="  text-black font-medium">{t("fastestDelivery")}</h2>
-                            {/* <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p> */}
+          <DesktopOnly>
+            <div className=" hidden sticky top-20 lg:block lg:col-span-3 mt-8">
+              <Container className=" py-12">
+                <div className=" flex flex-col items-start gap-2  pb-4 border-b  border-input">
+                  <SwiperCards
+                    zoom={true}
+                    autoplay
+                    slidesPerView={1.4}
+                    className=" h-20"
+                    items={[
+                      {
+                        card: (
+                          <div className=" flex items-start gap-3">
+                            <BoxIcon />
+                            <div className=" flex flex-col gap-2">
+                              <h2 className="  text-black font-medium">{t("fastestDelivery")}</h2>
+                              {/* <p className="  text-[9px] text-muted-foreground">{t("deliveryTime")}</p> */}
+                            </div>
                           </div>
-                        </div>
-                      ),
-                    },
-                    {
-                      card: (
-                        <div className=" flex items-start gap-3">
-                          <Headphones />
-                          <div className="flex flex-col gap-2">
-                            <h2 className="  text-black font-medium">{t("support")}</h2>
-                            <p className="  text-[9px] text-muted-foreground">{t("supportContact")}</p>
+                        ),
+                      },
+                      {
+                        card: (
+                          <div className=" flex items-start gap-3">
+                            <Headphones />
+                            <div className="flex flex-col gap-2">
+                              <h2 className="  text-black font-medium">{t("support")}</h2>
+                              <p className="  text-[9px] text-muted-foreground">{t("supportContact")}</p>
+                            </div>
                           </div>
-                        </div>
-                      ),
-                    },
-                    {
-                      card: (
-                        <div className=" flex items-start gap-3">
-                          <CreditCardIcon />
-                          <div className="flex flex-col gap-2">
-                            <h2 className="  text-black font-medium">{t("securePayments")}</h2>
-                            <p className=" text-[9px]  text-muted-foreground">{t("moneySafe")}</p>
+                        ),
+                      },
+                      {
+                        card: (
+                          <div className=" flex items-start gap-3">
+                            <CreditCardIcon />
+                            <div className="flex flex-col gap-2">
+                              <h2 className="  text-black font-medium">{t("securePayments")}</h2>
+                              <p className=" text-[9px]  text-muted-foreground">{t("moneySafe")}</p>
+                            </div>
                           </div>
-                        </div>
-                      ),
-                    },
-                  ]}
-                />
-              </div>
-              <div className=" w-full pb-5">
-                {variations && attributes.length > 0 && variations.length > 0 && (
-                  <SingleVariant
-                    parentId={product.parent_slug}
-                    childId={ischild ? product.id : ""}
-                    ischild={ischild}
-                    variations={variations}
-                    options={attributes.filter((item: any) => item.slug === "wight")}
-                    colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                        ),
+                      },
+                    ]}
                   />
-                )}
+                </div>
+                <div className=" w-full pb-5">
+                  {variations && attributes.length > 0 && variations.length > 0 && (
+                    <SingleVariant
+                      parentId={product.parent_slug}
+                      childId={ischild ? product.id : ""}
+                      ischild={ischild}
+                      variations={variations}
+                      options={attributes.filter((item: any) => item.slug === "wight")}
+                      colorOptions={attributes.filter((item: any) => item.slug === "color")}
+                    />
+                  )}
 
-                <div className=" pb-5 border-b border-input">
-                  <div className=" flex flex-col items-center justify-center  gap-2">
-                    <div className=" flex items-center pt-2 gap-2">
-                      <h2>{t("price")} :</h2>
-                      <PriceWithSale
-                        size="sm"
-                        price={product.price_before_discount}
-                        discount={
-                          product.price_after_discount !== product.price_before_discount
-                            ? product.price_after_discount
-                            : null
-                        }
-                      />
+                  <div className=" pb-5 border-b border-input">
+                    <div className=" flex flex-col items-center justify-center  gap-2">
+                      <div className=" flex items-center pt-2 gap-2">
+                        <h2>{t("price")} :</h2>
+                        <PriceWithSale
+                          size="sm"
+                          price={product.price_before_discount}
+                          discount={
+                            product.price_after_discount !== product.price_before_discount
+                              ? product.price_after_discount
+                              : null
+                          }
+                        />
+                      </div>
+                      {product.stock_status === "out" && (
+                        <p className="text-red-500 mt-2 font-semibold text-sm">{t("outOfStock")}</p>
+                      )}
                     </div>
-                    {product.stock_status === "out" && (
-                      <p className="text-red-500 mt-2 font-semibold text-sm">{t("outOfStock")}</p>
-                    )}
                   </div>
-                </div>
-                <div className=" flex  flex-col gap-3 mt-3">
-                  <AddToCart
-                    disabled={product.quantity === 0 || product.stock_status === "out"}
-                    cartStatus={cartStatus[`${product.id}`]}
-                    max={product.quantity}
-                    id={product.id}
-                  />
+                  <div className=" flex  flex-col gap-3 mt-3">
+                    <AddToCart
+                      disabled={product.quantity === 0 || product.stock_status === "out"}
+                      cartStatus={cartStatus[`${product.id}`]}
+                      max={product.quantity}
+                      id={product.id}
+                    />
 
-                  <BuyNow id={product.id} />
+                    <BuyNow id={product.id} />
+                  </div>
+                  <AddToWishlist
+                    title={product.title}
+                    wishlistStatus={cartStatus[`${product.id}`].favorite}
+                    id={product.id}
+                    className=" my-3"
+                  />
                 </div>
-                <AddToWishlist
-                  title={product.title}
-                  wishlistStatus={cartStatus[`${product.id}`].favorite}
-                  id={product.id}
-                  className=" my-3"
-                />
-              </div>
-            </Container>
-          </div>
+              </Container>
+            </div>
+          </DesktopOnly>
         </MaxWidthWrapper>
         <MaxWidthWrapper>
           <Section link="/shop" heading={t("similarProducts")} linkText={t("browse all products")}>
-            <MotionContainer className=" hidden lg:grid  lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
-              {upSells?.map((item: any, i: number) => (
-                <Card
-                  key={item.id}
-                  img={item?.main_cover[0]?.sizes?.medium}
-                  text={item.title}
-                  price={item.sell_price}
-                  id={item.parent_slug}
-                />
-              ))}
-            </MotionContainer>
+            <DesktopOnly>
+              <MotionContainer className=" hidden lg:grid  lg:grid-cols-4 items-center gap-5 mt-10 justify-center">
+                {upSells?.map((item: any, i: number) => (
+                  <Card
+                    key={item.id}
+                    img={item?.main_cover[0]?.sizes?.medium}
+                    text={item.title}
+                    price={item.sell_price}
+                    id={item.parent_slug}
+                  />
+                ))}
+              </MotionContainer>
+            </DesktopOnly>
             {
-              <div className=" mt-4 flex lg:hidden">
-                <SwiperCards
-                  mobile={2}
-                  autoplay
-                  slidesPerView={2}
-                  className=" w-full h-full"
-                  items={upSells?.map((item: any, i: number) => {
-                    return {
-                      card: (
-                        <Card
-                          key={item.id}
-                          img={item?.main_cover[0]?.thumbnail}
-                          text={item.title}
-                          price={item.price_before_discount}
-                          discount={
-                            item.price_after_discount !== item.price_before_discount ? item.price_after_discount : null
-                          }
-                          id={item.parent_slug}
-                        />
-                      ),
-                    };
-                  })}
-                />
-              </div>
+              <MobileOnly>
+                <div className=" mt-4 flex lg:hidden">
+                  <SwiperCards
+                    mobile={2}
+                    autoplay
+                    slidesPerView={2}
+                    className=" w-full h-full"
+                    items={upSells?.map((item: any, i: number) => {
+                      return {
+                        card: (
+                          <Card
+                            key={item.id}
+                            img={item?.main_cover[0]?.thumbnail}
+                            text={item.title}
+                            price={item.price_before_discount}
+                            discount={
+                              item.price_after_discount !== item.price_before_discount
+                                ? item.price_after_discount
+                                : null
+                            }
+                            id={item.parent_slug}
+                          />
+                        ),
+                      };
+                    })}
+                  />
+                </div>
+              </MobileOnly>
             }
           </Section>
         </MaxWidthWrapper>

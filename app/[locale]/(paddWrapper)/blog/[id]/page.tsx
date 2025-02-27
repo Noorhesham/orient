@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import React from "react";
-import "./product.css";
+import style from "../../../product.module.css";
 const page = async ({ params }: { params: { locale: string; id: string } }) => {
   unstable_setRequestLocale(params.locale);
   const data = await Server({
@@ -30,8 +30,8 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
         <BreadCrumb
           linksCustom={[
             {
-              href: "",
-              text: t("home"),
+              href: "/",
+              text: t("breadcrumb.home"),
             },
             {
               href: "blog",
@@ -64,7 +64,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
             )}
           </div>
           <h1 className=" capitalize mb-4 text-4xl text-main2  font-semibold max-w-5xl">{title}</h1>
-          <div className=" font-[300] leading-[1.8rem] text-base" dangerouslySetInnerHTML={{ __html: contentHTML }} />
+          <div className={`${style.content} font-[300] leading-[1.8rem] text-base`} dangerouslySetInnerHTML={{ __html: contentHTML }} />
         </MaxWidthWrapper>
       </section>
     </RightClickProvider>

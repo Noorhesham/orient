@@ -2,13 +2,20 @@
 import SwiperCards from "@/app/components/SwiperCards";
 import React from "react";
 
-const IsMobSlide = ({ page }: any) => {
-  const mobile = ();
+const IsMobSlide = ({ items }: { items: any }) => {
+  const [IsMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  });
   return (
     <div>
       <div className="h-52 block">
         <SwiperCards
-          btns={page.certificates.length > 5}
+          btns={IsMobile || items.length > 5}
           logo={true}
           centeredSlides
           spaceBetween={50}
@@ -16,7 +23,7 @@ const IsMobSlide = ({ page }: any) => {
           mobile={2}
           slidesPerView={5}
           className=" place-items-center place-content-center  w-full  h-32 "
-          items={page.certificates.map((item: any, index: number) => {
+          items={items.map((item: any, index: number) => {
             return { src: item.file };
           })}
         />

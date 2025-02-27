@@ -20,7 +20,7 @@ const page = async ({ params: { locale } }: { params: { locale: string } }) => {
     <section className=" min-h-screen  ">
       <BreadCrumb
         linksCustom={[
-          { href: "/", text: t("home") },
+          { href: "/", text: t("breadcrumb.home") },
           { href: "blog", text: t("breadcrumb.blog") },
         ]}
       />
