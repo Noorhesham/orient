@@ -14,12 +14,16 @@ import { Server } from "../main/Server";
 import { toast } from "react-toastify";
 
 const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
-  console.log(id);
-  const { data, isLoading } = useGetEntity("calculate", "calculate");
   const t = useTranslations();
   const locale = useLocale();
 
-  // Store width and height as strings so we can trim leading zeros.
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const { data, isLoading } = useGetEntity("calculate", "calculate",'', {
+    enabled: false,
+  });
+
+  // Store width and height as strings.
   const [width, setWidth] = React.useState<string>("");
   const [height, setHeight] = React.useState<string>("");
   const [result, setResult] = React.useState<number>(0);
@@ -31,7 +35,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
     if (id && data?.products) {
       setSelected(id.toString());
     }
-  }, [id, data?.products]); // Ensure it runs when data updates
+  }, [id, data?.products]);
 
   // Utility function to remove leading zeros.
   const removeLeadingZeros = (value: string) => {
@@ -72,12 +76,16 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   // Disable the button if width, height or category is missing.
   const isDisabled = !width || !height || !selected;
 
+  // Handlers for modal open/close.
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
+
   return (
     <ModalCustom
       title={t("calc")}
       btn={
         btn || (
-          <div>
+          <div onClick={handleModalOpen}>
             <div className="cursor-pointer flex gap-3">
               <div className="flex flex-col items-center gap-2">
                 <div className="rounded-full md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
@@ -92,6 +100,9 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
       desc={result ? `${t("paintUsed")}  ${t("is")}` : ""}
       span={result ? `${result} ` : ""}
       functionalbtn={<></>}
+      // Pass the modal open/close handlers to ModalCustom
+      onOpen={handleModalOpen}
+      onClose={handleModalClose}
       content={
         isLoading ? (
           <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">

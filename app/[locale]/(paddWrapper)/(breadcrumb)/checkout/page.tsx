@@ -26,6 +26,7 @@ const Page = () => {
   const { generalSettings, loading, userSettings } = useAuth();
   const t = useTranslations();
   const router = useRouter();
+  console.log(generalSettings)
   if (isLoading || !data || loading)
     return (
       <div className=" relative min-h-screen">

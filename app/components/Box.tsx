@@ -90,11 +90,12 @@ const Box = ({
       };
     });
   };
+  const hasSelectedFilters = !!filters[filter]?.length;
 
   return (
-    <div className="flex max-h-[54vh] overflow-y-auto px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
+    <div className="flex  px-5 py-2 lg:py-4 font-medium text-sm bg-white uppercase flex-col">
       <h2 className="text-lg mb-2">{text}</h2>
-      <ul className="pb-3 flex flex-col gap-2 border-b border-b-gray-400">
+      <ul className="pb-3 max-h-[54vh] overflow-y-auto flex flex-col gap-2 border-b border-b-gray-400">
         {filter === "category_id" &&
           options?.map((option, i) => (
             <li key={i} className="flex items-center gap-2 cursor-pointer">
@@ -178,7 +179,7 @@ const Box = ({
           </div>
         )} */}
       </ul>
-      {!single && (
+      {!single&&hasSelectedFilters && (
         <Button variant={"outline"} className="w-full mt-4" onClick={() => handleReset(filter)}>
           {t("reset")}
         </Button>

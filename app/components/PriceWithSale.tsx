@@ -13,13 +13,14 @@ const PriceWithSale = ({
   discount?: number | null;
   size?: "lg" | "sm" | "xs";
 }) => {
-  const { generalSettings, loading } = useAuth();
+  const { generalSettings, loading, isStoreActive } = useAuth();
   if (loading) return <Skeleton />;
   const { default_currency } = generalSettings;
   console.log(default_currency);
+  if (!isStoreActive) return null;
   return (
     <div>
-      <div className="  flex flex-wrap gap-3 items-center">
+      <div className=" isStore flex flex-wrap gap-3 items-center">
         <bdi
           className={`${
             size === "sm"

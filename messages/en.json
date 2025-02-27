@@ -1,5 +1,4 @@
 {
- 
   "paintUsed": "Paint used:",
   "is": "is",
   "enterDimensions": "Enter Dimensions",
@@ -13,6 +12,7 @@
   "HomePage": {
     "title": "Hello world!"
   },
+  "shipping_cost": "Shipping Cost",
   "languageSwitcher": {
     "selectLanguage": "Arabic"
   },

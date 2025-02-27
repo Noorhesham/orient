@@ -30,6 +30,14 @@
   opacity: 0.6;
   height: 65%;
 }
+.isStore {
+  display: block;
+}
+
+.isStore.hidden {
+  display: none;
+}
+
 .swiper-wrapper {
   place-content: baseline !important;
 }

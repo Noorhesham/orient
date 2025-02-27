@@ -55,7 +55,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   const { products, categories, attributes, tags, count } = data;
   const totalPages = Math.ceil(count / 18);
   return (
-    <MaxWidthWrapper className=" bg-gray-50">
+    <MaxWidthWrapper className=" ">
       {" "}
       <section className="  lg:overflow-x-visible overflow-x-hidden  min-h-screen  ">
         <div className=" flex justify-center">

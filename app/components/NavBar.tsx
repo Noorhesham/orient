@@ -65,9 +65,8 @@ const NavBar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isTopPage, setIsTopPage] = useState(true);
   const pathName = usePathname();
-  const { userSettings, handleLogout, loading, cartCount } = useAuth();
+  const { userSettings, handleLogout, loading, cartCount, generalSettings } = useAuth();
   const user = userSettings;
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY < 50) {
@@ -132,7 +131,7 @@ const NavBar = () => {
                   {loading ? (
                     <Skeleton className="w-8 h-8 rounded-full" />
                   ) : (
-                    <Link className="hover:opacity-80 duration-150 " href={user ? "/dashboard" : "/login"}>
+                    <Link className="hover:opacity-80 isStore duration-150 " href={user ? "/dashboard" : "/login"}>
                       <BagIcon home={isHome} />
                     </Link>
                   )}

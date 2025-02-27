@@ -77,6 +77,10 @@ const page = async () => {
                       <h2>{t("taxes")}:</h2>
                       <p>{formatPrice(cart.taxes_total)}</p>
                     </div>
+                    <div className="flex pt-1 justify-between">
+                      <h2>{t("shipping_cost")}:</h2>
+                      <p>{formatPrice(cart.shipping_cost)}</p>
+                    </div>
                   </div>{" "}
                   <div className="flex pt-1 justify-between">
                     <h2>{t("fees")}</h2>

@@ -13,7 +13,7 @@ interface AuthContextType {
   handleLogout: () => void;
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
   setDates: React.Dispatch<React.SetStateAction<any>>;
-
+  isStoreActive: boolean;
   loading: boolean;
   cartCount: any;
   setCartCount: React.Dispatch<React.SetStateAction<any>>;
@@ -74,7 +74,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [generalSettings, setGeneralSettings] = useState<any>();
   const [userSettings, setUserSettings] = useState<any>();
   const [user2Settings, setUser2Settings] = useState<any>();
-
+  const [isStoreActive, setIsStoreActive] = useState(false);
   const [cartCount, setCartCount] = useLocalStorageState(0, "cartCount");
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -86,6 +86,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (userSettings && !token) handleLogout();
   }, [userSettings]);
+
+  useEffect(() => {
+    const isStoreActive = generalSettings?.is_store_active;
+    setIsStoreActive(!!isStoreActive);  
+  },[generalSettings])
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -176,6 +181,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         cartCount,
         setCartCount,
         setDates,
+        isStoreActive,
       }}
     >
       {children}
