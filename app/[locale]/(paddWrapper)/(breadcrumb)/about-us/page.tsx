@@ -10,7 +10,6 @@ import VideoZoom from "@/app/components/VideoZoom";
 import { processYoutubeUrl } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
 import MotionContainer from "@/app/components/MotionContainer";
-import styles from "./CUSTOM.module.css";
 import IsMobSlide from "./IsMobSlide";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {

@@ -1,6 +1,7 @@
 "use client";
 import SwiperCards from "@/app/components/SwiperCards";
 import React from "react";
+import styles from "./CUSTOM.module.css";
 
 const IsMobSlide = ({ items }: { items: any }) => {
   const [IsMobile, setIsMobile] = React.useState(false);
@@ -17,12 +18,11 @@ const IsMobSlide = ({ items }: { items: any }) => {
         <SwiperCards
           btns={IsMobile || items.length > 5}
           logo={true}
-          centeredSlides
           spaceBetween={50}
           contain
           mobile={2}
           slidesPerView={5}
-          className=" place-items-center place-content-center  w-full  h-32 "
+          className={`place-items-center place-content-center w-full h-32 ${styles.swiperWrapper}`}
           items={items.map((item: any, index: number) => {
             return { src: item.file };
           })}
