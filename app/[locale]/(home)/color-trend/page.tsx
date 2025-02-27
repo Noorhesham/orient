@@ -59,7 +59,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         <div className=" mt-5 grid grid-cols-1 lg:grid-cols-3   h-[80vh] gap-6   relative">
           {page.gallery.map((image, index) => (
             <ZoomImage
-              className=" h-fit w-fit"
+              className=" h-fit w-full lg:-fit"
               key={image.id}
               src={image.file}
               btn={
