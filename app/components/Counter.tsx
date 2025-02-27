@@ -20,6 +20,8 @@ const Counter = ({
   const router = useRouter();
   const [count, setCount] = React.useState(defaultcount || 1);
   const { mutate, isPending, data } = useCreateEntity("addToCartQuantity", "cart");
+  const { cartCount, setCartCount } = useAuth();
+
   console.log(data);
   console.log(value);
   const debouncedMutate = React.useCallback(
@@ -30,6 +32,7 @@ const Counter = ({
       }
       if (newCount === 0) {
         handleAdd && handleAdd(value);
+        setCartCount(cartCount - 1);
       }
     }, 300),
     [mutate, value]
@@ -43,7 +46,7 @@ const Counter = ({
   return (
     <div className="flex items-center gap-2">
       <Button
-        variant={"outline"}
+        variant={"outline"} disabled={count < 0 || isPending}
         className="rounded-full p-2 h-7 border-main2 text-main2 w-7"
         onClick={() => handleCountChange(count - 1)}
       >

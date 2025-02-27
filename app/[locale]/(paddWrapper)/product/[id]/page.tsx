@@ -318,7 +318,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                 {product.categories.map((category: any) => (
                   <Link
                     key={category.id}
-                    href={`/shop?category_id=${product.id}`}
+                    href={`/shop?category_id=${category.id}`}
                     className=" py-2 px-4 rounded-full hover:bg-main duration-200 hover:text-white bg-white border border-input  font-semibold"
                   >
                     {category.title}

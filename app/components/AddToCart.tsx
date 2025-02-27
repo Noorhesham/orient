@@ -26,7 +26,6 @@ const AddToCart = ({
   reverse?: boolean;
 }) => {
   const { mutate, isPending, data } = useCreateEntity("addToCart", "cart");
-  const { cartCount, setCartCount } = useAuth();
   const queryClient = useQueryClient();
   const t = useTranslations();
   const router = useRouter();

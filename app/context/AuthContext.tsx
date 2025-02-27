@@ -74,7 +74,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [generalSettings, setGeneralSettings] = useState<any>();
   const [userSettings, setUserSettings] = useState<any>();
   const [user2Settings, setUser2Settings] = useState<any>();
-  const [isStoreActive, setIsStoreActive] = useState(false);
+  const [isStoreActive, setIsStoreActive] = useState(true);
   const [cartCount, setCartCount] = useLocalStorageState(0, "cartCount");
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -87,10 +87,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (userSettings && !token) handleLogout();
   }, [userSettings]);
 
-  useEffect(() => {
-    const isStoreActive = generalSettings?.is_store_active;
-    setIsStoreActive(!!isStoreActive);  
-  },[generalSettings])
+  // useEffect(() => {
+  //   const isStoreActive = generalSettings?.is_store_active;
+  //   setIsStoreActive(!!isStoreActive);
+  // },[generalSettings])
   useEffect(() => {
     const fetchData = async () => {
       try {

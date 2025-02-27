@@ -9,7 +9,8 @@ import { format } from "date-fns";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import React from "react";
-import style from "../../../product.module.css";
+import styles from "../../../product.module.css";
+import Paragraph from "@/app/components/Paragraph";
 const page = async ({ params }: { params: { locale: string; id: string } }) => {
   unstable_setRequestLocale(params.locale);
   const data = await Server({
@@ -45,7 +46,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
         />
         <MaxWidthWrapper className="flex flex-col items-start px-14  mt-5 justify-center">
           <div className=" relative w-full h-96 lg:h-[750px]">
-            <Image src={main_gallery[0].sizes.large} alt="blog" className=" object-cover lg:object-cover" fill />
+            <Image src={main_gallery[0].file} alt="blog" className=" object-cover lg:object-cover" fill />
           </div>
           <div className=" flex items-start mr-auto my-4 gap-3">
             {item.created_at && (
@@ -64,7 +65,12 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
             )}
           </div>
           <h1 className=" capitalize mb-4 text-4xl text-main2  font-semibold max-w-5xl">{title}</h1>
-          <div className={`${style.content} font-[300] leading-[1.8rem] text-base`} dangerouslySetInnerHTML={{ __html: contentHTML }} />
+        
+          <Paragraph
+            className={` w-full !max-w-full product my-2 font-[300] leading-[1.8rem] text-lg ${styles.product}`}
+            danger
+            description={contentHTML || ""}
+          />
         </MaxWidthWrapper>
       </section>
     </RightClickProvider>

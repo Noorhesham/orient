@@ -21,7 +21,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     price_to: price_to || "",
     category_id: category_id || "",
     brand_id: brand_id || "",
-    page: page || "",
+    page: page || "1",
     sort: sort || "",
     search: search || "",
     itemsCount: "18",
@@ -74,7 +74,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
                     {search ? (
                       <span>
                         {" "}
-                        FOR <span className=" font-semibold text-main"> {search}</span>
+                        <span className=" font-semibold text-main"> {search}</span>
                       </span>
                     ) : (
                       ""

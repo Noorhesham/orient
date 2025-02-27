@@ -18,7 +18,7 @@ const Paragraph = ({
       dangerouslySetInnerHTML={{ __html: description }}
       className={` ${className || ""} content text-black ${size === "lg" ? "text-lg" : "text-sm"} ${
         full ? "max-w-full" : "lg:max-w-2xl"
-      } font-medium my-2 leading-[1.7] `}
+      } font-medium my-2 leading-[1.7]  `}
     />
   ) : (
     <p
