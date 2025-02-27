@@ -290,7 +290,7 @@
     "viewDetails": "عرض التفاصيل",
     "totalLabel": "الإجمالي",
     "on_hold": " قيد الانتظار",
-    "processing": "قيد التوصيل "
+    "processing": "قيد التجهيز "
   },
   "orderDetails": {
     "orderNumber": "رقم الطلب {uuid}",
