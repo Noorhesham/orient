@@ -20,9 +20,9 @@ const PaymentMethod = ({ logo, name, id, selected, setSelected }: any) => {
       }
     });
   };
-  useEffect(() => {
-    if (id) onChange();
-  }, []);
+  // useEffect(() => {
+  //   if (id) onChange();
+  // }, []);
   return (
     <label htmlFor={id} className=" flex  gap-2  flex-col items-center">
       <div className=" w-20 h-20 aspect-square relative">
