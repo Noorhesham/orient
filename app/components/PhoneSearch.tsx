@@ -26,6 +26,7 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
   const fullPhoneValue = dialCodeValue ? `${dialCodeValue}${phoneValue}` : defaultValue ? currentValue : "";
   return (
     <PhoneInput
+    
       enableSearch
       localization={lang === "ar" ? ar : undefined}
       excludeCountries={["il"]}
@@ -52,11 +53,11 @@ const PhoneSearch = ({ onChange, name, returnFullPhone = true, defaultValue }: E
       searchPlaceholder="Search"
       inputProps={{
         style: {
-          padding: "0.75rem 0.75rem",
+          padding: "0.5rem 0.5rem",
           outline: "#E6007E",
           boxShadow: "0 0 0 1px #e4e4e7",
           direction: "ltr",
-          // marginTop: "10px",
+          marginTop: "5px",
         },
       }}
     />

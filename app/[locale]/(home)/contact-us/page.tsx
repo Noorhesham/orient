@@ -85,7 +85,9 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
           </Section>
           <div className="w-full flex  flex-col items-start col-span-2">
             <Head1 text={t("contact.question")} />
-            <FormContainer server submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
+            <div className=" lg:mt-0 w-full  mt-3">
+              <FormContainer server submit={"submitForm"} btnText={t("contact.send")} formArray={fields} />
+            </div>
           </div>
         </div>
       </MaxWidthWrapper>
