@@ -4,6 +4,7 @@ import FilterMobile from "@/app/components/FilterPhone";
 import Filters from "@/app/components/Filters";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
 import MobileOnly from "@/app/components/MobileOnly";
+import MotionContainer from "@/app/components/MotionContainer";
 import MotionItem from "@/app/components/MotionItem";
 import Products from "@/app/components/Products";
 import Sort from "@/app/components/Sort";
