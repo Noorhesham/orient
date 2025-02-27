@@ -160,11 +160,11 @@ const SingleVariant = ({
                   handleFilter(`${options[0].id}:${option.id}`, "wight");
                 }}
                 key={i}
-                className={`w-12 disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${
+                className={`w-fit disabled:cursor-not-allowed disabled:opacity-50 text-center cursor-pointer p-1 ${
                   filters?.["wight"]?.includes(`${options[0].id}:${option.id}`)
                     ? "bg-main text-gray-50"
                     : "bg-white text-black"
-                } hover:opacity-90 duration-100 shadow-sm text-xs  border  border-black rounded-md`}
+                } hover:opacity-90 duration-100 text-nowrap shadow-sm text-xs  border  border-black rounded-md`}
               >
                 {option.title}
               </button>
