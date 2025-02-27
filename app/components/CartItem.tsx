@@ -43,7 +43,7 @@ const CartItem = ({
   console.log(id, productId);
   return (
     <div>
-      <div className=" flex   items-center">
+      <div className=" flex lg:flex-row flex-col  items-start lg:items-center">
         {retrive && (
           <TrashIcon
             className=" text-red-500 hover:text-red-600 duration-150 cursor-pointer
@@ -59,26 +59,26 @@ const CartItem = ({
           >
             <Image src={img} fill alt="product" className=" object-contain" />
           </Link>
-        </div>
-        <div className="flex mx-3 flex-col">
-          <Link
-            href={`/product/${productId}?child=true`}
-            className={cn(" uppercase line-clamp-1  font-semibold text-xs md:text-base lg:text-lg", {
-              "text-sm  text-main": size && size === "sm",
-            })}
-          >
-            {text}
-          </Link>
-          <div className={cn({ "flex items-center gap-1 mt-2 text-xs md:text-sm": size && size === "sm" })}>
-            {
-              <div className=" text-gray-500 text-xs md:text-sm">
-                {<PriceWithSale discount={discount} price={price} size="sm" />}
-              </div>
-            }
+          <div className="flex mx-3 flex-col">
+            <Link
+              href={`/product/${productId}?child=true`}
+              className={cn(" uppercase line-clamp-1  font-semibold text-xs md:text-base lg:text-lg", {
+                "text-sm  text-main": size && size === "sm",
+              })}
+            >
+              {text}
+            </Link>
+            <div className={cn({ "flex items-center gap-1 mt-2 text-xs md:text-sm": size && size === "sm" })}>
+              {
+                <div className=" text-gray-500 text-xs md:text-sm">
+                  {<PriceWithSale discount={discount} price={price} size="sm" />}
+                </div>
+              }
+            </div>
           </div>
         </div>
         {size !== "sm" && (
-          <div className=" flex flex-col items-end gap-2 ml-auto">
+          <div className=" flex flex-col items-end gap-2 mr-auto">
             {wishlist && <AddToWishlist title={text} wishlistStatus={true} noshare id={id} />}
             {quantity && nocheck ? (
               <p className=" text-main2 lg:text-base text-sm font-semibold">
