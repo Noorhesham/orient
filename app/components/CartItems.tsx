@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import CartItem from "./CartItem";
 import Container from "./Container";
 import Head1 from "./Head1";
+import { useAuth } from "../context/AuthContext";
 
 const CartItems = ({ cart }: { cart: any }) => {
   const [cartItems, setCart] = useState<any[]>([]);
+  const { setCartCount } = useAuth();
   const remove = (id: number) => {
     setCart(cartItems.filter((item: any) => item.id !== id));
+    setCartCount((c) => c - 1);
   };
   const handleAdd = (id: any) => {
     console.log(cart.find((i: any) => i.id === id));

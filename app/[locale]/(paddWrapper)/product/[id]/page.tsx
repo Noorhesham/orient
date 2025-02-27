@@ -191,7 +191,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               </div>
             </div>
             <MobileOnly>
-              <div className="fixed isStore z-50 bottom-0 left-0 p-4 w-full flex items-center bg-main2/70 justify-center lg:hidden gap-3 mt-3">
+              <div className="fixed  flex w-full z-50 bottom-0 left-0 p-4  items-center bg-main2/70 justify-center lg:hidden gap-3 mt-3">
                 <AddToCart
                   reverse={true}
                   disabled={product.quantity === 0 || product.stock_status === "out"}
