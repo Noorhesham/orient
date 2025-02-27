@@ -283,6 +283,7 @@
   "table": {
     "orderSerial": "رقم الطلب",
     "status": "الحالة",
+    "shipping":"توصيل",
     "date": "التاريخ",
     "total": "الإجمالي",
     "action": "الإجراء",

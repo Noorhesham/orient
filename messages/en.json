@@ -280,6 +280,7 @@
     "date": "Date",
     "total": "Total",
     "action": "Action",
+    "shipping": "shipping",
     "viewDetails": "View Details",
     "totalLabel": "Total",
     "on_hold": "ON HOLD",

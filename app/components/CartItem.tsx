@@ -52,13 +52,15 @@ const CartItem = ({
           />
         )}
         <div className=" flex   items-center gap-2">
-          {!nocheck && <CartDelete handleAdd={handleAdd} id={id} />}
-          <Link
-            href={`/product/${productId}?child=true`}
-            className={`${retrive && " grayscale"} aspect-square relative w-full h-20`}
-          >
-            <Image src={img} fill alt="product" className=" object-contain" />
-          </Link>
+          <div className=" flex items-center gap-2">
+            {!nocheck && <CartDelete handleAdd={handleAdd} id={id} />}
+            <Link
+              href={`/product/${productId}?child=true`}
+              className={`${retrive && " grayscale"} aspect-square relative w-full h-20`}
+            >
+              <Image src={img} fill alt="product" className=" object-contain" />
+            </Link>
+          </div>
           <div className="flex mx-3 flex-col">
             <Link
               href={`/product/${productId}?child=true`}

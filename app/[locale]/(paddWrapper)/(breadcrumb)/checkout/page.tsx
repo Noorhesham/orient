@@ -11,6 +11,7 @@ import PriceWithSale from "@/app/components/PriceWithSale";
 import ShippingList from "@/app/components/ShippingList";
 import Spinner from "@/app/components/Spinner";
 import { useAuth } from "@/app/context/AuthContext";
+import { formatPrice } from "@/app/helpers/utils";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetEntity } from "@/lib/queries";
@@ -26,17 +27,20 @@ const Page = () => {
   const { generalSettings, loading, userSettings } = useAuth();
   const t = useTranslations();
   const router = useRouter();
-  console.log(generalSettings)
+  console.log(generalSettings);
   if (isLoading || !data || loading)
     return (
       <div className=" relative min-h-screen">
-        <Spinner  />
+        <Spinner />
       </div>
     );
   if (!generalSettings.visitors_create_order) router.push("/cart");
   const { payment_methods, cart, user_addresses } = data;
   const loggedIn = userSettings!!;
   console.log(cart);
+  const subTotal = formatPrice(cart.sub_total);
+  const discountTotal = formatPrice(cart.discount_total);
+  const totalPrice = formatPrice(cart.total);
   return (
     <main className=" bg-gray-50">
       <div className=" pt-5  min-h-screen  ">
@@ -82,23 +86,32 @@ const Page = () => {
             <div className={cn("col-span-4 flex flex-col gap-5 ")}>
               <Container className={`  portal  pb-5 gap-5 flex flex-col ${userSettings ? "flex-col-reverse" : "pt-5"}`}>
                 {<CompeleteOrder />}
-                <div>
-                  <h1 className=" text-main2 text-xl font-semibold text-center">{t("cart_total")}</h1>
-                  <div className="  px-14 mt-5">
-                    <div className=" flex pb-1 border-b border-input flex-col  gap-2">
-                      <div className="flex  items-center justify-between">
-                        <h2 className="text-main2 font-medium ">{t("sub_total")}</h2>
-                        <PriceWithSale size="sm" price={cart.sub_total} />
-                      </div>
-                      <div className="flex  items-center justify-between">
-                        <h2 className="text-main2 font-medium ">{t("discount")}</h2>
-                        <PriceWithSale size="sm" price={cart.discount_total} />
-                      </div>
+                <div className="px-4 mt-5">
+                  <div className="flex pb-1 border-b border-input flex-col gap-2">
+                    <div className="flex justify-between">
+                      <h2>{t("sub_total")}</h2>
+                      <p>{subTotal}</p>
                     </div>
-                    <div className={cn("flex  items-center pt-1  justify-between")}>
-                      <h2 className="text-main2 font-medium ">{t("total_price")}</h2>
-                      <PriceWithSale size="sm" price={cart.total} />
+                    <div className="flex justify-between">
+                      <h2>{t("discount")}</h2>
+                      <p>{discountTotal}</p>
                     </div>
+                    <div className="flex pt-1 justify-between">
+                      <h2>{t("taxes")}:</h2>
+                      <p>{formatPrice(cart.taxes_total)}</p>
+                    </div>
+                    <div className="flex pt-1 justify-between">
+                      <h2>{t("shipping_cost")}:</h2>
+                      <p>{formatPrice(cart.shipping_cost)}</p>
+                    </div>
+                  </div>{" "}
+                  {/* <div className="flex pt-1 justify-between">
+                    <h2>{t("fees")}</h2>
+                    <p>{formatPrice(cart.shipping_cost)}</p>
+                  </div> */}
+                  <div className="flex pt-1 justify-between">
+                    <h2>{t("total_price")}</h2>
+                    <p>{totalPrice}</p>
                   </div>
                 </div>
               </Container>
