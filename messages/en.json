@@ -385,8 +385,8 @@
   "Calculate": {
     "calc": "Calculator",
     "calcpaint": "Calculate Paint",
-    "paintUsed": "THE NUMBER OF PAINT",
-    "is": "USERD IS",
+    "paintUsed": "THE AMOUNT OF PAINT",
+    "is": "Needed IS BETWEEN",
     "calculate": "CALCULATE",
     "inputPlaceholder": "NUMBER OF METERS",
     "selectCategory": "Select Category",
