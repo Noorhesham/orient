@@ -20,7 +20,7 @@ const Calculate = ({ btn, id }: { btn?: React.ReactNode; id?: string }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const { data, isLoading } = useGetEntity("calculate", "calculate",'', {
-    enabled: false,
+    enabled: isModalOpen,
   });
 
   // Store width and height as strings.
