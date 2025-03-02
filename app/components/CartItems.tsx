@@ -12,15 +12,15 @@ const CartItems = ({ cart }: { cart: any }) => {
     setCart(cartItems.filter((item: any) => item.id !== id));
     setCartCount((c) => c - 1);
   };
+  console.log(cart,cartItems);
   const handleAdd = (id: any) => {
     console.log(cart.find((i: any) => i.id === id));
     setCart((items) =>
       items.findIndex((i) => i.id === id) === -1 && items.length > 0
-        ? [items, cart.find((i: any) => i.id === id)]
+        ? [...items, cart.find((i: any) => i.id === id)]
         : [cart.find((i: any) => i.id === id)]
     );
   };
-  console.log(cartItems);
   return (
     <section className=" flex flex-col gap-5">
       {cart.length > 0 && (
@@ -29,12 +29,13 @@ const CartItems = ({ cart }: { cart: any }) => {
             <CartItem
               handleAdd={handleAdd}
               key={item.id}
-              img={item.image?.[0]?.sizes.large}
-              price={item.price_before_discount}
-              discount={item.price_before_discount !== item.price_after_discount ? item.price_after_discount : null}
-              text={item.title}
-              quantity={item.quantity}
+              img={item.image?.[0]?.sizes?.large}
+              price={item.price_after_discount}
+              discount={item?.price_before_discount > item?.price_after_discount ? item.price_before_discount : null}
+              text={item?.title}
+              quantity={item?.quantity}
               id={item.id}
+              product_id={item.product_id}
               productId={item.product_slug}
             />
           ))}
@@ -52,10 +53,11 @@ const CartItems = ({ cart }: { cart: any }) => {
                 key={item.id}
                 img={item?.image?.[0]?.sizes.large}
                 price={item.price_after_discount}
-                discount={item.price_before_discount}
+                discount={item?.price_before_discount > item?.price_after_discount ? item.price_before_discount : null}
                 text={item.title}
                 quantity={item.quantity}
-                id={item.id}
+                id={item.id}              product_id={item.product_id}
+
                 productId={item.product_slug}
               />
             ))}

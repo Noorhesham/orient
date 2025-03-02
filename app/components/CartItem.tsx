@@ -34,9 +34,24 @@ const CartItem = ({
   retrive?: boolean;
   remove?: any;
   handleAdd?: any;
+  product_id;
 }) => {
-  const { text, price, discount, img, wishlist, size, nocheck, quantity, id, productId, retrive, remove, handleAdd } =
-    props;
+  const {
+    text,
+    price,
+    discount,
+    img,
+    wishlist,
+    size,
+    nocheck,
+    quantity,
+    id,
+    productId,
+    retrive,
+    remove,
+    handleAdd,
+    product_id,
+  } = props;
   const { mutate, isPending } = useCreateEntity("addToCart", "cart");
   const router = useRouter();
   const t = useTranslations();
@@ -95,7 +110,8 @@ const CartItem = ({
           <Button
             disabled={isPending}
             onClick={() => {
-              mutate({ product_id: productId, qty: 1 });
+              console.log(id);
+              mutate({ product_id: product_id, qty: 1 });
               router.refresh();
               if (!isPending) remove(id);
             }}

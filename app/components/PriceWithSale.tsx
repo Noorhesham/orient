@@ -30,13 +30,13 @@ const PriceWithSale = ({
               : "text-3xl md:text-2xl text-main2 font-semibold"
           }  text-nowrap  `}
         >
-          {formatPriceWithCommas(price)} {default_currency?.code}
+          {formatPriceWithCommas(Number(price))} {default_currency?.code}
         </bdi>
         {discount && (
           <del
             className={`  ${size === "xs" ? "text-xs" : "text-sm md:text-base"}  font-medium text-muted-foreground `}
           >
-            {formatPriceWithCommas(discount)} {default_currency?.code}
+            {formatPriceWithCommas(Number(discount))} {default_currency?.code}
           </del>
         )}{" "}
       </div>
