@@ -6,7 +6,7 @@ const Logo = ({ type = "white", size }: { type?: "blue" | "white"; size?: { widt
   return (
     <Link href="/">
       {type === "blue" ? (
-        <Image src="/E logo Blue (1).png" alt="logo" width={200} height={60} />
+        <Image src="/orient logo.png" alt="logo" width={200} height={60} />
       ) : (
         <Image src="/E logo Blue (2).png" alt="logo" width={200} height={60} />
       )}

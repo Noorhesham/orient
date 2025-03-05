@@ -15,13 +15,13 @@ const generateSchemaFromFields = (fields: any[], t: any): ZodObject<any> => {
   fields.forEach((field) => {
     if (!field) return;
 
+    // In generateSchemaFromFields function
     if (field.country) {
-      schemaShape[field.countryName] = z.union([z.string(), z.number()]);
-      schemaShape[field.stateName] = z.union([z.string(), z.number()]);
-      if (field.cityName) schemaShape[field.cityName] = z.union([z.string(), z.number()]);
+      schemaShape[field.countryName] = z.number();
+      schemaShape[field.stateName] = z.number();
+      if (field.cityName) schemaShape[field.cityName] = z.number();
       return;
     }
-
     let fieldSchema: ZodTypeAny;
 
     switch (field.type) {
@@ -171,7 +171,6 @@ const FormContainer: React.FC<Formcontainer> = ({
           form={form}
           isPending={isPending}
           cancel={cancel}
-          
           title={title || ""}
           btnStyles={btnStyles || "w-[40%] mr-auto "}
           inputs={formArray}
