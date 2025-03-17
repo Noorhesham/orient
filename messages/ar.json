@@ -20,10 +20,15 @@
   "navbar": {
     "shopNow": "تسوق الآن",
     "products": "المنتجات",
-    "getInspired": "احصل على الأفكار",
+    "getInspired": "تصميمات ملهمة",
     "becomePartner": "انضم إلينا",
     "aboutUs": "من نحن",
-    "contactUs": "اتصل بنا"
+    "contactUs": "اتصل بنا" ,"tooltips": {
+      "cloud": "تحميل التطبيق",
+      "bag": "عربة التسوق",
+      "profile": "الملف الشخصي ",
+      "logout": "تسجيل الخروج"
+    }
   },
   "footer": {
     "headOffice": "المكتب الرئيسي",
@@ -36,7 +41,7 @@
     "followUs": "تابعنا",
     "colorTrend": "الألوان الرائجة",
     "becomepartener": "انضم إلينا",
-    "getinspired": "احصل على الأفكار",
+    "getinspired": "تصميمات ملهمة",
     "aboutus": "من نحن",
     "home": "الرئيسية",
     "products": "المنتجات",
@@ -283,7 +288,7 @@
   "table": {
     "orderSerial": "رقم الطلب",
     "status": "الحالة",
-    "shipping":"توصيل",
+    "shipping": "توصيل",
     "date": "التاريخ",
     "total": "الإجمالي",
     "action": "الإجراء",

@@ -85,7 +85,7 @@ const Footer = () => {
               </div>
             }
             mobile={
-              <div className=" mt-5 h-28">
+              <div className=" mt-5 h-20">
                 <SwiperCards
                   autoplay
                   logo={true}

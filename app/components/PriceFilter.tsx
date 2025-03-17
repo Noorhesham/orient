@@ -27,6 +27,10 @@ const PriceFilter = () => {
     range: DEFAULT_RANGE,
     isCustom: false,
   });
+  const [visualPrice, setVisualPrice] = useState({
+    min: 0,
+    max: 10000,
+  });
   const searchParams = useSearchParams();
   const price_from = Number(searchParams.get("price_from"));
   const price_to = Number(searchParams.get("price_to"));
@@ -97,21 +101,29 @@ const PriceFilter = () => {
           <div className="flex self-start mb-3 justify-between">
             <div className="flex w-fit gap-5   items-center">
               <Input
-                disabled={true}
                 onChange={(e) => {
-                  priceFilter?.isCustom &&
+                  if (priceFilter?.isCustom) {
+                    setVisualPrice({
+                      min: Number(e.target.value),
+                      max: priceFilter.range[1],
+                    });
                     setPriceFilter((prev) => ({ isCustom: true, range: [Number(e.target.value), prev.range[1]] }));
+                  }
                 }}
-                value={price_from?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
+                value={visualPrice.min || price_from?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
               <Input
-                disabled={true}
                 onChange={(e) => {
-                  priceFilter?.isCustom &&
+                  if (priceFilter?.isCustom) {
+                    setVisualPrice({
+                      min: priceFilter.range[0],
+                      max: Number(e.target.value),
+                    });
                     setPriceFilter((prev) => ({ isCustom: true, range: [prev.range[0], Number(e.target.value)] }));
+                  }
                 }}
-                value={price_to?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
+                value={visualPrice.max || price_to?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
                 className=" max-w-32"
               />
             </div>
