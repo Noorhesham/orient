@@ -16,6 +16,7 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Server } from "@/app/main/Server";
 import { CACHE, WEBSITEURL } from "@/app/constants";
 import MotionItem from "@/app/components/MotionItem";
+import dynamic from 'next/dynamic'
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
