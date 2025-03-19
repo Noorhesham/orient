@@ -8,7 +8,6 @@ import Heading from "../../components/Heading";
 import CardHuge from "../../components/CardHuge";
 import LinkButton from "../../components/LinkButton";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
