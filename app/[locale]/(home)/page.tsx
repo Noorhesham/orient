@@ -8,7 +8,6 @@ import Heading from "../../components/Heading";
 import CardHuge from "../../components/CardHuge";
 import LinkButton from "../../components/LinkButton";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import Calculate from "../../components/Calculate";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
@@ -17,6 +16,7 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Server } from "@/app/main/Server";
 import { CACHE, WEBSITEURL } from "@/app/constants";
 import MotionItem from "@/app/components/MotionItem";
+import dynamic from 'next/dynamic'
 const MotionContainer = dynamic(() => import("../../components/MotionContainer"), {
   ssr: false,
 });
