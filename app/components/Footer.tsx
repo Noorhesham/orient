@@ -85,7 +85,7 @@ const Footer = () => {
               </div>
             }
             mobile={
-              <div className=" mt-5 h-20">
+              <div className=" mt-5 h-14">
                 <SwiperCards
                   autoplay
                   logo={true}
@@ -95,7 +95,7 @@ const Footer = () => {
                   md={3}
                   slidesPerView={4}
                   samePhone
-                  className=" w-full  h-32 "
+                  className=" w-full  h-20 "
                   items={images.map((item: any, index: number) => {
                     return { src: item };
                   })}
