@@ -1,0 +1,139 @@
+@mixin button($bcolor, $url, $x1, $y1, $bor, $col) {
+  background: $bcolor;
+  -webkit-mask: url($url);
+  mask: url($url);
+  -webkit-mask-size: $x1 $y1;
+  mask-size: $x1 $y1;
+  border: $bor;
+  color: $col;
+}
+
+.mas {
+  position: absolute;
+  color: #000;
+  text-align: center;
+  width: 100%;
+  left: 32px;
+  right: 32px;
+  position: absolute;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.button-container-2 {
+  position: relative;
+  min-width: 100px;
+  height: 42px;
+  font-weight: bold;
+
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #000;
+  text-align: center;
+
+  transition: 0.5s;
+  letter-spacing: 1px;
+
+  button {
+    width: 101%;
+    height: 100%;
+
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: bold;
+
+    @include button(
+      #e6007e,
+      "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png",
+      3000%,
+      100%,
+      none,
+      #fff
+    );
+    cursor: pointer;
+    -webkit-animation: ani2 0.7s steps(29) forwards;
+    animation: ani2 0.7s steps(29) forwards;
+
+    &:hover {
+      -webkit-animation: ani 0.7s steps(29) forwards;
+      animation: ani 0.7s steps(29) forwards;
+    }
+  }
+  a {
+    width: 101%;
+    height: 100%;
+
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: bold;
+
+    @include button(
+      #e6007e,
+      "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png",
+      3000%,
+      100%,
+      none,
+      #fff
+    );
+    cursor: pointer;
+    -webkit-animation: ani2 0.7s steps(29) forwards;
+    animation: ani2 0.7s steps(29) forwards;
+
+    &:hover {
+      -webkit-animation: ani 0.7s steps(29) forwards;
+      animation: ani 0.7s steps(29) forwards;
+    }
+  }
+}
+
+@-webkit-keyframes ani {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+@keyframes ani {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+@-webkit-keyframes ani2 {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+@keyframes ani2 {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}

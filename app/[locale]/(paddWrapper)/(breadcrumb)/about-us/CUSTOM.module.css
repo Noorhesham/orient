@@ -1,0 +1,3 @@
+.swiperWrapper :global(.swiper-wrapper) {
+  place-content: center !important;
+}

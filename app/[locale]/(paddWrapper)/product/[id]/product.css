@@ -1,0 +1,15 @@
+ul {
+  list-style: decimal;
+}
+.content {
+  flex-direction: column;
+  display: flex;
+}
+b {
+  font-weight: bold;
+}
+h3,
+h2 {
+  font-weight: 600;
+  color: #0D3B6F;
+}

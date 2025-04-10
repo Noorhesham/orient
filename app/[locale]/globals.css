@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.reveal_animation {
+  opacity: 0;
+  animation: reveal 0.5s ease-out forwards;
+  transition: all 0.5s ease-out;
+}
+* {
+  scroll-behavior: smooth;
+}
+@keyframes reveal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+} /* global.css */
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
+}
+#main-slidee ::after {
+  content: "";
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to top, #0d0d0e00, #00000035);
+  opacity: 0.6;
+  height: 65%;
+}
+.isStore {
+  display: block;
+}
+
+.isStore.hidden {
+  display: none;
+}
+
+.swiper-wrapper {
+  place-content: baseline !important;
+}
+.arrow1 {
+  animation: slide1 1s ease-in-out infinite;
+  margin-left: 9px;
+}
+@keyframes slide1 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(2px, 0);
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 346.8 77.2% 49.8%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+}
+.special-label {
+  display: none !important;
+}
+.react-tel-input {
+  padding: 0 !important;
+  direction: ltr !important;
+}
+.form-control {
+  @apply py-2 px-4  w-full  border-none pl-14 !important;
+}
+.transform-component-module_content__FBWxo {
+  width: 100% !important;
+  height: 100% !important;
+}
+.swiper-slide {
+  height: auto !important;
+}
+.react-transform-wrapper {
+  width: 100% !important;
+  z-index: 10 !important;
+}
+.react-transform-wrapper {
+  height: 100% !important;
+  width: 100% !important;
+}
+.reveal {
+  opacity: 0;
+  animation: reveal2 0.5s ease-out forwards;
+  transition: all 0.5s ease-out;
+}
+@keyframes reveal2 {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
