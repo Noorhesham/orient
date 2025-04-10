@@ -13,6 +13,7 @@ import { Server } from "@/app/main/Server";
 import { convertToHTML } from "@/lib/utils";
 import MotionItem from "@/app/components/MotionItem";
 import { CACHE } from "@/app/constants";
+import ImageGrid from "@/app/components/ImageGrid";
 
 const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   unstable_setRequestLocale(locale);
@@ -49,32 +50,18 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
         <div className=" flex flex-col md:flex-row gap-5   justify-between items-start  ">
           <div style={{ color: page.page_color }} className=" flex  flex-col items-start">
             <p className=" text-xs font-medium">{t("ABOUT COLOR")}</p>
-            <h1 className=" text-3xl font-[600] uppercase max-w-[20rem] ">{page.title}</h1>
+            <h1 className=" text-3xl font-[600] uppercase max-w-[20rem] ">{page.small_title || page.title}</h1>
           </div>
           <div
             dangerouslySetInnerHTML={{ __html: contentHTML }}
             className={`lg:max-w-2xl text-black text-sm  font-medium my-2 leading-[1.7] `}
           />
         </div>
-        <div className=" mt-5 grid grid-cols-1 lg:grid-cols-3   h-[80vh] gap-6   relative">
-          {page.gallery.map((image, index) => (
-            <ZoomImage
-              className=" h-fit w-full lg:-fit"
-              key={image.id}
-              src={image.file}
-              btn={
-                <div className={`relative reveal rounded-lg w-full h-full `}>
-                  <Image
-                    className="rounded-lg cursor-pointer w-full h-full absolute object-cover"
-                    fill
-                    src={image.file}
-                    alt={image.alt}
-                  />
-                </div>
-              }
-            />
-          ))}
-        </div>
+        <ImageGrid
+          imageclasses="relative  cursor-pointer rounded-lg w-full h-full "
+          className="grid grid-cols-1 lg:grid-cols-3  gap-6 mt-5"
+          images={page.gallery}
+        />
       </MaxWidthWrapper>
       <div className="flex lg:max-w-[97%] xl:max-w-[91.5%] gap-4 items-center">
         <MotionItem

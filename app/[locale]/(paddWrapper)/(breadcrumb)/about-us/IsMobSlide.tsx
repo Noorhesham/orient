@@ -22,7 +22,7 @@ const IsMobSlide = ({ items }: { items: any }) => {
           contain
           mobile={2}
           slidesPerView={5}
-          className={` w-full h-32 ${styles.swiperWrapper}`}
+          className={` w-full h-32 ${!IsMobile && items.length < 5 && styles.swiperWrapper}`}
           items={items.map((item: any, index: number) => {
             return { src: item.file };
           })}

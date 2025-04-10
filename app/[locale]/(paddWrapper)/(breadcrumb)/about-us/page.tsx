@@ -17,6 +17,7 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   const t = await getTranslations();
   const data = await Server({ resourceName: "about-us", cache: 0 });
   const { page } = data;
+  console.log(page);
   return (
     <>
       <section className=" relative min-h-[23vh] lg:min-h-[80vh]">
@@ -27,7 +28,16 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
             backgroundPosition: "center",
             zIndex: 1,
           }}
-          className={`reveal_animation absolute inset-0 `}
+          className={`reveal_animation  lg:block  hidden absolute inset-0 `}
+        />
+        <div
+          style={{
+            backgroundSize: "cover",
+            backgroundImage: `url(${page.cover_for_mob?.[0]?.file})`,
+            backgroundPosition: "center",
+            zIndex: 1,
+          }}
+          className={`reveal_animation  lg:hidden  block  absolute inset-0 `}
         />
       </section>
       <MaxWidthWrapper>

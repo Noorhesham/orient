@@ -17,7 +17,7 @@ const MapComponent = dynamic(() => import("@/app/components/Map"), {
 });
 
 const MapContainer = ({ stores }: { stores: any[] }) => {
-  const [location, setLoctation] = useState({ lat: 0, lng: 0 });
+  const [location, setLoctation] = useState({ lat: 26.820553, lng: 30.802498 });
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleClick = ({ lat, lng }: { lat: number; lng: number }) => {
@@ -39,42 +39,50 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
         <SearchBox nonactive onSearch={setSearchQuery} bg="blue" />
         <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5 ">
           {filteredContainers?.map((container) => (
-            <Container
-              key={container.id}
-              onClick={() => handleClick({ lat: container.lat, lng: container.lng })}
-              className=" flex flex-wrap gap-3 px-4"
-            >
-              <Head1 text={container.name} />
-              <div className=" flex  flex-wrap items-start w-full gap-2 ">
-                {container.city && (
-                  <h3
-                    className="hover:bg-gray-100 rounded-full line-clamp-1  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
-                    // onClick={(e) => {
-                    //   e.stopPropagation();
-                    //   handleClick({ lat: container.city.latitude, lng: container.city.longitude });
-                    // }}
-                  >
-                    city : {container.city?.title}
-                  </h3>
-                )}
-                <h3
-                  className=" hover:bg-gray-100 rounded-full line-clamp-1  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
-                  // onClick={(e) => {
-                  //   e.stopPropagation();
-                  //   handleClick({ lat: container.state.latitude, lng: container.state.longitude });
-                  // }}
+            <a className=" block h-full w-full" key={container.id} href="#map">
+              <div className=" w-full h-full ">
+                <Container
+                  onClick={() => handleClick({ lat: container.lat, lng: container.lng })}
+                  className=" flex flex-wrap h-full gap-3 px-4"
                 >
-                  state : {container.state.title}
-                </h3>
+                  <Head1 text={container.name} />
+                  <div className=" flex  flex-wrap items-start w-full gap-2 ">
+                    {container.city && (
+                      <h3
+                        className="hover:bg-gray-100 rounded-full line-clamp-1  flex-grow  duration-150 border border-input py-2 px-4 text-xs"
+                        // onClick={(e) => {
+                        //   e.stopPropagation();
+                        //   handleClick({ lat: container.city.latitude, lng: container.city.longitude });
+                        // }}
+                      >
+                        city : {container.city?.title}
+                      </h3>
+                    )}
+                    <h3
+                      className=" hover:bg-gray-100 rounded-full line-clamp-1  flex-grow   duration-150 border border-input py-2 px-4 text-xs"
+                      // onClick={(e) => {
+                      //   e.stopPropagation();
+                      //   handleClick({ lat: container.state.latitude, lng: container.state.longitude });
+                      // }}
+                    >
+                      state : {container.state.title}
+                    </h3>
+                  </div>
+                  <IconWidget paragraph={container.locations_address} header="" icon={<Location />} />
+                  <IconWidget
+                    link={`tel:${container?.phone_number}`}
+                    paragraph={container?.phone_number}
+                    header=""
+                    icon={<Phone />}
+                  />
+                </Container>
               </div>
-              <IconWidget paragraph={container.locations_address} header="" icon={<Location />} />
-              <IconWidget paragraph={container?.phone_number} header="" icon={<Phone />} />
-            </Container>
+            </a>
           ))}
         </div>
       </div>
       <div className="  rounded-xl mt-5   h-full relative w-full col-span-2">
-        <div className=" sticky top-0 h-[30rem]">
+        <div id="map" className=" sticky top-0 h-[30rem]">
           <MapComponent defaultLocation={location} />
         </div>
       </div>

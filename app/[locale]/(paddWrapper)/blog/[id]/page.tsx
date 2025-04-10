@@ -22,7 +22,6 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
   const item: BlogProps = data.item;
   const { main_gallery, title, content } = item;
   const contentHTML = convertToHTML(content);
-  console.log(item);
   const t = await getTranslations();
 
   return (
@@ -65,7 +64,7 @@ const page = async ({ params }: { params: { locale: string; id: string } }) => {
             )}
           </div>
           <h1 className=" capitalize mb-4 text-4xl text-main2  font-semibold max-w-5xl">{title}</h1>
-        
+
           <Paragraph
             className={` w-full !max-w-full product my-2 font-[300] leading-[1.8rem] text-lg ${styles.product}`}
             danger

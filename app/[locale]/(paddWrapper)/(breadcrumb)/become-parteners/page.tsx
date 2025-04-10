@@ -7,7 +7,6 @@ import Section from "@/app/components/Section";
 import { CACHE } from "@/app/constants";
 import { Server } from "@/app/main/Server";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
 
 const page = async ({ params: { locale }, searchParams }: { params: { locale: string }; searchParams: any }) => {
   unstable_setRequestLocale(locale);
@@ -18,9 +17,9 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
   console.log(category);
   const tabs = [
     { link: "coloring-centers", text: t("color_center") },
-    { link: "export-projects", text: t("projects") },
+    { link: "export-projects", text: t("quotations") },
     { link: "local-distributors", text: t("local_distributor") },
-    { link: "project-quotations", text: t("quotations") },
+    { link: "project-quotations", text: t("projects") },
   ];
   const { forms } = await Server({
     resourceName: "getForms",

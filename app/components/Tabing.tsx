@@ -91,7 +91,7 @@ const Tabing = ({ defaultValue, options, categories }: TabingProps) => {
                 onClick={() => handleClick(option.id)}
                 className={` ${
                   currentPath === option.id.toString() ? " text-white bg-main" : "bg-gray-200 text-gray-900"
-                } rounded-full h-[40px] py-4 px-12 w-[200px] hover:bg-main hover:text-white  capitalize `}
+                } rounded-full h-[40px] py-4 px-12 mx-3 lg:w-[200px] hover:bg-main hover:text-white  capitalize `}
               >
                 <div>{option.title}</div>
               </Button>
