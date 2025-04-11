@@ -58,11 +58,3 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     return <Empty text="404 Page Not Found" />;
   }
 }
-
-// Add route configuration to exclude static files
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|react-toastify).*)"],
-};
-//catch all route config
-//cache funuction in next js
-// language
