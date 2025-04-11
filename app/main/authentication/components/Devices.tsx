@@ -15,6 +15,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import FormContainer from "@/app/components/FormContainer";
 import ModalCustom from "@/app/components/ModalCustom";
+import { useAuth } from "@/app/context/AuthContext";
 const Devices = () => {
   const t = useTranslations();
   const { data, isLoading } = useGetEntity("getDevices", "devices");
@@ -24,7 +25,7 @@ const Devices = () => {
   const filteredResult = Object.keys(data || {})
     .filter((key) => typeof data[key] === "object")
     .map((key) => data[key]);
-
+  const { handleLogout } = useAuth();
   return (
     <ModalCustom
       btn={
@@ -104,6 +105,8 @@ const Devices = () => {
                   startTransition(async () => {
                     const res = await Server({ resourceName: "deviceLogout" });
                     console.log(res);
+                    handleLogout();
+
                     if (res.status) {
                       toast.success(res.message);
                       queryClient.invalidateQueries({ queryKey: ["devices"] });

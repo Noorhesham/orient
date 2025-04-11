@@ -30,9 +30,14 @@ const CustomButton = ({
   stopPropagation,
 }: CustomButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (onClick) onClick(e);
+    if (stopPropagation) {
+      e.stopPropagation();
+    }
+    if (onClick) {
+      onClick(e);
+    }
+    e.currentTarget.blur(); // Remove focus from the button
   };
-
   return (
     <Button
       disabled={disabled}

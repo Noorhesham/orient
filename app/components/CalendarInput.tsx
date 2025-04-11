@@ -20,7 +20,7 @@ const CalendarInput = ({ control }: CalendarProps) => {
       render={({ field }) => {
         return (
           <FormItem dir={locale === "ar" ? "rtl" : "ltr"} className="flex flex-col">
-            <FormLabel className={locale === "ar" ? "text-right" : "text-left"}>{t("birth_day")}</FormLabel>
+            {/* <FormLabel className={locale === "ar" ? "text-right" : "text-left"}>{t("birth_day")}</FormLabel> */}
             <Popover>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -37,7 +37,7 @@ const CalendarInput = ({ control }: CalendarProps) => {
                 <Calendar
                   mode="single"
                   captionLayout="dropdown-buttons"
-                  fromYear={1990}
+                  fromYear={1950}
                   toYear={new Date().getFullYear()}
                   selected={field.value}
                   onSelect={field.onChange}
@@ -46,9 +46,9 @@ const CalendarInput = ({ control }: CalendarProps) => {
                 />
               </PopoverContent>
             </Popover>
-            <FormDescription className={locale === "ar" ? "text-right" : "text-left"}>
+            {/* <FormDescription className={locale === "ar" ? "text-right" : "text-left"}>
               {t("birth_day_description")}
-            </FormDescription>
+            </FormDescription> */}
           </FormItem>
         );
       }}

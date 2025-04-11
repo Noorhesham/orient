@@ -41,11 +41,11 @@ const Box = ({
     const newFilters: Filters = {};
     params.forEach((value, key) => {
       newFilters[key] = value.split(",");
+      console.log(value, key);
     });
-    console.log(newFilters);
     setFilters(newFilters);
-  }, []);
-
+  }, [searchParams]);
+  console.log(filters)
   const updateURL = () => {
     startTransition(async () => {
       console.log(window.location.search);
@@ -74,7 +74,7 @@ const Box = ({
       const isFilterSelected = currentFilters.includes(filterValue);
       const updatedFilters = isFilterSelected
         ? currentFilters.filter((item) => item !== filterValue) // Remove the filter
-        : [...currentFilters, filterValue]; // Add the filter
+        : [...currentFilters, filterValue.toString()]; // Add the filter
 
       return {
         ...prevFilters,
@@ -135,19 +135,15 @@ const Box = ({
             </div>
           ) : !single ? (
             options?.map((option, i) => (
-              <li
-                key={i}
-                onClick={() => handleFilter(`${id}:${option.id}`, filter)}
-                className="flex w-full items-center gap-2 cursor-pointer"
-              >
+              <li key={i} className="flex w-full items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   name={filter}
-                  id={option.id}
+                  id={option.id.toString()}
                   checked={filters[filter]?.includes(`${id}:${option.id}`) || false}
                   onChange={() => handleFilter(`${id}:${option.id}`, filter)}
                 />
-                <label htmlFor={option.id}>{option.title}</label>
+                <label htmlFor={option.id.toString()}>{option.title}</label>
               </li>
             ))
           ) : (

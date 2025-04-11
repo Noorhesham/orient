@@ -64,6 +64,7 @@ const UpdatePersonalInfo = ({ avatarOnly }: { avatarOnly?: boolean }) => {
         cancel={true}
         defaultValues={user}
         btnStyles={"w-full"}
+        transition={false}
         btnText={t("saveChanges")}
         formArray={personal}
         title={t("updatePersonalInfo")}
@@ -113,6 +114,7 @@ const UpdatePersonalInfo = ({ avatarOnly }: { avatarOnly?: boolean }) => {
           ) : (
             <div className=" px-5 lg:px-20 py-5">
               <FormContainer
+                transition={false}
                 submit={updatePersonalInfro}
                 cancel={true}
                 defaultValues={user}

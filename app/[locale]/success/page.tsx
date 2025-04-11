@@ -46,7 +46,7 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
           ) : (
             <div className=" flex  bg-background flex-col items-center justify-center ">
               <BsExclamationCircleFill className=" text-red-400 w-32 h-32 relative" />
-              <Paragraph className=" uppercase font-semibold text-3xl" size="lg" description={message} />
+              <Paragraph className=" uppercase font-semibold text-3xl" size="lg" description={t(message)} />
               <div className=" flex items-center gap-2">
                 <Link
                   className=" flex items-center gap-2 hover:underline duration-150 hover:text-main"

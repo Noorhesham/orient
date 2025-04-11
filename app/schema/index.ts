@@ -49,6 +49,7 @@ export const signupSchema = (t: any) =>
       .regex(/[0-9]/, { message: t("validationAuth.passwordNumber") })
       .regex(/[^A-Za-z0-9]/, { message: t("validationAuth.passwordSpecial") }),
     referealCode: z.string().optional(),
+    birth_day: z.any(),
   });
 
 export const resetPasswordSchemaPrepare = (t: any) =>

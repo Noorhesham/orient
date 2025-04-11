@@ -1,11 +1,14 @@
 {
   "paintUsed": "Paint used:",
   "is": "is",
+  "linkCopied": "Link copied to clipboard",
   "enterDimensions": "Enter Dimensions",
   "widthPlaceholder": "Width",
+  "emptyresults": "Did not found results",
   "heightPlaceholder": "Height",
   "chooseProduct": "Choose Product",
   "selectProduct": "Select Product",
+  "payment is canceled": "Payment is canceled",
   "calculate": "Calculate & Submit",
   "submitSuccess": "Calculation submitted successfully!",
   "submitError": "Error submitting calculation.",
@@ -22,7 +25,8 @@
     "getInspired": "Get Inspired",
     "becomePartner": "Become Partner",
     "aboutUs": "About Us",
-    "contactUs": "Contact Us" ,"tooltips": {
+    "contactUs": "Contact Us",
+    "tooltips": {
       "cloud": "Download App",
       "bag": "Your Orders",
       "profile": "Your Profile",
@@ -401,7 +405,7 @@
     "Choose Quantity": "Choose Distance"
   },
   "fees": "Fees",
-  "taxes": "Taxes",
+  "taxes": "TAXES",
   "empty": "THERE ARE NO PRODUCT WITH THIS SPECIFICATIONS",
   "Reset Filters": "RESET FILTERS",
   "customizeNotifications": "CUSTOMIZE NOTIFICATIONS",

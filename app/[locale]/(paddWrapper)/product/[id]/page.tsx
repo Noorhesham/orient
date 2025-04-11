@@ -207,9 +207,11 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
               <div className="flex flex-col gap-3 pb-5">
                 <Stars count={product.review_count} rating={product?.review_rate || 5} />
                 <PriceWithSale
-                  price={product.price_before_discount}
+                  price={product.price_after_discount}
                   discount={
-                    product.price_after_discount !== product.price_before_discount ? product.price_after_discount : null
+                    product.price_after_discount !== product.price_before_discount
+                      ? product.price_before_discount
+                      : null
                   }
                 />
                 {product.stock_status === "out" && (
@@ -359,7 +361,7 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                     </div>
                   </>
                 )}
-                <div className="flex  my-3 lg:my-10 z-[40] w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
+                <div className="flex  my-3 lg:my-10 z-[9990] w-[80%] self-center lg:self-start lg:w-[40%] rounded-full justify-center items-center gap-10 bg-main2 text-gray-50 px-8 py-4 sticky top-24">
                   <a href="#desc">{t("description")}</a>
                   <a href="#review">{t("review")}</a>
                 </div>
@@ -466,10 +468,10 @@ const page = async ({ params: { id }, searchParams }: { params: { id: string }; 
                         <h2>{t("price")} :</h2>
                         <PriceWithSale
                           size="sm"
-                          price={product.price_before_discount}
+                          price={product.price_after_discount}
                           discount={
                             product.price_after_discount !== product.price_before_discount
-                              ? product.price_after_discount
+                              ? product.price_before_discount
                               : null
                           }
                         />

@@ -93,6 +93,7 @@ interface Formcontainer {
   server?: boolean;
   children?: React.ReactNode;
   id?: string;
+  transition?: boolean;
 }
 
 const FormContainer: React.FC<Formcontainer> = ({
@@ -106,6 +107,7 @@ const FormContainer: React.FC<Formcontainer> = ({
   submit,
   server,
   id,
+  transition = true,
 }) => {
   const t = useTranslations("form");
 
@@ -141,9 +143,9 @@ const FormContainer: React.FC<Formcontainer> = ({
           console.log(res);
           if (res.status) {
             toast.success(res.message, { autoClose: 5000 });
-            setResetFormData(true); // Trigger reset
+            if (transition) setResetFormData(true); // Trigger reset
             setServerError(null);
-            setTimeout(() => setResetFormData(false), 0);
+            if (transition) setTimeout(() => setResetFormData(false), 0);
           }
           if (!res.status) setServerError(res.message);
         } catch (error) {
@@ -151,7 +153,7 @@ const FormContainer: React.FC<Formcontainer> = ({
         }
       } else if (submit) {
         submit(data, setServerError);
-        form.reset({});
+        if (transition) form.reset({});
         setServerError(null);
       }
     });

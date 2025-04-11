@@ -117,7 +117,7 @@ const page = async () => {
                   key={item.id}
                   img={item.main_cover?.[0]?.sizes.large}
                   price={item.price_after_discount}
-                  sell={item.price_before_discount}
+                  
                   text={item.title}
                   id={item.product_slug || item.parent_slug}
                 />
@@ -132,7 +132,7 @@ const page = async () => {
                     <Card
                       key={item.id}
                       img={item.main_cover?.[0]?.sizes.medium}
-                      price={item.price_after_discount}
+                      price={item.price_before_discount}
                       sell={
                         item.price_before_discount !== item.price_after_discount ? item.price_before_discount : null
                       }

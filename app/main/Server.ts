@@ -277,7 +277,7 @@ export async function Server({
       },
     });
 
-    console.log(url, "fetched url",lang);
+    console.log(url, "fetched url", lang);
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     const data = await response.json();
 

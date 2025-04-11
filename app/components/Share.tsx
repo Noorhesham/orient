@@ -11,6 +11,7 @@ import {
   TwitterIcon,
   PinterestIcon,
 } from "react-share";
+import { toast } from "react-toastify";
 
 const Share = ({
   handleShare,
@@ -26,8 +27,14 @@ const Share = ({
   const t = useTranslations();
   return (
     <div className="flex items-center gap-2 text-sm">
-      <p>{t("share")}</p> {/* Use translation */}
-      <CopyIcon onClick={handleShare} className="cursor-pointer text-xl w-6  text-main h-6 hover:text-blue-500" />
+      <p onClick={handleShare}>{t("share")}</p> {/* Use translation */}
+      <CopyIcon
+        onClick={() => {
+          navigator.clipboard.writeText(currentUrl);
+          toast.success(t("linkCopied"));
+        }}
+        className="cursor-pointer text-xl w-6  text-main h-6 hover:text-blue-500"
+      />
       <FacebookShareButton url={currentUrl} quote={title} hashtag={`#${title.replace(/\s+/g, "")}`}>
         <FacebookIcon className="hover:text-blue-600 w-6 h-6" size={32} round />
       </FacebookShareButton>

@@ -5,7 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useIsLoading } from "../context/LoadingContext";
 
 const PriceFilter = () => {
@@ -28,20 +28,15 @@ const PriceFilter = () => {
     range: DEFAULT_RANGE,
     isCustom: false,
   });
-  const [visualPrice, setVisualPrice] = useState({
-    min: 0,
-    max: 10000,
-  });
   const searchParams = useSearchParams();
   const price_from = Number(searchParams.get("price_from"));
   const price_to = Number(searchParams.get("price_to"));
-  const custom = searchParams.get("custom") === "true" ? true : false;
+  const custom = searchParams.get("custom") === "true";
+  const router = useRouter();
+
   useEffect(() => {
     if (!price_from && !price_to) {
-      setPriceFilter({
-        range: DEFAULT_RANGE,
-        isCustom: false,
-      });
+      setPriceFilter({ range: DEFAULT_RANGE, isCustom: false });
     } else {
       setPriceFilter({
         range: [price_from || DEFAULT_RANGE[0], price_to || DEFAULT_RANGE[1]],
@@ -49,120 +44,102 @@ const PriceFilter = () => {
       });
     }
   }, [price_from, price_to, custom]);
-  const router = useRouter();
-  const updateUrl = useCallback(() => {
+
+  const updateUrl = () => {
     if (init) return;
-    startTransition(() => {
-      const url = new URL(window.location.href);
-      ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
-      url.searchParams.append("price_from", priceFilter.range[0].toString());
-      url.searchParams.append("price_to", priceFilter.range[1].toString());
-      url.searchParams.append("custom", priceFilter.isCustom?.toString());
-      url.searchParams.set("page", "1");
-      router.push(url.toString(), { scroll: false });
-    });
-  }, [priceFilter, router]);
+    const url = new URL(window.location.href);
+    ["price_from", "price_to", "custom"].forEach((key) => url.searchParams.delete(key));
+    url.searchParams.append("price_from", priceFilter.range[0].toString());
+    url.searchParams.append("price_to", priceFilter.range[1].toString());
+    url.searchParams.append("custom", priceFilter.isCustom.toString());
+    url.searchParams.set("page", "1");
+    router.push(url.toString(), { scroll: false });
+  };
+
+  useEffect(() => {
+    if (init) return;
+    const timeoutId = setTimeout(() => {
+      updateUrl();
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, [priceFilter, init]);
+
   useEffect(() => {
     setLoading(isPending);
   }, [isPending, setLoading]);
-  useEffect(() => {
-    updateUrl();
-  }, [priceFilter, updateUrl]);
 
-  // useEffect(() => {
-  //   setLoading(isPending);
-  // }, [isPending, setLoading]);
-  const handlePriceChange = ({ range, isCustom }: any) => {
+  const handlePriceChange = ({ range, isCustom }) => {
     setIsInit(false);
     setPriceFilter({ range, isCustom });
   };
 
   return (
     <ul className="space-y-1 filter border-b px-5 flex flex-col gap-2 border-gray-200 pb-6 text-sm font-medium text-gray-900">
-      <li className="flex items-center  flex-row flex-wrap  lg:flex-col gap-4">
-        <div className="self-start flex items-center gap-2 ">
+      <li className="flex items-center flex-row flex-wrap lg:flex-col gap-4">
+        <div className="self-start flex items-center gap-2">
           <label
-            htmlFor={"price-custom"}
-            className="text-lg   font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            htmlFor="price-custom"
+            className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             {t("range")}
           </label>
         </div>
-
         <Slider
           defaultValue={DEFAULT_RANGE}
           min={DEFAULT_RANGE[0]}
           max={DEFAULT_RANGE[1]}
           step={20}
-          value={priceFilter?.isCustom ? priceFilter?.range : DEFAULT_RANGE}
+          value={priceFilter.isCustom ? priceFilter.range : DEFAULT_RANGE}
           onValueChange={(range) => {
             const [newMin, newMax] = range;
-            handlePriceChange({ range: [newMin, newMax], isCustom: true, debounce: true });
+            handlePriceChange({ range: [newMin, newMax], isCustom: true });
           }}
-          className={cn("w-full", !priceFilter?.isCustom && " opacity-50")}
+          className={cn("w-full", !priceFilter.isCustom && "opacity-50")}
         />
-        {priceFilter && (
-          <div className="flex self-start mb-3 justify-between">
-            <div className="flex w-fit gap-5   items-center">
-              <Input
-                onChange={(e) => {
-                  if (priceFilter?.isCustom) {
-                    setIsInit(false);
-
-                    setVisualPrice({
-                      min: Number(e.target.value),
-                      max: priceFilter.range[1],
-                    });
-                    setPriceFilter((prev) => ({ isCustom: true, range: [Number(e.target.value), prev.range[1]] }));
-                  }
-                }}
-                value={visualPrice.min || price_from?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
-                className=" max-w-32"
-              />
-              <Input
-                onChange={(e) => {
-                  if (priceFilter?.isCustom) {
-                    setIsInit(false);
-
-                    setVisualPrice({
-                      min: priceFilter.range[0],
-                      max: Number(e.target.value),
-                    });
-                    setPriceFilter((prev) => ({ isCustom: true, range: [prev.range[0], Number(e.target.value)] }));
-                  }
-                }}
-                value={visualPrice.max || price_to?.toFixed(0) || priceFilter?.range[1]?.toFixed(0)}
-                className=" max-w-32"
-              />
-            </div>
+        <div className="flex self-start mb-3 justify-between">
+          <div className="flex w-fit gap-5 items-center">
+            <Input
+              type="number"
+              onChange={(e) => {
+                setIsInit(false);
+                setPriceFilter((prev) => ({
+                  isCustom: true,
+                  range: [Number(e.target.value), prev.range[1]],
+                }));
+              }}
+              value={priceFilter.range[0]}
+              className="max-w-32"
+            />
+            <Input
+              type="number"
+              onChange={(e) => {
+                setIsInit(false);
+                setPriceFilter((prev) => ({
+                  isCustom: true,
+                  range: [prev.range[0], Number(e.target.value)],
+                }));
+              }}
+              value={priceFilter.range[1]}
+              className="max-w-32"
+            />
           </div>
-        )}
+        </div>
       </li>
-      <div className="flex  flex-row flex-wrap gap-3   text-sm font-medium lg:flex-col">
-        {" "}
-        {PRICE_FILTERS.filter((p) => !p.isCustom).map((filter: any, i: number) => (
-          <li
-            key={i}
-            className={`EGP{priceFilter === filter.value ? "text-gray-500" : "text-gray-900"}  flex items-center gap-2`}
-          >
+      <div className="flex flex-row flex-wrap gap-3 text-sm font-medium lg:flex-col">
+        {PRICE_FILTERS.filter((p) => !p.isCustom).map((filter, i) => (
+          <li key={i} className="flex items-center gap-2">
             <input
               type="radio"
-              id={filter.value}
+              id={filter.value.toString()}
               checked={
-                priceFilter?.range?.[0] === filter.value?.[0] &&
-                priceFilter?.range?.[1] === filter.value?.[1] &&
-                !priceFilter?.isCustom
+                priceFilter.range[0] === filter.value[0] &&
+                priceFilter.range[1] === filter.value[1] &&
+                !priceFilter.isCustom
               }
-              onChange={() => {
-                handlePriceChange({
-                  range: filter.value,
-                  isCustom: filter.isCustom,
-                  debounce: false,
-                });
-              }}
+              onChange={() => handlePriceChange({ range: filter.value, isCustom: filter.isCustom })}
             />
             <label
-              htmlFor={filter.value}
+              htmlFor={filter.value.toString()}
               className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               {filter.label}
@@ -170,9 +147,15 @@ const PriceFilter = () => {
           </li>
         ))}
       </div>
-      <Button variant={"outline"} className="w-full mt-8" onClick={() => handlePriceChange({ range: [0, 10000] })}>
-        {t("reset")}
-      </Button>
+      {!init && (
+        <Button
+          variant="outline"
+          className="w-full mt-8"
+          onClick={() => handlePriceChange({ range: [0, 10000], isCustom: false })}
+        >
+          {t("reset")}
+        </Button>
+      )}
     </ul>
   );
 };

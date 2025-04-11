@@ -30,12 +30,11 @@ const page = async ({ params: { locale }, searchParams }: { params: { locale: st
     const categoryIds = Array.isArray(category_id) ? category_id : [category_id];
     categoryIds.forEach((id) => queryParams.append("category_id[]", id));
   }
-
   // Handle attributes (color & weight)
-  const array = color
-    ?.split(",")
-    .concat(wight?.split(","))
-    .filter((f) => f !== undefined);
+
+  const array = [...(color ? color.split(",") : []), ...(wight ? wight.split(",") : [])].filter(
+    (f) => f !== undefined && f !== null && f.trim() !== ""
+  );
 
   if (array) {
     array.forEach((element) => {

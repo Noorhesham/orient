@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Spinner from "./Spinner";
 import { FaSpinner } from "react-icons/fa";
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function ComboboxForm({
   options,
@@ -27,7 +28,8 @@ export default function ComboboxForm({
 }) {
   const form = useFormContext();
   const [open, setOpen] = useState(false);
-
+  const t = useTranslations();
+  const local = useLocale();
   return (
     <>
       <FormField
@@ -35,7 +37,17 @@ export default function ComboboxForm({
         control={form.control}
         name={name}
         render={({ field }) => (
-          <FormItem className={` w-full`}>
+          <FormItem className={` relative w-full`}>
+            {" "}
+            {
+              <span
+                className={`absolute ${
+                  local === "en" ? "right-1 -top-[-13px]" : " top-1 right-1"
+                }  z-10   font-normal text-red-600`}
+              >
+                *
+              </span>
+            }
             {label && <FormLabel>{label}</FormLabel>}
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger className=" w-full" asChild>
@@ -61,7 +73,7 @@ export default function ComboboxForm({
                       <FaSpinner className="h-4 w-4 mx-auto animate-spin text-main" />
                     ) : (
                       <>
-                        <CommandEmpty>لم يتم ايجاد نتائج</CommandEmpty>
+                        <CommandEmpty>{t("emptyresults")}</CommandEmpty>
 
                         <CommandGroup>
                           {options?.map((option: any) => (

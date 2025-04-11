@@ -17,6 +17,7 @@ import { useLocalStorageState } from "@/app/hooks/useLocalStorageState";
 import { useTranslations } from "next-intl";
 import cookies from "js-cookie";
 import { useAuth } from "@/app/context/AuthContext";
+import { format } from "date-fns";
 const Signup = () => {
   const t = useTranslations();
   const singup = signupSchema(t);
@@ -30,6 +31,7 @@ const Signup = () => {
       referealCode: "",
       sms: false,
       phone: "",
+      birth_day: "",
     },
     mode: "onChange",
   });
@@ -58,10 +60,17 @@ const Signup = () => {
       placeholder: t("ADD_YOUR_NAME"),
     },
     {
+      name: "birth_day",
+      optional: false,
+      placeholder: t("birth_day"),
+      date: true,
+    },
+    {
       name: "email",
       placeholder: t("ADD_YOUR_EMAIL"),
       optional: true,
     },
+
     {
       name: "referral_code",
       optional: true,
@@ -75,6 +84,7 @@ const Signup = () => {
     if (data.phone) data.country_key = data.phone.country_key;
     if (data.phone) data.phone = data.phone.phone;
     if (!data.email) delete data.email;
+    if (data.birth_day) data.birth_day = format(data.birth_day, "yyyy-MM-dd");
 
     startTransition(async () => {
       const res = await Server({
