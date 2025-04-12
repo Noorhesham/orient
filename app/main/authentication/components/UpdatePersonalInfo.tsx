@@ -90,7 +90,11 @@ const UpdatePersonalInfo = ({ avatarOnly }: { avatarOnly?: boolean }) => {
           <div>
             <UpdateCard
               text={t("updatePhone")}
-              desc={loading ? "" : `+${user?.country_key}${user?.phone} `}
+              desc={
+                loading
+                  ? ""
+                  : `${(user?.country_key && user?.phone ? `+${user?.country_key}` : "") || ""}${user?.phone || t('missedPhone')} `
+              }
               icon={<PhoneIcon className=" text-main w-10 h-10" />}
             />
           </div>

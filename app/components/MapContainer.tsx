@@ -36,7 +36,9 @@ const MapContainer = ({ stores }: { stores: any[] }) => {
   return (
     <>
       <div className=" flex flex-col gap-5 mt-3  col-span-2">
+        <div className=" relative z-10">
         <SearchBox nonactive onSearch={setSearchQuery} bg="blue" />
+        </div>
         <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5 ">
           {filteredContainers?.map((container) => (
             <a className=" block h-full w-full" key={container.id} href="#map">

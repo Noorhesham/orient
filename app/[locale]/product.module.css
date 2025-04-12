@@ -12,7 +12,15 @@
 .product :global(b) {
   font-weight: bold;
 }
-
+.product :global(h3) {
+  @apply text-xl;
+}
+.product :global(h2) {
+  @apply text-2xl;
+}
+.product :global(strong) {
+  @apply font-bold;
+}
 .product :global(h3),
 .product :global(h2),
 .product :global(strong) {

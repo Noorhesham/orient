@@ -1,7 +1,7 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 
-export const POST = async () => {
-  console.log('meow')
+export const GET = async () => {
+  console.log("meow");
   console.log("revalidate");
   revalidatePath("/");
   revalidateTag("colortrend");
@@ -9,4 +9,6 @@ export const POST = async () => {
   revalidateTag("getForms");
   revalidateTag("getinspired");
   revalidateTag("getEntity");
+  console.log("revalidate done");
+  return new Response("Revalidated", { status: 200 });
 };

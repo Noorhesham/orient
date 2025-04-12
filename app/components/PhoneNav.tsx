@@ -62,10 +62,10 @@ const PhoneNav = ({ navigation, isHome }: { navigation: any; isHome?: boolean })
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed top-0 left-0 bg-black/40 w-full h-screen backdrop-blur-lg bottom-0 uppercase right-0 z-[999] bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent"
+            className="fixed top-0 left-0 bg-black/40 w-full h-screen backdrop-blur-lg bottom-0 uppercase right-0 z-[9999] bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent"
             onClick={handleClickOutside}
           >
-            <MaxWidthWrapper className="relative z-[9999] mt-32 my-auto h-full w-full flex flex-col gap-4 items-center justify-start mx-auto lg:flex-row">
+            <MaxWidthWrapper className="relative z-[99999] mt-32 my-auto h-full w-full flex flex-col gap-4 items-center justify-start mx-auto lg:flex-row">
               <div onClick={toggleNavigation} className="absolute top-4 right-4">
                 <CloseSvg />
               </div>

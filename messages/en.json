@@ -1,6 +1,7 @@
 {
   "paintUsed": "Paint used:",
   "is": "is",
+  "missedPhone": "phone number not added yet",
   "linkCopied": "Link copied to clipboard",
   "enterDimensions": "Enter Dimensions",
   "widthPlaceholder": "Width",
@@ -414,7 +415,7 @@
   "deactivate": "DEACTIVATE",
   "Update Email": "UPDATE EMAIL",
   "activate": "ACTIVATE",
-  "pick_a_date": "Pick a date",
+  "pick_a_date": "Pick a birth date",
   "birth_day_description": "Your date of birth is used to calculate your age.",
   "activedevices": "ACTIVE DEVICES",
   "thisdevice": "This device",

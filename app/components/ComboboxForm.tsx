@@ -42,7 +42,7 @@ export default function ComboboxForm({
             {
               <span
                 className={`absolute ${
-                  local === "en" ? "right-1 -top-[-13px]" : " top-1 right-1"
+                  local === "en" ? "right-1 -top-[-13px]" : " top-[28px] right-1"
                 }  z-10   font-normal text-red-600`}
               >
                 *

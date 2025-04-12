@@ -30,7 +30,7 @@ const Language = () => {
       router.push(newPathName);
 
       await fetch("/api/revalidate-all", {
-        method: "POST",
+        method: "GET",
       });
 
       router.refresh();

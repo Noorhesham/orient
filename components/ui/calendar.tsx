@@ -60,12 +60,14 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
               <Select
                 onValueChange={(newval) => {
                   const newDate = new Date(currentMonth);
-                  newDate.setFullYear(parseInt(newval));
+                  newDate.setMonth(parseInt(newval)); // Correctly set the month
                   goToMonth(newDate);
                 }}
                 value={props.value?.toString()}
               >
-                <SelectTrigger>{format(currentMonth.getFullYear(), "MMMM")}</SelectTrigger>
+                <SelectTrigger>
+                  {format(currentMonth, "MMMM")} {/* Display current month */}
+                </SelectTrigger>
                 <SelectContent>
                   {selectItems.map((item) => (
                     <SelectItem key={item.value} value={item.value}>
@@ -87,7 +89,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
               }));
             }
             return (
-              <Select 
+              <Select
                 onValueChange={(newval) => {
                   const newDate = new Date(currentMonth);
                   newDate.setFullYear(parseInt(newval));

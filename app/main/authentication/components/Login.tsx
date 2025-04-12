@@ -156,6 +156,7 @@ const Login = () => {
       });
       console.log(NotificationREs);
     };
+
     if (searchParams.get("status") === "true") {
       const token = searchParams.get("token");
       if (token) {
@@ -167,8 +168,7 @@ const Login = () => {
         setLogin((l) => !l);
         router.push(redirect || "/");
       }
-    }
-    if (searchParams.get("status") === "false") setServerError(searchParams.get("message"));
+    } else if (searchParams.get("status") === "false") setServerError(searchParams.get("message"));
   }, []);
   const loginArray = [
     {

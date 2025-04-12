@@ -34,6 +34,6 @@ export const PRODUCTS_LINKS = [
 ];
 export const URL = "https://backend.orient-paints.com";
 export const BASE_URL = "https://backend.orient-paints.com/api";
-export const WEBSITEURL = "https://ftest.orient-paints.com/";
+export const WEBSITEURL = "http://localhost:3001";
 export const CACHE = 6400;
 // export const WEBSITEURL = "http://localhost:3001";

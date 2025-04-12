@@ -115,10 +115,10 @@ const NavBar = () => {
                 </div>
 
                 <div className="flex flex-row z-40 lg:flex-row-reverse lg:basis-[36%] items-center gap-3 lg:gap-5">
+                  <SearchBox active={active} setIsActive={setIsActive} />{" "}
                   <div className=" h-full w-full lg:hidden block">
                     <PhoneNav isHome={isHome} navigation={links} />
                   </div>
-                  <SearchBox active={active} setIsActive={setIsActive} />{" "}
                   <div
                     className={`flex ${
                       active ? "opacity-0 lg:opacity-100" : "opacity-100"

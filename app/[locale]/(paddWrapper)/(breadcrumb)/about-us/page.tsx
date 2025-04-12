@@ -20,8 +20,8 @@ const Page = async ({ params: { locale } }: { params: { locale: string } }) => {
   console.log(page);
   return (
     <>
-      <section className=" relative min-h-[23vh] lg:min-h-[80vh]">
-        <div
+      <section className=" relative min-h-[37vh] md:min-h-[46vh] lg:min-h-[60vh]">
+      <div
           style={{
             backgroundSize: "cover",
             backgroundImage: `url(${page.cover_for_pc?.[0]?.file})`,

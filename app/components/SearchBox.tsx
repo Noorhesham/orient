@@ -124,7 +124,7 @@ const SearchBox = ({
           : active && locale === "en"
           ? "-translate-x-20  py-2 px-4 lg:translate-x-0"
           : "translate-x-0"
-      } duration-150 lg:py-2 ${!nonactive && " lg:border  lg:px-4 border-input"}   shadow-sm z-[99] relative ${
+      } duration-150 lg:py-2 ${!nonactive && " lg:border  lg:px-4 border-input"}   shadow-sm z-[999] relative ${
         locale === "ar" && "lg:flex-row-reverse"
       } `}
     >

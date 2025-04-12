@@ -28,7 +28,7 @@ const CalendarInput = ({ control }: CalendarProps) => {
                     variant={"outline"}
                     className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
                   >
-                    {field.value ? format(field.value, "PPP") : <span>{t("pick_a_date")}</span>}
+                    {field.value ? format(field.value, "dd/MM/yyyy") : <span>{t("pick_a_date")}</span>}
                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                   </Button>
                 </FormControl>
