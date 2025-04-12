@@ -135,7 +135,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
 
           <MotionItem>
             {" "}
-            <Link href={"/get-inspired"} className=" flex gap-3 ">
+            <Link href={"/get-inspired?category=3"} className=" flex gap-3 ">
               <div className=" flex flex-col  items-center gap-2">
                 <div className=" rounded-full  md:w-44 sm:w-28 sm:h-28 w-24 h-24 md:h-44 relative">
                   <Image src={"/Rectangle 156397.png"} fill className="rounded-full object-cover" alt="color-trend" />
