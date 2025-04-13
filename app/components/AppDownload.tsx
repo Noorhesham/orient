@@ -12,7 +12,7 @@ const AppDownload = () => {
   const { generalSettings, loading } = useAuth();
   const t = useTranslations();
   if (loading) return <Skeleton />;
-  const { store_url } = generalSettings;
+  const { store_url } = generalSettings || {};
   return (
     <DialogContent whiteClose className="  min-w-[100vw]  bg-black/60 border-none outline-none  h-screen w-full  ">
       <main className="  flex justify-center items-center gap-5 flex-col  h-screen">
