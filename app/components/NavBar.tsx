@@ -31,7 +31,7 @@ const NavBar: React.FC = () => {
   params.delete("redirect");
   const isHome = pathName === "/ar" || pathName === "/en";
 
-  const { userSettings: user, handleLogout, loading: authLoading, cartCount } = useAuth();
+  const { userSettings: user, handleLogout, loading: authLoading, cartCount, isStoreActive } = useAuth();
 
   // Transform backend home_nav into the shape our NavLink & PhoneNav expect:
   const navItems = React.useMemo(() => {
@@ -126,19 +126,21 @@ const NavBar: React.FC = () => {
                     </Tooltip>
                   )}
 
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Link href="/cart" className="relative hover:opacity-80 duration-150">
-                        {cartCount > 0 && (
-                          <span className="absolute -top-1 -right-1 w-4 h-4 text-[10px] bg-main text-white rounded-full flex items-center justify-center">
-                            {cartCount}
-                          </span>
-                        )}
-                        <PersonIcon home={isHome} />
-                      </Link>
-                    </TooltipTrigger>
-                    <TooltipContent>{t("navbar.tooltips.bag")}</TooltipContent>
-                  </Tooltip>
+                  {
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link href="/cart" className="relative hover:opacity-80 duration-150">
+                          {cartCount > 0 && isStoreActive && (
+                            <span className="absolute -top-1 -right-1 w-4 h-4 text-[10px] bg-main text-white rounded-full flex items-center justify-center">
+                              {cartCount}
+                            </span>
+                          )}
+                          <PersonIcon home={isHome} />
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent>{t("navbar.tooltips.bag")}</TooltipContent>
+                    </Tooltip>
+                  }
 
                   {user && (
                     <Tooltip>
