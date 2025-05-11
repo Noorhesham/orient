@@ -23,7 +23,7 @@ import useCachedQuery from "../hooks/useCachedData";
 const NavBar: React.FC = () => {
   const t = useTranslations();
   const locale = useLocale();
-  const { data, loading } = useCachedQuery("general_settings");
+
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
@@ -31,12 +31,12 @@ const NavBar: React.FC = () => {
   params.delete("redirect");
   const isHome = pathName === "/ar" || pathName === "/en";
 
-  const { userSettings: user, handleLogout, loading: authLoading, cartCount } = useAuth();
+  const { userSettings: user, handleLogout, loading: authLoading, cartCount, generalSettings,loading } = useAuth();
 
   // Transform backend home_nav into the shape our NavLink & PhoneNav expect:
   const navItems = React.useMemo(() => {
-    if (!data?.home_nav) return [];
-    return data.home_nav.map((item: any) => ({
+    if (!generalSettings?.home_nav) return [];
+    return generalSettings.home_nav.map((item: any) => ({
       text: item.title?.[locale] ?? item.title?.en ?? "",
       href: item.url ? `/${item.url}` : item.route ? `/${item.route.replace(/^frontend\./, "")}` : "#",
       subLinks: item.sub
@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
           }))
         : undefined,
     }));
-  }, [data, locale]);
+  }, [generalSettings, locale]);
 
   // scroll & hide logic...
   const [isScrollingDown, setIsScrollingDown] = useState(false);
@@ -65,7 +65,7 @@ const NavBar: React.FC = () => {
 
   // build the jobs link as before...
   const searchParamsNoRedirect = params.toString() ? `?${params.toString()}` : "";
-  console.log(data);
+  console.log(generalSettings);
   return (
     <TooltipProvider>
       <header className="w-full">
