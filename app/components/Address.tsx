@@ -8,11 +8,12 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import MotionContainer from "./MotionContainer";
+import useCachedQuery from "../hooks/useCachedData";
 
 const Address = ({ className }: { className?: String }) => {
   const t = useTranslations();
   const locale = useLocale();
-  const { generalSettings, loading } = useAuth();
+  const { data, loading } = useCachedQuery("general_settings");
   if (loading)
     return (
       <div className="flex flex-col gap-2">
@@ -27,8 +28,8 @@ const Address = ({ className }: { className?: String }) => {
         ))}
       </div>
     );
-  const { company_contacts } = generalSettings;
-  const { branches } = company_contacts;
+  const { company_contacts } = data || {};
+  const { branches } = company_contacts || {};
   return (
     <MotionContainer serverAnimate className={cn(" flex-col gap-2 flex ", className)}>
       {branches.map((branch: any, i: number) => (
@@ -36,14 +37,14 @@ const Address = ({ className }: { className?: String }) => {
           <IconWidget paragraph={branch.co_info_address[locale]} header={branch.title[locale]} icon={<Location />} />
         </Link>
       ))}
-      <Link target="_blank" href={`tel:${company_contacts.phone}`}>
+      <Link target="_blank" href={`tel:${company_contacts?.phone}`}>
         <IconWidget
-          paragraph={`${t("address.hotline")}  ${company_contacts.phone}`}
+          paragraph={`${t("address.hotline")}  ${company_contacts?.phone}`}
           header={t("address.phone")}
           icon={<Phone />}
         />
       </Link>
-      <Link href={`mailto:${company_contacts.email || "info@orient-paints.com"}`}>
+      <Link href={`mailto:${company_contacts?.email || "info@orient-paints.com"}`}>
         <IconWidget
           paragraph={company_contacts?.email || "info@orient-paints.com"}
           header={t("address.email")}
