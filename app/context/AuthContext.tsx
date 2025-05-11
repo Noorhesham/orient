@@ -106,6 +106,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             last_update_date_user2: dates.last_update_date_user2,
             device_id: deviceInfo.device_unique_id,
           },
+          cache: 0,
         });
         console.log(res);
         if (!res.check_auth && userSettings) handleLogout();
