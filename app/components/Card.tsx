@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import { ReactNode } from "react";
 import MotionItem from "./MotionItem";
 import Link from "next/link";
+import { useAuth } from "../context/AuthContext";
+import { SkeletonCard } from "./SkeletonCard";
 
 interface CardProps {
   img: string;
@@ -16,6 +19,9 @@ interface CardProps {
 }
 
 const Card = ({ img, text, children, width, className, price, id, sell, desc }: CardProps) => {
+  const { loading, isStoreActive } = useAuth();
+  if (loading) return <SkeletonCard nochildren className="aspect-[403/400] mx-5" />;
+
   return (
     <MotionItem
       className={`hover:shadow-md after:w-0 after:h-full after:z-20 z-10 hover:after:w-full after:opacity-0 hover:after:opacity-100
@@ -41,7 +47,7 @@ const Card = ({ img, text, children, width, className, price, id, sell, desc }: 
         </div>
         <div className="md:px-8 flex flex-col items-center text-center px-4 gap-1 pb-2">
           <h3 className="uppercase line-clamp-2 text-sm text-center text-gray-900 font-semibold">{text}</h3>
-          {price && (
+          {price && isStoreActive && (
             <bdi className="text-main flex flex-col uppercase mt-auto text-center text-xs lg:text-base font-semibold">
               {price} EGP
               {sell && <del>{sell} EGP</del>}

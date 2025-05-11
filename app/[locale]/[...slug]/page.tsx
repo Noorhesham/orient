@@ -24,6 +24,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   // Validate slug before making the request
   if (!isValidSlug(lastSlug)) {
+    console.error("Invalid slug:", lastSlug);
     return <Empty text="404 Page Not Found" />;
   }
 
