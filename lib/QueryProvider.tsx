@@ -35,7 +35,7 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
   return (
     <PersistQueryClientProvider
       client={queryClient}
-      persistOptions={{ persister }}
+      persistOptions={{ persister, maxAge: 1000 * 60 * 60, buster: "v1.0.0" }} // 1 hour, versioned
       onSuccess={() => {
         console.log("Cache successfully restored!");
         const keyWords = ["last_update_date_general", "last_update_date_user", "last_update_date_user2"];
