@@ -12,7 +12,8 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
           queries: {
             refetchOnWindowFocus: false, // Does not refetch on window focus
             refetchOnReconnect: false,
-            gcTime: Infinity,
+            gcTime: 1000 * 60 * 5, // 5 minutes
+            staleTime: 1000 * 60, // 1 minute
           },
         },
       })

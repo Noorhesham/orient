@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AddToCart = ({
   id,
@@ -26,10 +27,16 @@ const AddToCart = ({
   reverse?: boolean;
 }) => {
   const { mutate, isPending, data } = useCreateEntity("addToCart", "cart");
-  const queryClient = useQueryClient();
   const t = useTranslations();
   const router = useRouter();
-  console.log(cartStatus)
+  const queryClient = useQueryClient();
+  const { generalSettings, loading, isStoreActive } = useAuth();
+  if (loading) return <Skeleton />;
+  const { default_currency } = generalSettings;
+  console.log(default_currency);
+  if (!isStoreActive) return null;
+
+  console.log(cartStatus);
   return cartStatus?.in_cart && cartStatus?.in_cart_count !== 0 ? (
     <div className=" flex items-center ">
       <div className=" flex self-center mx-auto  items-center gap-2">
