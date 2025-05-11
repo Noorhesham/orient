@@ -7,6 +7,7 @@ import { convertToHTML } from "@/lib/utils";
 import Footer from "../../components/Footer";
 import NavBar from "@/app/components/NavBar";
 import MaxWidthWrapper from "@/app/components/MaxWidthWrapper";
+export const dynamic = "force-dynamic";
 
 // Add this validation function
 const isValidSlug = (slug: string) => {
