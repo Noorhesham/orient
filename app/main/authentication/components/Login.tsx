@@ -102,7 +102,7 @@ const Login = () => {
           console.log(res);
 
           if (!res.require_activation && !res.tfa) {
-            cookies.set("jwt", res.token);
+            cookies.set("jwt", token || "", { expires: 2 });
             // const notifcationRes = await Server({
             //   resourceName: "languageUpdate",
             //   body: {

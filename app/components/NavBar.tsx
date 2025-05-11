@@ -17,18 +17,13 @@ import Language from "./Language";
 import PhoneNav from "./PhoneNav";
 import { useTranslations, useLocale } from "next-intl";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import useCachedQuery from "../hooks/useCachedData";
 
 const NavBar: React.FC = () => {
   const t = useTranslations();
   const locale = useLocale();
-  const { data, isFetching } = useCachedQuery("general_settings");
+  const { data, loading } = useCachedQuery("general_settings");
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
@@ -36,31 +31,18 @@ const NavBar: React.FC = () => {
   params.delete("redirect");
   const isHome = pathName === "/ar" || pathName === "/en";
 
-  const {
-    userSettings: user,
-    handleLogout,
-    loading: authLoading,
-    cartCount,
-  } = useAuth();
+  const { userSettings: user, handleLogout, loading: authLoading, cartCount } = useAuth();
 
   // Transform backend home_nav into the shape our NavLink & PhoneNav expect:
   const navItems = React.useMemo(() => {
     if (!data?.home_nav) return [];
     return data.home_nav.map((item: any) => ({
       text: item.title?.[locale] ?? item.title?.en ?? "",
-      href: item.url
-        ? `/${item.url}`
-        : item.route
-        ? `/${item.route.replace(/^frontend\./, "")}`
-        : "#",
+      href: item.url ? `/${item.url}` : item.route ? `/${item.route.replace(/^frontend\./, "")}` : "#",
       subLinks: item.sub
         ? item.sub.map((sub: any) => ({
             text: sub.title?.[locale] ?? sub.title?.en ?? "",
-            href: sub.url
-              ? `/${sub.url}`
-              : sub.route
-              ? `/${sub.route.replace(/^frontend\./, "")}`
-              : "#",
+            href: sub.url ? `/${sub.url}` : sub.route ? `/${sub.route.replace(/^frontend\./, "")}` : "#",
           }))
         : undefined,
     }));
@@ -82,10 +64,8 @@ const NavBar: React.FC = () => {
   }, [lastScrollY]);
 
   // build the jobs link as before...
-  const searchParamsNoRedirect = params.toString()
-    ? `?${params.toString()}`
-    : "";
-
+  const searchParamsNoRedirect = params.toString() ? `?${params.toString()}` : "";
+  console.log(data);
   return (
     <TooltipProvider>
       <header className="w-full">
@@ -93,15 +73,9 @@ const NavBar: React.FC = () => {
           className={`${
             isHome
               ? "text-white placeholder:text-white"
-              : `text-black placeholder:text-white ${
-                  !isScrollingDown && "bg-white/80"
-                }`
+              : `text-black placeholder:text-white ${!isScrollingDown && "bg-white/80"}`
           } fixed inset-0 z-50 max-h-[9rem] flex flex-col gap-2 py-4 transition-all duration-300 ${
-            isScrollingDown
-              ? "-translate-y-full"
-              : !isTopPage && !isScrollingDown
-              ? "-translate-y-20"
-              : "translate-y-0"
+            isScrollingDown ? "-translate-y-full" : !isTopPage && !isScrollingDown ? "-translate-y-20" : "translate-y-0"
           }`}
         >
           {isHome && (
@@ -120,11 +94,7 @@ const NavBar: React.FC = () => {
 
                 {/* Mobile menu */}
                 <div className="h-full w-full lg:hidden block">
-                  {isFetching ? (
-                    <Skeleton className="w-full h-12" />
-                  ) : (
-                    <PhoneNav isHome={isHome} navigation={navItems} />
-                  )}
+                  {loading ? <Skeleton className="w-full h-12" /> : <PhoneNav isHome={isHome} navigation={navItems} />}
                 </div>
 
                 {/* Icons */}
@@ -137,9 +107,7 @@ const NavBar: React.FC = () => {
                             <CloudIcon home={isHome} />
                           </div>
                         </TooltipTrigger>
-                        <TooltipContent>
-                          {t("navbar.tooltips.cloud")}
-                        </TooltipContent>
+                        <TooltipContent>{t("navbar.tooltips.cloud")}</TooltipContent>
                       </Tooltip>
                     </DialogTrigger>
                     <AppDownload />
@@ -150,25 +118,17 @@ const NavBar: React.FC = () => {
                   ) : (
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link
-                          href={user ? "/dashboard" : "/login"}
-                          className="hover:opacity-80 duration-150"
-                        >
+                        <Link href={user ? "/dashboard" : "/login"} className="hover:opacity-80 duration-150">
                           <BagIcon home={isHome} />
                         </Link>
                       </TooltipTrigger>
-                      <TooltipContent>
-                        {t("navbar.tooltips.profile")}
-                      </TooltipContent>
+                      <TooltipContent>{t("navbar.tooltips.profile")}</TooltipContent>
                     </Tooltip>
                   )}
 
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link
-                        href="/cart"
-                        className="relative hover:opacity-80 duration-150"
-                      >
+                      <Link href="/cart" className="relative hover:opacity-80 duration-150">
                         {cartCount > 0 && (
                           <span className="absolute -top-1 -right-1 w-4 h-4 text-[10px] bg-main text-white rounded-full flex items-center justify-center">
                             {cartCount}
@@ -177,9 +137,7 @@ const NavBar: React.FC = () => {
                         <PersonIcon home={isHome} />
                       </Link>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      {t("navbar.tooltips.bag")}
-                    </TooltipContent>
+                    <TooltipContent>{t("navbar.tooltips.bag")}</TooltipContent>
                   </Tooltip>
 
                   {user && (
@@ -199,9 +157,7 @@ const NavBar: React.FC = () => {
                           <LogOutIcon />
                         </button>
                       </TooltipTrigger>
-                      <TooltipContent>
-                        {t("navbar.tooltips.logout")}
-                      </TooltipContent>
+                      <TooltipContent>{t("navbar.tooltips.logout")}</TooltipContent>
                     </Tooltip>
                   )}
                 </div>
@@ -210,7 +166,7 @@ const NavBar: React.FC = () => {
 
             {/* Desktop nav */}
             <div className="mt-4">
-              {isFetching ? (
+              {loading ? (
                 <Skeleton className="h-10 w-full" />
               ) : (
                 <ul className="hidden lg:flex z-30 relative items-center justify-between">

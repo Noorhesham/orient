@@ -87,10 +87,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (userSettings && !token) handleLogout();
   }, [userSettings]);
 
-  // useEffect(() => {
-  //   const isStoreActive = generalSettings?.is_store_active;
-  //   setIsStoreActive(!!isStoreActive);
-  // },[generalSettings])
+  useEffect(() => {
+    const isStoreActive = generalSettings?.is_store_active;
+    setIsStoreActive(!!isStoreActive);
+  }, [generalSettings]);
   useEffect(() => {
     const fetchData = async () => {
       try {
