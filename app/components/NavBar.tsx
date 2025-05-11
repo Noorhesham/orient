@@ -126,7 +126,7 @@ const NavBar: React.FC = () => {
                     </Tooltip>
                   )}
 
-                  {
+                  {isStoreActive && (
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Link href="/cart" className="relative hover:opacity-80 duration-150">
@@ -140,7 +140,7 @@ const NavBar: React.FC = () => {
                       </TooltipTrigger>
                       <TooltipContent>{t("navbar.tooltips.bag")}</TooltipContent>
                     </Tooltip>
-                  }
+                  )}
 
                   {user && (
                     <Tooltip>
